@@ -1,7 +1,7 @@
 % vim:ft=tex
 % TODO: some kind of intro thingy idk
 
-\section{Resources, Protocols, Adversaries}
+\section{Resources, Protocols, Adversaries, Composition}
 
 Cryptography is the mathematical study of secure computation. In a computation,
 we want to use \emph{protocols} to transform \emph{resources}. For the
@@ -44,38 +44,96 @@ pass-shelat-2020}.
 \end{ex}
 
 \noindent
-Given an insecure channel and a shared private key, this protocol defines a
-single-use, secure channel from Alice to Bob. We can notate this as follows:
-\begin{figure}[H]
-  \centering
-  \begin{tikzpicture}
-    \node (C) at (-2, -2) {\text{insecure channel}};
-    \node (k) at (2, -2) {\text{shared key of length $\ell$}};
-    \node[box=1/0/2/0, minimum width=2cm] (OTP) at (0, 0) {\text{One-Time Pad}};
-    \node (Out) at (0, 2) {\text{secure channel of capacity $\ell$}};
-    \wires[looseness=1]{
-    Out = { south = OTP.north },
-    C = { north = OTP.south.1 },
-    k = { north = OTP.south.2 },
-    }{}
-  \end{tikzpicture}
-\end{figure}
+In other words, one-time pad is a protocol with two open input ports and one
+open output port\footnotemark. When ``hooked up'' to an insecure channel and a
+shared string of length $\ell$, it produces a secure channel of capacity $\ell$.
+We can notate this as in \Cref{fig:one-time pad}.
 
-In other words, One-Time Pad is a protocol with two open input ports and one
-open output port\footnotemark. When ``hooked up'' to an insecure channel and a shared key of
-length $\ell$, it produces a secure channel of capacity $\ell$.
+% This perspective is different from the one of texts
+% like~\cite{katz-lindell-2014}, which emphasize the API of the protocol as
+% a trio of algorithms for key generation, encoding, and decoding.
 
 \footnotetext{There are of course many details which we do not communicate in
 this diagram, for instance that the key must be uniform random.}
 
-% \begin{ex}[Pseudorandom Generators]\label{ex:pseudorandom generators}
-%   A \emph{pseudorandom generator}
-% \end{ex}
+\begin{ex}[Pseudorandom Generators]\label{ex:pseudorandom generators}
+  A \emph{pseudorandom generator} should take some small input string, its
+  \emph{seed}, and produce a longer output string, in such a way the its outputs
+  cannot be distinguished from uniform random strings. Again, we will make this
+  formal soon, but for now we express this in \Cref{fig:pseudorandom generator}.
+\end{ex}
 
+\begin{figure}
+  \centering
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \begin{tikzpicture}
+      \node (C) at (-2, -2) {\text{insecure channel}};
+      \node (k) at (2, -2) {\text{shared string of length $\ell$}};
+      \node[box=1/0/2/0, minimum width=2cm] (OTP) at (0, 0) {\text{One-Time Pad}};
+      \node (Out) at (0, 2) {\text{secure channel of capacity $\ell$}};
+      \wires[looseness=1]{
+      Out = { south = OTP.north },
+      C = { north = OTP.south.1 },
+      k = { north = OTP.south.2 },
+      }{}
+    \end{tikzpicture}
+    \caption{The One-Time Pad.}
+    \label{fig:one-time pad}
+  \end{subfigure}
+  \begin{subfigure}{0.4\textwidth}
+    \begin{tikzpicture}
+      \node (r) at (0, 2) {\text{string of length $\ell$}};
+      \node (s) at (0, -2) {\text{string of length $r < \ell$}};
+      \node[box=1/0/1/0, minimum width=2cm] (G) at (0, 0) {\text{Pseudorandom Generator}};
+      \wires[looseness=1]{
+      r = { south = G.north },
+      s = { north = G.south },
+      }{}
+    \end{tikzpicture}
+    \caption{A pseudorandom generator.}
+    \label{fig:pseudorandom generator}
+  \end{subfigure}
+  \caption{Basic cryptographic protocols.}
+\end{figure}
+
+\noindent
+A limitation of one-time pad is that it needs as long a key as the channel it
+produces. We should now be able to fix this by \emph{composing} a pseudorandom
+generator with the one-time pad, as in \Cref{fig:composed}.
+
+\begin{figure}[h]
+  \centering
+  \begin{tikzpicture}
+    \node (C) at (-2, -2) {\text{insecure channel}};
+    \node (k) at (2, -2) {\text{shared string of length $\ell$}};
+    \node (s) at (2, -6) {\text{shared string of length $r < \ell$}};
+    \node[box=1/0/2/0, minimum width=2cm] (OTP) at (0, 0) {\text{One-Time Pad}};
+    \node[box=1/0/1/0, minimum width=2cm] (G) at (2, -4) {\text{Pseudorandom Generator}};
+    \node (Out) at (0, 2) {\text{secure channel of capacity $\ell$}};
+    \wires[looseness=1]{
+    Out = { south = OTP.north },
+    C = { north = OTP.south.1 },
+    k = { south = G.north,
+          north = OTP.south.2
+    },
+    s = { north = G.south },
+    }{}
+  \end{tikzpicture}
+  \caption{Composing One-Time Pad with a pseudorandom generator.}
+  \label{fig:composed}
+\end{figure}
+
+This scheme raises an immediate issue.  we need to know that our notions of
+correctness and security \emph{compose}: if one-time pad and the pseudorandom
+generator are both correct or both secure, is the composite procotol correct or
+secure? Notice that, in the composite diagram, Alice and Bob must both
+separately use the pseudorandom generator to convert their seed into a longer
+key. We thus need composition both \emph{in sequence}---``vertically'' in the
+diagram---and \emph{in parallel}---``horizontally'' in the diagram.
 
 \section{Simulation-Based Security}
 
-If cryptograph is the mathematical study of secure computation, a first question
-is precisely what we mean by security. In \emph{simulation-based} approaches to
-security, we define security by comparing a protocol in the real world to an
-ideal world in which the desired resource is produced by a trusted black-box.
+In \emph{simulation-based} approaches to security, we define security by
+comparing a protocol in the real world to an ideal world in which the desired
+resource is produced by a trusted black-box.
