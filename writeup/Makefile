@@ -5,5 +5,5 @@ all: thesis.pdf
 	latexmk -pdf -halt-on-error $<
 
 clean:
-	-rm -f *.snm *.nav *.vrb *.bbl *.dvi *.ps thesis.pdf
+	-rm -f *.snm *.nav *.vrb *.bbl *.dvi *.ps *.lot *.lof *.toc thesis.pdf
 	latexmk -c
