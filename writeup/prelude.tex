@@ -1,4 +1,5 @@
 %% PACKAGES %%
+\usepackage{adjustbox}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -12,6 +13,7 @@
 \usepackage{float}
 \usepackage{enumitem}
 \usepackage{tikz-cd}
+\usepackage{string-diagrams}
 \usepackage{multicol}
 \usepackage{csquotes}
 \usepackage{todonotes}
@@ -22,6 +24,25 @@
 \usepackage[section]{placeins}
 \usepackage[normalem]{ulem}
 \usepackage{subcaption}
+\usepackage[
+	n,
+	advantage,
+	operators,
+	sets,
+	adversary,
+	landau,
+	probability,
+	notions,
+	logic,
+	ff,
+	mm,
+	primitives,
+	events,
+	complexity,
+	oracles,
+	asymptotics,
+	keys
+]{cryptocode}
 \usepackage[unicode=true, pdfusetitle,
  bookmarks=true,bookmarksnumbered=false,
  breaklinks=false,
@@ -106,36 +127,18 @@
 
 %% THEOREMS %%
 \theoremstyle{plain}
-\newtheorem{thm}{Theorem}[section]
-\newtheorem*{thm*}{Theorem} % no numbering
+\newtheorem{thm}{Theorem}[chapter]
 \newtheorem{lemma}[thm]{Lemma} % use the same counter as theorem
 \newtheorem{prop}[thm]{Proposition} % ditto
 \newtheorem{cor}{Corollary}[thm] % reset for every theorem
-\newtheorem{prob}{Problem}
-\newtheorem{prob_lemma}{Lemma}[prob]
-\newtheorem{exc}{Exercise}[section]
 
 \theoremstyle{definition}
-\newtheorem{dfn}{Definition}[section]
-\newtheorem*{dfn*}{Definition}
-\newtheorem{ex}{Example}[section]
+\newtheorem{dfn}[thm]{Definition}
+\newtheorem{ex}[thm]{Example}
 
 \theoremstyle{remark}
 \newtheorem*{rmk}{Remark}
 \newtheorem*{ntn}{Notation}
-
-
- %Cleveref definitions
-\crefname{lemma}{Lemma}{Lemmas}
-\crefname{thm}{Theorem}{Theorems}
-\crefname{defn}{Definition}{Definitions}
-\crefname{notn}{Notation}{Notations}
-\crefname{const}{Construction}{Constructions}
-\crefname{prop}{Proposition}{Propositions}
-\crefname{rem}{Remark}{Remarks}
-\crefname{cor}{Corollary}{Corollaries}
-\crefname{equation}{Diagram}{Diagrams}
-\crefname{ex}{Example}{Examples}
 
 %% FORMATTING %%
 % https://tex.stackexchange.com/a/650378
@@ -144,3 +147,10 @@
 \renewenvironment{itemize}{
 \tempone\setlength{\itemsep}{-1ex}}
 {\temptwo}
+
+%% PROTOCOLS %%
+% \createprocedurebox{pro}{center, boxed}{}{}{}
+% \newsavebox{\mybox}
+% \newenvironment{protocol}[1]
+% {\begin{lrbox}{\mybox}\procedure{#1}\begin{minipage}{0.9\textwidth}}
+% {\end{minipage}\end{lrbox}\fbox{\usebox{\mybox}}}

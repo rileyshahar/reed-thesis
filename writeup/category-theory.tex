@@ -2,6 +2,8 @@
 
 \section{Categories}
 
+% TODO: introduction and motivation of some sort
+
 \begin{dfn}[Category]\label{def:category}
 A \emph{category} $\cat{C}$ consists of the following data:
 \begin{itemize}
@@ -57,6 +59,9 @@ categories look quite different.
       graph, whose objects are nodes and whose morphisms are paths.
       % This higher dimensional stuff is cool and it's how I think about these
       % objects, but probably not necessary for our purposes. --riley
+    \item There is a category whose objects are (roughly) groups of molecules
+      and whose morphisms are chemical reactions. See \cite{baez-2017} for a
+      formalization of this notion.
   \end{itemize}
 \end{ex}
 
@@ -80,7 +85,7 @@ can be ``pasted'', allowing us to build up complex equalities from simpler ones.
 The notion of a diagram can be made precise fairly easily; see~\cite[Section 1.6]{riehl-2017}.
 
 \begin{ex}
-In this language, the axioms of a category are expressed by commutativity of the
+In this language, the axioms of \Cref{def:category} are expressed by commutativity of the
 following diagrams:
 \begin{figure}[H]
   \centering

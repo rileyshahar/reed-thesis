@@ -1,0 +1,81 @@
+% vim:ft=tex
+% TODO: some kind of intro thingy idk
+
+\section{Resources, Protocols, Adversaries}
+
+Cryptography is the mathematical study of secure computation. In a computation,
+we want to use \emph{protocols} to transform \emph{resources}. For the
+computation to be secure, it must successfully resist \emph{attacks} by
+\emph{adversaries}. We will make all of these notions precise, but first we
+discuss some motivating examples. Many more examples can be found in any
+introductory text on cryptography, such as~\cite{katz-lindell-2014, rosulek-2021,
+pass-shelat-2020}.
+
+\begin{ntn}
+  We first need some notation for these examples.
+  \begin{itemize}
+    \item We write $x\sample X$ to mean $x$ is drawn from the distribution
+      $X$; when $X$ is a set we affix the uniform distribution.
+    \item We write $\oplus$ for the bitwise XOR (addition modulo $2$) of two
+      binary strings.
+  \end{itemize}
+\end{ntn}
+
+\begin{ex}[The One-Time Pad]\label{ex:one-time pad}
+  Two parties, Alice and Bob, have the same \emph{private key}
+  $k\sample\bin^\ell$ and can communicate over an \emph{insecure channel} $C$.
+  Alice has a \emph{message} $m\in\bin^\ell$ that she wants to send to Bob.
+  These define the resources required for the following protocol:
+
+  \procedureblock[linenumbering]{One-Time Pad}{
+    \text{Alice insecurely sends $c := m \oplus k$ to Bob}. \\
+    \text{Bob decodes the message as $c\oplus k$}.
+  }
+
+  \noindent
+  A proof of \emph{correctness} of this protocol should say, roughly, that Bob
+  recieves the same message $m$ that Alice sent.
+  % TODO: mention where we formalize these proofs
+
+  Since the channel is insecure, a third party, Eve, may observe the ciphertext
+  $c$ sent by Alice. Eve is an \emph{adversary} against the protocol. A proof of
+  \emph{security} of the protocol should say, roughly, that Eve cannot learn
+  anything about $m$ from observing $c$.
+\end{ex}
+
+\noindent
+Given an insecure channel and a shared private key, this protocol defines a
+single-use, secure channel from Alice to Bob. We can notate this as follows:
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node (C) at (-2, -2) {\text{insecure channel}};
+    \node (k) at (2, -2) {\text{shared key of length $\ell$}};
+    \node[box=1/0/2/0, minimum width=2cm] (OTP) at (0, 0) {\text{One-Time Pad}};
+    \node (Out) at (0, 2) {\text{secure channel of capacity $\ell$}};
+    \wires[looseness=1]{
+    Out = { south = OTP.north },
+    C = { north = OTP.south.1 },
+    k = { north = OTP.south.2 },
+    }{}
+  \end{tikzpicture}
+\end{figure}
+
+In other words, One-Time Pad is a protocol with two open input ports and one
+open output port\footnotemark. When ``hooked up'' to an insecure channel and a shared key of
+length $\ell$, it produces a secure channel of capacity $\ell$.
+
+\footnotetext{There are of course many details which we do not communicate in
+this diagram, for instance that the key must be uniform random.}
+
+% \begin{ex}[Pseudorandom Generators]\label{ex:pseudorandom generators}
+%   A \emph{pseudorandom generator}
+% \end{ex}
+
+
+\section{Simulation-Based Security}
+
+If cryptograph is the mathematical study of secure computation, a first question
+is precisely what we mean by security. In \emph{simulation-based} approaches to
+security, we define security by comparing a protocol in the real world to an
+ideal world in which the desired resource is produced by a trusted black-box.
