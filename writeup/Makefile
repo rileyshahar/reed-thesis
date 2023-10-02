@@ -1,9 +1,7 @@
-all: thesis.pdf
+thesis.pdf: *.tex references.bib reedthesis.cls
+	latexmk -pdf -halt-on-error thesis.tex
 
-
-%.pdf: %.tex references.bib reedthesis.cls
-	latexmk -pdf -halt-on-error $<
-
+.PHONY: clean
 clean:
 	-rm -f *.snm *.nav *.vrb *.bbl *.dvi *.ps *.lot *.lof *.toc thesis.pdf
 	latexmk -c
