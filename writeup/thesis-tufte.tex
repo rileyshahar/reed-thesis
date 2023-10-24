@@ -31,7 +31,12 @@
 \newcommand\note{\marginnote}
 
 \input{prelude}
+\captionsetup{font=footnotesize}
 \setcounter{secnumdepth}{0} % number chapters
+
+% number chapters inline
+\titleformat{\chapter}[block]
+{\itshape\huge}{\thechapter}{1ex}{}
 
 \begin{document}
 
