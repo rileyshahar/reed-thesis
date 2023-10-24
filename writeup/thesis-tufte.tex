@@ -2,32 +2,36 @@
 %%
 %% Preamble
 %%
-\documentclass[12pt,twoside]{reedthesis}
+\documentclass[12pt,nobib,nohyper]{tufte-book}
 
 \title{Title} % TODO: title
 \author{Riley Shahar}
 
 \date{May 200x} % TODO: date (don't want to jinx it)
-\division{Mathematics and Natural Sciences}
+% \division{Mathematics and Natural Sciences}
 
 % TODO: order of advisors?
-\advisor{Angélica Osorno}
-\altadvisor{Adam Groce}
-\department{Mathematics and Computer Science} % won't compile without this
-\thedivisionof{The Established Interdisciplinary Committee\\for Mathematics and
-	Computer Science\\} % name from p.24 https://www.reed.edu/registrar/pdfs/senior-handbook.pdf
+% \advisor{Angélica Osorno}
+% \altadvisor{Adam Groce}
+% \department{Mathematics and Computer Science} % won't compile without this
+% \thedivisionof{The Established Interdisciplinary Committee\\for Mathematics and
+% Computer Science\\} % name from p.24 https://www.reed.edu/registrar/pdfs/senior-handbook.pdf
 % TODO: spacing on the title page, this is a big hack
 
 % if you want the approval page to say "Approved for the Committee",
 % uncomment the next line
-\approvedforthe{Committee}
+% \approvedforthe{Committee}
 
 \setlength{\parskip}{0pt}
 
-\newenvironment{fig}{\begin{figure}}{\end{figure}}
-\newcommand\note{\footnote}
+% let marginfigure take arguments
+\newenvironment{fig}[1][l]
+{\begin{marginfigure}}
+		{\end{marginfigure}}
+\newcommand\note{\marginnote}
 
 \input{prelude}
+\setcounter{secnumdepth}{0} % number chapters
 
 \begin{document}
 
@@ -76,3 +80,4 @@
 
 % TODO: index?
 \end{document}
+

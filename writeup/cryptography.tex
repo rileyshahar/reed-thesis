@@ -45,16 +45,15 @@ introductory text on cryptography, such as~\cite{katz-lindell-2014, rosulek-2021
 
 \noindent
 In other words, one-time pad is a protocol with two open input ports and one
-open output port\footnotemark. When ``hooked up'' to an insecure channel and a
-shared string of length $\ell$, it produces a secure channel of capacity $\ell$.
-We can notate this as in \Cref{fig:one-time pad}.
+open output port\note{There are of course many details which we do not
+	communicate in this diagram, for instance that the key must be uniform random.}.
+When ``hooked up'' to an insecure channel and a shared string of length $\ell$,
+it produces a secure channel of capacity $\ell$. We can notate this as in
+\Cref{fig:one-time pad}.
 
 % This perspective is different from the one of texts
 % like~\cite{katz-lindell-2014}, which emphasize the API of the protocol as
 % a trio of algorithms for key generation, encoding, and decoding.
-
-\footnotetext{There are of course many details which we do not communicate in
-	this diagram, for instance that the key must be uniform random.}
 
 \begin{ex}[Pseudorandom Generators]\label{ex:pseudorandom generators}
 	A \emph{pseudorandom generator} should take some small input string, its
@@ -141,15 +140,14 @@ produce. For instance, one-time pad is a \emph{private-key encryption scheme}.
 % TODO: there are a lot of subleties with this definition, e.g. if you want it
 % to be in PPT then you need Enc/Dec to take k as a parameter (or 1^n in unary)
 \begin{dfn}
-	A \emph{private-key encryption scheme} over a \emph{message space} $\cM$ and
+	A \emph{private-key encryption protocol} over a \emph{message space} $\cM$ and
 	\emph{key space} $\cK$ consists of the following data:
 	\begin{itemize}
-		\item a probabalistic \emph{key generation algorithm}\footnotemark{}
-		      $\alg{Gen}: 1^*\rightarrow \cK$;
-		      \footnotetext{By ``algorithm'',
+		\item a probabalistic \emph{key generation algorithm}\note{By ``algorithm'',
 			      we could have several different notions of computation in mind. Usually we
 			      don't require this level of specificity, but it suffices to consider Turing
 			      machines.}
+		      $\alg{Gen}: 1^*\rightarrow \cK$;
 		\item a family of \emph{encryption algorithms} $\alg{Enc}_k: \cM\rightarrow
 			      \cM$ indexed by $\cK$;
 		\item a family of \emph{decryption algorithms} $\alg{Dec}_k:
@@ -160,23 +158,15 @@ This definition allows us to straightforwardly formulate the correctness
 of such a scheme:
 
 \begin{dfn}
-	A private-key encryption scheme is \emph{information-theoretically correct} if
-	for all $k\in \cK$ and $m\in \cM$, \[
+	A private-key encryption protocol is \emph{correct} if for all $k\in \cK$ and
+	$m\in \cM$, \[
 		\alg{Dec}_k(\alg{Enc}_k(m)) = m.
 	\]
 \end{dfn}
 
-\noindent
-In practice, however, we often want to allow for a negligible probability of
-failure. In this case, we define:
+To say that an encryption protocol is \emph{secure}, we would like to formalize
+the notion that the adversary learns nothing from intercepting the ciphertext.
 
-\begin{dfn}
-	A private-key encryption scheme is \emph{computationally correct} if
-	for all $k\in \cK$ and $m\in \cM$, \[
-		\Pr[\alg{Dec}_k(\alg{Enc}_k(m)) \neq m] = \negl[|k|],
-	\]where a function is \emph{negligible}, written $\negl[]$, if it is
-	asymptotically smaller than any rational function.
-\end{dfn}
 \section{Game-Based Security}
 
 In \emph{game-based} approaches to security, we define security by determining
