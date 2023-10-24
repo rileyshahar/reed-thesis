@@ -5,37 +5,37 @@
 % TODO: introduction and motivation of some sort
 
 \begin{dfn}[Category]\label{def:category}
-A \emph{category} $\cat{C}$ consists of the following data:
-\begin{itemize}
-  \item a collection\footnotemark{} of objects, overloadingly also called $\cat{C}$;
-	\item for each pair of objects $x,y \in  \cat{C}$, a collection of \emph{morphisms} $\cat{C}(x, y)$;
-	\item for each object $x \in \cat{C}$, a designated \emph{identity morphism} $x \xrightarrow{1_x}  x$;
-  \item for each pair of morphisms $x \xrightarrow{f}  y \xrightarrow{g}  z$, a designated \emph{composite morphism} $x \xrightarrow{gf}  z$.
-\end{itemize}
-This data must satisfy the following axioms:
-\begin{itemize}
-  \item \emph{unitality}: for any $x \xrightarrow{f}  y$, $1_yf = f = f1_x$;
-  \item \emph{associativity}: for any $x \xrightarrow{f} 		y \xrightarrow{g} z \xrightarrow{h} w$, $(hg)f = h(gf)$.
-\end{itemize}
+	A \emph{category} $\cat{C}$ consists of the following data:
+	\begin{itemize}
+		\item a collection\footnotemark{} of objects, overloadingly also called $\cat{C}$;
+		\item for each pair of objects $x,y \in  \cat{C}$, a collection of \emph{morphisms} $\cat{C}(x, y)$;
+		\item for each object $x \in \cat{C}$, a designated \emph{identity morphism} $x \xrightarrow{1_x}  x$;
+		\item for each pair of morphisms $x \xrightarrow{f}  y \xrightarrow{g}  z$, a designated \emph{composite morphism} $x \xrightarrow{gf}  z$.
+	\end{itemize}
+	This data must satisfy the following axioms:
+	\begin{itemize}
+		\item \emph{unitality}: for any $x \xrightarrow{f}  y$, $1_yf = f = f1_x$;
+		\item \emph{associativity}: for any $x \xrightarrow{f} 		y \xrightarrow{g} z \xrightarrow{h} w$, $(hg)f = h(gf)$.
+	\end{itemize}
 \end{dfn}
 
 \footnotetext{We use the word \emph{collection} for foundational reasons: in
-many important examples, the objects and morphisms do not form sets. We ignore
-such foundational issues here; they are discussed in~\cite[Section
-1.6]{maclane-1971}.}
+	many important examples, the objects and morphisms do not form sets. We ignore
+	such foundational issues here; they are discussed in~\cite[Section
+		1.6]{maclane-1971}.}
 
 \noindent
 Categories are widespread in mathematics, as the following examples show.
 
 \begin{ex}[Concrete Categories]\label{ex:concrete categories}The following are all categories:
-  \begin{itemize}
-    \item $\scat{Set}$ is the category of sets and functions.
-    \item $\scat{Grp}$ is the category of groups and group homomorphisms.
-    \item $\scat{Ring}$ is the category of rings and ring homomorphisms.
-    \item $\scat{Top}$ is the category of topological spaces and homeomorphisms.
-    \item For any field $\kk$, $\scat{Vect}_\kk$ is the category of vector
-      spaces over $\kk$ and linear transformations.
-  \end{itemize}
+	\begin{itemize}
+		\item $\scat{Set}$ is the category of sets and functions.
+		\item $\scat{Grp}$ is the category of groups and group homomorphisms.
+		\item $\scat{Ring}$ is the category of rings and ring homomorphisms.
+		\item $\scat{Top}$ is the category of topological spaces and homeomorphisms.
+		\item For any field $\kk$, $\scat{Vect}_\kk$ is the category of vector
+		      spaces over $\kk$ and linear transformations.
+	\end{itemize}
 \end{ex}
 
 \noindent
@@ -44,25 +44,25 @@ are structure-preserving set-functions, \emph{concrete}. On the other hand, many
 categories look quite different.
 
 \begin{ex}\label{ex:abstract categories}The following are also categories:
-  \begin{itemize}
-    \item The \emph{empty category} has no objects and no morphisms.
-    \item The \emph{trivial category} has a single object and its identity morphism.
-    \item Any group (or, more generally, monoid) can be thought of as a category
-      with a single object, a morphism for every element, and composition
-      given by the monoid multiplication.
-    \item Any poset (or, more generally, preorder) $(P, \leq)$ can be thought
-      of as a category whose objects are the elements of $P$, with a unique
-      morphism $x\rightarrow y$ if and only if $x\leq y$. In this sense,
-      composition is a ``higher-dimensional'' transitivity, and identities are
-      higher-dimensional reflexivity.
-    \item Associated to any directed graph is the \emph{free category} on the
-      graph, whose objects are nodes and whose morphisms are paths.
-      % This higher dimensional stuff is cool and it's how I think about these
-      % objects, but probably not necessary for our purposes. --riley
+	\begin{itemize}
+		\item The \emph{empty category} has no objects and no morphisms.
+		\item The \emph{trivial category} has a single object and its identity morphism.
+		\item Any group (or, more generally, monoid) can be thought of as a category
+		      with a single object, a morphism for every element, and composition
+		      given by the monoid multiplication.
+		\item Any poset (or, more generally, preorder) $(P, \leq)$ can be thought
+		      of as a category whose objects are the elements of $P$, with a unique
+		      morphism $x\rightarrow y$ if and only if $x\leq y$. In this sense,
+		      composition is a ``higher-dimensional'' transitivity, and identities are
+		      higher-dimensional reflexivity.
+		\item Associated to any directed graph is the \emph{free category} on the
+		      graph, whose objects are nodes and whose morphisms are paths.
+		      % This higher dimensional stuff is cool and it's how I think about these
+		      % objects, but probably not necessary for our purposes. --riley
 		\item There is a category whose objects are (roughly) multisets of molecules
-			and whose morphisms are chemical reactions. See \cite{baez-2017} for a
-			formalization of this notion.
-  \end{itemize}
+		      and whose morphisms are chemical reactions. See \cite{baez-2017} for a
+		      formalization of this notion.
+	\end{itemize}
 \end{ex}
 
 % \begin{ntn}
@@ -77,30 +77,30 @@ symbolic equalities of \Cref{def:category}. The key idea is that such diagrams
 can be ``pasted'', allowing us to build up complex equalities from simpler ones.
 
 \begin{dfn}[Commutative Diagram]\label{def:commutative diagram}
-  A diagram \emph{commutes} if, for any pair of paths through the
-  diagram with the same start and end, the composite morphisms are equal.
+	A diagram \emph{commutes} if, for any pair of paths through the
+	diagram with the same start and end, the composite morphisms are equal.
 \end{dfn}
 
 \noindent
 The notion of a diagram can be made precise fairly easily; see~\cite[Section 1.6]{riehl-2017}.
 
 \begin{ex}
-In this language, the axioms of \Cref{def:category} are expressed by commutativity of the
-following diagrams:
-\begin{figure}[H]
-  \centering
-  \begin{tikzcd}
-    x\ar[r, "f"]\ar[rr, "gf", bend left=60] &
-    y\ar[r, "g"]\ar[rr, "hg"', bend right=60] &
-    z\ar[r, "h"] & w
-  \end{tikzcd}
-  \begin{tikzcd}
-    x\ar[r, "1_x"]\ar[rd, "f"'] & x\ar[d, "f"] \\
-    & y
-  \end{tikzcd}
-  \begin{tikzcd}
-    x\ar[r, "f"]\ar[rd, "f"'] & y\ar[d, "1_y"] \\
-    & y\punctuation{.}
-  \end{tikzcd}
-\end{figure}
+	In this language, the axioms of \Cref{def:category} are expressed by commutativity of the
+	following diagrams:
+	\begin{figure}[H]
+		\centering
+		\begin{tikzcd}
+			x\ar[r, "f"]\ar[rr, "gf", bend left=60] &
+			y\ar[r, "g"]\ar[rr, "hg"', bend right=60] &
+			z\ar[r, "h"] & w
+		\end{tikzcd}
+		\begin{tikzcd}
+			x\ar[r, "1_x"]\ar[rd, "f"'] & x\ar[d, "f"] \\
+			& y
+		\end{tikzcd}
+		\begin{tikzcd}
+			x\ar[r, "f"]\ar[rd, "f"'] & y\ar[d, "1_y"] \\
+			& y\punctuation{.}
+		\end{tikzcd}
+	\end{figure}
 \end{ex}

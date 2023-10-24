@@ -13,3 +13,5 @@
 *.lof
 *.toc
 *.out
+*.run.xml
+*.bcf

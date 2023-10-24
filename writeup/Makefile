@@ -3,5 +3,5 @@ thesis.pdf: *.tex references.bib reedthesis.cls
 
 .PHONY: clean
 clean:
-	-rm -f *.snm *.nav *.vrb *.bbl *.dvi *.ps *.lot *.lof *.toc thesis.pdf
+	-rm -f *.snm *.nav *.vrb *.bbl *.dvi *.ps *.lot *.lof *.toc thesis.pdf *.run.xml
 	latexmk -c

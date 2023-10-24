@@ -1,29 +1,48 @@
-%% PACKAGES %%
-\usepackage{adjustbox}
+% must-haves
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amsfonts}
 \usepackage{amsxtra}
+
+% fonts
 \usepackage{bbm}
-\usepackage{booktabs}
-\usepackage[all,2cell]{xy}
-\usepackage{verbatim}
-\usepackage{color}
+
+% links/refs
+\usepackage[
+	unicode=true,
+	pdfusetitle,
+	bookmarks=true,
+	bookmarksnumbered=false,
+	breaklinks=false,
+	backref=false,
+	colorlinks=true,
+	linkcolor=blue,
+	citecolor=blue,
+	urlcolor=blue,
+	final
+]{hyperref}
+\usepackage{bookmark}
+\usepackage[
+	backend=biber,
+	style=alphabetic
+]{biblatex}
+\addbibresource{references.bib}
+\usepackage[capitalise]{cleveref}
+
+% figs
 \usepackage{float}
-\usepackage{enumitem}
 \usepackage{tikz-cd}
-\usepackage{string-diagrams}
-\usepackage{multicol}
-\usepackage{csquotes}
-\usepackage{todonotes}
-\usepackage{cmll}
-\usepackage{mathpartir}
-\usepackage[justification=centering]{caption}
-\usepackage{txfonts}
-\usepackage[section]{placeins}
-\usepackage[normalem]{ulem}
 \usepackage{subcaption}
+\usepackage{mathpartir}
+\usepackage{adjustbox}
+% string diagram
+\usepackage{string-diagrams}
+
+% formatting
+\usepackage{enumitem}
+
+% crypto
 \usepackage[
 	n,
 	advantage,
@@ -43,25 +62,34 @@
 	asymptotics,
 	keys
 ]{cryptocode}
-\usepackage[unicode=true, pdfusetitle,
- bookmarks=true,bookmarksnumbered=false,
- breaklinks=false,
- backref=false,
- colorlinks=true,
- linkcolor=blue,
- citecolor=blue,
- urlcolor=blue,
- final
-]{hyperref}
-\usepackage[capitalise]{cleveref}
-\usepackage{todonotes}
 
-% TODONOTESs
-\newcommand{\td}[1]{\todo[color=orange!20]{TODO: #1}}
-\newcommand{\rs}[1]{\todo[color=blue!20]{#1\\ --Riley}}
-\newcommand{\sz}[1]{\todo[color=green!20]{#1\\ --Steve}}
+% quality of life
+\renewcommand{\emptyset}{\varnothing}
 
-%% ALPHABETS %%
+% diagrams
+\newcommand{\punctuation}[1]{\makebox[0pt][l]{#1}}
+
+% font conventions
+\newcommand{\cat}[1]{{\mathcal{#1}}}
+\newcommand{\scat}[1]{{\textsc{\text{#1}}}}
+\newcommand{\alg}[1]{{\texttt{#1}}}
+
+% theorems
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}{Corollary}[thm]
+
+\theoremstyle{definition}
+\newtheorem{dfn}[thm]{Definition}
+\newtheorem{ex}[thm]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+\newtheorem*{ntn}{Notation}
+
+% alphabets
 \def\cA{\mathcal{A}}
 \def\cB{\mathcal{B}}
 \def\cC{\mathcal{C}}
@@ -118,35 +146,13 @@
 
 \def\kk{\Bbbk}
 
-%% DIAGRAMS %%
-\newcommand{\punctuation}[1]{\makebox[0pt][l]{#1}}
-
-%% FONT CONVENTIONS %%
-\newcommand{\cat}[1]{{\mathcal{#1}}}
-\newcommand{\scat}[1]{{\textsc{\text{#1}}}}
-
-%% THEOREMS %%
-\theoremstyle{plain}
-\newtheorem{thm}{Theorem}[chapter]
-\newtheorem{lemma}[thm]{Lemma} % use the same counter as theorem
-\newtheorem{prop}[thm]{Proposition} % ditto
-\newtheorem{cor}{Corollary}[thm] % reset for every theorem
-
-\theoremstyle{definition}
-\newtheorem{dfn}[thm]{Definition}
-\newtheorem{ex}[thm]{Example}
-
-\theoremstyle{remark}
-\newtheorem*{rmk}{Remark}
-\newtheorem*{ntn}{Notation}
-
-%% FORMATTING %%
+% itemize spacing
 % https://tex.stackexchange.com/a/650378
 \let\tempone\itemize
 \let\temptwo\enditemize
 \renewenvironment{itemize}{
 \tempone\setlength{\itemsep}{-1ex}}
-{\temptwo}
+{\temptwo}{% endraw %}
 
 %% PROTOCOLS %%
 % \createprocedurebox{pro}{center, boxed}{}{}{}

@@ -1,7 +1,7 @@
 % vim:ft=tex
 % TODO: some kind of intro thingy idk
 
-\section{Resources, Protocols, Adversaries, Composition}
+\section{Resources, Protocols, Adversaries, Attacks}
 
 Cryptography is the mathematical study of secure computation. In a computation,
 we want to use \emph{protocols} to transform \emph{resources}. For the
@@ -9,38 +9,38 @@ computation to be secure, it must successfully resist \emph{attacks} by
 \emph{adversaries}. We will make all of these notions precise, but first we
 discuss some motivating examples. Many more examples can be found in any
 introductory text on cryptography, such as~\cite{katz-lindell-2014, rosulek-2021,
-pass-shelat-2020}.
+	pass-shelat-2020}.
 
 \begin{ntn}
-  We first need some notation for these examples.
-  \begin{itemize}
-    \item We write $x\sample X$ to mean $x$ is drawn from the distribution
-      $X$; when $X$ is a set we affix the uniform distribution.
-    \item We write $\oplus$ for the bitwise XOR (addition modulo $2$) of two
-      binary strings.
-  \end{itemize}
+	We first need some notation for these examples.
+	\begin{itemize}
+		\item We write $x\sample X$ to mean $x$ is drawn from the distribution
+		      $X$; when $X$ is a set we affix the uniform distribution.
+		\item We write $\oplus$ for the bitwise XOR (addition modulo $2$) of two
+		      binary strings.
+	\end{itemize}
 \end{ntn}
 
 \begin{ex}[The One-Time Pad]\label{ex:one-time pad}
-  Two parties, Alice and Bob, have the same \emph{private key}
-  $k\sample\bin^\ell$ and can communicate over an \emph{insecure channel} $C$.
-  Alice has a \emph{message} $m\in\bin^\ell$ that she wants to send to Bob.
-  These define the resources required for the following protocol:
+	Two parties, Alice and Bob, have the same \emph{private key}
+	$k\sample\bin^\ell$ and can communicate over an \emph{insecure channel} $C$.
+	Alice has a \emph{message} $m\in\bin^\ell$ that she wants to send to Bob.
+	These define the resources required for the following protocol:
 
-  \procedureblock[linenumbering]{One-Time Pad}{
-    \text{Alice insecurely sends $c := m \oplus k$ to Bob}. \\
-    \text{Bob decodes the message as $c\oplus k$}.
-  }
+	\procedureblock[linenumbering]{One-Time Pad}{
+		\text{Alice insecurely sends $c := m \oplus k$ to Bob}. \\
+		\text{Bob decodes the message as $c\oplus k$}.
+	}
 
-  \noindent
-  A proof of \emph{correctness} of this protocol should say, roughly, that Bob
-  recieves the same message $m$ that Alice sent.
-  % TODO: mention where we formalize these proofs
+	\noindent
+	A proof of \emph{correctness} of this protocol should say, roughly, that Bob
+	recieves the same message $m$ that Alice sent.
+	% TODO: mention where we formalize these proofs
 
-  Since the channel is insecure, a third party, Eve, may observe the ciphertext
-  $c$ sent by Alice. Eve is an \emph{adversary} against the protocol. A proof of
-  \emph{security} of the protocol should say, roughly, that Eve cannot learn
-  anything about $m$ from observing $c$.
+	Since the channel is insecure, a third party, Eve, may observe the ciphertext
+	$c$ sent by Alice. Eve is an \emph{adversary} against the protocol. A proof of
+	\emph{security} of the protocol should say, roughly, that Eve cannot learn
+	anything about $m$ from observing $c$.
 \end{ex}
 
 \noindent
@@ -54,47 +54,47 @@ We can notate this as in \Cref{fig:one-time pad}.
 % a trio of algorithms for key generation, encoding, and decoding.
 
 \footnotetext{There are of course many details which we do not communicate in
-this diagram, for instance that the key must be uniform random.}
+	this diagram, for instance that the key must be uniform random.}
 
 \begin{ex}[Pseudorandom Generators]\label{ex:pseudorandom generators}
-  A \emph{pseudorandom generator} should take some small input string, its
-  \emph{seed}, and produce a longer output string, in such a way the its outputs
-  cannot be distinguished from uniform random strings. Again, we will make this
-  formal soon, but for now we express this in \Cref{fig:pseudorandom generator}.
+	A \emph{pseudorandom generator} should take some small input string, its
+	\emph{seed}, and produce a longer output string, in such a way the its outputs
+	cannot be distinguished from uniform random strings. Again, we will make this
+	formal soon, but for now we express this in \Cref{fig:pseudorandom generator}.
 \end{ex}
 
 \begin{figure}
-  \centering
-  \begin{subfigure}{0.5\textwidth}
-    \centering
-    \begin{tikzpicture}
-      \node (C) at (-2, -2) {\text{insecure channel}};
-      \node (k) at (2, -2) {\text{shared string of length $\ell$}};
-      \node[box=1/0/2/0, minimum width=2cm] (OTP) at (0, 0) {\text{One-Time Pad}};
-      \node (Out) at (0, 2) {\text{secure channel of capacity $\ell$}};
-      \wires[looseness=1]{
-      Out = { south = OTP.north },
-      C = { north = OTP.south.1 },
-      k = { north = OTP.south.2 },
-      }{}
-    \end{tikzpicture}
-    \caption{The One-Time Pad.}
-    \label{fig:one-time pad}
-  \end{subfigure}
-  \begin{subfigure}{0.4\textwidth}
-    \begin{tikzpicture}
-      \node (r) at (0, 2) {\text{string of length $\ell$}};
-      \node (s) at (0, -2) {\text{string of length $r < \ell$}};
-      \node[box=1/0/1/0, minimum width=2cm] (G) at (0, 0) {\text{Pseudorandom Generator}};
-      \wires[looseness=1]{
-      r = { south = G.north },
-      s = { north = G.south },
-      }{}
-    \end{tikzpicture}
-    \caption{A pseudorandom generator.}
-    \label{fig:pseudorandom generator}
-  \end{subfigure}
-  \caption{Basic cryptographic protocols.}
+	\centering
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\begin{tikzpicture}
+			\node (C) at (-2, -2) {\text{insecure channel}};
+			\node (k) at (2, -2) {\text{shared string of length $\ell$}};
+			\node[box=1/0/2/0, minimum width=2cm] (OTP) at (0, 0) {\text{One-Time Pad}};
+			\node (Out) at (0, 2) {\text{secure channel of capacity $\ell$}};
+			\wires[looseness=1]{
+				Out = { south = OTP.north },
+				C = { north = OTP.south.1 },
+				k = { north = OTP.south.2 },
+			}{}
+		\end{tikzpicture}
+		\caption{The One-Time Pad.}
+		\label{fig:one-time pad}
+	\end{subfigure}
+	\begin{subfigure}{0.4\textwidth}
+		\begin{tikzpicture}
+			\node (r) at (0, 2) {\text{string of length $\ell$}};
+			\node (s) at (0, -2) {\text{string of length $r < \ell$}};
+			\node[box=1/0/1/0, minimum width=2cm] (G) at (0, 0) {\text{Pseudorandom Generator}};
+			\wires[looseness=1]{
+				r = { south = G.north },
+				s = { north = G.south },
+			}{}
+		\end{tikzpicture}
+		\caption{A pseudorandom generator.}
+		\label{fig:pseudorandom generator}
+	\end{subfigure}
+	\caption{Basic cryptographic protocols.}
 \end{figure}
 
 \noindent
@@ -103,25 +103,25 @@ produces. We should now be able to fix this by \emph{composing} a pseudorandom
 generator with the one-time pad, as in \Cref{fig:composed}.
 
 \begin{figure}[h]
-  \centering
-  \begin{tikzpicture}
-    \node (C) at (-2, -2) {\text{insecure channel}};
-    \node (k) at (2, -2) {\text{shared string of length $\ell$}};
-    \node (s) at (2, -6) {\text{shared string of length $r < \ell$}};
-    \node[box=1/0/2/0, minimum width=2cm] (OTP) at (0, 0) {\text{One-Time Pad}};
-    \node[box=1/0/1/0, minimum width=2cm] (G) at (2, -4) {\text{Pseudorandom Generator}};
-    \node (Out) at (0, 2) {\text{secure channel of capacity $\ell$}};
-    \wires[looseness=1]{
-    Out = { south = OTP.north },
-    C = { north = OTP.south.1 },
-    k = { south = G.north,
-          north = OTP.south.2
-    },
-    s = { north = G.south },
-    }{}
-  \end{tikzpicture}
-  \caption{Composing One-Time Pad with a pseudorandom generator.}
-  \label{fig:composed}
+	\centering
+	\begin{tikzpicture}
+		\node (C) at (-2, -2) {\text{insecure channel}};
+		\node (k) at (2, -2) {\text{shared string of length $\ell$}};
+		\node (s) at (2, -6) {\text{shared string of length $r < \ell$}};
+		\node[box=1/0/2/0, minimum width=2cm] (OTP) at (0, 0) {\text{One-Time Pad}};
+		\node[box=1/0/1/0, minimum width=2cm] (G) at (2, -4) {\text{Pseudorandom Generator}};
+		\node (Out) at (0, 2) {\text{secure channel of capacity $\ell$}};
+		\wires[looseness=1]{
+			Out = { south = OTP.north },
+			C = { north = OTP.south.1 },
+			k = { south = G.north,
+					north = OTP.south.2
+				},
+			s = { north = G.south },
+		}{}
+	\end{tikzpicture}
+	\caption{Composing One-Time Pad with a pseudorandom generator.}
+	\label{fig:composed}
 \end{figure}
 
 This scheme raises an immediate issue.  we need to know that our notions of
@@ -131,6 +131,56 @@ secure? Notice that, in the composite diagram, Alice and Bob must both
 separately use the pseudorandom generator to convert their seed into a longer
 key. We thus need composition both \emph{in sequence}---``vertically'' in the
 diagram---and \emph{in parallel}---``horizontally'' in the diagram.
+
+\section{Formulating Cryptographic Protocols}
+
+Cryptographic protocols are procedures for transforming resources. To do math
+with them, we need a precise definition of what resources they require and
+produce. For instance, one-time pad is a \emph{private-key encryption scheme}.
+
+% TODO: there are a lot of subleties with this definition, e.g. if you want it
+% to be in PPT then you need Enc/Dec to take k as a parameter (or 1^n in unary)
+\begin{dfn}
+	A \emph{private-key encryption scheme} over a \emph{message space} $\cM$ and
+	\emph{key space} $\cK$ consists of the following data:
+	\begin{itemize}
+		\item a probabalistic \emph{key generation algorithm}\footnotemark{}
+		      $\alg{Gen}: 1^*\rightarrow \cK$;
+		      \footnotetext{By ``algorithm'',
+			      we could have several different notions of computation in mind. Usually we
+			      don't require this level of specificity, but it suffices to consider Turing
+			      machines.}
+		\item a family of \emph{encryption algorithms} $\alg{Enc}_k: \cM\rightarrow
+			      \cM$ indexed by $\cK$;
+		\item a family of \emph{decryption algorithms} $\alg{Dec}_k:
+			      \cM\rightarrow\cM$ indexed by $\cK$.	\end{itemize}
+\end{dfn}
+
+This definition allows us to straightforwardly formulate the correctness
+of such a scheme:
+
+\begin{dfn}
+	A private-key encryption scheme is \emph{information-theoretically correct} if
+	for all $k\in \cK$ and $m\in \cM$, \[
+		\alg{Dec}_k(\alg{Enc}_k(m)) = m.
+	\]
+\end{dfn}
+
+\noindent
+In practice, however, we often want to allow for a negligible probability of
+failure. In this case, we define:
+
+\begin{dfn}
+	A private-key encryption scheme is \emph{computationally correct} if
+	for all $k\in \cK$ and $m\in \cM$, \[
+		\Pr[\alg{Dec}_k(\alg{Enc}_k(m)) \neq m] = \negl[|k|],
+	\]where a function is \emph{negligible}, written $\negl[]$, if it is
+	asymptotically smaller than any rational function.
+\end{dfn}
+\section{Game-Based Security}
+
+In \emph{game-based} approaches to security, we define security by determining
+the winner of an abstract game.
 
 \section{Simulation-Based Security}
 
