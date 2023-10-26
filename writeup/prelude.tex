@@ -92,6 +92,11 @@
 \newtheorem{_prot}[thm]{Protocol}
 \newtheorem{_game}[thm]{Game}
 
+% operators
+\def\<{\langle}
+\def\>{\rangle}
+\def\pr{\text{pr}}
+
 % crypto stuff
 \usepackage{mdframed}
 \newenvironment{prot}[1]
@@ -100,10 +105,6 @@
 \newenvironment{game}
 {\begin{mdframed}\begin{_game}\mbox{}\begin{enumerate}[itemsep=-0.2em]}
 				{\end{enumerate}\end{_game}\end{mdframed}}
-
-% operators
-\def\<{\langle}
-\def\>{\rangle}
 
 % alphabets
 \def\cA{\mathcal{A}}
