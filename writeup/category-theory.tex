@@ -20,6 +20,24 @@
 		\item \emph{unitality}: for any $x \xrightarrow{f}  y$, $1_yf = f = f1_x$;
 		\item \emph{associativity}: for any $x \xrightarrow{f} 		y \xrightarrow{g} z \xrightarrow{h} w$, $(hg)f = h(gf)$.
 	\end{itemize}
+	\begin{fig}[H]
+		\centering
+		\begin{tikzcd}
+			x\ar[r, "f"]\ar[rr, "gf", bend left=60] &
+			y\ar[r, "g"]\ar[rr, "hg"', bend right=60] &
+			z\ar[r, "h"] & w
+		\end{tikzcd}
+		\begin{tikzcd}
+			x\ar[r, "1_x"]\ar[rd, "f"'] & x\ar[d, "f"] \\
+			& y
+		\end{tikzcd}
+		\begin{tikzcd}
+			x\ar[r, "f"]\ar[rd, "f"'] & y\ar[d, "1_y"] \\
+			& y\punctuation{.}
+		\end{tikzcd}
+		\caption{The category axioms.}
+		\label{fig:category axioms}
+	\end{fig}
 \end{dfn}
 
 \noindent
@@ -84,22 +102,4 @@ can be ``pasted'', allowing us to build up complex equalities from simpler ones.
 \begin{ex}
 	In this language, the axioms of \Cref{def:category} are expressed by commutativity of the
 	diagrams in \Cref{fig:category axioms}.
-	\begin{fig}[H]
-		\centering
-		\begin{tikzcd}
-			x\ar[r, "f"]\ar[rr, "gf", bend left=60] &
-			y\ar[r, "g"]\ar[rr, "hg"', bend right=60] &
-			z\ar[r, "h"] & w
-		\end{tikzcd}
-		\begin{tikzcd}
-			x\ar[r, "1_x"]\ar[rd, "f"'] & x\ar[d, "f"] \\
-			& y
-		\end{tikzcd}
-		\begin{tikzcd}
-			x\ar[r, "f"]\ar[rd, "f"'] & y\ar[d, "1_y"] \\
-			& y\punctuation{.}
-		\end{tikzcd}
-		\caption{The category axioms.}
-		\label{fig:category axioms}
-	\end{fig}
 \end{ex}

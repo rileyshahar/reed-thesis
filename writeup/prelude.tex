@@ -89,6 +89,21 @@
 \theoremstyle{remark}
 \newtheorem*{rmk}{Remark}
 \newtheorem*{ntn}{Notation}
+\newtheorem{_prot}[thm]{Protocol}
+\newtheorem{_game}[thm]{Game}
+
+% crypto stuff
+\usepackage{mdframed}
+\newenvironment{prot}[1]
+{\begin{mdframed}\begin{_prot}[#1]\mbox{}\begin{enumerate}[itemsep=-0.2em]}
+				{\end{enumerate}\end{_prot}\end{mdframed}}
+\newenvironment{game}
+{\begin{mdframed}\begin{_game}\mbox{}\begin{enumerate}[itemsep=-0.2em]}
+				{\end{enumerate}\end{_game}\end{mdframed}}
+
+% operators
+\def\<{\langle}
+\def\>{\rangle}
 
 % alphabets
 \def\cA{\mathcal{A}}

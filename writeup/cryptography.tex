@@ -1,176 +1,188 @@
 % vim:ft=tex
 % TODO: some kind of intro thingy idk
 
-\section{Resources, Protocols, Adversaries, Attacks}
-
 Cryptography is the mathematical study of secure computation. In a computation,
 we want to use \emph{protocols} to transform \emph{resources}. For the
 computation to be secure, it must successfully resist \emph{attacks} by
 \emph{adversaries}. We will make all of these notions precise, but first we
-discuss some motivating examples. Many more examples can be found in any
-introductory text on cryptography, such as~\cite{katz-lindell-2014, rosulek-2021,
-	pass-shelat-2020}.
+discuss a motivating example.\note{Many more examples can be found in any
+	introductory text on cryptography, such as~\cite{katz-lindell-2014, rosulek-2021,
+		pass-shelat-2020}.}
+
+\section{Commitment Protocols}
+
+Suppose we want to build an online rock-paper-scissors game. If two players,
+Alice and Bob, want to play, then they should both be able to send each other a
+move and so determine the winner. However, something needs to prevent the
+players from waiting until after they learn the other's move to choose their own
+move. This is an ideal use-case for a \emph{commitment protocol}.
+
+Informally, a commitment protocol proceeds as follows. The sender $S$ has a
+message $m$ that they wish to commit to---in our case, $m$ is one of
+$\{R,P,S\}$. In the \emph{commit phase}, they send a commitment $c$ to the
+receiver $R$. At some later time, $S$ may reveal $m$---plus maybe some auxillary
+data, for example their random bits---to $R$, in which case $R$ should be able
+to verify that $c$ was indeed a commitment to $m$.
+
+We can formalize commitment schemes as follows:
+
+\begin{dfn}[commitment protocol]\label{def:commitment protocol}
+	A \emph{commitment protocol} consists of the following data:
+	\begin{itemize}
+		\item the \emph{message space} $\cM$ and \emph{commit space} $\cC$;
+		\item a pair of families of probabalistic interactive algorithms\note{We
+			      have been imprecise about our formal notion of algorithm. For our
+			      purposes in this chapter, Turing machines suffice; we will be more
+			      precise about this later. In particular, it will be important that we
+			      consider the security parameter as indexing a family of algorithms, rather
+			      than as a unary input to each algorithm as is common in the literature.}
+		      $S_n$ and $R_n$ (indexed by the
+		      \emph{security parameter} $n\in\NN$), respectively called the \emph{sender}
+		      and \emph{receiver}, such that:
+		      \begin{itemize}
+			      \item in the \emph{commit phase}, $S_n$ gets $m\in\cM$ and returns
+			            $c\in\cC$, while $R_n$ returns $\bot$ or $\top$;
+			      \item in the \emph{reveal phase}, $S_n$ gets $m\in\cM$, while $R_n$
+			            gets $c\in\cC$, returning $\bot$ or $m'\in\cM$.
+		      \end{itemize}
+	\end{itemize}
+\end{dfn}
 
 \begin{ntn}
-	We first need some notation for these examples.
-	\begin{itemize}
-		\item We write $x\sample X$ to mean $x$ is drawn from the distribution
-		      $X$; when $X$ is a set we affix the uniform distribution.
-		\item We write $\oplus$ for the bitwise XOR (addition modulo $2$) of two
-		      binary strings.
+	Let $S$ and $R$ be interactive algorithms as in \Cref{def:commitment
+		protocol}.\begin{itemize}
+		\item	We will write $\alg{Com}_S^R(m)$ for the output of $S$
+		      in the commit phase with $S$ getting input $m\in\cM$, or $\bot$ if $R$
+		      returns $\bot$.
+		\item We will write $\alg{Rev}_S^R(m; c)$
+		      for the output of $R$ in the reveal phase with $S$ getting input
+		      $m\in\cM$ and $R$ getting input $c\in\cC$.
+
+		      Where $S$ and $R$ are clear, we may omit the respective annotations.
 	\end{itemize}
 \end{ntn}
 
-\begin{ex}[The One-Time Pad]\label{ex:one-time pad}
-	Two parties, Alice and Bob, have the same \emph{private key}
-	$k\sample\bin^\ell$ and can communicate over an \emph{insecure channel} $C$.
-	Alice has a \emph{message} $m\in\bin^\ell$ that she wants to send to Bob.
-	These define the resources required for the following protocol:
-
-	\procedureblock[linenumbering]{One-Time Pad}{
-		\text{Alice insecurely sends $c := m \oplus k$ to Bob}. \\
-		\text{Bob decodes the message as $c\oplus k$}.
-	}
-
-	\noindent
-	A proof of \emph{correctness} of this protocol should say, roughly, that Bob
-	recieves the same message $m$ that Alice sent.
-	% TODO: mention where we formalize these proofs
-
-	Since the channel is insecure, a third party, Eve, may observe the ciphertext
-	$c$ sent by Alice. Eve is an \emph{adversary} against the protocol. A proof of
-	\emph{security} of the protocol should say, roughly, that Eve cannot learn
-	anything about $m$ from observing $c$.
-\end{ex}
-
 \noindent
-In other words, one-time pad is a protocol with two open input ports and one
-open output port\note{There are of course many details which we do not
-	communicate in this diagram, for instance that the key must be uniform random.}.
-When ``hooked up'' to an insecure channel and a shared string of length $\ell$,
-it produces a secure channel of capacity $\ell$. We can notate this as in
-\Cref{fig:one-time pad}.
-
-% This perspective is different from the one of texts
-% like~\cite{katz-lindell-2014}, which emphasize the API of the protocol as
-% a trio of algorithms for key generation, encoding, and decoding.
-
-\begin{ex}[Pseudorandom Generators]\label{ex:pseudorandom generators}
-	A \emph{pseudorandom generator} should take some small input string, its
-	\emph{seed}, and produce a longer output string, in such a way the its outputs
-	cannot be distinguished from uniform random strings. Again, we will make this
-	formal soon, but for now we express this in \Cref{fig:pseudorandom generator}.
-\end{ex}
-
-\begin{figure}
-	\centering
-	\begin{subfigure}{0.5\textwidth}
-		\centering
-		\begin{tikzpicture}
-			\node (C) at (-2, -2) {\text{insecure channel}};
-			\node (k) at (2, -2) {\text{shared string of length $\ell$}};
-			\node[box=1/0/2/0, minimum width=2cm] (OTP) at (0, 0) {\text{One-Time Pad}};
-			\node (Out) at (0, 2) {\text{secure channel of capacity $\ell$}};
-			\wires[looseness=1]{
-				Out = { south = OTP.north },
-				C = { north = OTP.south.1 },
-				k = { north = OTP.south.2 },
-			}{}
-		\end{tikzpicture}
-		\caption{The One-Time Pad.}
-		\label{fig:one-time pad}
-	\end{subfigure}
-	\begin{subfigure}{0.4\textwidth}
-		\begin{tikzpicture}
-			\node (r) at (0, 2) {\text{string of length $\ell$}};
-			\node (s) at (0, -2) {\text{string of length $r < \ell$}};
-			\node[box=1/0/1/0, minimum width=2cm] (G) at (0, 0) {\text{Pseudorandom Generator}};
-			\wires[looseness=1]{
-				r = { south = G.north },
-				s = { north = G.south },
-			}{}
-		\end{tikzpicture}
-		\caption{A pseudorandom generator.}
-		\label{fig:pseudorandom generator}
-	\end{subfigure}
-	\caption{Basic cryptographic protocols.}
-\end{figure}
-
-\noindent
-A limitation of one-time pad is that it needs as long a key as the channel it
-produces. We should now be able to fix this by \emph{composing} a pseudorandom
-generator with the one-time pad, as in \Cref{fig:composed}.
-
-\begin{figure}[h]
-	\centering
-	\begin{tikzpicture}
-		\node (C) at (-2, -2) {\text{insecure channel}};
-		\node (k) at (2, -2) {\text{shared string of length $\ell$}};
-		\node (s) at (2, -6) {\text{shared string of length $r < \ell$}};
-		\node[box=1/0/2/0, minimum width=2cm] (OTP) at (0, 0) {\text{One-Time Pad}};
-		\node[box=1/0/1/0, minimum width=2cm] (G) at (2, -4) {\text{Pseudorandom Generator}};
-		\node (Out) at (0, 2) {\text{secure channel of capacity $\ell$}};
-		\wires[looseness=1]{
-			Out = { south = OTP.north },
-			C = { north = OTP.south.1 },
-			k = { south = G.north,
-					north = OTP.south.2
-				},
-			s = { north = G.south },
-		}{}
-	\end{tikzpicture}
-	\caption{Composing One-Time Pad with a pseudorandom generator.}
-	\label{fig:composed}
-\end{figure}
-
-This scheme raises an immediate issue.  we need to know that our notions of
-correctness and security \emph{compose}: if one-time pad and the pseudorandom
-generator are both correct or both secure, is the composite procotol correct or
-secure? Notice that, in the composite diagram, Alice and Bob must both
-separately use the pseudorandom generator to convert their seed into a longer
-key. We thus need composition both \emph{in sequence}---``vertically'' in the
-diagram---and \emph{in parallel}---``horizontally'' in the diagram.
-
-\section{Formulating Cryptographic Protocols}
-
-Cryptographic protocols are procedures for transforming resources. To do math
-with them, we need a precise definition of what resources they require and
-produce. For instance, one-time pad is a \emph{private-key encryption scheme}.
-
-% TODO: there are a lot of subleties with this definition, e.g. if you want it
-% to be in PPT then you need Enc/Dec to take k as a parameter (or 1^n in unary)
+We would like the commitment scheme to be correct, in that when the parties
+behave honestly according to the protocol, the receiver returns the correct
+message. Formally:
 \begin{dfn}
-	A \emph{private-key encryption protocol} over a \emph{message space} $\cM$ and
-	\emph{key space} $\cK$ consists of the following data:
-	\begin{itemize}
-		\item a probabalistic \emph{key generation algorithm}\note{By ``algorithm'',
-			      we could have several different notions of computation in mind. Usually we
-			      don't require this level of specificity, but it suffices to consider Turing
-			      machines.}
-		      $\alg{Gen}: 1^*\rightarrow \cK$;
-		\item a family of \emph{encryption algorithms} $\alg{Enc}_k: \cM\rightarrow
-			      \cM$ indexed by $\cK$;
-		\item a family of \emph{decryption algorithms} $\alg{Dec}_k:
-			      \cM\rightarrow\cM$ indexed by $\cK$.	\end{itemize}
-\end{dfn}
-
-This definition allows us to straightforwardly formulate the correctness
-of such a scheme:
-
-\begin{dfn}
-	A private-key encryption protocol is \emph{correct} if for all $k\in \cK$ and
-	$m\in \cM$, \[
-		\alg{Dec}_k(\alg{Enc}_k(m)) = m.
+	A commitment protocol $(S_n,R_n)$\note{When $n$ is unbound, we use this
+		notation to indicate a family of pairs $\{(S_n,R_n):n\in\NN\}$; when $n$ is bound it refers
+		to the specific pair $(S_n,R_n)$.} is \emph{correct} if for all $n\in\NN$ and
+	$m\in\cM$, \[
+		\Pr[\alg{Rev}_{S_n}^{R_n}(m; \alg{Com}_{S_n}^{R_n}(m)) = m] = 1.
 	\]
 \end{dfn}
 
-To say that an encryption protocol is \emph{secure}, we would like to formalize
-the notion that the adversary learns nothing from intercepting the ciphertext.
+\noindent
+Given a commitment protocol $(S_n,R_n)$, we should be able to define a family of
+algorithms for our rock-paper-scissors game as follows. Let $\cM = \{R,P,S\}$
+and let $W: (\bot\sqcup\cM)^2\rightarrow\{1,0,-1,\bot\}$ compute whether the
+first argument beats, ties, or loses to the second, propagating any $\bot$s.
+
+% TODO: the notation here is a little ambiguous; in particular it's not completely
+% clear who has views into what. We could clean it up at the cost of notational
+% overhead,but it's also pretty clear from context.
+\begin{prot}{Rock-Paper-Scissors}\label{prot:rock-paper-scissors}
+	\item $A_n$ receives input $a\in\cM$; $B_n$ receives input $b\in\cM$.
+	\item $A_n$ acts as $S_n$ and $B_n$ as $R_n$ to compute $c_a = \alg{Com}_{S_n}^{R_n}(a)$.
+	\item $A_n$ acts as $R_n$ and $B_n$ as $S_n$ to compute $c_b = \alg{Com}_{S_n}^{R_n}(b)$.
+	\item $A_n$ acts as $S_n$ and $B_n$ as $R_n$ to compute $a' = \alg{Rev}_{S_n}^{R_n}(a;c_a)$.
+	\item $A_n$ acts as $R_n$ and $B_n$ as $S_n$ to compute $b' = \alg{Rev}_{S_n}^{R_n}(b;c_b)$.
+	\item $A_n$ returns $W(a,b')$.
+	\item $B_n$ returns $W(a',b)$.
+\end{prot}
+
+\begin{ntn}
+	Given some fixed commitment protocol, we will write
+	$\alg{RPS}_{A}^{B}(a,b)$ for the results returned by $A$ and $B$,
+	respectively. If $A$ or $B$ are honest, we will omit the corresponding
+	annotation.
+\end{ntn}
+
+\noindent
+As with commitment, we can define correctness of this protocol.
+\begin{dfn}
+	\Cref{prot:rock-paper-scissors} is \emph{correct} relative to a commitment
+	protocol $(S_n,R_n)$ if for all $a,b\in\{R,P,S\}$,
+	\[
+		\Pr[\alg{RPS}(a, b) = (W(a,b), W(a,b))] = 1.
+	\]
+\end{dfn}
+
+\begin{thm}
+	\Cref{prot:rock-paper-scissors} is correct relative to any correct commitment
+	protocol.
+\end{thm}
+
+\begin{proof}
+	Fix a correct commitment protocol. Then \begin{align*}
+		 & \Pr[\alg{RPS}(a,b) = (W(a,b),W(a,b))]                                     \\
+		 & = \Pr[W(a,b') = W(a,b)\text{ and }W(a',b) = W(a,b)]                       \\
+		 & = \Pr[W(a,b') = W(a,b)]\cdot\Pr[W(a',b) = W(a,b)]                         \\
+		 & \geq \Pr[b'=b]\cdot\Pr[a'=a]                                              \\
+		 & = \Pr[\alg{Rev}(b;c_b)=b]\cdot\Pr[\alg{Rev}(a; c_a) = a]                  \\
+		 & = \Pr[\alg{Rev}(b;\alg{Com}(b))=b]\cdot\Pr[\alg{Rev}(a;\alg{Com}(a)) = a] \\
+		 & = 1.\qedhere
+	\end{align*}
+\end{proof}
+
+\noindent
+At least in this case, it was easy to define notions of correctness that
+compose. Our task now is to define security of commitment and
+rock-paper-scissors such that, whenever a commitment scheme is secure,
+\Cref{prot:rock-paper-scissors} is likewise secure.
 
 \section{Game-Based Security}
 
 In \emph{game-based} approaches to security, we define security by determining
-the winner of an abstract game.
+the winner of an abstract game. Here, we encode specific properties we want the
+algorithm to have, and say that an adversary wins the game if they can break the
+property. In standard approaches to
+commitment\note{See~\cites[Section 4.4.1]{canetti-2008,goldreich-2001}.}, there are two
+desirable properties. \emph{Hiding} means that the receiver should not learn
+anything about the message until the reveal phase. \emph{Binding} means that the
+sender should not be able to trick the receiver into anything other than the
+committed message. Formally:
+
+\begin{dfn}\label{def:game commitment}
+	A commitment scheme $(S_n, R_n)$ is \emph{game-secure} if the following hold.
+	\begin{itemize}
+		\item \emph{Hiding:} consider the following game against a family of
+		      adversaies $R'_n$.
+		      \begin{game}\label{game:hiding}
+			      \item $R'_n$ outputs $m_0,m_1\in \cM$.
+			      \item A random bit $b\in\{0,1\}$ is chosen; $m_b$ is given to $S_n$.
+			      \item $S_n$ and $R'_n$ participate in the commitment phase.
+			      \item $R'_n$ outputs a guess $b'\in\{0, 1\}$. $R'_n$ wins if $b' =
+				      b$.
+		      \end{game}
+		      A commitment scheme is \emph{hiding} if for any family of adversaries
+		      $R'_n$, \[
+			      \Pr[R'_n\text{ wins \Cref{game:hiding}}] \leq \frac{1}{2} + \negl.
+		      \]
+		      The idea is that $R'$ participates in the commitment phase for a randomly
+		      chosen message $m_b$, and then tries to guess $b$; they should be able
+		      to guess no more than negligibly\note{A function is \emph{negligible},
+			      written $\negl$, if it is asymptotically smaller than any rational
+			      function in $n$.} better than random.
+		\item \emph{Binding:} consider the following game against a family of
+		      adversaires $S'_n$.
+		      \begin{game}\label{game:binding}
+			      \item $S'_n$ outputs $m_0,m_1\in\cM$.
+			      \item $S'_n$ and $R_n$ participate in the commitment phase.
+			      \item A random bit $b\in\{0,1\}$ is chosen and given to $S'_n$.
+			      \item $S'_n$ and $R_n$ participate in the reveal phase.
+			      \item $S'_n$ wins if $R_n$ outputs $m_b$.
+		      \end{game}
+
+		      A commitment scheme is \emph{binding} if for any family of adversaries
+		      $S'_n$, \[
+			      \Pr[S'_n\text{ wins \Cref{game:binding}}] \leq \frac{1}{2} + \negl.
+		      \]
+	\end{itemize}
+\end{dfn}
 
 \section{Simulation-Based Security}
 
