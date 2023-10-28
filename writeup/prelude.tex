@@ -85,12 +85,13 @@
 \theoremstyle{definition}
 \newtheorem{dfn}[thm]{Definition}
 \newtheorem{ex}[thm]{Example}
+\newtheorem{_prot}[thm]{Protocol}
+\newtheorem{_game}[thm]{Game}
+\newtheorem{_algo}[thm]{Algorithm}
 
 \theoremstyle{remark}
 \newtheorem*{rmk}{Remark}
 \newtheorem*{ntn}{Notation}
-\newtheorem{_prot}[thm]{Protocol}
-\newtheorem{_game}[thm]{Game}
 
 % operators
 \def\<{\langle}
@@ -100,11 +101,14 @@
 % crypto stuff
 \usepackage{mdframed}
 \newenvironment{prot}[1]
-{\begin{mdframed}\begin{_prot}[#1]\mbox{}\begin{enumerate}[itemsep=-0.2em]}
-				{\end{enumerate}\end{_prot}\end{mdframed}}
+{\begin{mdframed}\begin{_prot}[#1]\mbox{}}
+			{\end{_prot}\end{mdframed}}
 \newenvironment{game}
 {\begin{mdframed}\begin{_game}\mbox{}\begin{enumerate}[itemsep=-0.2em]}
 				{\end{enumerate}\end{_game}\end{mdframed}}
+\newenvironment{algo}
+{\begin{mdframed}\begin{_algo}\mbox{}\begin{enumerate}[itemsep=-0.2em]}
+				{\end{enumerate}\end{_algo}\end{mdframed}}
 
 % alphabets
 \def\cA{\mathcal{A}}
