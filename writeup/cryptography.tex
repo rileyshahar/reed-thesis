@@ -302,14 +302,27 @@ bindingness is guaranteed by injectivity of $f$. Indeed:
 \end{proof}
 
 \noindent
-However, \Cref{prot:rock-paper-scissors} is not game-secure relative to
-\Cref{prot:commitment}. The problem is that \Cref{prot:commitment} is
-\emph{malleable}, in that the receiver can compute the commitment of a message
-related to the message committed by the receiver. This does not violate secrecy,
-as the receiver still cannot learn anything about the message from this new
-computed commitment. In particular, to win at rock-paper-scissors, Bob only
-needs to take Alice's commitment $(y, z) = (f(x), h(x) + m)$ and return $(y,
-	z+1) = (f(x), h(x) + m + 1)$, which is a valid commitment to $m+1$.
+This is an example of \emph{proof by reduction}, a common technique in computer
+science. The idea is to reduce one problem into another by starting with a
+solution to the second and showing how to solve the first. If the first problem
+is known to be hard, in some precise sense, then by studying the structure of
+the reduction we can learn about the hardness of the second problem. In this
+case, we reduce the problem of computing the hard-core predicate into the
+problem of breaking the commitment scheme. To do this, we show that if we have
+some strategy $R'_n$ to attack the commitment scheme, then we can use it to
+build a strategy $h'_n$ to compute the hard-core predicate. We can then show
+hidingness of the commitment scheme using our assumption about the hardness of
+the hard-core predicate.
+
+Regardless, we now observe that \Cref{prot:rock-paper-scissors} is not
+game-secure relative to \Cref{prot:commitment}. The problem is that
+\Cref{prot:commitment} is \emph{malleable}, in that the receiver can compute the
+commitment of a message related to the message committed by the receiver. In
+particular, to win at rock-paper-scissors, Bob only needs to take Alice's
+commitment $(y, z) = (f(x), h(x) + m)$ and return $(y, z+1) = (f(x), h(x) + m +
+	1)$, which is a valid commitment to $m+1$. This does not violate secrecy, as the
+receiver still cannot learn anything about the message from this new computed
+commitment.
 
 Realizing this, we could now add non-malleability to the list of security
 properties in \Cref{def:game commitment}. However, this example reveals a
@@ -326,4 +339,73 @@ approach.
 
 In \emph{simulation-based} approaches to security, we define security by
 comparing a protocol in the real world to an ideal world in which the desired
-resource is produced by a trusted black-box.
+resource is produced by a trusted black-box. We say a protocol is secure if a
+real-world adversary has no more influence on the outcome than they would in the
+ideal case. The proofs typically proceed by showing that any adversary in the
+real world can be ``simulated'' by an adversary in the ideal world.
+
+It's easy to define the ideal world for commitment protocols, using a trusted
+party $T$:
+
+\begin{prot}{Ideal Commitment}\label{prot:ideal commitment}
+	\newline
+	\emph{Commit:}
+	\begin{enumerate}[itemsep=-0.2em,topsep=-0.2em]
+		\item $\cS_n$ gets $m\in\cM$.
+		\item $\cS_n$ sends $m$ to $T$.
+	\end{enumerate}
+	\vspace{1em}
+	\emph{Reveal:}
+	\begin{enumerate}[itemsep=-0.2em,topsep=-0.2em]
+		\item $T$ sends $m$ to $\cR_n$.
+		\item $\cR_n$ outputs $m$.
+	\end{enumerate}
+\end{prot}
+
+\begin{ntn}
+	As in \Cref{prot:ideal commitment}, we will use curly letters to denote
+	parties engaged in the ideal protocol.
+\end{ntn}
+
+\noindent
+It remains to define the correct sense in which to compare attacks on the actual
+protocol to the ideal protocol.
+
+\begin{dfn}[computataional indistinguishability]\label{def:computataional indistinguishability}
+	Two families of random functions $\{X_n: A\rightarrow B\}$ and $\{Y_n:
+		A\rightarrow B\}$ are \emph{computationally indistinguishable} if, for any
+	PPT algorithm $D$ and $a\in A$, we have\[
+		|\Pr[D(X_n(a)) = 1] - \Pr[D(Y_n(a)) = 1]| \leq \negl.
+	\]In this case, we write $X\compind Y$.
+\end{dfn}
+
+\noindent
+The idea is that $D$ attempts to distinguish between $X$ and $Y$, and must fail
+to do so all but negligibly often. If the combined output of some real protocol is
+computationally indistinguishable from the output of the ideal protocol, then
+this indicates that \emph{no} adversary can distinguish between execution of the real
+protocol and the ideal protocol. As such, when we eventually prove composition
+theorems, we will be able to substitute the ideal protocol in place of the real
+protocol in order to prove security of some larger protocol.
+
+\begin{ntn}
+	We now let $\alg{Com}_S^R(m)$ denote the \emph{pair} of outputs of $S$ and $R$
+	in the commit phase, with $S$ getting input $m$, and so too for
+	$\alg{Rev}_S^R(m, c)$. Recall that $\alg{Com}_{\cS}^{\cR}$ and
+	$\alg{IRev}_{\cS}^{\cR}$ refer to the ideal protocol.
+\end{ntn}
+
+\noindent
+Combining the pair of outputs allows us to deal with issues like malleability,
+where (by hidingness) the receiver's output on its own is no different from that
+in the ideal protocol, but the pair of outputs may be correlated in the real
+protocol but not the ideal protocol.
+
+% TODO: actually needs to be against any adversary, ofc
+% \begin{dfn}
+% 	A commitment protocol $(S_n, R_n)$ is \emph{simulation-secure} if the
+% 	following hold: \[
+% 		\alg{Com}_{S_n}^{R_n}(m) \compind\alg{Com}_{\cS_n}^{\cR_n}(m), \quad\quad
+% 		\alg{Rev}_{S_n}^{R_n}(m) \compind\alg{Rev}_{\cS_n}^{\cR_n}(m).
+% 	\]
+% \end{dfn}
