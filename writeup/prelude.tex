@@ -5,6 +5,8 @@
 \usepackage{amsfonts}
 \usepackage{amsxtra}
 
+\usepackage{todonotes}
+
 % fonts
 \usepackage{bbm}
 
@@ -74,6 +76,7 @@
 \newcommand{\cat}[1]{{\mathcal{#1}}}
 \newcommand{\scat}[1]{{\textsc{\text{#1}}}}
 \newcommand{\alg}[1]{{\texttt{#1}}}
+\newcommand{\ideal}[1]{{\overline{#1}}}
 
 % theorems
 \theoremstyle{plain}
@@ -90,7 +93,7 @@
 \newtheorem{_algo}[thm]{Algorithm}
 
 \theoremstyle{remark}
-\newtheorem*{rmk}{Remark}
+\newtheorem{rmk}[thm]{Remark}
 \newtheorem*{ntn}{Notation}
 
 % operators

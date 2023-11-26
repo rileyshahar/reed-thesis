@@ -63,6 +63,9 @@ We can formalize commitment schemes as follows:
 \end{ntn}
 
 \noindent
+It is worth elaborating on the ubiquitous notion of a \emph{security parameter}, as
+seen in \Cref{def:commitment protocol}.\todo{TODO: this}
+
 We would like the commitment scheme to be correct, in that when the parties
 behave honestly according to the protocol, the receiver returns the correct
 message. Formally:
@@ -135,6 +138,56 @@ Furthermore, at least in this case, it was easy to define notions of correctness
 that compose. Our task now is to define security of commitment and
 rock-paper-scissors such that, whenever a commitment scheme is secure,
 \Cref{prot:rock-paper-scissors} is likewise secure.
+
+% \section{Desiderata}
+
+% \todo{I think we should say something like this at some point, but to be honest
+% 	I think I'm way too inexperienced to have confidence in what I'm saying. These
+% 	all seem like reasonable considerations, but I'm not sure I want to get into
+% 	this kind of argument in what should be a largely technical paper.}
+
+% In order to evaluate security definitions, we need to know what the properties
+% of a good definition are. There are many possible factors; we outline some that
+% will be relevant here.
+
+% First, as with all definitions in computer science, it must capture the
+% intuitive notions we wish to formalize. Formal security proofs are no good if
+% our notion of security is meaningless. There is, of course, no formal way to
+% prove that a definition is correct in this sense, so on some level we must try
+% enough examples to build trust that we have not missed any significant
+% incongruities between our mathematical model and the real world.
+
+% Second, the definitions should be amenable to proof. Complex definitions with
+% many moving parts, even when they have better technical properties, are not
+% conducive to good mathematical practice. They make proofs hard to follow and
+% trust, 
+
+\section{Composition}
+
+We are centrally concerned in this thesis with the properties of security
+definitions under composition. By composition, we informally mean
+stitching-together various protocols to form some larger protocol\footnote{The
+	exact formal definition depends on the underlying model of computation, which
+	we have deliberately left unspecified.}. We will say that a security
+definition \emph{composes} if, whenever each of the smaller protocols is
+secure, the larger protocol is also secure.
+
+There are two separate types of composition to consider. In \emph{sequential}
+(or \emph{vertical}) composition, only one of the small protocols is running at
+any given time. In the more general setting of \emph{parallel} (or
+\emph{horizontal}) composition, the parties involved may be engaged at various
+stages of many small protocols at once. There are several in-between notions to
+consider. For example, one can consider bounded-width composition, where the
+number of algorithms running in parallel is bounded by some function of the
+security parameter.
+
+\Cref{prot:rock-paper-scissors} is also somewhere in between sequential and
+parallel composition. There are two commitment protocols running simultaneously,
+but each phase of each protocol is running sequentially: while the parties are
+actively engaged in a specific commit or reveal phase, they are doing nothing
+else. As we will see when we discuss simulation security, working with
+multi-phase protocols like commitment adds a layer of complexity to many
+frameworks.
 
 \section{Game-Based Security}
 
@@ -351,20 +404,20 @@ party $T$:
 	\newline
 	\emph{Commit:}
 	\begin{enumerate}[itemsep=-0.2em,topsep=-0.2em]
-		\item $\cS_n$ gets $m\in\cM$.
-		\item $\cS_n$ sends $m$ to $T$.
+		\item $\ideal{S}_n$ gets $m\in\cM$.
+		\item $\ideal{S}_n$ sends $m$ to $T$.
 	\end{enumerate}
 	\vspace{1em}
 	\emph{Reveal:}
 	\begin{enumerate}[itemsep=-0.2em,topsep=-0.2em]
-		\item $T$ sends $m$ to $\cR_n$.
-		\item $\cR_n$ outputs $m$.
+		\item $T$ sends $m$ to $\ideal{R}_n$.
+		\item $\ideal{R}_n$ outputs $m$.
 	\end{enumerate}
 \end{prot}
 
 \begin{ntn}
-	As in \Cref{prot:ideal commitment}, we will use curly letters to denote
-	parties engaged in the ideal protocol.
+	As in \Cref{prot:ideal commitment}, we will generally use overlines to denote
+	parties engaged in an ideal protocol.
 \end{ntn}
 
 \noindent
@@ -391,8 +444,10 @@ protocol in order to prove security of some larger protocol.
 \begin{ntn}
 	We now let $\alg{Com}_S^R(m)$ denote the \emph{pair} of outputs of $S$ and $R$
 	in the commit phase, with $S$ getting input $m$, and so too for
-	$\alg{Rev}_S^R(m, c)$. Recall that $\alg{Com}_{\cS}^{\cR}$ and
-	$\alg{IRev}_{\cS}^{\cR}$ refer to the ideal protocol.
+	$\alg{Rev}_S^R(m, c)$. Recall that $\alg{Com}_{\ideal{S}}^{\ideal{R}}$ and
+	$\alg{IRev}_{\ideal{S}}^{\ideal{R}}$ refer to the ideal protocol. Note that in
+	this case, we omit the trusted party $T$, who always acts according to the
+	protocol.
 \end{ntn}
 
 \noindent
@@ -402,10 +457,141 @@ in the ideal protocol, but the pair of outputs may be correlated in the real
 protocol but not the ideal protocol.
 
 % TODO: actually needs to be against any adversary, ofc
-% \begin{dfn}
-% 	A commitment protocol $(S_n, R_n)$ is \emph{simulation-secure} if the
-% 	following hold: \[
-% 		\alg{Com}_{S_n}^{R_n}(m) \compind\alg{Com}_{\cS_n}^{\cR_n}(m), \quad\quad
-% 		\alg{Rev}_{S_n}^{R_n}(m) \compind\alg{Rev}_{\cS_n}^{\cR_n}(m).
-% 	\]
-% \end{dfn}
+\begin{dfn}
+	A commitment protocol $(S_n, R_n)$ is \emph{simulation-secure} if the
+	following hold:
+
+	\begin{itemize}
+		\item \emph{Secure commit}: for any family of PPT algorithms $R'_n$, there
+		      exists a family of PPT algorithms $\ideal{R}'_n$ such that for any
+		      $m\in\cM$,
+		      \[
+			      \alg{Com}_{S_n}^{R'_n}(m) \compind\alg{Com}_{\ideal{S}_n}^{\ideal{R}'_n}(m).
+		      \]
+		\item \emph{Secure reveal}: for any family of PPT algorithms $S'_n$,
+		      there exists a family of PPT algorithms $\ideal{S}'_n$ such that for any
+		      $m\in\cM$ and $c\in\cC$, \[
+			      \alg{Rev}_{S'_n}^{R_n}(m, c) \compind\alg{Rev}_{\ideal{S}'_n}^{\ideal{R}_n}(m, c).
+		      \]
+	\end{itemize}
+\end{dfn}
+
+\noindent
+To demonstrate the definition, we observe that \Cref{prot:commitment} is \emph{not}
+simulation-secure.\todo{TODO: the definition is not quite right, so we can't
+	finish this thought yet. We need to talk about the difficulty of proof in the
+	paradigm, and also just how simulation proofs work.}
+% TODO: is any protocol secure by this defintion? what if R' just outputs the
+% commit and D checks whether S and R' outputted the same?
+
+Indeed, simulation security is sufficiently strong as to obtain a general
+sequential composition theorem:
+
+\begin{thm}[\cite{micali-rogaway-1992}]\label{thm:sequential composition for simulation security}
+	Let $\{f_1,\cdots,f_{p(n)}\}$ be a set of polynomially-many \emph{two-party
+		functionalities}, meaning functions
+	$\bin^*\times\bin^*\rightarrow\bin^*\times\bin^*$. Let $\{\pi_i\}$ be
+	simulation-secure protocols for computing each of the $\{f_i\}$. Then the
+	sequential composition of the $\pi_i$s is a simulation-secure protocol for
+	computing the composite functionality $f_{p(n)}\circ\cdots\circ f_1$.
+\end{thm}
+
+\noindent
+We interpret the functionalities $f_i$ as computational problems where two
+parties, given inputs $x,y\in\bin^*$, work together to compute outputs
+$\pr_1(f_i(x, y)), \pr_2(f_i(x, y))$. Such functionalities encompass a huge
+class of cryptographic protocols. The theorem says that if we know how to
+compute each $f_i$ in a simulation-secure way---where the ideal world involves
+both parties giving their inputs to the trusted party and recieving their
+outputs back---then we can compute the composite simulation-securely, as well.
+For a more careful treatment of this theorem, and simulation security as a whole,
+see~\cite{lindell-2017}.
+
+% \begin{rmk}\label{rmk:polynomial composition only}
+It's important to observe that \Cref{thm:sequential composition for simulation
+	security} works only for polynomially many functionalities. Recall that
+computational indistinguishability requires only a neglible difference between
+the real and ideal worlds, rather than requiring no difference. As a
+consequence, the theorem cannot hold for arbitrarily many functionalities, as
+the super-polynomial composition of negligible functions may fail to be
+negligible. In fact, computational indistinguishability is not even a real
+equivalence relation, as transitivity fails with more than polynomially many
+compositions.
+% \end{rmk}
+
+Regardless, while simulation security is generally a stronger guarantee than
+game security, it is not perfect. In 1996, Goldreich and Krawczyk constructed a
+protocol for \emph{zero-knowledge proof} which is simulation-secure, but is not
+secure under parallel composition~\cite{goldreich-krawczyk-1996}. The
+construction is quite artificial, and we are not aware of any natural examples
+in which simulation security fails to compose. Nonetheless, for the purpose of
+provable security, we need a more powerful framework. There are several options,
+but the most popular by far is \emph{universal composability}.
+
+\section{Universally Composable Cryptography}
+
+Universally composable cryptography, due to Ran Canetti, is a framework for
+writing composible proofs of security~\cite{canetti-2000}. While a full
+treatment is far outside our scope, we give some intuition here, and conclude
+with a discussion of some drawbacks of the framework.
+
+UC maintains the same basic idea as simulation security---the actual execution
+of the protocol is compared to some ideal world in which a trusted, unbounded
+third party is available. The main difference is how the ideal world is compared
+to the actual protocol. In simulation security, we use the straightforward
+notion of computational indistinguishability of outputs---at the end of the
+protocol, both parties output some value, and we compare the distribution of
+outputs in the ideal world to the real world. Even with commitment, we saw that
+this poses some difficulties when we want the protocol to satisfy some property
+midway through its execution.
+
+In contrast, in universal composability, the adversary freely interacts with a
+separate (poly-time) algorithm, the \emph{environment}. To be UC-secure, it
+should be impossible for the environment to distinguish between the ideal
+protocol and the real protocol \emph{at any point during the execution}. This
+much stronger guarantee allows us to obtain a general parallel composition
+theorem, the intuition being that the environment could include artbirary other
+protocols, running simultaneously with the protocol under proof, so UC security
+implies security under even (polynomial-width) parallel composition.
+
+On the other hand, this framework comes with onerous proof buderns. Whereas in
+the simulation paradigm, the ideal-world adversary must simulate interaction with
+the actual protocol, in the UC paradigm, the ideal-world adversary must also
+simulate the real-world adversary's interaction with the environment. Because
+this interaction is not constrained other than by computational bounds on the
+environment, even the simplest UC proofs require complex arguments about the
+flow of information through the protocol.
+
+As a consequence, many cryptographers find UC proofs hard to trust. The
+framework is fundamentally tied to certain technical choices, such as the
+computational model of turing machines, meaning it requires modification to
+deal with, for example, quantum
+cryptography~\cite{hofheinz-mullerquade-2003,unruh-2010}. The proofs tend to be
+extremely technical, often not even included in published work but instead left
+to supplemental material. The framework has been modified seven times since its
+introduction in 2000, including as recently as 2020~\cite{canetti-2020}, and many of
+these versions have introduced incompatible technical changes. The cumulative
+result of all of this is that, while UC is undoubtedly the most powerful
+framework for composable proof in common use today, it is not as widespread as
+one might expect.
+
+\section{Conclusion}
+
+In this chapter, we considered three frameworks for security definitions in
+cryptography: game-based security, simulation-based security, and universal
+composability. Each of these frameworks exhibits tradoffs between complexity,
+composability, and ease of proof. While game-based proofs are simple to write,
+game-based definitions tend to be ad-hoc, making the definitions hard to trust
+and composition theorems impossible to obtain. On the other hand, universal
+composability obtains extremely powerful composition theorems, and leaves no
+room for error in writing definitions, but leads to complex proofs ridden with
+technical details. Simulation-based security lies somewhere in the middle, with
+good properties under sequential composition, but falls short of the generality
+of the UC framework.
+
+This situation calls out for a new framework which takes advantage of powerful
+mathematical abstractions to simplify proofs, while maintaining the composition
+guarantees of universal composability. We believe that category theory is the
+right mathematical abstraction on which to base such a framework. In the next
+chapter, we will introduce the basic notions of this field, motivated by their
+potential relationship to cryptography.

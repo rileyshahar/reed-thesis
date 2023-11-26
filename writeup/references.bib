@@ -31,7 +31,7 @@
 
 @book{pass-shelat-2020,
 	title = "A Course in Cryptography",
-	author = { "Raphael Pass", "Abhi Shelat" },
+	author = "Pass, Raphael and Shelat, Abhi",
 	year = 2010,
 	url = "https://www.cs.cornell.edu/courses/cs4830/2010fa/lecnotes.pdf",
 }
@@ -205,3 +205,130 @@
 	collection = {CS276: Cryptography},
 	url = {https://theory.stanford.edu/~trevisan/cs276/lecture27.pdf},
 }
+
+@inproceedings{micali-rogaway-1992,
+	author = "Micali, Silvio and Rogaway, Phillip",
+	editor = "Feigenbaum, Joan",
+	title = "Secure Computation",
+	booktitle = "Advances in Cryptology --- CRYPTO '91",
+	year = "1992",
+	publisher = "Springer Berlin Heidelberg",
+	address = "Berlin, Heidelberg",
+	pages = "392--404",
+	abstract = "We define what it means for a network of communicating players to
+	            securely compute a function of privately held inputs. Intuitively,
+	            we wish to correctly compute its value in a manner which protects
+	            the privacy of each player's contribution, even though a powerful
+	            adversary may endeavor to disrupt this enterprise.",
+	isbn = "978-3-540-46766-3",
+}
+
+@misc{canetti-2000,
+	author = {Ran Canetti},
+	title = {Universally Composable Security: A New Paradigm for Cryptographic
+	         Protocols},
+	howpublished = {Cryptology ePrint Archive, Paper 2000/067},
+	year = {2000},
+	note = {\url{https://eprint.iacr.org/2000/067}},
+	url = {https://eprint.iacr.org/2000/067},
+}
+
+@inproceedings{canetti-fischlin-2001,
+	author = "Canetti, Ran and Fischlin, Marc",
+	editor = "Kilian, Joe",
+	title = "Universally Composable Commitments",
+	booktitle = "Advances in Cryptology --- CRYPTO 2001",
+	year = "2001",
+	publisher = "Springer Berlin Heidelberg",
+	address = "Berlin, Heidelberg",
+	pages = "19--40",
+	abstract = "We propose a new security measure for commitment protocols, called
+	            Universally Composable (UC) Commitment. The measure guarantees that
+	            commitment protocols behave like an ``ideal commitment service,''
+	            even when concurrently composed with an arbitrary set of protocols.
+	            This is a strong guarantee: it implies that security is maintained
+	            even when an unbounded number of copies of the scheme are running
+	            concurrently, it implies non-malleability (not only with respect to
+	            other copies of the same protocol but even with respect to other
+	            protocols), it provides resilience to selective decommitment, and
+	            more.",
+	isbn = "978-3-540-44647-7",
+}
+
+@misc{hofheinz-mullerquade-2003,
+	author = {Hofheinz, Dennis and Müller-Quade, Jörn},
+	title = "A Paradox of Quantum Universal Composability",
+	year = "2003",
+	url = "
+	       https://www.quiprocone.org/Hot%20Topics%20posters/muellerquade_poster.pdf
+	       ",
+}
+
+@inproceedings{unruh-2010,
+	author = {Unruh, Dominique},
+	title = {Universally Composable Quantum Multi-Party Computation},
+	year = {2010},
+	isbn = {3642131891},
+	publisher = {Springer-Verlag},
+	address = {Berlin, Heidelberg},
+	url = {https://doi.org/10.1007/978-3-642-13190-5_25},
+	doi = {10.1007/978-3-642-13190-5_25},
+	abstract = {The Universal Composability model (UC) by Canetti (FOCS 2001)
+	            allows for secure composition of arbitrary protocols. We present a
+	            quantum version of the UC model which enjoys the same
+	            compositionality guarantees. We prove that in this model
+	            statistically secure oblivious transfer protocols can be
+	            constructed from commitments. Furthermore, we show that every
+	            statistically classically UC secure protocol is also statistically
+	            quantum UC secure. Such implications are not known for other
+	            quantum security definitions. As a corollary, we get that quantum
+	            UC secure protocols for general multi-party computation can be
+	            constructed from commitments.},
+	booktitle = {Proceedings of the 29th Annual International Conference on Theory
+	             and Applications of Cryptographic Techniques},
+	pages = {486–505},
+	numpages = {20},
+	location = {French Riviera, France},
+	series = {EUROCRYPT'10},
+}
+
+
+	@article{canetti-2020,
+	author = {Canetti, Ran},
+	title = {Universally Composable Security},
+	year = {2020},
+	issue_date = {October 2020},
+	publisher = {Association for Computing Machinery},
+	address = {New York, NY, USA},
+	volume = {67},
+	number = {5},
+	issn = {0004-5411},
+	url = {https://doi.org/10.1145/3402457},
+	doi = {10.1145/3402457},
+	abstract = {This work presents a general framework for describing
+	            cryptographic protocols and analyzing their security. The framework
+	            allows specifying the security requirements of practically any
+	            cryptographic task in a unified and systematic way. Furthermore, in
+	            this framework the security of protocols is preserved under a
+	            general composition operation, called universal composition. The
+	            proposed framework with its security-preserving composition
+	            operation allows for modular design and analysis of complex
+	            cryptographic protocols from simpler building blocks. Moreover,
+	            within this framework, protocols are guaranteed to maintain their
+	            security in any context, even in the presence of an unbounded
+	            number of arbitrary protocol sessions that run concurrently in an
+	            adversarially controlled manner. This is a useful guarantee, which
+	            allows arguing about the security of cryptographic protocols in
+	            complex and unpredictable environments such as modern communication
+	            networks.},
+	journal = {J. ACM},
+	month = {sep},
+	articleno = {28},
+	numpages = {94},
+	keywords = {security-preserving composition, modular security, universal
+	            composition, Security modeling, specification, and analysis},
+}
+
+	  
+
+
