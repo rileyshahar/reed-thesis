@@ -3,8 +3,18 @@
 \usetheme{metropolis}
 
 \usepackage{annotate-equations}
+\usepackage[normalem]{ulem}
+\usepackage{bm}
+\usepackage{framed}
+
+\newcommand{\soutthick}[1]{%
+	\renewcommand{\ULthickness}{2.4pt}%
+	\sout{#1}%
+	\renewcommand{\ULthickness}{.4pt}% Resetting to ulem default
+}
 
 \usepackage{tikz}
+\usetikzlibrary{arrows}
 \usepackage{spath3}
 
 % \tikzstyle{dot}=[
@@ -165,7 +175,7 @@
 \end{frame}
 
 \begin{frame}{Cryptographic Composability}
-	Say $f$ and $g$ are secure.\pause
+	Say $f$ and $g$ are secure under some definition.\pause
 
 	\begin{multicols}{2}
 		\begin{center}
@@ -175,7 +185,7 @@
 					\draw (f.south) to ++(0,-.3) node[right] {};
 					\draw (g.south) to  (f.north);
 					\draw (g.north) to ++(0,.3) node[right] {};
-				\end{pic}$?
+				\end{pic}$ secure?
 		\end{center}\pause
 
 		\begin{center}
@@ -186,23 +196,16 @@
 					\draw (f.north) to ++(0,.65) node[right] {};
 					\draw (g.south) to ++(0,-.65) node[right] {};
 					\draw (g.north) to ++(0,.65) node[right] {};
-				\end{pic}$?
+				\end{pic}$ secure?
 		\end{center}
 	\end{multicols}
 \end{frame}
 
-\begin{frame}{Commitment}
-	Alice wants to make a binding guess to Bob, but not reveal it yet. \pause
-	She wants a \textbf{commitment protocol}. \pause
+% \begin{frame}{Commitment}
+% 	Alice wants to send a binding message to Bob, but not reveal it yet. \pause
 
-	We can use this to play rock-paper-scissors: \pause
-	\begin{enumerate}
-		\item Alice commits $a\in\{R,P,S\}$ \pause
-		\item Bob commits $b\in\{R,P,S\}$ \pause
-		\item Alice reveals $a$ \pause
-		\item Bob reveals $b$
-	\end{enumerate}
-\end{frame}
+% 	She wants a \textbf{commitment protocol}.
+% \end{frame}
 
 % \begin{frame}{Security Definitions}
 % 	What does it mean for a commitment protocol to be \emph{secure}? \pause
@@ -215,46 +218,19 @@
 % 	\end{itemize}
 % \end{frame}
 
-\begin{frame}{Game-based security}
-	\pause List the properties we want our protocol to have.\pause
+% \begin{frame}{Game-based security}
+% 	\pause List the properties we want our protocol to have; formalize them as
+% 	games.\pause
 
-	Secure commitment should be\pause{} \emph{hiding and binding}.\pause
+% 	Secure commitment should be \emph{hiding and binding}.\pause
+% 	\setlength{\columnseprule}{0.2pt}
 
-	\begin{block}{The Hiding Game}
-		\begin{enumerate}
-			\item Bob picks $m_0,m_1$.\pause
-			\item Alice commits $m_b$ at random.\pause
-			\item Bob guesses $b'$.
-		\end{enumerate}
-	\end{block}
-\end{frame}
+% 	That's not enough: many natural commitment protocols suffer from
+% 	\emph{malleability.}\pause
 
-\begin{frame}{Game-based composability}
-	\begin{columns}
-		\column{0.5\textwidth}
-		\begin{block}{The Hiding Game}
-			\begin{enumerate}
-				\item Bob picks two messages
-				\item Alice commits one
-				\item Bob guesses which one
-			\end{enumerate}
-		\end{block}
-		\column{0.5\textwidth}
-		\begin{block}{Rock-Paper-Scissors}
-			\begin{enumerate}
-				\item Alice commits $a\in\{R,P,S\}$
-				\item Bob commits $b\in\{R,P,S\}$
-				\item They both reveal
-			\end{enumerate}
-		\end{block}
-	\end{columns}
-	\pause\hrulefill
-
-	Many natural commitment protocols suffer from \emph{malleability.}\pause
-
-	It's taken \emph{decades} for a missing property to be
-	noticed~\cite{asher-qkd,bhlmo-qkd}!
-\end{frame}
+% 	It's taken over a decade for a missing property to be
+% 	noticed~\cite{asher-qkd,bhlmo-qkd}!
+% \end{frame}
 
 \begin{frame}{Simulation-based security}
 	\pause
@@ -268,17 +244,56 @@
 	% 	\end{enumerate}
 	% \end{block}
 
-	Two probability distributions are \emph{computationally indistinguishable} if
-	poly-time algorithms cannot tell between them with nontrivial probability.
-	\pause
+	% Two probability distributions are \emph{computationally indistinguishable} if
+	% poly-time algorithms cannot tell between them with non-negligible
+	% ($\Omega(n^{-d})$) probability.
+	% \pause
 
 	A protocol is \emph{secure} if it is computationally indistinguishable
-	from the ideal world.\pause
+	from the ideal world.
+\end{frame}
+
+\begin{frame}{Security Parameters}
+	Cryptosystems are parametrized by a \emph{security parameter} $n\in\NN$.\pause
+
+	Let $f_i\overset{C}{\equiv} g_i$.\pause
+
+	Does \[ \begin{pic}
+			\node[morphism] (fk) at (0,2.5) {$f_{K(n)}$};
+			\node[dashedmorphism] (dots) at (0,1.5) {};
+			\node[morphism] (f1) at (0,0) {$f_1$};
+			\node[morphism] (f2) at (0,.75) {$f_2$};
+			\draw (f1.south) to ++(0,-.3) node[right] {};
+			\draw (f2.south) to (f1.north);
+			\draw (f2.north) to (dots.south) {};
+			\draw (fk.south) to (dots.north) + (0,-0.2);
+			\draw (fk.north) to ++(0,.3) node[right] {};
+
+			\only<3>{\node[font=\normalfont] at (1.5,1.25) {$\overset{C}{\equiv}$};}
+
+			\only<4->{\node (o1) at (1.5,0) {$o(n^{-d})$};}
+			\only<4->{\node (o2) at (1.5,.75) {$o(n^{-d})$};}
+			\only<4->{\node (ok) at (1.5,2.5) {$o(n^{-d})$};}
+			\only<4->{\draw[-|] (o1) to (0.5,0);}
+			\only<4->{\draw[-|] (o1) to (2.5,0);}
+			\only<4->{\draw[-|] (o2) to (0.5,.75);}
+			\only<4->{\draw[-|] (o2) to (2.5,.75);}
+			\only<4->{\draw[-|] (ok) to (0.5,2.5);}
+			\only<4->{\draw[-|] (ok) to (2.5,2.5);}
+
+			\node[morphism] (gk) at (3,2.5) {$g_{K(n)}$};
+			\node[dashedmorphism] (gdots) at (3,1.5) {};
+			\node[morphism] (g1) at (3,0) {$g_1$};
+			\node[morphism] (g2) at (3,.75) {$g_2$};
+			\draw (g1.south) to ++(0,-.3) node[right] {};
+			\draw (g2.south) to (g1.north);
+			\draw (g2.north) to (gdots.south) {};
+			\draw (gk.south) to (gdots.north) + (0,-0.2);
+			\draw (gk.north) to ++(0,.3) node[right] {};
+		\end{pic}\] hold? \pause\pause{} Only if $K(n) = O(p^d)$.
 \end{frame}
 
 \begin{frame}[fragile]{Simulation-based composability}
-	\pause
-
 	\textbf{Theorem}~\cite{micali-rogaway-1992}.
 	\emph{Simulation-secure protocols compose securely in sequences of
 		polynomial length.}\pause
@@ -286,24 +301,25 @@
 	\begin{tikzpicture}
 	\end{tikzpicture}
 
-	However,~\cite{goldreich-krawczyk-1996} gave a protocol for zero-knowledge
-	proof that's simulation secure, but doesn't compose in parallel.
+	However,~\cite{goldreich-krawczyk-1996} gave a protocol that's simulation
+	secure, but doesn't compose in parallel.
 \end{frame}
 
 \begin{frame}[fragile]{Universal Composability}
 	\pause
 
+	Canetti (2000) defined the notion of \emph{UC-security}.\pause
+
 	\textbf{Theorem}~\cite{canetti-2000a}.
 	\emph{UC-secure protocols compose securely in parallel sequences of polynomial
 		length or width.}\pause
 
-	UC was revised in
-	~\cite{canetti-2000a,canetti-2000b,canetti-2001,canetti-2005a,canetti-2005b,canetti-2013a,canetti-2013b,canetti-2018,canetti-2020}.\pause
+	UC was revised 9 times so far, most recently in 2020.\pause
 
 	The proofs\dots\begin{itemize}
-		\item are wildly dependent on small technical details;\pause
+		\item are dependent on technical details;\pause
 		\item leave artifacts in the protocol;\pause
-		\item are very hard to trust.
+		\item are hard to trust.
 	\end{itemize}
 \end{frame}
 
@@ -316,144 +332,165 @@
 \end{frame}
 
 \begin{frame}{Categories and Programming Languages}
+	\setbeamercovered{invisible}
 	\begin{multicols}{2}
 		In programming language theory:\pause
 		\begin{itemize}
-			\item \only<2->{objects are types;}
-			      \only<3->{\item morphisms are programs.}
+			\item \visible<2->{objects are types;}
+			      \visible<3->{\item morphisms are programs.}
 		\end{itemize}
 
 		\[
 			\begin{pic}
 				\only<3->{\node[morphism,font=\tiny] (f) at (0,0) {$len$};}
-				\only<2->{\draw (f.south) to ++(0,-.5)  node[right] {\texttt{str}};
+				\visible<2->{\draw (f.south) to ++(0,-.5)  node[right] {\texttt{str}};
 					\draw (f.north) to ++(0,.5)  node[right] {\texttt{nat}};}
 			\end{pic}
 		\]
 	\end{multicols}
 
-	\only<4->{(We've already been doing category theory!)}
+	\visible<4->{(We've already been doing category theory!)}
 \end{frame}
 
-\begin{frame}{Composing Programs}
-	\begin{multicols}{2}
-		Consider programs \hspace{0.5em} \[
-			\begin{pic}
-				\node[morphism,font=\tiny] (f) at (0,0) {$f$};
-				\draw (f.south) to ++(0,-.5)  node[right] {$A$};
-				\draw (f.north) to ++(0,.5)  node[right] {$B$};
-			\end{pic} \text{ and }\hspace{0.5em}
-			\begin{pic}
-				\node[morphism,font=\tiny] (g) at (0,0) {$g$};
-				\draw (g.south) to ++(0,-.5)  node[right] {$B$};
-				\draw (g.north) to ++(0,.5)  node[right] {$C$};
-			\end{pic}.\]\pause
+% \begin{frame}{Composing Programs}
+% 	\begin{multicols}{2}
+% 		Consider programs \hspace{0.5em} \[
+% 			\begin{pic}
+% 				\node[morphism,font=\tiny] (f) at (0,0) {$f$};
+% 				\draw (f.south) to ++(0,-.5)  node[right] {$A$};
+% 				\draw (f.north) to ++(0,.5)  node[right] {$B$};
+% 			\end{pic} \text{ and }\hspace{0.5em}
+% 			\begin{pic}
+% 				\node[morphism,font=\tiny] (g) at (0,0) {$g$};
+% 				\draw (g.south) to ++(0,-.5)  node[right] {$B$};
+% 				\draw (g.north) to ++(0,.5)  node[right] {$C$};
+% 			\end{pic}.\]\pause
 
-		We can \emph{always} make a program\[
-			\begin{pic}
-				\node[morphism] (g) at (0,.75) {$g\vphantom{f}$};
-				\node[morphism] (f) at (0,0) {$f$};
-				\draw (f.south) to ++(0,-.3) node[right] {$A$};
-				\draw (g.south) to  (f.north);
-				\draw (g.north) to ++(0,.3) node[right] {$C$};
-			\end{pic}.\]
-	\end{multicols}
+% 		We can \emph{always} make a program\[
+% 			\begin{pic}
+% 				\node[morphism] (g) at (0,.75) {$g\vphantom{f}$};
+% 				\node[morphism] (f) at (0,0) {$f$};
+% 				\draw (f.south) to ++(0,-.3) node[right] {$A$};
+% 				\draw (g.south) to  (f.north);
+% 				\draw (g.north) to ++(0,.3) node[right] {$C$};
+% 			\end{pic}.\]
+% 	\end{multicols}
 
-	Composition ``works'' in PL theory.
+% Composition ``works'' in PL theory.
+% \end{frame}
+
+\begin{frame}{Category Theory and Computer Science}
+	Category theory has been applied to:\pause
+	\begin{itemize}
+		\item databases~\cite{bsw-databases};\pause
+		\item architecture~\cite{healy};\pause
+		\item machine learning~\cite{cruttwell};\pause
+		\item robotics~\cite{aguado};\pause
+		\item cryptography~\cite{broadbent-karvonen-2022}!
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Categorical Cryptography: The Idea}
-	Make a relation $\approx$ between morphisms, roughly like
-	indistinguishability.\pause
-
-	\[ \begin{pic}[yscale=-1]
+\begin{frame}[fragile]{Categorical Composable Cryptography: The Idea}
+	\[ \begin{pic}[xscale=1.5,yscale=-1.5]
 			\node[dot,fill=white] (d) {};
 			\draw (d) to +(0,0.5) node [left] {$A$};
 			\draw (d) to[out=0,in=90] +(0.5,-0.5) node[right] {$B$};
 			\draw (d) to[out=180,in=90] +(-0.5,-0.5) node[left] {$E$};
 		\end{pic}
 		\otimes
-		\begin{pic}
+		\begin{pic}[scale=1.5]
 			\node[dot,fill=white] (d) {};
 			\draw (d) to +(0,-0.5) node[state,scale=0.75] {\normalsize$\$$};
 			\draw (d) to[out=180,in=-90] +(-0.5,0.5) node[left] {$A$};
 			\draw (d) to[out=0,in=-90] +(0.5,0.5) node[right] {$B$};
 		\end{pic}
 		\xrightarrow{\text{One-Time Pad}}
-		\begin{pic} \draw (0,0) node[left] {$A$} to (0,1) node[right] {$B$}; \end{pic}
+		\begin{pic}[scale=1.5] \draw (0,0) node[left] {$A$} to (0,1) node[right] {$B$}; \end{pic}
 		\otimes
 		\hspace{0.5em}
-		\begin{pic} \draw (0,0) node[state,scale=0.75] {\normalsize$\$$} to (0,0.5) node[right] {$E$}; \end{pic}
+		\begin{pic}[scale=1.5] \draw (0,0) node[state,scale=0.75] {\normalsize$\$$} to (0,0.5) node[right] {$E$}; \end{pic}
 	\]
-\end{frame}
-
-\begin{frame}[fragile]{Categorical Composable Cryptography}
-	As far as I know, there is only one published paper using category theory for
-	composability in cryptography~\cite{broadbent-karvonen-2022}.\pause
-
-	% \only<2-2>{
-	\begin{equation*}
-		\begin{tikzpicture}[scale=0.5, baseline=(c)]]
-			\path coordinate[dot, fill=white] (c)
-			+(-1,1) coordinate[label=above:$E$] (tl)
-			+(1,1) coordinate[label=above:$B$] (tr)
-			+(0,-1) coordinate[label=below:$A$] (bot)
-			(tl) ++(-0.5,0) coordinate (tll)
-			(bot) ++(1.5,0) coordinate (br);
-			\draw (bot) -- (c) to[out=0, in=-90] (tr);
-			\draw (c.center) to[out=180, in=-90] (tl);
-		\end{tikzpicture}
-		\otimes
-		\begin{tikzpicture}[scale=0.5, baseline=(c)]]
-			\path coordinate[dot,fill=white] (c)
-			+(-1,1) coordinate[label=above:$A$] (tl)
-			+(1,1) coordinate[label=above:$B$] (tr)
-			+(0,-1) coordinate[label=below:$\$$] (bot)
-			(tl) ++(-0.5,0) coordinate (tll)
-			(bot) ++(1.5,0) coordinate (br);
-			\draw (bot) -- (c) to[out=0, in=-90] (tr);
-			\node[state=-90, anchor=north] at (bot) {};
-			\draw (c.center) to[out=180, in=-90] (tl);
-		\end{tikzpicture}
-		\xrightarrow{\text{One-Time Pad}}
-		\begin{tikzpicture}[scale=0.5, baseline=($(bot)!0.5!(top)$)]]
-			\path
-			+(0,-1) coordinate[label=below:$A$] (bot)
-			+(0,1) coordinate[label=above:$B$] (top);
-			\draw (bot) -- (top);
-			% \draw (c.center) to[out=180, in=-90] (tl);
-		\end{tikzpicture}
-		\otimes
-		\begin{tikzpicture}[scale=0.5,baseline=($(bot)!0.5!(top)$)]
-			\path
-			+(0,-0.5) coordinate[label=below:$\$$] (bot)
-			+(0,0.5) coordinate[label=above:$E$] (top);
-			\draw (bot) -- (top);
-			\node[state=-90, anchor=north] at (bot) {};
-		\end{tikzpicture}
-	\end{equation*}
-	% }
-
-	\pause
-	The moral:\begin{itemize}\pause
+	\hfill\small[Broadbent \& Karvonen, 2022]\pause
+	\begin{itemize}
 		\item objects are resources, like channels or keys;\pause
 		\item morphisms are ``protocols with holes'';\pause
-		\item composition ``plugs in the holes''.\pause
+		\item composition ``plugs in the holes''.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Advantages of Categorical Composable Cryptography}
+	Categorical composable cryptography:
+	\pause
+	\begin{itemize}
+		\item obtains a general composition theorem;\pause
+		\item abstracts over all SMCs;\pause
+		\item abstracts over adversarial capabilities;\pause
+		\item abstracts over adversarial goals;\pause
+		\item proofs are pictoral and ``straightforward''.\pause
 	\end{itemize}
 
-	This is the standard paradigm in programming language theory, transported to
-	cryptographic language.
+	There's always a tradeoff: it relies on dense abstract machinery.
+\end{frame}
+
+\begin{frame}{Adversaries Break Things}
+	\setbeamercovered{invisible}
+	Adversaries can violate the type system.\pause
+
+	\[
+		\begin{pic}
+			\node[morphism,font=\tiny] (f) at (0,0) {};
+			\draw (f.south) to ++(0,-.5)  node[right] {\texttt{str}};
+			\draw (f.north) to ++(0,.5)  node[right] {\texttt{nat}};
+			\pause
+
+			\alt<3->{\node[morphism,font=\tiny] (g) at (2,1.25) {$len$};}
+			{\node[] (g) at (2,1.25) {$len$};}
+			\draw (g.south) to ++(0,-.5)  node[right] {\texttt{str}};
+			\draw (g.north) to ++(0,.5)  node[right] {\texttt{nat}};
+
+			\draw[->] (.5,.3) to (1.5,0.95);
+
+			\pause
+			\alt<4->{\node[morphism,font=\tiny] (h) at (2,-1.25) {$hash$};}
+			{\node[] (h) at (2,-1.25) {$hash$};}
+			\draw (h.south) to ++(0,-.5)  node[right] {\texttt{str}};
+			\draw (h.north) to ++(0,.5)  node[right] {\texttt{nat}};
+
+			\draw[->] (.5,-.3) to (1.5,-0.95);
+			\pause
+
+			\alt<5->{\node[morphism,font=\tiny] (f) at (5,0) {};}
+			{\node[] (f) at (5,0) {};}
+			\draw (f.south) to ++(0,-.5)  node[right] {\texttt{str}};
+			\draw (f.north) to ++(0,.5)  node[right] {\texttt{nat}};
+			\pause
+
+			\alt<6->{\node[morphism,font=\tiny] (g) at (7,1.25) {$len$};}
+			{\node[] (g) at (7,1.25) {$len$};}
+			\draw (g.south) to ++(0,-.5)  node[right] {\texttt{str}};
+			\draw (g.north) to ++(0,.5)  node[right] {\texttt{nat}};
+
+			\draw[->] (5.5,.3) to (6.5,0.95);
+
+			\pause
+			\alt<7->{\node[morphism,font=\tiny] (h) at (7,-1.25) {$id$};}
+			{\node[] (h) at (7,-1.25) {$id$};}
+			\draw (h.south) to ++(0,-.5)  node[right] {\texttt{str}};
+			\draw (h.north) to ++(0,.5)  node[right] {\color{red}{\texttt{str}}};
+
+			\draw[->] (5.5,-.3) to (6.5,-0.95);
+		\end{pic}
+	\]
 \end{frame}
 
 \begin{frame}{Attack Models}
 	In CCC, adversaries are constrained by \emph{attack models}.\pause
 
-	An attack model $\cA$ assigns, to each morphism $f$, a collection of morphisms
-	$\cA(f)$ satisfying some axioms. If the adversary is ``supposed'' to do $f$,
-	then they can instead do anything in $\cA(f)$.\pause
+	% An attack model $\cA$ assigns, to each morphism $f$, a collection of morphisms
+	% $\cA(f)$ satisfying some axioms.\pause
 
-	\textbf{Open Question 1:} \emph{Can the axioms be formulated as functoriality plus
-		some conditions? If $\cA$ is a functor, what should its codomain be?}\pause
+	\textbf{\alt<3->{\soutthick{Open}}{Open} Question 1:} \emph{Can the axioms be formulated as functoriality plus
+		some conditions?}\pause{} Answer: \textbf{Yes.}\pause
 
 	\textbf{Open Question 2:} \emph{How broad is the definition of an attack
 		model? Does it capture enough of modern cryptography?}
@@ -465,36 +502,39 @@
 
 	B\&K work around this by artificially limiting the universe size.\pause
 
-	\textbf{Open Question 3:} \emph{Is there a natural model of computational
-		indistinguishability in nice symmetric monoidal categories?}\pause
+	\textbf{Open Question 3:} \emph{Is there a natural categorical model of
+		computational indistinguishability?}
 
-	B\&K propose attaching an extended metric to the category, interpreted as
-	the ``computational distance'' between two morphisms.\pause
+	% B\&K propose attaching an extended metric to the category, interpreted as
+	% the ``computational distance'' between two morphisms.\pause
 
-	We need some way to deal with asymptotic behavior. Our current idea is to
-	value the metric in $\RR^{\NN}$.
+	% We need some way to deal with asymptotic behavior. Our current idea is to
+	% value the metric in $\RR^{\NN}$.
 \end{frame}
 
-\begin{frame}{Enrichment}
-	Many of the constructions of B\&K enhance the category with extra
-	structure.\pause{}
+% \begin{frame}{Enrichment}
+% 	Many of the constructions of B\&K enhance the category with extra
+% 	structure.\pause{}
 
-	\textbf{Open Question 4:} \emph{Do their composition theorems extend to the context of
-		enriched category theory?\pause{} If so, can the extra structure they need be framed
-		as some kind of enrichment?}
-\end{frame}
+% 	\textbf{Open Question 4:} \emph{Do their composition theorems extend to the context of
+% 		enriched category theory?\pause{} If so, can the extra structure they need be framed
+% 		as some kind of enrichment?}
+% \end{frame}
 
-\begin{frame}{Conclusion}
-	CCC is very important progress, but there's a lot to be done.\pause{} CCC
-	largely staples cryptographic notions on top of a category, rather than working
-	with the machinery. We'd like to try to improve on this.\pause
-
-	Once we have a more natural model, there will be lots of cool applications:\pause
+\begin{frame}{What Happens Next?}
+	\pause
 	\begin{itemize}
 		\item Can we incorporate categorical notions from game theory, programming
 		      languages, etc. into cryptography?\pause
 		\item What does the presence of various categorical structure ((co)limits,
 		      monads, etc.) say cryptographically?
 	\end{itemize}
+\end{frame}
+
+\begin{frame}[shrink=50,fragile]{References}
+	\begin{multicols}{3}
+		% \nocite{*}
+		\printbibliography[heading=none, env=midbib]
+	\end{multicols}
 \end{frame}
 \end{document}
