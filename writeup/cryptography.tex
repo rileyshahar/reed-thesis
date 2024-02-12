@@ -49,8 +49,8 @@ We can formalize commitment schemes as follows:
 \end{dfn}
 
 \begin{ntn}
-	Let $S$ and $R$ be interactive algorithms as in \Cref{def:commitment
-		protocol}.\begin{itemize}
+	Let $S$ and $R$ be interactive algorithms as in \Cref{def:commitment protocol}.
+  \begin{itemize}
 		\item	We will write $\alg{Com}_S^R(m)$ for the output of $S$
 		      in the commit phase with $S$ getting input $m\in\cM$, or $\bot$ if $R$
 		      returns $\bot$.
@@ -508,15 +508,61 @@ For a more careful treatment of this theorem, and simulation security as a whole
 see~\cite{lindell-2017}.
 
 % \begin{rmk}\label{rmk:polynomial composition only}
-It's important to observe that \Cref{thm:sequential composition for simulation
-	security} works only for polynomially many functionalities. Recall that
+It's important to observe that
+\Cref{thm:sequential composition for simulation security} works only for polynomially many functionalities. Recall that
 computational indistinguishability requires only a neglible difference between
 the real and ideal worlds, rather than requiring no difference. As a
 consequence, the theorem cannot hold for arbitrarily many functionalities, as
 the super-polynomial composition of negligible functions may fail to be
 negligible. In fact, computational indistinguishability is not even a real
 equivalence relation, as transitivity fails with more than polynomially many
-compositions.
+compositions. We make an attempt to illustrate the issue in
+\Cref{fig:polynomial
+distinguishability}. Regardless, this is a fundamental issue: as long as our
+definitions of security are computational, we should not expect a
+super-polynomial composition of secure processes to remain secure.
+
+\begin{fig}[t]
+  \[
+  \begin{pic}
+			\node[morphism] (fk) at (0,2.5) {$f_{K(n)}$};
+			\node[dashedmorphism] (dots) at (0,1.5) {};
+			\node[morphism] (f1) at (0,0) {$f_1$};
+			\node[morphism] (f2) at (0,.75) {$f_2$};
+			\draw (f1.south) to ++(0,-.3) node[right] {};
+			\draw (f2.south) to (f1.north);
+			\draw (f2.north) to (dots.south) {};
+			\draw (fk.south) to (dots.north) + (0,-0.2);
+			\draw (fk.north) to ++(0,.3) node[right] {};
+
+			% \node[font=\normalfont] at (1.5,1.25) {$\overset{C}{\equiv}$};
+
+			\node (o1) at (1.5,0) {$o(n^{-d})$};
+			\node (o2) at (1.5,.75) {$o(n^{-d})$};
+			\node (ok) at (1.5,2.5) {$o(n^{-d})$};
+			\draw[-|] (o1) to (0.75,0);
+			\draw[-|] (o1) to (2.25,0);
+			\draw[-|] (o2) to (0.75,.75);
+			\draw[-|] (o2) to (2.25,.75);
+			\draw[-|] (ok) to (0.75,2.5);
+			\draw[-|] (ok) to (2.25,2.5);
+
+			\node[morphism] (gk) at (3,2.5) {$g_{K(n)}$};
+			\node[dashedmorphism] (gdots) at (3,1.5) {};
+			\node[morphism] (g1) at (3,0) {$g_1$};
+			\node[morphism] (g2) at (3,.75) {$g_2$};
+			\draw (g1.south) to ++(0,-.3) node[right] {};
+			\draw (g2.south) to (g1.north);
+			\draw (g2.north) to (gdots.south) {};
+			\draw (gk.south) to (gdots.north) + (0,-0.2);
+			\draw (gk.north) to ++(0,.3) node[right] {};
+		\end{pic}
+  \]
+  \caption{Even if $K(n)$ processes are computationally
+  indistinguishable---meaning the adversary has only $o(n^{-d})$ chance to
+  distinguish them---if $K(n)$ is super-polynomial, the composition of these
+  processes may be distinguishable.\label{fig:polynomial distinguishability}}
+\end{fig}
 % \end{rmk}
 
 Regardless, while simulation security is generally a stronger guarantee than

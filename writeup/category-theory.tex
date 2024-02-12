@@ -1,5 +1,19 @@
 % vim:ft=tex
 
+The notion of a \emph{category}, originally developed as an abstraction for
+certain ideas in pure mathematics, turns out to be the natural algebraic
+axiomatization of a collection of strongly typed, composable processes, such as
+functions in a strongly typed programming language. In this section, we will
+develop the basic theory of categories, prioritizing examples from computer
+science where possible\footnote{
+  Basic texts on category theory include \cite{maclane-1971} and
+  \cite{riehl-2017}, while the connection to computer science is explored
+  in~\cite{pierce-1991} and~\cite{barr-wells-1990}. A more advanced treatment of
+  the connection, especially applications to programming language theory,
+  is~\cite{jacobs-1999}.
+}.
+
+
 \section{Categories}
 
 % TODO: introduction and motivation of some sort
@@ -40,8 +54,25 @@
 	\end{fig}
 \end{dfn}
 
+\begin{ex}[Functional Programming Languages]\label{ex:functional programming}
+  Consider some strongly-typed functional programming language $\cL$, whose functions
+  are never side-effecting. Then under very modest assumptions about $\cL$, we
+  can make a category $\cC(\cL)$, as follows:
+  \begin{itemize}
+    \item the objects of $\cC(\cL)$ are the types in $\cL$;
+    \item the morphisms $\cC(\cL)(A, B)$ are the functions of type $A\to B$;
+    \item the identities $1_A$ are the identity functions $\lambda (x: A).x$;
+    \item composition of morphisms are the usual function composition.
+  \end{itemize}
+
+  If $\cL$ is truly non-side-effecting, then it's straightforward to check
+  that this construction does indeed satisfy the axioms of a category; see for
+  instance~\cite[Section 2.2]{barr-wells-1990} to see the necessary assumptions
+  spelled out.
+\end{ex}
+
 \noindent
-Categories are widespread in mathematics, as the following examples show.
+Categories are also widespread in mathematics, as the following examples show.
 
 \begin{ex}[Concrete Categories]\label{ex:concrete categories}The following are all categories:
 	\begin{itemize}
@@ -72,7 +103,9 @@ categories look quite different.
 		      composition is a ``higher-dimensional'' transitivity, and identities are
 		      higher-dimensional reflexivity.
 		\item Associated to any directed graph is the \emph{free category} on the
-		      graph, whose objects are nodes and whose morphisms are paths.
+		      graph, whose objects are nodes and whose morphisms are paths. In
+          particular, the identities are just the empty paths, while composition
+          concatenates two paths.
 		      % This higher dimensional stuff is cool and it's how I think about these
 		      % objects, but probably not necessary for our purposes. --riley
 		\item There is a category whose objects are (roughly) multisets of molecules
@@ -103,3 +136,7 @@ can be ``pasted'', allowing us to build up complex equalities from simpler ones.
 	In this language, the axioms of \Cref{def:category} are expressed by commutativity of the
 	diagrams in \Cref{fig:category axioms}.
 \end{ex}
+
+\section{Functors}
+
+
