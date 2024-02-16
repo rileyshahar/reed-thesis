@@ -99,10 +99,17 @@
 % operators
 \def\<{\langle}
 \def\>{\rangle}
-\def\pr{\text{pr}}
 \newcommand{\xcong}[1]{\overset{#1}{\cong}}
 \newcommand{\xequiv}[1]{\overset{#1}{\equiv}}
 \def\compind{\xequiv{\text{c}}}
+
+\def\into{\hookrightarrow}
+\def\onto{\twoheadrightarrow}
+\newcommand{\xto}[1]{\xrightarrow{#1}}
+
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\pr}{pr}
 
 % crypto stuff
 \usepackage{mdframed}
