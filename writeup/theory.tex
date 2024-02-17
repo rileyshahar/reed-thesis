@@ -1,0 +1,241 @@
+In the main body, we have assumed standard material from a course in
+computability and complexity, including function asymptotics, the notion of an
+algorithm, and the complexity class $P$. We briefly overview these ideas here; a
+standard text is~\cite{sipser-2013}.
+
+\section{Asymptotics}
+
+Function asymptotics formalize the notion of a function approximating another
+function. In particular, for a pair of functions $f,g:\NN\to\RR$, we often want
+to compare $f$ and $g$ on large inputs and only up to a constant factor. This is
+most common in runtime analysis, the idea being that the running time of
+algorithms on small inputs is less important to their overall performance than
+their running time on large inputs. We formalize this notion as follows:
+
+\begin{dfn}[Function Asymptotics]
+  Let $f,g:\NN\to\RR$ be a pair of functions. We say that $f$ is \emph{big-Oh of
+  $g$}, written $f=O(g)$, if there exists a constant $c>0$ such that for all $n$
+  sufficiently large, \[
+    c f(n) \geq g(n).
+  \] In this case, we also say that $g$ is \emph{big-Omega of $f$}, written $g =
+  \Omega(f)$.
+
+  If $f=O(g)$ and $g=O(f)$, we say that $f$ is \emph{big-Theta of $g$}, written
+  $f = \Theta(g)$. Explicitly, this means that there exist constants $c_1,c_2>0$
+  such that for all $n$ sufficiently large, \[
+    c_1 f(n) \leq g(n) \leq c_2 f(n).
+  \]
+
+  If $f=O(g)$ but $f\neq\Theta(g)$, we say that $f$ is \emph{little-oh of $g$},
+  written $f=o(g)$, and $g$ is \emph{little-omega of $f$}, written $g =
+  \omega(f)$. Explicitly, this means that for all constants $\epsilon>0$ and all
+  $n$ sufficiently large, \[
+    f(n) \leq \epsilon g(n).
+  \]
+\end{dfn}
+
+\begin{ntn}
+  By abuse of notation, we often write $f(n) = O(g(n))$ to mean that $f$ is
+  $O(n)$; for example, the statement that $n^2$ is $O(n^3)$ means that the
+  function $f(n) = n^2$ is $O(g)$, where $g$ is the function $n\mapsto n^3$.
+\end{ntn}
+
+\begin{ex}We have that:
+  \begin{itemize}
+    \item $17n^2$ is $o(n^3)$, $\omega(n)$, and $\Theta(n^2)$;
+    \item $\log n$ is $o(n)$, $\omega(1)$, and $\Theta(\ln n)$;
+    \item $e^n$ is $\omega(n^k)$ for any exponent $k$;
+    \item $e^{-n}$ is $o(n^{-k})$ for any exponent $k$.
+  \end{itemize}
+
+  These last two examples are especially important. No matter how big the power,
+  an exponential will always dominate a polynomial for sufficiently big $n$.
+  Because of the importance of polynomials in theoretical computer science, we
+  say a function is \emph{negligible} if it is $o(n^k)$ for all $k$.
+\end{ex}
+
+\begin{prop}
+  Big-Oh is a preorder on the set of functions $\NN\to\NN$. The induced
+  equivalence relation is exactly big-Theta.
+\end{prop}
+
+In the partial order of equivalence classes under $\Theta$, $O$ behaves like
+$\leq$, $o$ like $<$, and $\Theta$ like $=$. As suggested by the notation $f =
+O(g)$, it is common in some contexts to treat functions as identical with their
+asymptotic equivalence class.
+
+\begin{prop}\label{thm:asymptotic closure}
+  Let $f_1 = O(g_1)$ and $f_2 = O(g_2)$. Let $c$ be any nonzero constant. Then,
+  \[
+    f_1 + f_2 = O(\max\{g_1,g_2\}),\quad
+    cf_1 = O(g_1),\quad\text{and}\quad
+    f_1f_2 = O(g_1g_2).
+  \]
+  In other words, \[
+    O(g_1) + O(g_2) = O(\max\{g_1,g_2\}),\quad cO(g) = O(g),\quad\text{and}\quad O(g_1)O(g_2) = O(g_1g_2).
+  \]
+  Identical results hold for $o$ and $\Theta$.
+\end{prop}
+
+\Cref{thm:asymptotic closure} justifies the universal practice
+of dropping constants and small additive terms from asymptotics, so that for
+instance $n^2 + n + \ln n = \Theta(n^2)$.
+
+\section{Algorithms and Determinism}
+
+Our basic notion is of an \emph{algorithm} over a finite alphabet $\Sigma$,
+usually $\bin$. An algorithm $\cA$ is intuitively some set of steps which take
+an input word $x$ over $\Sigma$, perform some transformations, and output
+another word $\cA(x)$ over $\Sigma$. An algorithm may have certain \emph{side
+effects}, such as sending a message or logging a string, and its behavior may
+not be deterministic. There are several ways to formalize the notion of
+algorithm---most common in cryptography are Turing machines---but we will not
+need to be so precise here.
+
+Algorithms may have multiple possible ``branches'' in their instructions.
+Consider the following:
+
+\begin{_algo}\label{alg:nondeterministic}
+  On input $x$, either output $0$ or $1$.
+\end{_algo}
+
+We say that algorithms of this sort are \emph{nondeterministic}; in contrast, an
+algorithm is \emph{deterministic} if its instructions do not include such
+choices. In particular, we say that an algorithm $\cA$ \emph{deterministically
+computes} a function $f$ if it is deterministic and, for any input $x\in
+\Sigma^*$, $\cA$ outputs the value $f(x)\in\Sigma^*$. In contrast, $\cA$
+\emph{nondeterministically computes} $f$ if, for any input $x$, there exists a
+particular choice of branches such that $\cA$ outputs $f(x)$. Thus
+\Cref{alg:nondeterministic} nondeterministically computes both
+the functions $x\mapsto 0$ and $x\mapsto 1$. We sometimes view nondeterministic
+algorithms as computing functions into the power set of $\Sigma^*$, so that
+\Cref{alg:nondeterministic} computes the function $x\mapsto\{0,
+1\}$, and we similarly sometimes write $\cA(x) = \{0, 1\}$.
+
+An important middle ground is \emph{probabilistic} algorithms. Again, there are
+many possible models, but the basic idea is that a probabilistic algorithm has
+access to some source of randomness---say, an arbitrarily long string of
+independent and uniform coin tosses---which it can use to choose between
+branches. In this case, it is not enough for there to be some branch which
+computes a specific function. Instead, we say that an algorithm \emph{computes
+$f$ with bounded probability} if for any input $x$, \[
+  \Pr[\cA(x) = f(x)] > \frac{2}{3},
+\]where the probability is taken over the randomness of $\cA$\footnote{The
+  choice of $\frac{2}{3}$ is not particularly important here---generally any constant
+$c>\frac{1}{2}$ works.}. In this case, we
+often think of $\cA(x)$ as a probability distribution on $\Sigma^*$.
+
+Instead of thinking of algorithms operating directly on binary strings, we
+usually think of them as operating on encodings of mathematical objects. For
+example:
+
+\begin{_algo}\label{alg:double}
+  On input $x$ a natural number, output the number $2x$.
+\end{_algo}
+
+We say that \Cref{alg:double} deterministically computes $x\mapsto
+2x$, even though it technically operates on encodings of naturals. While there
+are many possible encodings, we assume that a reasonable encoding is chosen, so
+that for instance numbers are encoded in binary, rather than unary. Such details
+will not be relevant for us.
+
+One more subtlety is important. In general, we require that the description of
+any algorithm $\cA$ is finite. However, we may also consider \emph{non-uniform}
+algorithms, which are sequences of algorithms $\cA = (\cA_1, \cA_2, \ldots)$
+such that, on an input of length $n$, $\cA$ delegates to $\cA_n$. Non-uniform
+computation is generally stronger than uniform computation, as non-uniform
+algorithms may encode nonfinite information, as long as they only use finitely
+much of this information for each input length and hence for each
+computation\footnote{
+  For instance, non-uniform algorithms may solve the halting problem (which asks
+  whether an input algorithm $\cA$ eventually terminates), which is uniformly
+  undecidable. In particular, since there are only finitely many Turing machines
+  of a given size, a non-uniform algorithm may simply encode in $\cA_n$ the
+  answer to the halting problem for each Turing machine of length $n$.
+}.
+
+\section{Complexity Theory}
+
+Each algorithm has an associated \emph{running time}, which is informally the
+number of steps the algorithm takes on a given input. In particular, for an
+algorithm $\cA$, we say that its running time is the function $T_\cA: \NN\to\NN$
+which takes any natural number $n$ to the maximum number of steps $\cA$ takes to
+terminate on any input of length $n$. Of course, this notion is not yet precise,
+as we don't know what a ``step'' is, but it is easy to make precise in any
+standard model of computation.
+
+In general, the running time may depend on the formal model of computation in
+which the algorithm is constructed, but the \emph{complexity-theoretic
+Church-Turing thesis} states that ``reasonable'' models of classical computation
+recover the same inhabitants of sufficiently robust complexity classes, in
+particular of those we are about to define. This hypothesis is a heuristic, but
+has been born out in practice.
+
+\begin{dfn}[polynomial-time; P, NP]
+  An algorithm $\cA$ is \emph{polynomial-time} if $T_\cA = O(n^k)$ for some
+  constant $k$. The class P consists of all functions which are
+  deterministically computable by polynomial-time algorithms. The class NP
+  consists of all functions which are nondeterministically computable by
+  polynomial-time algorithms\footnote{
+    In fact, we have defined here the classes FP and FNP of polynomially- and
+    nondeterministically-polynomially-computable \emph{function problems}.
+    Formally, P and NP are classes of \emph{decision problems}, which are just
+    subsets $L$ of $\Sigma^*$---the algorithm must output $1$ if its input is in
+    $L$, and $0$ otherwise. Function and decision problems are extremely closely
+    related---for instance, P = NP if and only if FP = FNP---and we will not
+    distinguish between them here.
+  }.
+\end{dfn}
+
+The general idea is that polynomial-time algorithms ``efficient in practice.'' In may
+sometimes occur that the constant factors or the exponent are so large as to
+render the algorithm practically useless, but in  We can now state the most important open problem in computer science:
+
+\begin{conj}
+  We have that P $\neq$ NP.
+\end{conj}
+
+While a proof seems completely out of reach, this conjecture is widely
+believed, and as we will see is necessary for all of modern cryptography; we
+will assume it here. An introduction to the modern state of P vs. NP
+is~\cite{anderson-2017}.
+
+Formalizing probabilistic complexity classes is slightly more subtle. Consider
+the following case:
+\begin{_algo}
+  On input $x$, output $1$ with probability $1 - 2^{-|x|}$; otherwise count from
+  $0$ to $2^{|x|}$ and then output $1$.
+\end{_algo}
+
+While this algorithm is almost always polynomial-time, it is not polynomial-time
+when it takes the second branch. The point is that for probabilistic algorithms,
+$T_{\cA}(n)$ is a probability distribution, not just a fixed number. For our
+purposes, we require that the algorithm \emph{always} runs in polynomial time.
+As such:
+
+\begin{dfn}[probabilistic polynomial-time; BPP]
+  A probabilistic algorithm is \emph{probabilistic polynomial-time} if, for any
+  choice of random bits, $T_{\cA} = O(n^k)$ for some constant $k$. The class BPP
+  consists of all functions which are computable with bounded probability by a
+  probabilistic polynomial-time algorithm.
+\end{dfn}
+
+For non-uniform algorithms, the situation is also slightly more complicated. In
+particular, it is too much to allow the machines to be arbitrarily large, as
+they could simply encode lookup tables for every possible input. As such, we ask
+that the size of each machine is polynomially bounded.
+
+\begin{dfn}[non-uniform polynomial-time; P/Poly]
+  A non-uniform algorithm $\cA = (\cA_1, \cA_2, \dots)$ is
+  \emph{polynomial-time} if $T_\cA = O(n^k)$ for some constant $k$ and the size
+  of each $\cA_n$ is $O(n^k)$ for some constant $k$ independent of $n$. The
+  class P/poly consists of all functions which are computable by non-uniform
+  polynomial-time algorithms.
+\end{dfn}
+
+Non-uniform probabilistic algorithms are similarly defined. We have the
+following important result:
+
+\begin{thm}[Adelman's theorem]\label{thm:adelman}
+  We have that BPP $\subseteq$ P/poly.
+\end{thm}
