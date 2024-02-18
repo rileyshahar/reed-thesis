@@ -1,5 +1,301 @@
-\section{Foundations: Computational Hardness}
+[TODO: An introduction to the chapter;
+cite~\cite{katz-lindell-2014, pass-shelat-2020, rosulek-2021}.]
+
+\section{One-way functions}
+
+Many cryptographic protocols rely on \emph{one-way functions}, which are
+informally functions that are easy to compute, but hard to invert. The former
+notion is easy to formalize in terms of time complexity, but the latter is more
+difficult. We typically ask that any ``reasonably efficient'' algorithm---called
+the \emph{adversary}---attempting to invert the function has a negligible chance
+of success. (Recall that a function $f$ is \emph{negligible} if $f = o(n^{-k})$
+for every $k$, in which case we write $f = \negl$ or just $f = \negl[]$.)
+
+% The difficulty is in determining which adversaries are ``reasonable''. We
+% generally ask that adversaries are non-uniform probabilistic polynomial-time
+% algorithms. The non-uniformity primarily serves to simplify proofs, by allowing
+% us to not worry about the size of the adversary.
+
+\begin{ntn}
+  We will use PPT as shorthand for probabilistic polynomial-time, and the term
+  \emph{adversary} for non-uniform PPT algorithms.
+\end{ntn}
+
+\begin{dfn}[one-way function]\label{def:one-way function}
+  A function $f$ is \emph{one-way} if:
+  \begin{itemize}
+    \item (easy to compute) $f$ is PPT-computable;
+    \item (hard to invert) for any adversary $\cA$, natural number $n$, and
+      uniform random choice of input $x$ such that $|x| = n$, \[
+        \Pr[f(\cA(1^n, f(x))) = f(x)] = \negl.
+      \]
+  \end{itemize}
+  Note that $|x|$ here is \emph{not} the absolute value, but is instead the
+  length of $x$ as a binary string: if $x$ is a number, then by encoding in
+  binary have that $|x| = \Theta(\log_2 x)$.
+\end{dfn}
+
+The idea is that, given $y = f(x)$, $\cA$ attempts to find some $x'$ such that
+$f(x') = y$. If some adversary can do this with non-negligible probability, then the
+function is not one-way. While the probability must be negligible in $|x|$, the
+adversary is given $f(x)$ and $1^n$ as an input, and hence must run polynomially
+only in $|f(x)| + n$. This is a common technique called \emph{padding}, wherein
+algorithms are given an extra input of $1^n$ to ensure they have enough time to
+run.
+
+We do not know that one-way functions exist. In fact, while the existence of
+one-way functions implies that P $\neq$ NP, the converse is not
+known\footnote{\cite{impagliazzo-1995} gives a classic discussion of the
+  implications of various resolutions to P vs. NP on cryptography, including the
+case where P $\neq$ NP but one-way functions nevertheless do not exist.}.
+However, as in the following examples, we have excellent candidates under fairly
+modest assumptions.
+
+\begin{ex}[Factoring {\cite[Section 2.3]{pass-shelat-2020}}]
+  Suppose that for any adversary $\cA$ and for uniform random choice of $x = pq$
+  for primes $p$ and $q$, \[
+    \Pr[\cA(x) = \{p, q\}] = \negl[\max\{|p|, |q|\}].
+  \] This is the \emph{factoring hardness assumption}, for which there is
+  substantial evidence. Then $(x,y)\mapsto xy$ is one-way.
+\end{ex}
+
+\begin{ex}[Discrete Logarithm {\cite[Section 8.3.2]{katz-lindell-2014}}]
+  Let $G$ be any fixed group. The \emph{discrete logarithm hardness assumption}
+  for $G$ is that, for any adversary $\cA$ and for uniform random choice of
+  $g\in G$ and $h\in\<g\>$ such that $h = g^k$, \[
+    \Pr[\cA(g,h) = k] = \negl[|g|].
+  \]
+  Under the discrete logarithm hardness assumption, $(g,k)\mapsto g^k$ is one-way.
+
+  The discrete logarithm hardness assumption is known to be false for certain groups, such
+  as the additive groups $\ZZ_p$ for prime $p$, in which case $g^k = gk$ and the
+  Euclidean algorithm solves the problem. However, it is believed to hold for
+  groups such as $\ZZ^*_p$ for sufficiently big prime $p$. For a survey of
+  various versions of this assumption, see~\cite{sadeghi-steinerr-2002}.
+\end{ex}
+
+\section{Proofs by Reduction}
+
+Many cryptographic definitions, including \Cref{def:one-way function},
+take the form \emph{for any adversary $\cA$, natural number $n$, and uniform
+random choice of input $x$ such that $|x| = n$, some predicate on the output
+of $\cA$ has negligible probability.} The basic technique for proving results
+using these definitions is called \emph{proof by reduction}. The idea is to
+reduce one problem into another by starting with an arbitrary adversary
+attacking the second and showing construct an adversary attacking the first,
+such that the probability of their successes is related. If we assume the first
+problem is hard, then by studying the structure of the reduction we can learn
+about the hardness of the second problem. As such, we often say that reductions
+prove \emph{relative hardness results}, so that for instance \Cref{ex:reduction}
+below proves the hardness of $g$ relative to $f$.
 
 
+More specifically, to prove hardness of a problem $\Pi$ relative to $\Pi'$, a
+proof by reduction generally goes as follows:
+\begin{enumerate}
+  \item Fix an arbitrary adversary $\cA$ attacking a problem $\Pi$.
+  \item Construct an adversary $\cA'$ attacking a problem $\Pi'$ which:
+    \begin{enumerate}
+      \item Receives an input $x'$ to $\Pi'$.
+      \item Translates $x'$ into an input $x$ to $\Pi$.
+      \item Simulates $\cA(x)$, getting back an output $y$ which solves
+        $\Pi(x)$.
+      \item Translates $y$ into an output $y'$ which solve $\Pi(x')$.
+    \end{enumerate}
+  \item Analyze the structure of the translations to conclude that $\cA'$ solves
+    $\Pi'$ with probability related to that with which $\cA$ solves $\Pi$.
+  \item Given the hardness assumptions on $\Pi'$, conclude relative hardness of
+    $\Pi$.
+\end{enumerate}
 
+The point is that $\cA'$'s job is to ``simulate'' the problem $\Pi$ to $\cA$,
+using the data it gets from $\Pi'$ to construct an input to $\Pi$. We illustrate
+this concept now.
+
+\begin{ex}[a straightforward proof by reduction {\cite[Section
+  2.4.1]{pass-shelat-2020}}]\label{ex:reduction} Let $f$ be a one-way function. Then we claim $g:
+  (x,y)\mapsto (f(x), f(y))$ is a one-way function. We can compute $g$ in
+  polynomial time by computing $f$ twice, so it remains to show that $g$ is hard
+  to invert.
+
+  Let $\cA$ be any adversary. We will construct an adversary $\cA'$ such
+  that, if $\cA$ can non-negligibly invert $g$, then $\cA'$ can non-negligibly
+  invert $f$.
+
+  The adversary $\cA'$ takes input $1^n$ and $y$. It then uniformly randomly
+  chooses $u$ of length $n$ and computes $v = f(u)$, which is possible because $f$ is easy to
+  compute. Now $\cA'$ computes $(u', x') := \cA(1^{2n}, (v,y))$ and outputs
+  $x'$.
+
+  When $\cA'$ simulates $\cA$, it passes $v$, which is $f(u)$ for a uniform
+  random $u$, and $y$, which is (on well-formed inputs) $f(x)$ for a uniform
+  random $x$. Thus, this looks like exactly the input that $\cA$ would
+  ``expect'' to receive if it is attempting to break $g$. As such, whenever
+  $\cA$ successfully inverts $g$, $\cA'$ successfully inverts $f$. Since
+  everything is uniform we may pass to probabilities, and so: \begin{align*}
+    \Pr &[g(\cA(1^{2n}, g(u, x))) = g(u, x)] \\
+        &= \Pr[g(\cA(1^{2n}, (f(u), f(x)))) = (f(u), f(x))] &&\text{by definition of $g$}  \\
+        &\leq \Pr[f(\cA'(1^n, f(x))) = f(x)] &&\text{by the above argument} \\
+        &= \negl &&\text{by the hardness assumption for $f$}.
+     \end{align*}
+
+   Thus $g$ is one-way.
+\end{ex}
+
+Comparing this example to the above schema, we see that the problem $\Pi'$ is to
+invert $f$, while the problem $\Pi$ is to invert $g$. The input $x'$ to $\Pi'$
+is $y$, while the computed input $x$ to $\Pi$ is $(v, y)$. The output $y$ of
+$\cA$ is $(x', u')$, while the computed output $y'$ is $x'$.
+
+Diagramatically, we can represent the algorithm $\cA'$ as follows:
+\[
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (A) at (0,0) {$\cA$};
+    \draw ([xshift=-2.5pt]A.south west) to ++(0,-1.5) node[left] {$y$};
+    \draw ([xshift=-2.5pt]A.north west) to ++(0,1.05) node[left] {$x'$};
+		\draw ([xshift=2.5pt]A.south east) to ++(0,-.5) node[state,scale=0.75] {\normalsize$\$$};
+    \draw ([xshift=2.5pt]A.north east) to ++(0,.5) node[right] {};
+    \draw[dotted] (-.8, -1.5) rectangle (.9, 1);
+    \node at (1.2, -1.3) {$\cA'$\punctuation{.}};
+  \end{pic}
+\]
+
+While this is not standard notation in cryptography, it will be useful for our future purposes.
+We read these diagrams---called \emph{circuit} or \emph{string diagrams}---from
+bottom to top. This diagram says that $\cA'$ is an algorithm which takes $y$,
+uniformly randomly generates another input (this is what the $\$$ means), calls
+$\cA$, and returns its first output.
+
+\section{Computational Indistinguishability}
+
+Computational indistinguishability formalizes the notion of two probability
+distributions which ``look the same'' to adversarial processes. We begin with
+probability distributions, but because we want to do asymptotic analysis, we
+will eventually need to switch to working with sequences of probability
+distributions.
+
+\begin{dfn}[computational advantage]\label{def:computational advantage}
+  Let $X$ and $Y$ be probability distributions. The \emph{computational
+  advantage} of an adversary $\cD$, called the
+  \emph{distinguisher}, over $X$ and $Y$ is \[
+    \ca_\cD(X, Y) = \left|\Pr_{x\from X}[\cD(x) = 1] - \Pr_{y\from Y}[\cD(y) = 1]\right|.
+  \]
+\end{dfn}
+
+The idea is that the distinguisher $\cD$ is trying to guess whether its input
+was drawn from $X$ or $Y$; the computational advantage is how often it can do
+so.
+
+\begin{prop}\label{thm:advantage is metric}
+  Let $\cD$ be a fixed distinguisher. Then $\ca_\cD$ is a pseudometric on the
+  space of probability distributions over an underlying set $A$.
+\end{prop}
+
+\begin{proof}
+  Symmetry and non-negativity are immediate from the definition. To show the
+  triangle inequality, let $X$, $Y$, and $Z$ be probability distributions over
+  $A$. Let \[
+    \hat{x} = \Pr_{x\from X}[\cD(x) = 1],
+    \] and similarly for $\hat{y}$ and $\hat{z}$. Then, \[
+  \ca_\cD(X, Z) = \left|\hat{x} - \hat{z}\right| \leq \left|\hat{x} -
+  \hat{y}\right| + \left|\hat{y} - \hat{z}\right| = \ca_\cD(X, Y) +
+  \ca_\cD(Y, Z).\qedhere
+\]
+\end{proof}
+
+We now turn to the asymptotic case.
+
+\begin{dfn}[probability ensemble]\label{def:probability ensemble}
+  A \emph{probability ensemble} is a sequence $\{X_n\}$ of probability
+  distributions.
+\end{dfn}
+
+We say that two ensembles are computationally indistinguishable if there is no
+efficient way to tell between them. Formally:
+
+\begin{dfn}[computational indistinguishability]\label{def:computational indistinguishability}
+  Two probability ensembles $\{X_n\}$ and $\{Y_n\}$ are \emph{computationally
+  indistinguishable} if for any (non-uniform PPT) distinguisher $\cD$ and any
+  natural number $n$,
+  \[
+    \ca_\cD(X_n, Y_n) = \negl.
+  \]
+  In this case, we write $\{X_n\}\cind\{Y_n\}$.
+\end{dfn}
+
+\begin{rmk}
+  A natural thought is to define a metric on probability distributions by
+  $\ca(X, Y) = \sup_{\cD}\ca_\cD(X, Y)$, and extend to ensembles by asking
+  that $\ca(X_n, Y_n) = \negl$. Unfortunately, this does not quite yield the
+  correct notion, as there exist ensembles which are computationally
+  indistinguishable, but have sequences of distinguishers whose advantages for
+  any fixed $n$ converge to $1$.
+\end{rmk}
+
+\begin{prop}
+  Computational indistinguishability is an equivalence relation on the space of
+  probability ensembles over a fixed set $A$.
+\end{prop}
+
+\begin{proof}
+  Reflexivity and symmetry follow from the case of distributions. To show
+  transitivity, let $\{X_n\} \cind \{Y_n\}$ and $\{Y_n\} \cind \{Z_n\}$. Let
+  $\cD$ be any distinguisher. Then for any $n$, \begin{align*}
+    \ca_\cD(X_n, Z_n) &\leq \ca_\cD(X_n, Y_n) + \ca_\cD(Y_n, Z_n) &&\text{by the triangle inequality} \\
+                        &= \negl + \negl &&\text{by assumption} \\
+                        &= \negl. &&\qedhere
+  \end{align*}
+\end{proof}
+
+It is necessary to be precise about what is being claimed here. Transitivity
+states that for any \emph{constant, finite sequence} of probability ensembles,
+if each is computationally indistinguishable from its neighbors, then the two
+ends of the sequence are computationally indistinguishable. In cryptography, we
+sometimes want to consider the more general case of a countable sequence of
+probability ensembles. We can do slightly better than the previous result:
+
+\begin{prop}
+  Let $\{X^k\}$ be a sequence of probability ensembles, so
+  that each $X^k = \{X^k_n\}$ is itself a sequence of probability distributions.
+  Let $\{X^i\}\cind\{X^{i+1}\}$ for each $i$. Let $\{Y_n = X^{K(n)}_n\}$ for
+  some polynomial $K$. Then $\{X^1_n\}\cind\{Y_n\}$.
+\end{prop}
+
+\begin{proof}
+  Let $\cD$ be any distinguisher. Then for any $n$, \begin{align*}
+    \ca_\cD(X^1_n, Y_n) &= \ca_\cD(X^1_n, X^{K(n)}_n) \\
+                          &\leq \ca_\cD(X^1_n, X^2_n) + \cdots + \ca_\cD(X^{K(n) - 1}_n, X^{K(n)}_n) \\
+                          &= K(n)\negl \\
+                          &= \negl.
+   \end{align*}
+   In particular, the last equality follows because $K$ is polynomial.
+\end{proof}
+
+On the other hand, the result does not hold for arbitrary $K$. As we will see,
+this is a fundamental limitation for cryptographic composition: we only expect
+composition to work up to polynomial bounds.
+
+One more closure result is valuable:
+
+\begin{prop}
+  Let $\{X_n\}\cind\{Y_n\}$, and let $\cM$ be a non-uniform PPT algorithm. Then
+  $\{\cM(X_n)\} \cind \{\cM(Y_n)\}$.
+\end{prop}
+
+\begin{proof}
+  The proof is by reduction. Let $\cD$ be a distinguisher. Then construct $\cD'$
+  which, on input $x$, simulates $\cD(\cM(x))$. Then $\cD'$ outputs $1$ on $x$ if and
+  only if $\cD$ outputs $1$ on $\cM(x)$, so \[
+    \ca_\cD(\cM(X_n), \cM(Y_n)) = \ca_{\cD'}(X_n, Y_n) = \negl
+  \] by the computational indistinguishability assumption.
+\end{proof}
+
+\section{Interactive Computation}
+
+Cryptographic protocols do not occur in a vacuum; instead, they rely on
+computations involving multiple parties. We formalize such situations using the
+notion of interactive computation.
+
+\section{Zero Knowledge}
 

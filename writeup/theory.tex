@@ -13,7 +13,8 @@ algorithms on small inputs is less important to their overall performance than
 their running time on large inputs. We formalize this notion as follows:
 
 \begin{dfn}[Function Asymptotics]
-  Let $f,g:\NN\to\RR$ be a pair of functions. We say that $f$ is \emph{big-Oh of
+  Let $f,g:\NN\to\RR$ be a pair of functions which are both non-negative for
+  sufficiently large inputs. We say that $f$ is \emph{big-Oh of
   $g$}, written $f=O(g)$, if there exists a constant $c>0$ such that for all $n$
   sufficiently large, \[
     c f(n) \geq g(n).
@@ -51,7 +52,8 @@ their running time on large inputs. We formalize this notion as follows:
   These last two examples are especially important. No matter how big the power,
   an exponential will always dominate a polynomial for sufficiently big $n$.
   Because of the importance of polynomials in theoretical computer science, we
-  say a function is \emph{negligible} if it is $o(n^k)$ for all $k$.
+  say a function $f$ is \emph{negligible} if $f = o(n^k)$ for all $k$. In this
+  case, we write $f = \negl$ or just $f = \negl[]$.
 \end{ex}
 
 \begin{prop}
@@ -148,7 +150,7 @@ algorithms may encode nonfinite information, as long as they only use finitely
 much of this information for each input length and hence for each
 computation\footnote{
   For instance, non-uniform algorithms may solve the halting problem (which asks
-  whether an input algorithm $\cA$ eventually terminates), which is uniformly
+  whether an input algorithm $\cM$ eventually terminates), which is uniformly
   undecidable. In particular, since there are only finitely many Turing machines
   of a given size, a non-uniform algorithm may simply encode in $\cA_n$ the
   answer to the halting problem for each Turing machine of length $n$.
@@ -187,9 +189,12 @@ has been born out in practice.
   }.
 \end{dfn}
 
-The general idea is that polynomial-time algorithms ``efficient in practice.'' In may
-sometimes occur that the constant factors or the exponent are so large as to
-render the algorithm practically useless, but in  We can now state the most important open problem in computer science:
+The general idea is that polynomial-time algorithms are ``efficient in
+practice.'' It may sometimes occur that the constant factors or the exponent are
+so large as to render the algorithm practically useless, but in most cases
+functions in P are efficiently solvable for practical applications, including
+cryptography. We can now state the most important open problem in computer
+science:
 
 \begin{conj}
   We have that P $\neq$ NP.
@@ -225,7 +230,7 @@ particular, it is too much to allow the machines to be arbitrarily large, as
 they could simply encode lookup tables for every possible input. As such, we ask
 that the size of each machine is polynomially bounded.
 
-\begin{dfn}[non-uniform polynomial-time; P/Poly]
+\begin{dfn}[non-uniform polynomial-time; P/poly]
   A non-uniform algorithm $\cA = (\cA_1, \cA_2, \dots)$ is
   \emph{polynomial-time} if $T_\cA = O(n^k)$ for some constant $k$ and the size
   of each $\cA_n$ is $O(n^k)$ for some constant $k$ independent of $n$. The
@@ -233,8 +238,7 @@ that the size of each machine is polynomially bounded.
   polynomial-time algorithms.
 \end{dfn}
 
-Non-uniform probabilistic algorithms are similarly defined. We have the
-following important result:
+Non-uniform probabilistic algorithms are similarly defined.
 
 \begin{thm}[Adelman's theorem]\label{thm:adelman}
   We have that BPP $\subseteq$ P/poly.
