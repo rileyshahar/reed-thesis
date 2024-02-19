@@ -3,27 +3,30 @@
 The notion of a \emph{category}, originally developed as an abstraction for
 certain ideas in pure mathematics, turns out to be the natural algebraic
 axiomatization of a collection of strongly typed, composable processes, such as
-functions in a strongly typed programming language. In this section, we will
+functions in a strongly typed programming language. More philosophically, we can
+think of a category as an \emph{algebra of composition}, and category theory as
+the mathematical study of composition. In this chapter, we will
 develop the basic theory of categories, prioritizing examples from computer
-science where possible\footnote{
-  Basic texts on category theory include \cite{maclane-1971} and
-  \cite{riehl-2017}, while the connection to computer science is explored
-  in~\cite{pierce-1991} and~\cite{barr-wells-1990}. A more advanced treatment of
-  the connection, especially applications to programming language theory,
-  is~\cite{jacobs-1999}.
-}.
+science where possible.
 
+Basic texts on category theory include \cite{maclane-1971} and
+\cite{riehl-2017}, while the connection to computer science is explored
+in~\cite{pierce-1991} and~\cite{barr-wells-1990}. A more advanced treatment of
+the connection, especially applications to programming language theory,
+is~\cite{jacobs-1999}.
 
-\section{Categories}
+\section{Basic Notions}
+
+\subsection{Categories}
 
 % TODO: introduction and motivation of some sort
 
-\begin{dfn}[Category]\label{def:category}
+\begin{dfn}[category]\label{def:category}
 	A \emph{category} $\cat{C}$ consists of the following data:
 	\begin{itemize}
 		\item a collection\footnote{We use the word \emph{collection} for foundational reasons: in
 			      many important examples, the objects and morphisms do not form sets. We ignore
-			      such foundational issues here; they are discussed in~\cite[Section
+			      such foundational issues here; they are discussed in~\cite[subsection
 				      1.6]{maclane-1971}.} of objects, overloadingly also called $\cat{C}$;
 		\item for each pair of objects $x,y \in  \cat{C}$, a collection of \emph{morphisms} $\cat{C}(x, y)$;
 		\item for each object $x \in \cat{C}$, a designated \emph{identity morphism} $x \xrightarrow{1_x}  x$;
@@ -34,24 +37,6 @@ science where possible\footnote{
 		\item \emph{unitality}: for any $x \xrightarrow{f}  y$, $1_yf = f = f1_x$;
 		\item \emph{associativity}: for any $x \xrightarrow{f} 		y \xrightarrow{g} z \xrightarrow{h} w$, $(hg)f = h(gf)$.
 	\end{itemize}
-	\begin{fig}[H]
-		\centering
-		\begin{tikzcd}
-			x\ar[r, "f"]\ar[rr, "gf", bend left=60] &
-			y\ar[r, "g"]\ar[rr, "hg"', bend right=60] &
-			z\ar[r, "h"] & w
-		\end{tikzcd}
-		\begin{tikzcd}
-			x\ar[r, "1_x"]\ar[rd, "f"'] & x\ar[d, "f"] \\
-			& y
-		\end{tikzcd}
-		\begin{tikzcd}
-			x\ar[r, "f"]\ar[rd, "f"'] & y\ar[d, "1_y"] \\
-			& y\punctuation{.}
-		\end{tikzcd}
-		\caption{The category axioms.}
-		\label{fig:category axioms}
-	\end{fig}
 \end{dfn}
 
 \begin{ntn}
@@ -61,7 +46,7 @@ science where possible\footnote{
       called its \emph{domain} or \emph{source} and $y$ is called it \emph{codomain}
       or \emph{target}.
     \item Morphisms may be called maps, arrows, or homomorphisms; the class of morphisms $\cat{C}(x, y)$ may also be written
-      $\Hom_{\cat{C}}(x, y)$ or just $\Hom(x, y)$.
+      $\Hom_{\cat{C}}(x, y)$ or just $\Hom(x, y)$, and is often called a \emph{hom-set}.
     \item Composition is written $gf$ or $g\circ f$, or sometimes in the left-to-right
       order $fg$.
     \item Identities are written $1_x$, $\id_x$, or just $x$ where the context
@@ -71,7 +56,7 @@ science where possible\footnote{
     \end{itemize}
 \end{ntn}
 
-\begin{ex}[Functional Programming Languages]\label{ex:functional programming}
+\begin{ex}[functional programming languages]\label{ex:functional programming}
   Consider some strongly-typed functional programming language $L$, whose functions
   are never side-effecting. Then under very modest assumptions about $L$, we
   can make a category $\cat{L}$, as follows:
@@ -84,14 +69,14 @@ science where possible\footnote{
 
   If $L$ is truly non-side-effecting, then it's straightforward to check
   that this construction does indeed satisfy the axioms of a category; see for
-  instance~\cite[Section 2.2]{barr-wells-1990} to see the necessary assumptions
+  instance~\cite[subsection 2.2]{barr-wells-1990} to see the necessary assumptions
   spelled out rigorously.
 \end{ex}
 
 \noindent
 Categories are also widespread in mathematics, as the following examples show.
 
-\begin{ex}[Concrete Categories]\label{ex:concrete categories}The following are all categories:
+\begin{ex}[concrete categories]\label{ex:concrete categories}The following are all categories:
 	\begin{itemize}
 		\item $\scat{Set}$ is the category of sets and functions.
 		\item $\scat{Grp}$ is the category of groups and group homomorphisms.
@@ -119,16 +104,41 @@ categories look quite different.
 		      morphism $x\rightarrow y$ if and only if $x\leq y$. In this sense,
 		      composition is a ``higher-dimensional'' transitivity, and identities are
 		      higher-dimensional reflexivity.
+		      % This higher dimensional stuff is cool and it's how I think about these
+		      % objects, but probably not necessary for our purposes. --riley
 		\item Associated to any directed graph is the \emph{free category} on the
 		      graph, whose objects are nodes and whose morphisms are paths. In
           particular, the identities are just the empty paths, while composition
           concatenates two paths.
-		      % This higher dimensional stuff is cool and it's how I think about these
-		      % objects, but probably not necessary for our purposes. --riley
+    \item Let $M = (Q, \delta)$ be an automaton over an alphabet $\Sigma$, so
+          that $\delta: Q\times \Sigma\to Q$ is a transition function (one may
+          replace $Q$ with $\cP(Q)$ in the codomain to represent a nondeterministic
+          automaton). There is an associated category $\cM$ whose objects are
+          exactly the states and whose morphisms $\cM(q_1, q_2)$ are the words
+          $w\in\Sigma^*$ such that, if $M$ is in the state $q_1$ and receives $w$ as
+          input, it ends in the state $q_2$. The identity morphism $1_q$ is the
+          empty word, and composition is concatenation of words\footnote{I believe
+          this example is due to~\cite[Example 2.2]{goguen-et-al-1973}.}.
 		\item There is a category whose objects are (roughly) multisets of molecules
 		      and whose morphisms are chemical reactions. See \cite{baez-2017} for a
 		      formalization of this notion.
 	\end{itemize}
+\end{ex}
+
+One more example will be critical for our purposes.
+
+\begin{ex}[Categories of $\mathbb{A}$-computable maps]\label{ex:categories of computable maps}
+  Let $\mathbb{A}$ be a class of algorithms which is closed under composition.
+  Then we can define a category whose objects are finite sets and whose
+  morphisms are the $\mathbb{A}$-computable maps between them.
+  The most important examples for our purposes are: \begin{itemize}
+    \item the category $\scat{Poly}$ of finite sets and polynomial-time
+      computable maps;
+    \item the category $\scat{PPT}$ of finite sets and probabalistic
+      polynomial-time computable stochastic maps;
+    \item the category $\scat{NUPPT}$ of finite sets and non-uniform
+      probabalistic polynomial-time computable stochastic maps.
+  \end{itemize}
 \end{ex}
 
 % \begin{ntn}
@@ -139,21 +149,485 @@ categories look quite different.
 \noindent
 When working with categories, we often want to show that two complex composites
 equate. In this case, we prefer graphical notation to the more traditional
-symbolic equalities of \Cref{def:category}. The key idea is that such diagrams
-can be ``pasted'', allowing us to build up complex equalities from simpler ones.
+symbolic equalities of \Cref{def:category}. A
+diagram in a category $\cat{C}$ looks something like so\footnote{
+  The notion of a diagram can be made precise fairly easily; see~\cite[subsection 1.6]{riehl-2017}.
+}:
+\[
+  \begin{tikzcd}
+    w\ar[r, "f"]\ar[d, "h"'] & x\ar[d, "g"] \\
+    y\ar[r, "k"'] & z\punctuation{.}
+  \end{tikzcd}
+\]
 
-\begin{dfn}[Commutative Diagram]\label{def:commutative diagram}
-	A diagram\footnote{The notion of a diagram can be made precise fairly easily;
-		see~\cite[Section 1.6]{riehl-2017}.} \emph{commutes} if, for any pair of paths
-	through the diagram with the same start and end, the composite morphisms are
-	equal.
+This diagram identifies four objects $w,x,y,z\in\cat{C}$, and four morphisms
+$f\in\cat{C}(w, x)$, $g\in\cat{C}(x, z)$, $h\in\cat{C}(w, y)$, and
+$k\in\cat{C}(y, z)$.
+
+We say that a diagram \emph{commutes} if, for any pair of paths
+through the diagram with the same start and end, the composite morphisms are
+equal. In this language, the previous diagram commutes if and only if $gf = kh$.
+
+\begin{ex}
+	The axioms of \Cref{def:category} are expressed by commutativity of the
+	following three diagrams:
+  \[
+		\begin{tikzcd}
+			x\ar[r, "f"]\ar[rr, "gf", bend left=60] &
+			y\ar[r, "g"]\ar[rr, "hg"', bend right=60] &
+			z\ar[r, "h"] & w
+		\end{tikzcd}
+		\begin{tikzcd}
+			x\ar[r, "1_x"]\ar[rd, "f"'] & x\ar[d, "f"] \\
+			& y
+		\end{tikzcd}
+		\begin{tikzcd}
+			x\ar[r, "f"]\ar[rd, "f"'] & y\ar[d, "1_y"] \\
+			& y\punctuation{.}
+		\end{tikzcd}
+  \]
+\end{ex}
+
+The key idea is that commutative diagrams
+can be ``pasted'', allowing us to build up complex equalities from simpler ones.
+For instance, if
+\[
+  \begin{tikzcd}
+    w\ar[r, "f"]\ar[d, "h"'] & x\ar[d, "g"] \\
+    y\ar[r, "k"'] & z
+  \end{tikzcd}\quad
+  \text{and}\quad
+  \begin{tikzcd}
+    x\ar[r, "l"]\ar[rd, "g"'] & v\ar[d, "m"] \\
+    & z
+  \end{tikzcd}
+\] both commute, then by pasting along the shared morphism $g$, so does
+\[
+  \begin{tikzcd}
+    w\ar[r, "f"]\ar[d, "h"'] & x\ar[r, "l"] & v\ar[d, "m"] \\
+    y\ar[rr, "k"'] && z\punctuation{.}
+  \end{tikzcd}
+\]
+
+This pasting property is essentially just a re-expression of the transitivity
+and substitution properties of equality, but gives an extraordinarily useful
+geometric intuition to categorical arguments.
+
+\subsection{Functors}
+
+The philosophy of category theory is that \begin{center}
+  \emph{to study an object, one should study its morphisms.}
+\end{center} Since we now want to study categories, we ask
+the natural question: what is the right notion of morphism between categories?
+The answer is a \emph{functor}, which is just a structure-preserving map between
+categories.
+
+\begin{dfn}[functor]\label{def:functor}
+  A \emph{functor} $F: \cat{C}\to\cat{D}$ consists of the following data:
+  \begin{itemize}
+    \item for each object $x\in\cat{C}$, an object $Fx\in\cat{D}$;
+    \item for each morphism $f\in\cat{C}(x, y)$, a morphism $Ff\in\cat{D}(Fx, Fy)$.
+  \end{itemize}
+  This data must preserve the structure of the category, namely identities and
+  composites, meaning:
+  \begin{itemize}
+    \item for each object $x\in\cat{C}$, $F1_x = 1_{Fx}$;
+    \item for each pair of morphisms $x\xto{f}y\xto{g} z$ in $\cat{C}$, $F(gf) =
+      (Fg)(Ff)$.
+  \end{itemize}
 \end{dfn}
 
 \begin{ex}
-	In this language, the axioms of \Cref{def:category} are expressed by commutativity of the
-	diagrams in \Cref{fig:category axioms}.
+  In mathematics, functors are ubiquitous as representations of procedures for
+  producing structures of one sort from structures of another. For instance, the
+  following are all functors:
+  \begin{itemize}
+    \item On any category $\cat{C}$, there is an \emph{identity functor}
+      $1_\cat{C}: \cat{C}\to\cat{C}$ which takes each object and morphism to
+      itself.
+    \item There is a functor $\cP_\exists: \scat{Set}\to\scat{Set}$ which takes
+      a set $X$ to its powerset, and a set-function $f: X\to Y$ to the direct
+      image map given by \[
+        f_\exists(A) = \{y\in Y: \exists a\in A \text{ such that } y = f(a)\}.
+      \]
+    \item There is a distinct functor $\cP_\forall: \scat{Set}\to\scat{Set}$
+      which takes a set $X$ to its powerset, and a set-function $f: X\to Y$ to
+      the map given by \[
+        f_\forall(A) = \{y\in Y: \forall x\in X, f(x) = Y \text{ implies } x\in A\}.
+      \] As these examples show, the action of a functor on morphisms is not
+      determined by its action on objects. (In fact, as usual in category
+      theory, it is the action on morphisms---in particular, on the
+      identities---which determines the action on objects.)
+    \item There is a functor $\texttt{List}: \scat{Set}\to\scat{Set}$ which
+      takes a set $X$ to the set of all finite lists of elements in $X$, and a
+      set-function $f$ to its mapping over lists, i.e. \[
+        (\texttt{List}f)([x_1, \ldots, x_n]) = [f(x_1), \ldots, f(x_n)].
+      \]  In other contexts, this functor is also called the \emph{free
+      monoid} or the \emph{Kleene star}.
+    \item For any field $\kk$, there is a functor $\scat{Set}\to\scat{Vect}_\kk$ which
+      takes a set $X$ to the $\kk$-span of $X$, and a set-function $f$ to
+      its linear extension. This is also called the \emph{free vector space}.
+      More generally, any free construction---such as the free group, free ring,
+      etc.---forms a functor.
+    \item Let $\cat{C}$ be a concrete category, such as those of \Cref{ex:concrete categories}.
+      Then the \emph{forgetful functor} $U: \cat{C}\to\scat{Set}$ takes each object to
+      its underlying set, and each morphism to its underlying set-function,
+      ``forgetting'' the additional structure.
+    \item There is also a forgetful functor $\scat{Ring}\to\scat{Grp}$ which
+      takes each ring to its underlying additive group, and each ring
+      homomorphism to its underlying group homomorphism.
+  \end{itemize}
 \end{ex}
 
-% \section{Functors}
+\begin{ex}
+  As the following examples show, whenever we can think of each instance of a
+  certain mathematical structure as a category, functors reproduce the right
+  notion of structure-preserving transformation between those structures.
+  \begin{itemize}
+    \item Let $P$ and $Q$ be posets with associated categories $\cP$ and $\cQ$. Let
+      $p_1\leq_P p_2$, so that there is a unique morphism $p_1\to p_2$ in $\cP$. Since
+      $F$ must take this morphism to a morphism $Fp_1\to Fp_2$, it must hold that
+      $Fp_1\leq_Q Fp_2$. Furthermore, this is the only requirement on functors, as
+      the statements about identities and composites assert equalities between
+      morphisms, but any two morphisms with the same domain and codomain are equal
+      in a poset. As such, functors between posets are exactly monotone maps.
+    \item Let $G$ and $H$ be groups with associated categories $\cG$ and
+      $\cH$. A functor $F: \cG\to\cH$ assigns the single object of $\cG$ to the
+      single object of $\cH$, and each morphism in $\cG$, which is an element $g\in
+      G$, to a morphism (element) $Fg\in H$. That this preserves composites tells us
+      that it preserves group multiplication, and hence it is a homomorphism. The
+      fact that $F$ preserves identities is extraneous, since every group
+      homomorphism preserves identities. As such, functor between groups are exactly
+      group homomorphisms.
+    \item Let $L_1$ and $L_2$ be functional programming languages with associated
+      categories $\cL_1$ and $\cL_2$. We think of a functor $F: \cL_1\to\cL_2$ as an
+      embedding---or, more technically, a \emph{model}---of $\cL_1$ in $\cL_2$.
+      Specifically, for any function in $\cL_1$, $F$ identifies a corresponding
+      function in $\cL_2$, and so $F$ allows us to think of computations in $L_2$ as
+      ``simulating'' computations in $L_1$.
+  \end{itemize}
+\end{ex}
 
+If functors are morphisms between categories, then we should expect that there
+is a category of categories. This is indeed the case, but we first need to show
+that functors can be composed.
 
+\begin{prop}
+  Let $F: \cat{C}\to\cat{D}$ and $G: \cat{D}\to\cat{E}$ be functors. Then there
+  is a \emph{composite functor} $GF: \cat{C}\to\cat{E}$, defined by $(GF)x =
+  G(Fx)$ and $(GF)f = G(Ff)$.
+\end{prop}
+
+\begin{ex}
+  The composite of the forgetful functors $\scat{Ring}\to\scat{Grp}$ and
+  $\scat{Grp}\to\scat{Set}$ is exactly the forgetful functor
+  $\scat{Ring}\to\scat{Set}$.
+\end{ex}
+
+\begin{dfn}
+  The \emph{category of categories} $\scat{Cat}$ has categories as objects and
+  functors as morphisms.
+\end{dfn}
+
+The foundationally-inclined reader will correctly object to this definition,
+which implies that $\scat{Cat}$ should be an object of itself, leading to issues
+involving Russell's paradox. There are several resolutions to this---for
+instance, letting $\scat{Cat}$ be the category of so-called \emph{locally small}
+categories, whose hom-sets $\cat{C}(x, y)$ each form sets. We ignore these
+issues here.
+
+% There are several additional properties we may want a functor to satisfy,
+% analogous to injectivity and surjectivity of ordinary functions.
+
+% \begin{dfn}
+%   A functor $F$ is \emph{faithful} if it is injective on morphisms, i.e. if $Ff =
+%   Fg$ implies $f = g$. It is \emph{full} if it is surjective on hom-sets, i.e. if for
+%   any $Fx\xto{g} Fy$ there is some $x\xto{f} y$ with $Ff = g$.  Note that a
+%   functor may be full even if it does not 
+%   \end{itemize}
+% \end{dfn}
+
+\subsection{Natural Transformations}
+
+\section{Monoidal Categories}
+
+In ordinary categories, composition is sequential: if morphisms are interpreted
+as computational processes, the composite $gf$ means roughly ``first do $f$,
+then do $g$.'' In many settings, we want to consider both sequential and
+parallel composition. The categorical axiomatization of this idea is
+\emph{monoidal categories}.
+
+\subsection{Motivation}
+
+To model parallel composition, we want an binary operation $\otimes$ which
+assigns, to each pair of processes (morphisms) $f:x\to y$ and $g:w\to z$, their
+parallel composite $f\otimes g$. If we think of objects as types, this parallel
+composite can only run given inputs of both types $x$ and $w$, to feed to $f$
+and $g$ respectively, and should produce two outputs of types $y$ and $z$. To
+represent this notion, we also need a way to pair types (objects), which means a
+binary operation also called $\otimes$ on morphisms. This dual assignment on
+both objects and morphisms suggests functoriality: we will ask that $\otimes$ is
+a functor $\cat{C}\times\cat{C}\to\cat{C}$.
+
+What axioms should this data satisfy? As in most well-behaved algebraic
+structures, there should be an identity for $\otimes$ on objects, which we will
+write $I$. Computationally, we may think of $I$ as a ``trivial resource,'' which
+may freely be created and has no uses. This $I$ induces an identity, the
+morphism $1_I$, for $\otimes$ on morphisms, so we do not need to add an identity
+on morphisms as an extra axiom. We would also parallel composition to associate,
+so that we can sensibly talk about performing $n$ processes in parallel. It is
+therefore tempting to list the following axioms:
+
+\[
+  I\otimes x = x = x\otimes I; \quad\quad (x\otimes y)\otimes z =
+  x\otimes(y\otimes z).
+\]
+
+While this notion, called a \emph{strict monoidal category}, is useful, it is
+not the most natural axiomatization. For instance, even the category
+$\scat{Set}$, with the ordinary Cartesian product, is not strictly monoidal: the
+identity is $\{*\}$, but $\{*\}\times X$ is not equal to $X$, instead merely
+isomorphic. The point is that there is interesting structure in the way that
+even isomorphic objects relate to each other; we do not want to lose it by
+forcing strict equality.
+
+However, we do not want to allow the strcture of these natural isomorphisms to
+be too strange. For instance, one can imagine two ways to convert from $I\otimes (x\otimes y)$
+to $x\otimes y$: \[
+  I\otimes(x\otimes y) \cong x\otimes y \quad\text{ and }\quad
+  I\otimes(x\otimes y) \cong (I\otimes x)\otimes y \cong x\otimes y.
+\]The first directly uses unitality, while the second associates and then uses
+unitality. A \emph{coherence axiom} asserts that choices like this do not
+matter: every pair of comopsites of our canonical isomorphisms with the same
+domain and codomain should commute.
+
+We are not quite ready; there is one remaining technical issue, though this
+paragraph may be safely skipped. It may happen that two
+domains equate ``accidentally'', so that, for instance,
+\begin{equation}\label{eqn:accidental equality}
+  ((x\otimes y)\otimes z)\otimes w = x\otimes(y\otimes(z\otimes w)).
+\end{equation}
+In this case, the version of the coherence axiom stated above implies that the
+isomorphisms \[
+  ((x\otimes y)\otimes z)\otimes w \cong (x\otimes y)\otimes (z\otimes w)
+  \quad\text{ and }\quad
+  x\otimes(y\otimes(z\otimes w)) \cong (x\otimes y)\otimes (z\otimes w)
+\] should commute; they do, after all, have the same domain and codomain. But
+the first re-associated from the left to the right, and the second re-associates
+from the right to the left: these are structurally different actions, which only
+``look the same'' because of the accident of \Cref{eqn:accidental equality},
+so our theory should not require them to commute. There is a way to formalize
+a correct abstract notion of coherence---see for instance~\cite[subsection
+VII.2]{maclane-1971}---but fortunately, Mac Lane's \emph{coherence theorem}
+enables an easier axiomatization.
+
+\subsection{The Definition \& Examples}
+
+We are finally now ready to state the definition of a monoidal category.
+
+\begin{dfn}[monoidal category]\label{def:monoidal category}
+  A \emph{monoidal category} $\cat{C}$ consists of the following data:
+  \begin{itemize}
+    \item an underlying category $\cat{C}$;
+    \item a functor $\otimes: \cat{C}\times\cat{C}\to\cat{C}$, called the
+      \emph{tensor product};
+    \item an object $I\in\cat{C}$, called the \emph{tensor unit};
+    \item a natural isomorphism $\alpha_{x,y,z}: (x\otimes y)\otimes z\to
+      x\otimes(y\otimes z)$, called the \emph{associator};
+    \item a natural isomorphism $\lambda_x: I\otimes x\to x$, called the
+      \emph{left unitor}\footnote{The letters $\lambda$ and $\rho$ are chosen
+      for their association with L and R, respectively.};
+    \item a natural isomorphism $\rho_x: x\otimes I\to x$, called the
+      \emph{right unitor}.
+  \end{itemize}
+
+  This data must make the following diagrams, called the \emph{triangle} and
+  \emph{pentagon} identities, commute:
+	\begin{figure}[H]
+		\centering
+		\begin{tikzcd}
+			(x\otimes I)\otimes y & & x\otimes(I\otimes y) \\
+			& x\otimes y &
+			\arrow["\alpha_{x,1_\otimes,y}", from=1-1, to=1-3]
+			\arrow["\rho_x", from=1-1, to=2-2, swap]
+			\arrow["\lambda_x", from=1-3, to=2-2]
+		\end{tikzcd}
+		\begin{tikzcd}
+			& (x\otimes y)\otimes(z\otimes w) & \\
+			((x\otimes y)\otimes z)\otimes w & & x\otimes (y\otimes (z\otimes w)) \\
+			(x\otimes (y\otimes z))\otimes w & & x\otimes ((y\otimes z)\otimes w)\punctuation{.}
+			\arrow["\alpha_{x\otimes y, z, w}", from=2-1, to=1-2]
+			\arrow["\alpha_{x, y, z\otimes w}", from=1-2, to=2-3]
+			\arrow["\alpha_{x, y, z}\otimes 1_w", from=2-1, to=3-1, swap]
+			\arrow["1_x\otimes\alpha_{y, z, w}", from=3-3, to=2-3, swap]
+			\arrow["\alpha_{x, y\otimes z, w}", from=3-1, to=3-3, swap]
+		\end{tikzcd}
+	\end{figure}
+\end{dfn}
+
+The above diagrams look arbitrary, but as mentioned, they are exactly what is
+required for the correct notion of coherence. On first exposure to these ideas,
+it is safe to ignore the exact statement of the identities and work with the
+intuition that any two ways of associating or unitalizing should be the same.
+
+In the above definition, the natural isomorphisms $\alpha,$ $\lambda,$ and
+$\rho$ feel in some sense more like axioms than data. This is another key
+component of the category-theoretic philosophy, one which should feel
+comfortable to computer scientists, who often assume the existence of concrete
+objects which structure our models:\begin{center}
+  \emph{
+    structure is a kind of data.
+  }
+\end{center}
+If we think of categories as algebras of structure, it is natural that we should
+think of axiomatic structure as an algebraic object which may be
+manipulated\footnote{
+  Of course, \Cref{def:monoidal category}
+  still carries a traditional-looking equational theory in the form of the
+  triangle and pentagon identities. The key difference is that this theory is an
+  assumption about the ``two-dimensional'' structure of the natural
+  transformations, whereas associativity and unitality are assumptions about the
+  ``one-dimensional'' structure of the functor $\otimes$. We could continue to
+  generalize, instead asking that these diagrams are themselves witnessed by
+  ``three-dimensional'' isomorphisms between natural transformations. Repeating
+  this process \emph{ad infinitum}, the natural endpoint of the
+  structure-as-data philosophy is so-called \emph{$\infty$-category theory}.
+}.
+
+\begin{ex}
+  Let us very explicitly construct the required data to show that
+  \scat{Set} is a monoidal category under the Cartesian product. The tensor unit
+  is the singleton $\{*\}$. The associator is the natural isomorphism with
+  components \begin{align*}
+    \alpha_{X,Y,Z} \colon (X\times Y)\times Z &\to X\times(Y\times Z)\\
+    ((x, y), z) &\mapsto (x, (y, z)).
+  \end{align*}
+  The left and right unitors are the natural isomorphism with components
+  \begin{multicols}{2}
+    \noindent
+    \begin{align*}
+      \lambda_X \colon \{*\}\times X &\to X \\
+      (*, x) &\mapsto x,
+    \end{align*}
+    \begin{align*}
+      \rho_X \colon X\times\{*\} &\to X \\
+      (x, *) &\mapsto x.
+    \end{align*}
+  \end{multicols}
+
+  A common complaint about category theory is at play here: we now have a
+  large number of relationships to demonstrate, including
+  functorality of $\times$, naturality of $\alpha$, $\lambda$, and $\rho$, and
+  the pentagon and triangle identities. The author's opinion is that this work
+  will ultimately save effort, by allowing us to use a powerful abstract theory
+  across any structure we have shown to be monoidal, but if the reader is not
+  convinced, one solution is to work even more generally. For instance, by
+  showing that the Cartesian product satisfies a simple property called the
+  \emph{universal property of the product}, we could automatically conclude on
+  the grounds of a general theorem that it is monoidal. Abstraction of this sort
+  ultimately saves effort, but it is not always comfortable at first.
+  Regardless, in order to exemplify the definition in all its detail, we
+  continue with the explicit demonstration.
+
+  To show functorality of $\times$, we need to determine its action on
+  morphisms. Letting $f: X\to Y$ and $g: W\to Z$, we define \begin{align*}
+    f\times g\colon X\times W &\to Y\times Z \\
+                       (x, y) &\mapsto (f(x), g(y)).
+  \end{align*}
+  This is functorial: it takes an identity $1_{(X, W)} = (1_X, 1_W)$ to
+  $1_{X\times W}$, and the composite of two pairs of morphisms to composite of
+  their action on pairs.
+
+  To show naturality of $\alpha$, let $(f, g, h): (X, Y, Z)\to (X', Y', Z')$ be
+  a morphism in $\scat{Set}^3$. We need to show that the following diagram
+  commutes: \[
+    \begin{tikzcd}
+      (X\times Y)\times Z\ar[r, "\alpha_{X,Y,Z}"]\ar[dd, "(f\times g)\times h"'] &
+      X\times(Y\times Z)\ar[dd, "f\times(g\times h)"] \\
+      \\
+      (X'\times Y')\times Z'\ar[r, "\alpha_{X',Y',Z'}"'] & X'\times(Y'\times Z').
+    \end{tikzcd}
+  \]
+
+  Tracking the action of a triple $((x, y), z)$ through both paths, we see the
+  needed equality: \[
+    \begin{tikzcd}
+      ((x, y), z)\ar[r, mapsto, "\alpha_{X,Y,Z}"]\ar[dd, mapsto, "(f\times g)\times h"'] & (x, (y, z))\ar[dd, mapsto, "f\times(g\times h)"] \\
+      \\
+      ((f(x), g(y)), h(z))\ar[r, mapsto, "\alpha_{X',Y',Z'}"'] & (f(x), (g(y), h(z))).
+    \end{tikzcd}
+  \]
+
+  To show naturality of $\lambda$, let $f: X\to Y$. Since the only morphism
+  $\{*\}\to\{*\}$ is $1_\{*\}$, naturality is entailed by commutativity of the
+  following diagram: \[
+    \begin{tikzcd}
+      \{*\}\times X\ar[r, "\lambda_X"]\ar[d, "1_{\{*\}}\times f"'] & X\ar[d, "f"] \\
+      \{*\}\times Y\ar[r, "\lambda_Y"'] & Y,
+    \end{tikzcd}
+    \quad\text{ i.e. }\quad
+    \begin{tikzcd}
+      (*, x)\ar[r, mapsto, "\lambda_X"]\ar[d, mapsto, "1_{\{*\}}\times f"'] & x\ar[d, mapsto, "f"] \\
+      (*, f(x))\ar[r, mapsto, "\lambda_Y"'] & f(x).
+    \end{tikzcd}
+  \]
+
+  Naturality of $\rho$ is similar. We show the pentagon identity by its action
+  on $(((x, y), z), w)$: \[
+		\begin{tikzcd}
+			& ((x, y), (z, w)) & \\
+      (((x, y), z), w) & & (x, (y, (z, w))) \\
+      ((x, (y, z)), w) & & (x, ((y, z), w))\punctuation{.}
+			\arrow[mapsto, "\alpha_{X\times Y, Z, W}", from=2-1, to=1-2]
+			\arrow[mapsto, "\alpha_{X, Y, Z\times W}", from=1-2, to=2-3]
+			\arrow[mapsto, "\alpha_{X, Y, Z}\times 1_W", from=2-1, to=3-1, swap]
+			\arrow[mapsto, "1_X\times\alpha_{Y, Z, W}", from=3-3, to=2-3, swap]
+			\arrow[mapsto, "\alpha_{X, Y\times Z, W}", from=3-1, to=3-3, swap]
+		\end{tikzcd}
+  \]
+
+  The triangle identity is similar.
+\end{ex}
+
+While we will never again be so explicit, we hope the previous example makes the
+axioms of a monoidal category more concrete.
+
+\begin{ex}
+  There are many more examples of monoidal categories.
+  \begin{itemize}
+    % TODO: is this true?
+    \item $\scat{Vect}_\kk$ is monoidal twice: once with the direct sum and once
+      with the tensor product of vector spaces.
+    \item $\scat{Grp}$ is monoidal with the tensor product of groups.
+    \item $\scat{Cat}$ is monoidal with the product category.
+    \item The categories of \Cref{ex:categories of computable maps}
+      are monoidal with the Cartesian product of sets. In particular, the
+      cartesian product of two $\mathbb{A}$-computable functions is computable
+      by an algorithm which simply first computes the first function, and then
+      computes the second function.
+    \item Let $L$ be a strongly-typed functional programming language with
+      \emph{product types}, which means that for any types $A$ and $B$, there is
+      a type $A\times B$ whose elements are pairs $(a, b)$ of elements $a\in A$
+      and $b\in B$. Then the category $\cL$ is monoidal in the same way as
+      $\scat{Set}$.
+  \end{itemize}
+\end{ex}
+
+\begin{ex}[concurrent programming~{\cite{meseguer-montanari-1990}}]
+  Returning to our motivation of parallelism, here is a very different example.
+  Let $L$ be a strongly-typed functional \emph{concurrent} programming language,
+  by which we mean that it can run computations concurrently on different
+  machine threads. Then again under reasonable assumptions, $\cL$ is monoidal,
+  with concurrent branching as the tensor product and the do-nothing program as
+  the tensor unit.
+\end{ex}
+
+\subsection{String Diagrams}
+
+\subsection{Commutativity: Braiding and Symmetry}
+
+\subsection{Monoidal Functors}
+
+\subsection{Multicategories}
+
+\section{Resource Theories}

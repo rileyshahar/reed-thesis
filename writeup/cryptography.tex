@@ -1,7 +1,9 @@
 [TODO: An introduction to the chapter;
 cite~\cite{katz-lindell-2014, pass-shelat-2020, rosulek-2021}.]
 
-\section{One-way functions}
+\section{Foundations}
+
+\subsection{One-way functions}
 
 Many cryptographic protocols rely on \emph{one-way functions}, which are
 informally functions that are easy to compute, but hard to invert. The former
@@ -51,7 +53,7 @@ case where P $\neq$ NP but one-way functions nevertheless do not exist.}.
 However, as in the following examples, we have excellent candidates under fairly
 modest assumptions.
 
-\begin{ex}[Factoring {\cite[Section 2.3]{pass-shelat-2020}}]
+\begin{ex}[Factoring {\cite[subsection 2.3]{pass-shelat-2020}}]
   Suppose that for any adversary $\cA$ and for uniform random choice of $x = pq$
   for primes $p$ and $q$, \[
     \Pr[\cA(x) = \{p, q\}] = \negl[\max\{|p|, |q|\}].
@@ -59,7 +61,7 @@ modest assumptions.
   substantial evidence. Then $(x,y)\mapsto xy$ is one-way.
 \end{ex}
 
-\begin{ex}[Discrete Logarithm {\cite[Section 8.3.2]{katz-lindell-2014}}]
+\begin{ex}[Discrete Logarithm {\cite[subsection 8.3.2]{katz-lindell-2014}}]
   Let $G$ be any fixed group. The \emph{discrete logarithm hardness assumption}
   for $G$ is that, for any adversary $\cA$ and for uniform random choice of
   $g\in G$ and $h\in\<g\>$ such that $h = g^k$, \[
@@ -74,7 +76,7 @@ modest assumptions.
   various versions of this assumption, see~\cite{sadeghi-steinerr-2002}.
 \end{ex}
 
-\section{Proofs by Reduction}
+\subsection{Proofs by Reduction}
 
 Many cryptographic definitions, including \Cref{def:one-way function},
 take the form \emph{for any adversary $\cA$, natural number $n$, and uniform
@@ -112,7 +114,7 @@ The point is that $\cA'$'s job is to ``simulate'' the problem $\Pi$ to $\cA$,
 using the data it gets from $\Pi'$ to construct an input to $\Pi$. We illustrate
 this concept now.
 
-\begin{ex}[a straightforward proof by reduction {\cite[Section
+\begin{ex}[a straightforward proof by reduction {\cite[subsection
   2.4.1]{pass-shelat-2020}}]\label{ex:reduction} Let $f$ be a one-way function. Then we claim $g:
   (x,y)\mapsto (f(x), f(y))$ is a one-way function. We can compute $g$ in
   polynomial time by computing $f$ twice, so it remains to show that $g$ is hard
@@ -167,7 +169,7 @@ bottom to top. This diagram says that $\cA'$ is an algorithm which takes $y$,
 uniformly randomly generates another input (this is what the $\$$ means), calls
 $\cA$, and returns its first output.
 
-\section{Computational Indistinguishability}
+\subsection{Computational Indistinguishability}
 
 Computational indistinguishability formalizes the notion of two probability
 distributions which ``look the same'' to adversarial processes. We begin with
@@ -291,11 +293,12 @@ One more closure result is valuable:
   \] by the computational indistinguishability assumption.
 \end{proof}
 
-\section{Interactive Computation}
+% \subsection{Interactive Computation}
 
-Cryptographic protocols do not occur in a vacuum; instead, they rely on
-computations involving multiple parties. We formalize such situations using the
-notion of interactive computation.
+% Cryptographic protocols do not occur in a vacuum; instead, they rely on
+% computations involving multiple parties. We formalize such situations using the
+% notion of interactive computation.
 
-\section{Zero Knowledge}
+% \subsection{Zero Knowledge}
 
+\section{Composition}
