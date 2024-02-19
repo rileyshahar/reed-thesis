@@ -1,4 +1,4 @@
-all: thesis.pdf thesis-tufte.pdf
+all: thesis.pdf
 
 thesis-tufte.pdf: *.tex references.bib reedthesis.cls
 	latexmk -pdf -halt-on-error thesis-tufte.tex

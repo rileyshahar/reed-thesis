@@ -297,7 +297,7 @@ categories.
       G$, to a morphism (element) $Fg\in H$. That this preserves composites tells us
       that it preserves group multiplication, and hence it is a homomorphism. The
       fact that $F$ preserves identities is extraneous, since every group
-      homomorphism preserves identities. As such, functor between groups are exactly
+      homomorphism preserves identities. As such, functors between groups are exactly
       group homomorphisms.
     \item Let $L_1$ and $L_2$ be functional programming languages with associated
       categories $\cL_1$ and $\cL_2$. We think of a functor $F: \cL_1\to\cL_2$ as an
@@ -357,7 +357,7 @@ then do $g$.'' In many settings, we want to consider both sequential and
 parallel composition. The categorical axiomatization of this idea is
 \emph{monoidal categories}.
 
-\subsection{Motivation}
+\subsection{The Definition}
 
 To model parallel composition, we want an binary operation $\otimes$ which
 assigns, to each pair of processes (morphisms) $f:x\to y$ and $g:w\to z$, their
@@ -413,15 +413,13 @@ isomorphisms \[
   \quad\text{ and }\quad
   x\otimes(y\otimes(z\otimes w)) \cong (x\otimes y)\otimes (z\otimes w)
 \] should commute; they do, after all, have the same domain and codomain. But
-the first re-associated from the left to the right, and the second re-associates
+the first re-associates from the left to the right, and the second re-associates
 from the right to the left: these are structurally different actions, which only
 ``look the same'' because of the accident of \Cref{eqn:accidental equality},
 so our theory should not require them to commute. There is a way to formalize
 a correct abstract notion of coherence---see for instance~\cite[subsection
 VII.2]{maclane-1971}---but fortunately, Mac Lane's \emph{coherence theorem}
 enables an easier axiomatization.
-
-\subsection{The Definition \& Examples}
 
 We are finally now ready to state the definition of a monoidal category.
 
@@ -489,10 +487,16 @@ manipulated\footnote{
   transformations, whereas associativity and unitality are assumptions about the
   ``one-dimensional'' structure of the functor $\otimes$. We could continue to
   generalize, instead asking that these diagrams are themselves witnessed by
-  ``three-dimensional'' isomorphisms between natural transformations. Repeating
-  this process \emph{ad infinitum}, the natural endpoint of the
-  structure-as-data philosophy is so-called \emph{$\infty$-category theory}.
+  ``three-dimensional'' isomorphisms between the natural isomorphisms $\alpha$,
+  $\lambda$, and $\rho$. Repeating this process \emph{ad infinitum}, the natural
+  endpoint of the structure-as-data philosophy is so-called
+  \emph{$\infty$-category theory}.
 }.
+
+\subsection{Examples}
+
+The notion of a monoidal category is quite general; we survey some important
+examples here.
 
 \begin{ex}
   Let us very explicitly construct the required data to show that
@@ -559,7 +563,7 @@ manipulated\footnote{
   \]
 
   To show naturality of $\lambda$, let $f: X\to Y$. Since the only morphism
-  $\{*\}\to\{*\}$ is $1_\{*\}$, naturality is entailed by commutativity of the
+  $\{*\}\to\{*\}$ is $1_{\{*\}}$, naturality is entailed by commutativity of the
   following diagram: \[
     \begin{tikzcd}
       \{*\}\times X\ar[r, "\lambda_X"]\ar[d, "1_{\{*\}}\times f"'] & X\ar[d, "f"] \\
@@ -593,7 +597,7 @@ While we will never again be so explicit, we hope the previous example makes the
 axioms of a monoidal category more concrete.
 
 \begin{ex}
-  There are many more examples of monoidal categories.
+  There are many more examples of monoidal categories throughout mathematics.
   \begin{itemize}
     % TODO: is this true?
     \item $\scat{Vect}_\kk$ is monoidal twice: once with the direct sum and once
@@ -624,7 +628,23 @@ axioms of a monoidal category more concrete.
 
 \subsection{String Diagrams}
 
+In monoidal categories, there are two ``formal mechanisms'' for building
+morphisms: sequential composition $\circ$ and parallel composition $\otimes$.
+String diagrams are a graphical calculus for morphisms using these mechanisms.
+String diagrams and related calculi are explored in great detail
+by~\cite{selinger-2011}; we give a basic outline here.
+
+Consider a monoidal category $\cat{C}$ with three morphisms $f: x\to y$, $g:
+w\to z$, and $h: y\otimes z\to u$. We can can form a new morphism $h\circ
+(f\otimes g): x\otimes w\to u$.
+
 \subsection{Commutativity: Braiding and Symmetry}
+
+While monoidal categories are necessarily associative, nothing in the definition
+guarantees that the monoidal product is commutative. To enforce symmetry, we add
+a natural isomorphism $\gamma_{x,y}: x\otimes y\to y\otimes x$, called the
+\emph{braiding}, to the data. There are, however, two different possible
+versions of the coherence identities.
 
 \subsection{Monoidal Functors}
 
