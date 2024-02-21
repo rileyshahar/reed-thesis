@@ -10,6 +10,7 @@
 
 % fonts
 \usepackage{bbm}
+\usepackage{graphicx}
 
 % links/refs
 \usepackage[
@@ -40,6 +41,8 @@
 \usepackage{subcaption}
 \usepackage{mathpartir}
 \usepackage{adjustbox}
+\usetikzlibrary{matrix, arrows, cd, patterns}
+
 % diagrams
 \input{diagrams.tex}
 
@@ -113,6 +116,8 @@
 \def\into{\hookrightarrow}
 \def\onto{\twoheadrightarrow}
 \def\from{\leftarrow}
+\def\To{\Rightarrow}
+\def\From{\Leftarrow}
 \newcommand{\xto}[1]{\xrightarrow{#1}}
 
 \DeclareMathOperator{\id}{id}

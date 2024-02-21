@@ -125,26 +125,21 @@ categories look quite different.
 	\end{itemize}
 \end{ex}
 
-One more example will be critical for our purposes.
+% One more example will be critical for our purposes.
 
-\begin{ex}[Categories of $\mathbb{A}$-computable maps]\label{ex:categories of computable maps}
-  Let $\mathbb{A}$ be a class of algorithms which is closed under composition.
-  Then we can define a category whose objects are finite sets and whose
-  morphisms are the $\mathbb{A}$-computable maps between them.
-  The most important examples for our purposes are: \begin{itemize}
-    \item the category $\scat{Poly}$ of finite sets and polynomial-time
-      computable maps;
-    \item the category $\scat{PPT}$ of finite sets and probabalistic
-      polynomial-time computable stochastic maps;
-    \item the category $\scat{NUPPT}$ of finite sets and non-uniform
-      probabalistic polynomial-time computable stochastic maps.
-  \end{itemize}
-\end{ex}
-
-% \begin{ntn}
-%   There are many common notational conventions for categories. For clarity, we
-%   will sometimes write $g\circ f$ for the composite $gf$.
-% \end{ntn}
+% \begin{ex}[Categories of $\mathbb{A}$-computable maps]\label{ex:categories of computable maps}
+%   Let $\mathbb{A}$ be a class of algorithms which is closed under composition.
+%   Then we can define a category whose objects are finite sets and whose
+%   morphisms are the $\mathbb{A}$-computable maps between them.
+%   The most important examples for our purposes are: \begin{itemize}
+%     \item the category $\scat{Poly}$ of finite sets and polynomial-time
+%       computable maps;
+%     \item the category $\scat{PPT}$ of finite sets and probabilistic
+%       polynomial-time computable stochastic maps;
+%     \item the category $\scat{NUPPT}$ of finite sets and non-uniform
+%       probabilistic polynomial-time computable stochastic maps.
+%   \end{itemize}
+% \end{ex}
 
 \noindent
 When working with categories, we often want to show that two complex composites
@@ -213,14 +208,153 @@ This pasting property is essentially just a re-expression of the transitivity
 and substitution properties of equality, but gives an extraordinarily useful
 geometric intuition to categorical arguments.
 
-\subsection{Functors}
+\subsection{(Iso)morphisms}
 
 The philosophy of category theory is that \begin{center}
   \emph{to study an object, one should study its morphisms.}
-\end{center} Since we now want to study categories, we ask
-the natural question: what is the right notion of morphism between categories?
-The answer is a \emph{functor}, which is just a structure-preserving map between
-categories.
+\end{center}
+Indeed, in virtually every natural category, morphisms give enough information
+to recover the entire data of any object.
+
+\begin{ex} In the following categories, we can reconstruct an object by
+    ``probing'' it with morphisms from suitable choices of other objects.
+  \begin{itemize}
+    \item Let $X$ be a set. A function $f: \{*\}\to X$ is exactly a choice of
+      $f(*)\in X$, so the morphisms $\scat{Set}(\{*\}, X)$ identify exactly the
+      elements of $X$, i.e. the entire data of a set.
+    \item Let $X$ be a topological space. A continuous map $f: \{*\}\to X$ picks
+      out the points of $X$, as before. Let $S = \{0, 1\}$, with $\{1\}$ open;
+      this is the \emph{Sierpinski space}. Then a continuous map $f: X\to S$
+      consists of a choice of open set $f^{-1}(1)\subseteq X$, so the morphisms
+      $\scat{Top}(X, S)$ identify exactly the open sets of $X$. Together with
+      the points, this is the entire data of a topological space.
+    \item Let $G$ be a group. A group homomorphism $f: \ZZ\to G$ is determined by a
+      choice of $f(1)\in G$, so these pick out the elements. Letting $-$ be
+      the group homomorphism $\ZZ\to\ZZ$ which takes $z$ to $-z$, the composite
+      $f-$ picks out the inverse of the element identified by $f$. To recover
+      the multiplicative structure, we consider the \emph{free product group}
+      $G\bullet H$, whose elements are words $g_1h_1g_2h_2\cdots g_nh_n$ modulo
+      the relations of $G$ and $H$, and whose multiplication is concatenation.
+      There is a canonical map $\varphi: \ZZ\to\ZZ\bullet\ZZ$ given by $1\mapsto
+      11'$ (we represent elements in the second copy of $\ZZ$ with $'$s).
+      Given two morphisms $f,g: \ZZ\to G$, we can define a map $f\bullet g:
+      \ZZ\bullet\ZZ\to G$ by $z_1z_1'\cdots z_nz_n' \mapsto f(z_1)g(z_1')\cdots
+      f(z_n)g(z_n')$. Because the map $(f\bullet g)\varphi: \ZZ\to G$ picks out
+      exactly the element $f(1)g(1)$, we have recovered the entire structure of $G$
+      purely by studying $\scat{Grp}(\ZZ, G)$.
+  \end{itemize}
+\end{ex}
+
+These examples are instances of a much more general theory, which we begin to
+develop here. We first need to formalize what we mean by ``recovering the
+data'' of an object.
+
+\begin{dfn}[isomorphism]\label{def:isomorphism}
+  A morphism $f: x\to y$ in a category $\cat{C}$ is an \emph{isomorphism} if
+  there exists an \emph{inverse morphism} $g: y\to x$ such that $gf = 1_x$ and
+  $fg = 1_y$. Two objects $x$ and $y$ are \emph{isomorphic}, written $x\cong y$,
+  if there exists an isomorphism between them.
+\end{dfn}
+
+\begin{ex} The general notion of isomorphism recovers the familiar notions in
+  virtually every common setting.
+  \begin{itemize}
+    \item Every identity morphism is an isomorphism with itself as the inverse.
+    \item Isomorphisms in $\scat{Set}$ are bijections; in $\scat{Grp}$ are group
+      isomorphisms; in $\scat{Vect}_\kk$ are vector space isomorphisms; and in
+      $\scat{Top}$ are homeomorphisms.
+    \item Let $G$ be a group with associated category $\cG$. Then since
+      composition is group multiplication, every morphism in $\cG$ is an
+      isomorphism. (That motivates the following definitions: a \emph{monoid} is a
+      category with one object, while a \emph{group} is a monoid in which every
+      morphism is an isomorphism.)
+    \item Let $P$ be a poset with associated category $\cP$. Then antisymmetry of
+      a poset implies that the only isomorphisms in are the identities. (A
+      \emph{preorder} is a category in which every hom-set has at most one
+      element; a \emph{poset} is a preorder in which the only isomorphisms are
+      the identities.)
+    \item Let $M = (Q, \delta)$ be a non-deterministic automaton over the
+      alphabet $\Sigma$, so that $\delta: Q\times \Sigma\to \cP(\Sigma)$ is the
+      transition function. Recall that the identities in $\cM$ are the empty
+      words. As such, an isormorphism between two states $q_1$ and $q_2$ is a
+      word $w$ which takes $q_1$ to $q_2$, together with a word $w'$ which takes
+      $q_2$ to $q_1$, such that the concatenate $ww'$ is the empty string. In
+      other words, $w$ and $w'$ are both empty---so two states are isomorphic if
+      and only if the machine can freely move between them at any point.
+  \end{itemize}
+\end{ex}
+
+Isomorphisms satisfy the basic properties we expect.
+
+\begin{prop}
+  Inverses are unique. Explicitly, if $f: x\to y$ is an isomorphism with
+  inverses $g, h: y\to x$, then $g = h$.
+\end{prop}
+
+\begin{proof}
+  We have \[
+    g = 1_xg = (hf)g = h(fg) = h1_y = h.\qedhere
+  \]
+\end{proof}
+
+\begin{ntn}
+  We are now justified in unambiguously writing the inverse of an isomorphism
+  $f$ as $f^{-1}$.
+\end{ntn}
+
+\begin{prop}
+  Isomorphism is an equivalence relation on the class of objects in a category $\cat{C}$.
+\end{prop}
+
+\begin{proof}
+  We need to show:
+  \begin{itemize}
+    \item Reflexivity. The identity $1_x$ is an isomorphism $x\cong x$.
+    \item Symmetry. Given an isomorphism $f: x\to y$, $f^{-1}$ is an isomorphism
+      $y\to x$ with inverse $f$.
+    \item Transitivity. Given isomorphisms $f: x\to y$ and $g: y\to z$,
+      $gf$ is an isomorphism $x\to z$ with inverse $f^{-1}g^{-1}$. \qedhere
+  \end{itemize}
+\end{proof}
+
+We now take a first step towards justifying the assertion as the beginning of
+the section.
+
+\begin{prop}\label{thm:iso-implies-hom-iso}
+  Let $x\cong y$ in a category $\cat{C}$. Then:
+  \begin{enumerate}
+    \item for every $z\in\cat{C}$, $\cat{C}(z, x)\cong\cat{C}(z, y)$
+      \label{item:iso-equiv-post};
+    \item for every $z\in\cat{C}$, $\cat{C}(x, z)\cong\cat{C}(y, z)$
+      \label{item:iso-equiv-pre}.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  Let $f: x\to y$ be an isomorphism.
+
+  First, define a map $f_*: \cat{C}(z, x)\to\cat{C}(z, y)$ by post-composition,
+  i.e. $f_*(g) = fg$. We claim that $f^{-1}_*$, defined similarly, is an inverse
+  of $f_*$. Letting $h\in\cat{C}(z, x)$, we have \[ f^{-1}_*(f_*(h)) =
+  f^{-1}(fh) = (f^{-1}f)h = 1_xh = h, \]and the same on the other side.
+
+  Simiarly, define a map $f^*: \cat{C}(y, z)\to\cat{C}(x, z)$ by
+  pre-composition, i.e. $f^*(g) = gf$. Then an identical check shows that
+  $(f^{-1})^*$, defined similarly, is an inverse of $f^*$.
+\end{proof}
+
+To show the other direction,  we will need a little bit more machinery. Once
+shown, this result will indeed imply that the entire structure of an object can
+be identified by studying its morphisms. We will finally do this in the form of
+\Cref{thm:hom-iso-implies-iso}.
+
+\subsection{Functors}
+
+Enmeshed in the categorical mindset, we understand that
+morphisms---relationships---between objects are of crucial importance. Since we
+now want to study categories, we ask the natural question: what is the right
+notion of morphism between categories? The answer is a \emph{functor}, which is
+just a structure-preserving map between categories.
 
 \begin{dfn}[functor]\label{def:functor}
   A \emph{functor} $F: \cat{C}\to\cat{D}$ consists of the following data:
@@ -276,6 +410,14 @@ categories.
     \item There is also a forgetful functor $\scat{Ring}\to\scat{Grp}$ which
       takes each ring to its underlying additive group, and each ring
       homomorphism to its underlying group homomorphism.
+    \item Let $x\in\cat{C}$. There is a functor $\cat{C}(x, -):
+      \cat{C}\to\scat{Set}$, the \emph{covariant hom-functor at $x$}, which takes an
+      object $y$ to the hom-set $\cat{C}(x, y)$, and a morphism $f: y\to z$ to
+      its action by postcomposition, $f_*(g) = fg$\footnote{The analogous functor
+        $\cat{C}(-, x)$ requires a little bit of machinery---the notions of
+      \emph{opposite categories} and \emph{contravariant functors}---which are
+    outside our scope. It will be defined in any introductory text on category
+    theory.}.
   \end{itemize}
 \end{ex}
 
@@ -308,6 +450,25 @@ categories.
   \end{itemize}
 \end{ex}
 
+Since isomorphic objects are meant to look identical to all the machinery of
+category theory, we should expect the following result.
+
+\begin{prop}
+  Let $F: \cat{C}\to\cat{D}$ be a functor and let $f: x\to y$ be an isomorphism
+  in $\cat{C}$. Then $Ff: Fx\to Fy$ is an isomorphism.
+\end{prop}
+
+\begin{proof}
+  We have that \[
+    FfFf^{-1} = F(ff^{-1}) = F1_x = 1_{Fx},
+  \]and the same works on the other side.
+\end{proof}
+
+Notice that both functorality axioms are exactly what is required to prove this
+result.
+
+\vspace{1em}
+
 If functors are morphisms between categories, then we should expect that there
 is a category of categories. This is indeed the case, but we first need to show
 that functors can be composed.
@@ -315,7 +476,8 @@ that functors can be composed.
 \begin{prop}
   Let $F: \cat{C}\to\cat{D}$ and $G: \cat{D}\to\cat{E}$ be functors. Then there
   is a \emph{composite functor} $GF: \cat{C}\to\cat{E}$, defined by $(GF)x =
-  G(Fx)$ and $(GF)f = G(Ff)$.
+  G(Fx)$ and $(GF)f = G(Ff)$. Furthermore, this composition is associative and
+  unital, with identities $1_{\cat{C}}$.
 \end{prop}
 
 \begin{ex}
@@ -348,6 +510,180 @@ issues here.
 % \end{dfn}
 
 \subsection{Natural Transformations}
+
+The notion of a \emph{natural transformation} can be somewhat mysterious, but is
+ultimately a workhorse of categorical machinery. We can think of a category
+$\cat{C}$ geometrically as a single point, in which case a functor $F:
+\cat{C}\to\cat{D}$ is an oriented line---an arrow. Two functors $F,G:
+\cat{C}\to\cat{D}$ look like \[
+  \begin{tikzcd}
+    C \ar[rr, "F", bend left=50]\ar[rr, "G"', bend right=50] & \phantom{\Downarrow\alpha} & D\punctuation{.}
+  \end{tikzcd}
+\]
+A natural transformation is a square---or, if you prefer, a disk---which ``fills
+in the hole'': \[
+  \begin{tikzcd}
+    C \ar[rr, "F", bend left=50]\ar[rr, "G"', bend right=50] & \Downarrow\alpha& D\punctuation{.}
+  \end{tikzcd}
+\]
+In other words, a natural transformation is a morphism between functors.
+
+More concretely, recall that functors can be thought of as tools which, given a
+structure of one kind, produce one of another. In this sense, natural
+transformations are a mechanism for converting between such constructions. For
+each object $x\in\cat{C}$, we have two ways to construct an object of $\cat{D}$,
+i.e. $Fx$ and $Gx$. Of course, objects of $\cat{D}$ are related by morhpisms, so
+a natural transformation $\alpha: F\To G$ should identify a morphism $\alpha_x:
+Fx\to Gx$ for each $x\in\cat{C}$.
+
+This is not quite enough. We want to ensure that the morphisms $\alpha_x$ are
+somehow ``consistent'', that the natural transformation represents a procedure to
+convert between the two constructions $F$ and $G$ ``independenty of $x$''. We
+formalize that intuition now.
+
+\begin{dfn}[natural transformation]\label{def:natural transformation}
+  Let $F, G: \cat{C}\to\cat{D}$ be functors. A \emph{natural transformation}
+  $\alpha: F\To G$ consists of, for every object $x\in\cat{C}$, a
+  \emph{component} $\alpha_x: Fx\to Gx$ such that, for every morphism $f: x\to
+  y$ in $\cat{C}$, the following diagram (a \emph{naturality square}) commutes:
+  \[
+    \begin{tikzcd}
+      Fx\ar[r, "\alpha_x"]\ar[d, "Ff"'] & Gx\ar[d, "Gf"] \\
+      Fy\ar[r, "\alpha_y"'] & Gy\punctuation{.}
+    \end{tikzcd}
+  \]
+\end{dfn}
+
+The idea is that it does not matter whether we first move from $x$ to $y$ via
+\emph{any morphism} $f$, or first move from $F$ to $G$ via $\alpha$; natural
+transformations commute with any morphism. This is the sense in which natural
+transformations are natural.
+
+\begin{ex}
+  There are many important examples of natural transformations.
+  \begin{itemize}
+    \item For any functor $F$, there is an \emph{identity natural transformation
+      $1_F: F\To F$}, whose components are each the identities $(1_F)_x = 1_{Fx}$.
+    \item There is a natural transformation $\alpha: 1_\scat{Set}\To
+      \cP_\exists$ with components $\alpha_X: x\mapsto \{x\}$.
+    \item The \emph{dual} of a vector space $V$ over $\kk$ is the vector space
+      of linear maps into $\kk$, i.e. $V^* = \scat{Vect}_\kk(V, \kk)$. There is
+      a natural transformation $\alpha: 1_{\scat{Vect}}\To (-)^{**}$ whose
+      components $\alpha_V$ take any $v\in V$ to the map $\text{ev}_v:
+      \VV^*\to\kk$ given by $T\mapsto Tv$.
+    \item Let $\texttt{reverse}_X$ be the function which reverses lists of
+      elements in $X$, i.e. \[
+        [x_1, \ldots, x_n]\mapsto [x_n, \ldots, x_1].
+      \] Then $\texttt{reverse}$ is a natural transformation $\texttt{List}\To
+      \texttt{List}$. This is a special case of the extremely powerful
+      \emph{Reynolds abstraction theorem} from programming language theory,
+      which says that (parametrically) polymorphic functions are
+      natural~\cite{reynolds-1983}. This theorem is explored in great detail
+      by~\cite{wadler-1989}.
+    \item Let $F,G:\cL_1\to\cL_2$ be models of a programming language $L_1$ in
+      $L_2$. A natural transformation $\alpha: F\To G$ is a \emph{transpilation}
+      between the models: it tells us how to convert programs written in the
+      model $F$ into programs written in the model $G$. The naturality squares
+      assert exactly that this transpilation is \emph{sound}, i.e. that it
+      preserves the meaning of programs.
+ \end{itemize}
+\end{ex}
+
+If we think of natural transformations as morphisms between functors
+$\cat{C}\to\cat{D}$, then following the category-theoretic philosophy, there
+should be a category of functors.
+
+Natural transformations can be composed, as follows.
+
+\begin{prop}
+  Let $F,G,H: \cat{C}\to\cat{D}$ be functors and let $\alpha: F\To G$ and
+  $\beta: G\To H$ be natural transformations. Then there is a \emph{vertical
+  composite  natural transformation} $\beta\alpha: F\To H$, whose components are
+  $(\beta\alpha)_x = \beta_x\alpha_x$. Furthermore, this composition is
+  associative and unital, with identities $1_F$.
+\end{prop}
+
+The name \emph{vertical composite} comes from the following picture: \[
+  \begin{tikzcd}[baseline=(current bounding box.center)]
+    & \Downarrow\alpha \\[-28pt]
+    C\ar[rr, "F", bend left=50]\ar[rr, "G", near start]\ar[rr, "H"', bend right=50] && D & \rightsquigarrow & C \ar[rr, "F", bend left=50]\ar[rr, "H"', bend right=50] & \Downarrow\beta\alpha & D\punctuation{.} \\[-25pt]
+    & \Downarrow\beta
+  \end{tikzcd}
+\]
+As the name implies, there is a horizontal composite, defined in
+e.g.~\cite[Lemma 1.7.4]{riehl-2017}.
+
+\begin{dfn}[functor category]\label{def:functor category}
+  Let $\cat{C}$ and $\cat{D}$ be categories. The \emph{functor category}
+  $[\cat{C}, \cat{D}]$ has functors $\cat{C}\to\cat{D}$ as objects and natural
+  transformations as morphisms.
+\end{dfn}
+
+Here is one example of the advantage of working with categorical structure: we
+already know what the notion of an isomorphism of functors has to be.
+
+\begin{dfn}[natural isomorphism]\label{def:natural isomorphism}
+  Let $F,G:\cat{C}\to\cat{D}$ be functors. A natural transformation $\alpha: F\To G$ is a \emph{natural isomorphism} if
+  it is an isomorphism in the category $[\cat{C}, \cat{D}]$.
+\end{dfn}
+
+\begin{prop}
+  Let $F,G:\cat{C}\to\cat{D}$ be functors. A natural transformation $\alpha:
+  F\To G$ is a natural isomorphism if and only each of its components $\alpha_x:
+  Fx\to Gx$ are isomorphisms in $\cat{D}$.
+\end{prop}
+
+% functor category, natural isomorhpism
+
+We can now state the correct form of the converse to \Cref{thm:iso-implies-hom-iso}.
+
+\begin{thm}\label{thm:hom-iso-implies-iso}
+  Let $x$ and $y$ be objects in a category $\cat{C}$ such that $\cat{C}(x,
+  -)\cong\cat{C}(y, -)$. Then $x\cong y$.
+\end{thm}
+
+\begin{proof}
+  Let $\eta: \cat{C}(x, -)\To\cat{C}(y, -)$ be a natural isomorphism. Define \[
+    t = \eta_x(1_x),
+    \] which is a morphism $y\to x$, and \[
+    u = \eta_y^{-1}(1_y),
+  \]
+  which is a morphism $x\to y$. We claim these are inverses.
+
+  Naturality of $\eta$ applied to $u$ asserts that \[
+    \begin{tikzcd}
+      \cat{C}(x, x)\ar[r, "\eta_x"]\ar[d, "u_*"'] & \cat{C}(y, x)\ar[d, "u_*"] \\
+      \cat{C}(x, y)\ar[r, "\eta_y"'] & \cat{C}(y, y)
+    \end{tikzcd}
+  \]
+  commutes. Following $1_x$ around the top and right, we get \[
+    u_*(\eta_x(1_x)) = u_*(t) = ut,
+  \] while on the left and bottom we get \[
+    \eta_y(u_*(1_x)) = \eta_y(u) = 1_y,
+  \]
+  so commutativity implies $ut = 1_y$.
+
+  Similarly, naturality of $\eta^{-1}$ applied to $t$ asserts that \[
+    \begin{tikzcd}
+      \cat{C}(y, y)\ar[r, "\eta_y^{-1}"]\ar[d, "t_*"'] & \cat{C}(x, y)\ar[d, "t_*"] \\
+      \cat{C}(y, x)\ar[r, "\eta_x^{-1}"'] & \cat{C}(x, x)
+    \end{tikzcd}
+  \]
+  commutes. Following $1_y$ around the top and right, we get \[
+    t_*(\eta_y^{-1}(1_y)) = t_*(u) = tu,
+  \] while on the left and bottom we get \[
+    \eta_x^{-1}(t_*(1_y)) = \eta_x^{-1}(t) = 1_x,
+  \]
+  so again $tu = 1_x$. This completes the proof.
+\end{proof}
+
+This theorem is a special case of the \emph{Yoneda lemma}, arguably the most
+important theorem in category theory. The contravariant result, with the
+functors $\cat{C}(-, x)$, is also true, but outside our scope. Together, these
+theorems tell us that objects in a category are indeed determined by their
+morphisms.
+
+% TODO: mention Yoneda stuff
 
 \section{Monoidal Categories}
 
@@ -602,11 +938,11 @@ axioms of a monoidal category more concrete.
     % TODO: is this true?
     \item $\scat{Vect}_\kk$ is monoidal with the tensor product of vector spaces.
     \item $\scat{Cat}$ is monoidal with the product category.
-    \item The categories of \Cref{ex:categories of computable maps}
-      are monoidal with the Cartesian product of sets. In particular, the
-      cartesian product of two $\mathbb{A}$-computable functions is computable
-      by an algorithm which simply first computes the first function, and then
-      computes the second function.
+    % \item The categories of \Cref{ex:categories of computable maps}
+    %   are monoidal with the Cartesian product of sets. In particular, the
+    %   cartesian product of two $\mathbb{A}$-computable functions is computable
+    %   by an algorithm which simply first computes the first function, and then
+    %   computes the second function.
     \item Let $L$ be a strongly-typed functional programming language with
       \emph{product types}, which means that for any types $A$ and $B$, there is
       a type $A\times B$ whose elements are pairs $(a, b)$ of elements $a\in A$
@@ -624,32 +960,32 @@ axioms of a monoidal category more concrete.
   the tensor unit.
 \end{ex}
 
-\subsection{String Diagrams}
+% \subsection{String Diagrams}
 
-In monoidal categories, there are two ``formal mechanisms'' for building
-morphisms: sequential composition $\circ$ and parallel composition $\otimes$.
-String diagrams are a graphical calculus for morphisms using these mechanisms.
-String diagrams and related calculi are explored in great detail
-by~\cite{selinger-2011}; we give a basic outline here.
+% In monoidal categories, there are two ``formal mechanisms'' for building
+% morphisms: sequential composition $\circ$ and parallel composition $\otimes$.
+% String diagrams are a graphical calculus for morphisms using these mechanisms.
+% String diagrams and related calculi are explored in great detail
+% by~\cite{selinger-2011}; we give a basic outline here.
 
-Consider a monoidal category $\cat{C}$ with three morphisms $f: x\to y$, $g:
-w\to z$, and $h: y\otimes z\to u$. We can can form a new morphism $h\circ
-(f\otimes g): x\otimes w\to u$. We encode this fact in the following
-\emph{string diagram}: \[
-  % \begin{pic}
-  % \end{pic}
-\]
+% Consider a monoidal category $\cat{C}$ with three morphisms $f: x\to y$, $g:
+% w\to z$, and $h: y\otimes z\to u$. We can can form a new morphism $h\circ
+% (f\otimes g): x\otimes w\to u$. We encode this fact in the following
+% \emph{string diagram}: \[
+%   % \begin{pic}
+%   % \end{pic}
+% \]
 
-\subsection{Commutativity: Braiding and Symmetry}
+% \subsection{Commutativity: Braiding and Symmetry}
 
-While monoidal categories are necessarily associative, nothing in the definition
-guarantees that the monoidal product is commutative. To enforce symmetry, we add
-a natural isomorphism $\gamma_{x,y}: x\otimes y\to y\otimes x$, called the
-\emph{braiding}, to the data. There are, however, two different possible
-versions of the coherence identities.
+% While monoidal categories are necessarily associative, nothing in the definition
+% guarantees that the monoidal product is commutative. To enforce symmetry, we add
+% a natural isomorphism $\gamma_{x,y}: x\otimes y\to y\otimes x$, called the
+% \emph{braiding}, to the data. There are, however, two different possible
+% versions of the coherence identities.
 
-\subsection{Monoidal Functors}
+% \subsection{Monoidal Functors}
 
-\subsection{Multicategories}
+% \subsection{Multicategories}
 
-\section{Resource Theories}
+% \section{Resource Theories}
