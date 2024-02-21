@@ -216,8 +216,9 @@ The philosophy of category theory is that \begin{center}
 Indeed, in virtually every natural category, morphisms give enough information
 to recover the entire data of any object.
 
-\begin{ex} In the following categories, we can reconstruct an object by
-    ``probing'' it with morphisms from suitable choices of other objects.
+\begin{ex}\label{ex:recovering structure} In the following categories, we can
+  reconstruct an object by ``probing'' it with morphisms from suitable choices
+  of other objects.
   \begin{itemize}
     \item Let $X$ be a set. A function $f: \{*\}\to X$ is exactly a choice of
       $f(*)\in X$, so the morphisms $\scat{Set}(\{*\}, X)$ identify exactly the
@@ -694,6 +695,7 @@ parallel composition. The categorical axiomatization of this idea is
 \emph{monoidal categories}.
 
 \subsection{The Definition}
+\label{sec:monoidal definition}
 
 To model parallel composition, we want an binary operation $\otimes$ which
 assigns, to each pair of processes (morphisms) $f:x\to y$ and $g:w\to z$, their
@@ -960,21 +962,236 @@ axioms of a monoidal category more concrete.
   the tensor unit.
 \end{ex}
 
-% \subsection{String Diagrams}
+\subsection{String Diagrams}
 
-% In monoidal categories, there are two ``formal mechanisms'' for building
-% morphisms: sequential composition $\circ$ and parallel composition $\otimes$.
-% String diagrams are a graphical calculus for morphisms using these mechanisms.
-% String diagrams and related calculi are explored in great detail
-% by~\cite{selinger-2011}; we give a basic outline here.
+In monoidal categories, there are two ``formal mechanisms'' for building
+morphisms: sequential composition $\circ$ and parallel composition $\otimes$.
+String diagrams are a graphical calculus for morphisms using these mechanisms.
+String diagrams and related calculi are explored in great detail
+by~\cite{selinger-2011}; we give a basic outline here.
 
-% Consider a monoidal category $\cat{C}$ with three morphisms $f: x\to y$, $g:
-% w\to z$, and $h: y\otimes z\to u$. We can can form a new morphism $h\circ
-% (f\otimes g): x\otimes w\to u$. We encode this fact in the following
-% \emph{string diagram}: \[
-%   % \begin{pic}
-%   % \end{pic}
-% \]
+
+Consider a monoidal category $\cat{C}$ with three morphisms $f: x\to y$, $g:
+w\to z$, and $h: y\otimes z\to u$. We can can form a new morphism $h\circ
+(f\otimes g): x\otimes w\to u$. We encode this new morphism in the following
+\emph{string diagram}, written bottom-up: \[
+  \begin{pic}
+    \node[morphism] (f) at (0,0) {$f$};
+    \draw (f.south) to ++(0,-.5) node[left] {$x$};
+    \node[morphism] (g) at (.8,0) {$g$};
+    \draw (g.south) to ++(0,-.5) node[right] {$w$} node[right, xshift=5mm, yshift=2mm] {\normalsize.};;
+    \setlength\minimummorphismwidth{10mm}
+    \node[morphism] (h) at (.4, 1.2) {$h$};
+    \draw (f.north) -- (h.south west) node[midway, left] {$y$};
+    \draw (g.north) -- (h.south east) node[midway, right] {$z$};
+    \draw (h.north) to ++(0, .5) node[left] {$u$};
+    % \draw (f.north) to ++(0,1.05) node[left] {$x'$};
+		% \draw ([xshift=2.5pt]A.south east) to ++(0,-.5) node[state,scale=0.75] {\normalsize$\$$};
+  %   \draw ([xshift=2.5pt]A.north east) to ++(0,.5) node[right] {};
+  %   \draw[dotted] (-.8, -1.5) rectangle (.9, 1);
+  %   \node at (1.2, -1.3) {$\cA'$\punctuation{.}};
+  \end{pic}
+\]
+
+Explicitly, the idea is as follows. A morphism is a labelled box, with
+``wires''\footnote{As the word ``wire'' suggests, a string diagram
+can be thought of as a circuit, where the morphisms/boxes are thought of as
+gates. This correspondence has recently been made precise by
+~\cite{boisseau-sobocinski-2022}, but the analogy is much older, and it is a
+useful intuition even without any rigor.} coming into and out of labelled with
+the domain and codomain. We can hook up two wires representing the same
+object---this is sequential composition. We can also place boxes or wires
+side-by-side---this is parallel composition. Accordingly: \[
+  \begin{pic}
+    \node[morphism] (f) at (0,0) {$f$};
+    \draw (f.south) to ++(0,-.5) node[left] {$x$};
+    \draw (f.north) to ++(0,.5) node[left] {$y$};
+    \node[morphism] (g) at (.8,0) {$g$};
+    \draw (g.south) to ++(0,-.5) node[left] {$w$};
+    \draw (g.north) to ++(0,.5) node[left] {$z$};
+  \end{pic}
+  \hspace{.7em}
+  =
+  \begin{pic}
+    \node[morphism] (fg) at (0,0) {$f\otimes g$};
+    \draw (f.south) to ++(0,-.5) node[left] {$x\otimes w$};
+    \draw (f.north) to ++(0,.5) node[left] {$y\otimes z$};
+  \end{pic}
+  \hspace{.7em}
+  =
+  \hspace{.2em}
+  \begin{pic}
+    \node[morphism] (fg) at (0,0) {$f\otimes g$};
+    \setlength\minimummorphismwidth{6mm}
+    \draw ([xshift=-2.5pt]fg.south west) to ++(0,-.5) node[left] {$x$};
+    \draw ([xshift=-2.5pt]fg.north west) to ++(0,.5) node[left] {$y$};
+    \draw ([xshift=2.5pt]fg.south east) to ++(0,-.5) node[right] {$w$};
+    \draw ([xshift=2.5pt]fg.north east) to ++(0,.5) node[right] {$z$};
+  \end{pic}
+  \quad\quad
+  \text{and}
+  \hspace{.7em}
+  \quad\quad
+  \begin{pic}
+    \node[morphism] (g) at (0,.75) {$g\vphantom{f}$};
+    \node[morphism] (f) at (0,0) {$f\vphantom{g}$};
+    \draw (f.south) to ++(0,-.3) node[right] {$x$};
+    \draw (g.south) to  (f.north);
+    \draw (g.north) to ++(0,.3) node[right] {$z$};
+  \end{pic}
+  \hspace{.4em}
+  =
+  \hspace{.8em}
+  \begin{pic}
+    \node[morphism] (f) {$g \circ f$};
+    \draw (f.south) to ++(0,-.5) node[left] {$x$} node[right, xshift=5mm, yshift=1mm] {\normalsize,};
+    \draw (f.north) to ++(0,.5) node[left] {$z$};
+  \end{pic}
+\]where in the second equality we have assumed $y = w$, so that the composition
+makes sense. As the left hand side of the second equality suggests, we often
+suppress the label of ``intermediate'' wires, as they are implicit from the
+types of the morphisms; in fact, we may even at times suppress the labels of the
+input and output wires. Finally, if there is no box, then a wire may be read as
+the identity for its type.
+
+Consider the following diagram: \[
+  \begin{pic}
+    \node[morphism] (f) at (0,0) {$f$};
+    \draw (f.south) to ++(0,-.5) node[left] {$x$};
+    \draw (f.north) to ++(0,.5) node[left] {$y$};
+    \node[morphism] (g) at (.8,0) {$g$};
+    \draw (g.south) to ++(0,-.5) node[left] {$w$};
+    \draw (g.north) to ++(0,.5) node[left] {$z$};
+    \node[morphism] (h) at (1.6,0) {$h$};
+    \draw (h.south) to ++(0,-.5) node[left] {$u$};
+    \draw (h.north) to ++(0,.5) node[left] {$v$};
+  \end{pic}
+\] Do we read this as $(f\otimes g)\otimes h$ or $f\otimes(g\otimes h)$? There
+is not an unambiguous choice, but fortunately the coherence theorem, discussed in
+\Cref{sec:monoidal definition}, means that there is a unique natural isomorphism
+equating these morphisms. As such, the general rule is that \emph{string
+diagrams define morphisms up to unique natural isomorphism}.
+
+Sometimes, we work in settings which have some ``distinguished'' morphisms, in
+which case we will often write them merely with dots. For instance, recall that
+a \emph{classical monoid} is a set $X$ together with an associative unital
+binary operation. Recalling from \Cref{ex:recovering structure} that
+the distinguished unit element $e\in X$ can be associated with the unique
+set-function $\{*\}\to X$ defined by $*\mapsto e$, we generalize the notion of a
+monoid as follows.
+
+\begin{dfn}[monoid object]\label{def:monoid object}
+  Let $\cat{C}$ be a monoidal category. A \emph{monoid object} in $\cat{C}$ is
+  an object $m$ together with distinguished morphisms \[
+    \begin{pic}
+      \node[dot, fill=black] (mu) at (0,0) {};
+      \draw (mu) to[out=180, in=90] ++(-.5, -.5) to ++(0, -.2) node[left] {$m$};
+      \draw (mu) to[out=0, in=90] ++(.5, -.5) to ++(0, -.2) node[right] {$m$};
+      \draw (mu) to ++(0, .7) node[left] {$m$};
+    \end{pic}
+    \quad\quad
+    \text{and}
+    \hspace{1em}
+    \quad\quad
+    \begin{pic}
+      \node[dot, fill=black] (eta) at (0,0) {} node[right, xshift=2mm, yshift=1mm] {\normalsize,};
+      \draw (eta) to ++(0, .7) node[left] {$m$};
+    \end{pic}
+  \] called the \emph{multiplication} and \emph{unit} respectively and
+  traditionally written $\mu$ and $\eta$. This data must make the equalities
+  \begin{equation}\label{eqn:monoid associative}
+    \begin{pic}
+      \node[dot, fill=black] (a) at (0,0) {};
+      \node[dot, fill=black] (b) at (-.5,-.5) {};
+      \draw (a) to[out=180, in=90] (b);
+      \draw (a) to[out=0, in=90] ++(.7, -.7) to ++(0, -.5) node[right] {};
+      \draw (b) to[out=180, in=90] ++(-.5, -.5) to ++(0, -.2) node[left] {};
+      \draw (b) to[out=0, in=90] ++(.5, -.5) to ++(0, -.2) node[left] {};
+      \draw (a) to ++(0, .7) node[left] {};
+    \end{pic}
+    =
+    \begin{pic}
+      \node[dot, fill=black] (a) at (0,0) {};
+      \node[dot, fill=black] (b) at (.5,-.5) {};
+      \draw (a) to[out=0, in=90] (b);
+      \draw (a) to[out=180, in=90] ++(-.7, -.7) to ++(0, -.5) node[left] {};
+      \draw (b) to[out=0, in=90] ++(.5, -.5) to ++(0, -.2) node[right] {};
+      \draw (b) to[out=180, in=90] ++(-.5, -.5) to ++(0, -.2) node[right] {};
+      \draw (a) to ++(0, .7) node[left] {};
+    \end{pic}
+  \end{equation}
+  and
+  \begin{equation}\label{eqn:monoid unital}
+    \begin{pic}
+      \node[dot, fill=black] (a) at (0,0) {};
+      \node[dot, fill=black] (b) at (.5,-.5) {};
+      \draw (a) to[out=0, in=90] (b);
+      \draw (a) to ++(0, .7) node[left] {};
+      \draw (a) to[out=180, in=90] ++(-.5, -.5) to ++(0, -.4) node[left] {};
+    \end{pic}
+    \hspace{.4em}
+    =
+    \begin{pic}
+      \draw(0, 0) node[left] {} to (0, 1.5) node[left]{};
+    \end{pic}
+    \hspace{.6em}
+    =
+    \hspace{.5em}
+    \begin{pic}
+      \node[dot, fill=black] (a) at (0,0) {};
+      \node[dot, fill=black] (b) at (-.5,-.5) {};
+      \draw (a) to[out=180, in=90] (b);
+      \draw (a) to ++(0, .7) node[left] {};
+      \draw (a) to[out=0, in=90] ++(.5, -.5) to ++(0, -.4) node[right] {};
+    \end{pic}
+  \end{equation}
+  hold.
+\end{dfn}
+
+Let us be very explicit about what these equalities say.
+\Cref{eqn:monoid associative} takes in three wires of type $m$. On
+the left, it associates them to the left, so we start with $(m\otimes m)\otimes
+m$. We first multiply on the left while doing nothing on the right, and then
+multiply the product with the thing on the right: this is the composite morphism
+\[
+  \begin{tikzcd}
+    (m\otimes m)\otimes m\ar[r, "\mu\otimes 1_m"] & m\otimes m\ar[r, "\mu"] & m\punctuation{.}
+  \end{tikzcd}
+\] On the right, the $m$s are associated to the right, so we have the composite
+morphism \[
+  \begin{tikzcd}
+    m\otimes (m\otimes m)\ar[r, "1_m\otimes \mu"] & m\otimes m\ar[r, "\mu"] & m\punctuation{.}
+  \end{tikzcd}
+\] For the axiom to make sense, there should be a canonical natural
+isomorphism making the domains and codomains equate, and indeed there is:
+$\alpha_{m,m,m}$ for the domains, and just the identity for the codomains. Thus,
+\Cref{eqn:monoid associative} asserts commutativity of the
+diagram \[
+  \begin{tikzcd}
+    (m\otimes m)\otimes m\ar[rr, "\alpha_{m,m,m}"]\ar[d, "\mu\otimes 1_m"'] & & m\otimes (m\otimes m)\ar[d, "1_m\otimes\mu"] \\
+    m\otimes m\ar[dr, "\mu"'] & & m\otimes m\ar[dl, "\mu"] \\
+                             & m\punctuation{.}
+  \end{tikzcd}
+\]
+
+Meanwhile, \Cref{eqn:monoid unital} features three morphisms. On the left, we have \[
+  \begin{tikzcd}
+    m\otimes I\ar[r, "1_m\otimes\eta"] & m\otimes m\ar[r, "\mu"] & m\punctuation{,}
+  \end{tikzcd}
+\] in the middle we have the identity $1_m: m\to m$, while on the right we have \[
+  \begin{tikzcd}
+    I\otimes m\ar[r, "\eta\otimes 1_m"] & m\otimes m\ar[r, "\mu"] & m\punctuation{.}
+  \end{tikzcd}
+\] Again, the domains are related by the canonical isomorphisms $\lambda$ and
+$\rho$. We can write this equality as commutativity of the diagram \[
+  \begin{tikzcd}
+    I\otimes m\ar[r, "\eta\otimes 1_m"]\ar[dr, "\lambda_m"'] & m\otimes m\ar[d,
+    "\mu"] & m\otimes I\ar[l, "1_m\otimes\eta"']\ar[dl, "\rho_m"]\\
+                                        & m\punctuation{,}
+  \end{tikzcd}
+\]
+where we suppress the identity $1_m$, which could appear at the bottom of the
+diagram.
 
 % \subsection{Commutativity: Braiding and Symmetry}
 
