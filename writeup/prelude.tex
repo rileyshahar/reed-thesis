@@ -207,3 +207,15 @@
 % \newenvironment{protocol}[1]
 % {\begin{lrbox}{\mybox}\procedure{#1}\begin{minipage}{0.9\textwidth}}
 % {\end{minipage}\end{lrbox}\fbox{\usebox{\mybox}}}
+
+\tikzset{
+    triple/.style args={[#1] in [#2] in [#3]}{
+        draw,#1,preaction={draw,#2,preaction={draw,#3}}
+    }
+}   
+\tikzset{
+  doublebraid/.style={
+    triple={[line width=\thickness,white] in [line width=3*\thickness,black] in
+    [line width=7*\thickness,white,text=black]}
+  }
+}

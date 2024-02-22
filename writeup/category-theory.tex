@@ -372,7 +372,7 @@ just a structure-preserving map between categories.
   \end{itemize}
 \end{dfn}
 
-\begin{ex}
+\begin{ex}\label{ex:functors}
   In mathematics, functors are ubiquitous as representations of procedures for
   producing structures of one sort from structures of another. For instance, the
   following are all functors:
@@ -393,6 +393,11 @@ just a structure-preserving map between categories.
       determined by its action on objects. (In fact, as usual in category
       theory, it is the action on morphisms---in particular, on the
       identities---which determines the action on objects.)
+    \item There is a functor $\text{GL}_n: \scat{Ring}\to\scat{Grp}$ which takes a
+      ring $R$ to the multiplicative group $\text{GL}_n(R)$ of invertible $n$-by-$n$
+      matrices with coefficients in $R$.
+    \item There is another functor $(-)^\times: \scat{Ring}\to\scat{Grp}$ which takes a
+      ring $R$ to the multiplicative group of units in $R$.
     \item There is a functor $\texttt{List}: \scat{Set}\to\scat{Set}$ which
       takes a set $X$ to the set of all finite lists of elements in $X$, and a
       set-function $f$ to its mapping over lists, i.e. \[
@@ -572,6 +577,9 @@ transformations are natural.
       a natural transformation $\alpha: 1_{\scat{Vect}}\To (-)^{**}$ whose
       components $\alpha_V$ take any $v\in V$ to the map $\text{ev}_v:
       \VV^*\to\kk$ given by $T\mapsto Tv$.
+    \item There is a natural transformation $\det:\text{GL}_n\To (-)^*$, where
+      $R^*$ is the ring of units from \Cref{ex:functors}, which
+      takes the determinant of an invertible matrix.
     \item Let $\texttt{reverse}_X$ be the function which reverses lists of
       elements in $X$, i.e. \[
         [x_1, \ldots, x_n]\mapsto [x_n, \ldots, x_1].
@@ -832,6 +840,7 @@ manipulated\footnote{
 }.
 
 \subsection{Examples}
+\label{sec:monoidal examples}
 
 The notion of a monoidal category is quite general; we survey some important
 examples here.
@@ -963,6 +972,7 @@ axioms of a monoidal category more concrete.
 \end{ex}
 
 \subsection{String Diagrams}
+\label{sec:string diagrams}
 
 In monoidal categories, there are two ``formal mechanisms'' for building
 morphisms: sequential composition $\circ$ and parallel composition $\otimes$.
@@ -998,7 +1008,8 @@ Explicitly, the idea is as follows. A morphism is a labelled box, with
 can be thought of as a circuit, where the morphisms/boxes are thought of as
 gates. This correspondence has recently been made precise by
 ~\cite{boisseau-sobocinski-2022}, but the analogy is much older, and it is a
-useful intuition even without any rigor.} coming into and out of labelled with
+useful intuition even without any rigor. This analogy and many others are
+discussed in~\cite{baez-stay-2011}.} coming into and out of labelled with
 the domain and codomain. We can hook up two wires representing the same
 object---this is sequential composition. We can also place boxes or wires
 side-by-side---this is parallel composition. Accordingly: \[
@@ -1071,6 +1082,18 @@ is not an unambiguous choice, but fortunately the coherence theorem, discussed i
 \Cref{sec:monoidal definition}, means that there is a unique natural isomorphism
 equating these morphisms. As such, the general rule is that \emph{string
 diagrams define morphisms up to unique natural isomorphism}.
+
+Since wires of type $I$ can be created or destroyed at will, we denote them with
+a triangle, so that for instance if $f: I\otimes x\to y\otimes I$, then \[
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (f) at (0,0) {$f$};
+    \draw (f.south west) to ++(0, -.3) node[state, scale=.5] {};
+    \draw (f.south east) to ++(0, -.8) node[right] {$x$};
+    \draw (f.north west) to ++(0, .8) node[left] {$y$};
+    \draw (f.north east) to ++(0, .3) node[state, scale=.5, rotate=180] {};
+  \end{pic}
+\]is the morphism $\rho_y\circ f\circ\lambda_x^{-1}: x\to y$.
 
 Sometimes, we work in settings which have some ``distinguished'' morphisms, in
 which case we will often write them merely with dots. For instance, recall that
@@ -1193,13 +1216,135 @@ $\rho$. We can write this equality as commutativity of the diagram \[
 where we suppress the identity $1_m$, which could appear at the bottom of the
 diagram.
 
-% \subsection{Commutativity: Braiding and Symmetry}
+\subsection{Symmetry}
+\label{sec:smcs}
 
-% While monoidal categories are necessarily associative, nothing in the definition
-% guarantees that the monoidal product is commutative. To enforce symmetry, we add
-% a natural isomorphism $\gamma_{x,y}: x\otimes y\to y\otimes x$, called the
-% \emph{braiding}, to the data. There are, however, two different possible
-% versions of the coherence identities.
+While monoidal categories are necessarily associative, nothing in the definition
+guarantees that the monoidal product is commutative. As usual, it is too stric
+to ask for commutativity $x\otimes y = y\otimes x$ as an equational axiom. When
+we want commutativity, we instead add a natural isomorphism $\gamma_{x,y}:
+x\otimes y\to y\otimes x$, called the \emph{braiding}, to the data, so named
+because of its string-diagrammatic representation: \[
+  \begin{pic}
+    \draw (0,0) node[left] {$x$} to[out=80,in=-100] (.6,1) node[right] {$x$};
+    \draw[style=braid] (.6,0) node[right] {$y$} node[right, xshift=3mm,
+    yshift=1mm] {\normalsize.} to[out=100,in=-80] (0,1) node[left] {$y$};
+  \end{pic}
+\]
+
+Note that there are \emph{four} possible braids we could draw involving $x$ and
+$y$, each of which is \emph{a priori} a different morphism: \[
+  \gamma_{x,y} = \begin{pic}
+    \draw (0,0) node[left] {$x$} to[out=80,in=-100] (.6,1) node[right] {$x$};
+    \draw[style=braid] (.6,0) node[right] {$y$} node[right, xshift=3mm,
+    yshift=1mm] {\normalsize,} to[out=100,in=-80] (0,1) node[left] {$y$};
+  \end{pic}\quad
+  \gamma_{x,y}^{-1} = \begin{pic}
+    \draw (.6,0) node[right] {$x$} node[right, xshift=3mm,
+    yshift=1mm] {\normalsize,} to[out=100,in=-80] (0,1) node[left] {$x$};
+    \draw[style=braid] (0,0) node[left] {$y$} to[out=80,in=-100] (.6,1) node[right] {$y$};
+  \end{pic}\quad
+  \gamma_{y,x} = \begin{pic}
+    \draw (0,0) node[left] {$y$} to[out=80,in=-100] (.6,1) node[right] {$y$};
+    \draw[style=braid] (.6,0) node[right] {$x$} node[right, xshift=3mm,
+    yshift=1mm] {\normalsize,} to[out=100,in=-80] (0,1) node[left] {$x$};
+  \end{pic}\quad
+  \gamma_{y,x}^{-1} = \begin{pic}
+    \draw (.6,0) node[right] {$y$} node[right, xshift=3mm,
+    yshift=1mm] {\normalsize.} to[out=100,in=-80] (0,1) node[left] {$y$};
+    \draw[style=braid] (0,0) node[left] {$x$} to[out=80,in=-100] (.6,1) node[right] {$x$};
+  \end{pic}
+\]
+
+That $\gamma_{x,y}^{-1}$ is indeed an inverse asserts that \[
+  \begin{pic}
+    \draw (0,0) node[left] {$x$} to[out=80,in=-90] (.6,1) to[out=90,in=-80] (0,2) node[left] {$x$};
+    \draw[style=braid] (.6,0) node[right] {$y$} to[out=100,in=-90] (0,1) to[out=90,in=-100] (.6,2) node[right] {$y$};
+  \end{pic} = \begin{pic}
+    \draw (0,0) node[left] {$x$} to (0,1) node[left] {$x$};
+    \draw (.4,0) node[right] {$y$} to (.4,1) node[right] {$y$};
+  \end{pic} = \begin{pic}
+  \draw (.6,0) node[right] {$y$} node[right, xshift=3mm, yshift=3mm] {\normalsize,} to[out=100,in=-90] (0,1) to[out=90,in=-100] (.6,2) node[right] {$y$};
+    \draw[style=braid] (0,0) node[left] {$x$} to[out=80,in=-90] (.6,1) to[out=90,in=-80] (0,2) node[left] {$x$};
+    \end{pic}
+\] as is suggested by our geometric intuitions\footnote{
+  It is, in fact, possible to formalize string diagrams geometrically, using the
+  technology of knot theory; this is due to~\cite{joyal-street-1991}.
+}.
+
+What coherence axioms should this satisfy? It should certainly be coherent with
+the identity:
+\begin{equation}\label{eqn:braid id}
+  \begin{pic}
+    \draw (0,0) node[left] {$x$} to (0, .5) to[out=80,in=-100] (.6,1.5) to (.6,2) node[right] {$x$};
+    \draw[style=braid] (.6,.5) node[state,scale=.5] {} to[out=100,in=-80] (0,1.5) node[rotate=180,state,scale=.5] {};
+    \end{pic} = \begin{pic}
+    \draw(0,0) node[left] {$x$} to (0,1) node[left] {$x$};
+    \end{pic} \hspace{.7em} = \begin{pic}
+    \draw (0,.5) node[state,scale=.5] {} to[out=100,in=-80] (.6,1.5) node[rotate=180,state,scale=.5] {};
+    \draw[style=braid] (.6,0) node[right] {$x$} node[right, xshift=3mm, yshift=3mm]
+    {\normalsize.} to (.6, .5) to[out=80,in=-100] (0,1.5) to (0,2) node[left] {$x$};
+    \end{pic}
+  \end{equation}
+
+It should also not matter if we braid twice, or braid once with a tensor, in the
+sense that: \begin{equation}\label{eqn:braid coherence}
+  \begin{pic}
+    \draw (0,0) node[left] {$x$} to[out=80,in=-90] (.6,1) to[out=90,in=-90] (1.2,2) node[right]{$x$};
+    \draw[style=braid] (.6,0) node[right] {$y$} to[out=100,in=-90] (0,1) to (0,2) node[left]{$y$};
+    \draw[style=braid] (1.2,0) node[right] {$z$} to (1.2,1) to[out=90,in=-90] (.6,2) node[left]{$z$};
+  \end{pic} = \begin{pic}
+    \draw (0,0) node[left] {$x$} to[out=80,in=-100] (.6,1) node[right] {$x$};
+    \draw[style=doublebraid,text=black] (.6,0) node[right] {$y\otimes z$} to[out=100,in=-80] (0,1) node[left] {$y\otimes z$};
+  \end{pic}
+  \quad\quad\text{and}\quad\quad
+  \begin{pic}
+    \draw (0,0) node[left] {$x$} to (0,1) to[out=90,in=-90] (.6,2) node[right]{$x$};
+    \draw (.6,0) node[left] {$y$} to[out=80,in=-90] (1.2,1) to (1.2,2) node[right]{$y$};
+    \draw[style=braid] (1.2,0) node[right] {$z$} to[out=100,in=-90] (.6,1) to[out=90,in=-90] (0,2) node[left]{$z$};
+  \end{pic} = \begin{pic}
+    \draw[double] (0,0) node[left] {$x\otimes y$} to[out=80,in=-100] (.6,1) node[right] {$x\otimes y$};
+    \draw[style=braid] (.6,0) node[right] {$z$} node[right,xshift=3mm,
+    yshift=3mm] {\normalsize.} to[out=100,in=-80] (0,1) node[left] {$z$};
+  \end{pic}
+\end{equation} The previous two axioms define a \emph{braided monoidal category}.
+
+We will care primarily about the stronger case in which
+\begin{equation}\label{eqn:braid symmetry}
+  \begin{pic}
+    \draw (0,0) to[out=80,in=-100] (.6,1);
+    \draw[style=braid] (.6,0) to[out=100,in=-80] (0,1);
+  \end{pic} = \begin{pic}
+    \draw (.6,0) node[right, xshift=3mm, yshift=1mm] {\normalsize,} to[out=100,in=-80] (0,1) ;
+    \draw[style=braid] (0,0) to[out=80,in=-100] (.6,1) ;
+  \end{pic}
+  \end{equation} which we may then unambiguously write \[
+  \begin{pic}
+    \draw (.6,0)  node[right, xshift=3mm, yshift=1mm] {\normalsize,} to[out=100,in=-80] (0,1);
+    \draw (0,0) to[out=80,in=-100] (.6,1);
+  \end{pic}
+\]and call this map the \emph{symmetry}.
+
+\begin{dfn}[symmetric monoidal category]\label{def:symmetric monoidal category}
+  A \emph{symmetric monoidal category} is a monoidal category $\cat{C}$,
+  together with a natural isomorphism $\gamma_{x,y}: x\otimes y\to y\otimes x$,
+  called the \emph{braiding} or \emph{symmetry}, satisfying the coherence laws
+  of \Cref{eqn:braid id,eqn:braid coherence,eqn:braid symmetry}.
+\end{dfn}
+
+\begin{ex}
+  The categories $\scat{Set}$, $\scat{Vect}_\kk$, and $\scat{Cat}$, with the
+  monoidal structure defined in \Cref{sec:monoidal examples},
+  are all symmetric monoidal.
+\end{ex}
+
+\section*{Bibliographic Notes}
+
+There are many different ways to visually present string diagrams. In
+\Cref{sec:string diagrams}, we have
+followed the style of~\cite{broadbent-karvonen-2022} very closely. We program
+our diagrams in part using the Ti\textit{k}Z code
+of~\cite{broadbent-karvonen-2022}, and code due to Zajj Daugherty.
 
 % \subsection{Monoidal Functors}
 
