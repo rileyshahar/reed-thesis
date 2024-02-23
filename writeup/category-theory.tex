@@ -398,7 +398,10 @@ just a structure-preserving map between categories.
       matrices with coefficients in $R$.
     \item There is another functor $(-)^\times: \scat{Ring}\to\scat{Grp}$ which takes a
       ring $R$ to the multiplicative group of units in $R$.
-    \item There is a functor $\texttt{List}: \scat{Set}\to\scat{Set}$ which
+    \item There is a functor $\texttt{Maybe}: \scat{Set}\to\scat{Set}$ which takes a
+      set $X$ to the set $X\sqcup \{\bot\}$, where $\bot$ is a new element, and
+      a function $f$ to its extension by $f(\bot) = \bot$.
+    \item Similarly, there is a functor $\texttt{List}: \scat{Set}\to\scat{Set}$ which
       takes a set $X$ to the set of all finite lists of elements in $X$, and a
       set-function $f$ to its mapping over lists, i.e. \[
         (\texttt{List}f)([x_1, \ldots, x_n]) = [f(x_1), \ldots, f(x_n)].
@@ -580,15 +583,6 @@ transformations are natural.
     \item There is a natural transformation $\det:\text{GL}_n\To (-)^*$, where
       $R^*$ is the ring of units from \Cref{ex:functors}, which
       takes the determinant of an invertible matrix.
-    \item Let $\texttt{reverse}_X$ be the function which reverses lists of
-      elements in $X$, i.e. \[
-        [x_1, \ldots, x_n]\mapsto [x_n, \ldots, x_1].
-      \] Then $\texttt{reverse}$ is a natural transformation $\texttt{List}\To
-      \texttt{List}$. This is a special case of the extremely powerful
-      \emph{Reynolds abstraction theorem} from programming language theory,
-      which says that (parametrically) polymorphic functions are
-      natural~\cite{reynolds-1983}. This theorem is explored in great detail
-      by~\cite{wadler-1989}.
     \item Let $F,G:\cL_1\to\cL_2$ be models of a programming language $L_1$ in
       $L_2$. A natural transformation $\alpha: F\To G$ is a \emph{transpilation}
       between the models: it tells us how to convert programs written in the
@@ -598,11 +592,35 @@ transformations are natural.
  \end{itemize}
 \end{ex}
 
+\begin{ex}
+  Here are three natural transformations common in functional programming.
+  \begin{itemize}
+    \item Let $\texttt{reverse}_X$ be the function which reverses lists of
+      elements in $X$, i.e. \[
+        [x_1, \ldots, x_n]\mapsto [x_n, \ldots, x_1].
+      \] Then $\texttt{reverse}$ is a natural transformation $\texttt{List}\To
+      \texttt{List}$.
+    \item Let $\texttt{head}_X$ be the function which gets the first element of
+      a list if it exists, i.e. \[
+        [x_1, \ldots, x_n]\mapsto x_1,\quad\quad []\mapsto\bot.
+      \] Then $\texttt{head}$ is a natural transformation
+      $\texttt{List}\To\texttt{Maybe}$.
+    \item Let $\texttt{toList}_X$ be the function $\texttt{Maybe}
+      X\to\texttt{List} X$ given by \[
+        x\mapsto [x], \quad\quad \bot\mapsto[].
+      \] Then $\texttt{toList}$ is a natural transformation
+      $\texttt{Maybe}\To\texttt{List}$.
+  \end{itemize}
+  Each of these are special cases of the so-called \emph{Reynolds
+  abstraction theorem} from programming language theory, which says that
+  (parametrically) polymorphic functions are natural~\cite{reynolds-1983}.
+  This theorem is explored in great detail by~\cite{wadler-1989}.
+\end{ex}
+
 If we think of natural transformations as morphisms between functors
 $\cat{C}\to\cat{D}$, then following the category-theoretic philosophy, there
-should be a category of functors.
-
-Natural transformations can be composed, as follows.
+should be a category of functors. Indeed, natural transformations can be
+composed, as follows.
 
 \begin{prop}
   Let $F,G,H: \cat{C}\to\cat{D}$ be functors and let $\alpha: F\To G$ and
@@ -1216,6 +1234,17 @@ $\rho$. We can write this equality as commutativity of the diagram \[
 where we suppress the identity $1_m$, which could appear at the bottom of the
 diagram.
 
+In the following two sections, we will give several examples of definitions---in
+particular \emph{braided monoidal categories}, \emph{symmetric monoidal
+categories}, and \emph{monoidal functors}---whose coherence axioms are better
+understood diagramatically than symbolically. While the axioms themselves are
+useful to understand, for our purposes it is more important to understand the
+intuition of the structures in question and their relationship to the graphical
+calculi. If the reader understands how the diagrams relate to each other, it is
+generally safe to move on even without a complete understanding of how they are
+translated into symbolic equalities. The interested reader may find a symbolic
+statement of the coherence laws in~\cite[Chapter XI]{maclane-1971}.
+
 \subsection{Symmetry}
 \label{sec:smcs}
 
@@ -1338,6 +1367,164 @@ We will care primarily about the stronger case in which
   are all symmetric monoidal.
 \end{ex}
 
+\subsection{Monoidal Functors}
+
+Let us work out what a ``monoidal functor'' between monoidal categories should be. Let
+$\cat{C}$ and $\cat{D}$ be monoidal categories, and annotate their respective
+data with subscripts, so that for instance $\otimes_\cat{C}$ is the tensor of
+$\cat{C}$. Let $F: \cat{C}\to\cat{D}$ be a functor.
+
+A sensible choice is to ask for a natural isomorphism $\phi_{x,y}:
+Fx\otimes_{\cat{D}} Fy\to F(x\otimes_\cat{C} y)$, satisfying certain coherence
+identities. However, this is often too strong for our purposes. For instance,
+$\texttt{Maybe}$ does not satisfy this definition: while there is a map
+\begin{align*}
+  \texttt{Maybe}X\otimes\texttt{Maybe}Y&\to\texttt{Maybe}(X\otimes Y) \\
+  (x, y)\mapsto (x, y) \quad (x, \bot&)\mapsto \bot \quad (\bot, y)\mapsto \bot,
+\end{align*}
+and so $\texttt{Maybe}$ respects the monoidal structure in some weaker sense,
+this map is not an isomorphism. Instead, we will often just ask $\phi_{x,y}$ to
+be a morrphism, which tells us how to ``convert'' tensor products in $\cat{D}$
+into tensor products in the model of $\cat{D}$\footnote{
+  A careful reader may wonder why the morphism goes from $\otimes_\cat{D}$ to
+  $\otimes_\cat{C}$, rather than the other way. We do sometimes study the
+  latter under the name \emph{colax monoidal functors}, but the former is far
+  more common. One way to understand this is that the former direction says that
+  tensor in $\cat{D}$ is in some sense ``more precise'' than tensor in
+  $\cat{C}$, which tends to be why the functor is interesting in the first
+  place. 
+}. We also need $F$ to be
+compatible with the tensor unit, for which we ask for an morphism $\phi:
+I_\cat{D}\to FI_\cat{C}$.
+
+There is a graphical calculus for monoidal functors due
+to~\cite{cockett-seely-1999}; we give a presentation
+following~\cite{mellies-2006}. The idea is to represent functors as colored
+boxes which separate the ``inside world'' of $\cat{C}$ from the ``outside world''
+of $\cat{D}$, so that we may depict the morphism $Ff: Fx\to Fy$ as \[
+  \begin{pic}
+    \node[morphism] (f) at (0,0) {$f$};
+    \draw (f.south) to ++(0,-.9) node[left] {$Fx$} node[right, xshift=6mm, yshift=5mm] {\normalsize.};
+    \draw[functor=blue] (-.5,-.8) rectangle (.5, .8);
+    \draw (f.north) to ++(0,.9) node[left] {$Fy$};
+  \end{pic}
+\]
+
+If $F$ is monoidal, we write the morphism $\phi_{x,y}$ as \[
+  \begin{pic}
+    \draw[functor=blue] (-.5, -.3) -- (0, -.3) -- (0, .2) -- (.5, .2) -- (.5,
+      -.3) -- (1, -.3) -- (1, .7) -- (-.5, .7) -- cycle;
+    \draw[rounded corners] (-.25, -.75) node[left] {$Fx$} -- (-.25, .45) --
+      (.75, .45) -- ++(0, -1.2) node[right] {$Fy$} node[right, xshift=4mm, yshift=5mm] {\normalsize,};
+    \draw (.25, .45) -- ++(0, 1.2) node[left] {$F(x\otimes_\cat{C} y)$};
+  \end{pic}
+\] the idea being that at first the blue-shaded wires $x$ and $y$ are connected by white
+space representing the tensor $\otimes_{\cat{D}}$, and then it becomes blue space
+representing the tensor $\otimes_\cat{C}$. We often don't write the top part of this
+morphism, instead doing manipulation inside $\cat{C}$, which happens in the blue
+shading. For instance, coherence with the identity states that
+\begin{equation}\label{eqn:monoidal functor id}
+  \begin{pic}
+    \draw[functor=blue] (-.6, -.3) -- (0, -.3) -- (0, .2) -- (.3, .2) -- (.3,
+      -.3) -- (.9, -.3) -- (.9, 1) -- (-.6, 1) -- cycle;
+      \draw (-.3, 1.5) node[left] {$Fx$} -- ++(0, -2.5) node[left] {$Fx$};
+    \draw (.6, .45) node[state,scale=.5,rotate=180] {} -- ++(0, -1.) node[state,scale=.5] {};
+    \end{pic}\hspace{.5em} = \hspace{.5em}\begin{pic}
+      \draw(0,0) to (0,1.5);
+      \end{pic}\hspace{.5em} = \hspace{.5em} \begin{pic}
+    \draw[functor=blue] (-.6, -.3) -- (0, -.3) -- (0, .2) -- (.3, .2) -- (.3,
+      -.3) -- (.9, -.3) -- (.9, 1) -- (-.6, 1) -- cycle;
+      \draw (.6, 1.5) node[right] {$Fx$} -- ++(0, -2.5) node[right] {$Fx$} node[right, xshift=5mm,yshift=7mm]
+      {\normalsize.};
+    \draw (-.3, .45) node[state,scale=.5,rotate=180] {} -- ++(0, -1.) node[state,scale=.5] {};
+  \end{pic}
+\end{equation} Similarly, compatibility with the associator asserts that
+\begin{equation}\label{eqn:monoidal functor assoc}
+  \begin{pic}
+    \draw[functor=blue] (-1.25,-.5) -- (-.75,-.5) -- (-.75, 0) -- (-.25, 0) --
+    (-.25, -.5) -- (.25, -.5) -- (.25, .5) -- (.75, .5) -- (.75, -.5) -- (1.25,
+    -.5) -- (1.25, 1) -- (-1.25, 1) -- cycle;
+    \draw[rounded corners] (-1, -.9) node[left] {$Fx$} -- (-1, .25) --
+      (0, .25) -- (0, -.9) node[left] {$Fy$};
+    \draw[rounded corners] (-.5, .25) -- (-.5, .75) -- (1, .75) -- (1, -.9)
+    node[left] {$Fz$};
+    \draw (.25, .75) -- (.25, 1.5) node[left] {$F((x\otimes_\cat{C} y)\otimes_\cat{C} z)$};
+    % \draw (.25, .45) -- ++(0, 1.2) node[left] {$F(x\otimes_\cat{C} y)$};
+  \end{pic} = 
+  \begin{pic}
+    \draw[functor=blue] (1.25,-.5) -- (.75,-.5) -- (.75, 0) -- (.25, 0) --
+    (.25, -.5) -- (-.25, -.5) -- (-.25, .5) -- (-.75, .5) -- (-.75, -.5) -- (-1.25,
+    -.5) -- (-1.25, 1) -- (1.25, 1) -- cycle;
+    \draw[rounded corners] (1, -.9) node[right] {$Fz$} node[right, xshift=5mm,
+    yshift=7mm] {\normalsize,} -- (1, .25) --
+      (0, .25) -- (0, -.9) node[right] {$Fy$};
+    \draw[rounded corners] (.5, .25) -- (.5, .75) -- (-1, .75) -- (-1, -.9)
+    node[right] {$Fx$};
+    \draw (-.25, .75) -- (-.25, 1.5) node[right] {$F(x\otimes_\cat{C} (y\otimes_\cat{C} z))$};
+    % \draw (.25, .45) -- ++(0, 1.2) node[left] {$F(x\otimes_\cat{C} y)$};
+  \end{pic}
+\end{equation}
+while when $\cat{C}$ and $\cat{D}$ are symmetric monoidal, we might also want
+compatibility with the symmetry: \begin{equation}\label{eqn:monoidal functor symmetry}
+  \begin{pic}
+    \draw (.8,0) node[right] {$Fy$} to[out=100,in=-90] (0,1);
+    \draw (0,0) node[left] {$Fx$} to[out=80,in=-90] (.8,1);
+    \draw[functor=blue] (-.2, 1) -- (-.2, 2.05) -- (1, 2.05) -- (1, 1) --
+    (.6, 1) -- (.6, 1.45) -- (.2, 1.45) -- (.2, 1) -- cycle;
+    \draw[rounded corners] (.8,1)  -- (.8,1.7) --
+      (0, 1.7) -- (0, 1);
+    \draw (.4, 1.7) -- (.4, 2.6) node[left] {$F(y\otimes_\cat{C} x)$};
+  \end{pic}=\hspace{.1em}
+  \begin{pic}
+    \draw (.8,0) node[right] {$Fy$} node[right,xshift=5mm,yshift=7mm] {\normalsize.} to (.8, .4) to[out=90,in=-90] (0,1.4);
+    \draw (0,0) node[left] {$Fx$} to (0, .4) to[out=90,in=-90] (.8,1.4);
+    \draw[functor=blue] (-.2, .2) -- (-.2, 2.05) -- (1, 2.05) -- (1, .2) --
+    (.6, .2) -- (.6, .65) -- (.2, .65) -- (.2, .2) -- cycle;
+    \draw[rounded corners] (.8,1.4)  -- (.8,1.7) --
+      (0, 1.7) -- (0, 1.4);
+    \draw (.4, 1.7) -- (.4, 2.6) node[right] {$F(y\otimes_\cat{C} x)$};
+  \end{pic}
+\end{equation}
+
+\begin{dfn}[monoidal functor]\label{def:monoidal functor}
+  A functor $F: \cat{C}\to\cat{D}$ between monoidal categories is \emph{lax
+  monoidal}, or just \emph{monoidal}, if there is a natural transformation
+  $\phi_{x,y}: Fx\otimes_\cat{D} F_y\to F(x\otimes_\cat{C} y)$ and a morphism
+  $\phi: I_\cat{D}\to FI_\cat{C}$ satisfying
+  \Cref{eqn:monoidal functor id,eqn:monoidal functor assoc}. It is
+  further \emph{symmetric} if $\cat{C}$ and $\cat{D}$ are
+  symmetric monoidal categories and the data satisfies
+  \Cref{eqn:monoidal functor symmetry}.
+  Finally, it is \emph{strong monoidal} if $\phi_{x,y}$ and $\phi$ are
+  isomorphisms. 
+\end{dfn}
+
+\begin{ex}Again, there are many familiar monoidal functors.
+  \begin{itemize}
+    \item $\texttt{Maybe}$ is (lax) symmetric monoidal, but not strong monoidal.
+    \item For any monoidal category $\cat{C}$, $\cat{C}(I, -)$ is monoidal, with
+      the coherence \begin{align*}
+        \phi_{x,y}: \cat{C}(I, x)\times\cat{C}(I, y)&\to \cat{C}(I, x\otimes y) \\
+        (f, g)
+         &\mapsto
+        \begin{pic}
+          \node[morphism] (f) at (0,0) {$f$};
+          \draw (f.south) to ++(0,-.9) node[left] {$I$};
+          \draw (f.north) to ++(0,.6) node[left] {$x$};
+          \node[morphism] (g) at (.7,0) {$g$};
+          \draw (g.south) to ++(0, -.2) node[state,scale=.5] {} node[right, xshift=3mm, yshift=2mm] {\normalsize.};
+          \draw (g.north) to ++(0,.6) node[right] {$y$};
+          \draw[dotted] (-.4, -.95) rectangle (1.1, .6);
+        \end{pic}
+      \end{align*}
+      If $\cat{C}$ is symmetric, then so too is $\cat{C}(I, -)$.
+    \item The $\kk$-span functor is strong symmetric monoidal. In fact, this is
+      one definition of the tensor of vector spaces: \[
+        \text{span}_\kk X\otimes \text{span}_\kk Y = \text{span}_\kk(X\times Y).
+      \]
+  \end{itemize}
+\end{ex}
+
 \section*{Bibliographic Notes}
 
 There are many different ways to visually present string diagrams. In
@@ -1346,7 +1533,9 @@ followed the style of~\cite{broadbent-karvonen-2022} very closely. We program
 our diagrams in part using the Ti\textit{k}Z code
 of~\cite{broadbent-karvonen-2022}, and code due to Zajj Daugherty.
 
-% \subsection{Monoidal Functors}
+
+
+
 
 % \subsection{Multicategories}
 
