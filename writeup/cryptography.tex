@@ -294,6 +294,8 @@ One more closure result is valuable:
 \end{proof}
 
 \subsection{Interactive and Zero-Knowledge Computation}
+\label{sec:interactive computation}
+\label{sec:zero-knowledge}
 
 Cryptographic protocols do not occur in a vacuum; instead, they rely on
 computations involving multiple parties. We formalize such situations using the
@@ -361,8 +363,8 @@ in ~\Cref{def:one-way function}.
 This model of interactive computation allows us to formalize the idea of a party
 ``learning something'' from an interaction. We say that an interactive
 protocol $\<\cA_1, \dots, \cA_n\>$ is \emph{zero-knowledge for party $i$} if
-for any choice of inputs $(x, x_1, \dots, x_n)$, there exists a non-uniform PPT
-algorithm $\cS$ such that \[
+there exists a non-uniform PPT algorithm $\cS$ such that
+for any choice of inputs $(x, x_1, \dots, x_n)$, \[
   \cS(x, x_i) \cind \view_i^{\<\cA_1, \dots, \cA_n\>}(x, x_1, \dots, x_n).
 \]
 The idea is that the ``simulator'' $\cS$ gets only the inputs to $\cA_i$ and is
@@ -374,17 +376,17 @@ More often, we want to consider the situation where $\cA_i$ is supposed to learn
 \emph{something} from the computation, but should not learn anything
 \emph{extra}.
 
-\begin{dfn}[Zero-Knowledge]\label{def:zero knowledge}
+\begin{dfn}[Zero-Knowledge]\label{def:zero-knowledge}
   Let $f$ be a function. An interactive protocol $\<\cA_1, \dots, \cA_n\>$ is
-  \emph{zero-knowledge secure for party $i$ relative to $f$} if for any choice
-  of inputs $(x, x_1, \dots, x_n)$, there exists a non-uniform PPT algorithm
-  $\cS$ such that \[
+  \emph{zero-knowledge for party $i$ relative to $f$} if there exists a non-uniform
+  PPT $\cS$ such that for any choice of
+  inputs $(x, x_1, \dots, x_n)$, \[
   \cS(x, x_i, f(x, x_1, \dots, x_n)) \cind \view_i^{\<\cA_1, \dots, \cA_n\>}(x, x_1, \dots, x_n).
 \]
 \end{dfn}
 
 Sometimes we may also want to view $f$ as a function of the internal randomness
-of each of the algorithms in the protocol, but we will not need to be so precise
+of each of the algorithms in the protocol, but we will not need to be so careful
 here.
 
 One more distinction is important. In the above definition, we are asking that
@@ -393,11 +395,105 @@ computational indistinguishability, to the actual view. While this is all that
 is possible in many situations in practice, we could ask for the stronger
 condition that the produced distribution is \emph{identical} to the view. We
 call this notion \emph{perfect} or \emph{information-theoretic} zero-knowledge,
-and refer to \Cref{def:zero knowledge} as
+and refer to \Cref{def:zero-knowledge} as
 \emph{computational} zero-knowledge when we wish to emphasize the distinction.
 
 \section{Examples}
 
 \subsection{Encryption}
+
+A lot of the machinery defined in the previous section was originally developed
+in the 1970s and 80s for the purpose of analyzing \emph{encryption problems},
+culminating in the development of a \emph{public-key encryption protocol}
+by~\cite{goldwasser-micali-1982}. The idea of an encryption problem is that a
+party Alice has a message $m$ in the \emph{message space} $\cM_n$ which they want
+to send to Bob, but any message they send to Bob must also be sent to the
+eavesdropping Eve. In the simpler \emph{private-key encryption problem}, Alice
+and Bob share some secret key $k$ from the \emph{key space $\cK_n$}, which is
+unknown to Eve.
+
+In this case, the problem reduces to a choice of three probabilistic
+polynomial-time algorithms\footnote{Here, as is general practice, we omit the
+dependence of the message and key spaces on the security parameter $n$.}:\begin{itemize}
+  \item $\alg{Gen}$, which takes as input a security parameter $1^n$ and
+    outputs a key $k\in\cK$;
+  \item $\alg{Enc}$, which takes as input a security parameter $1^n$, a key
+    $k\in\cK$, and a message $m\in\cM$, and outputs a ciphertext $c\in\cM$;
+  \item $\alg{Dec}$, which takes as input a security parameter $1^n$, a key
+    $k\in\cK$, and a ciphertext $c\in\cM$, and outputs a message $m\in\cM$.
+\end{itemize}
+
+An encryption scheme is \emph{correct} if for any choice of $m$ and $k$ output
+by $\alg{Gen}(1^n)$, \[
+  \alg{Dec}(1^n, k, \alg{Enc}(1^n, k, m)) = m.
+\]
+
+It is not hard to show that we may assume that $\alg{Gen}$ outputs a key chosen
+uniformly at random from $\cK$. In this case, and now using the language
+of~\Cref{sec:interactive computation}, we
+say that a private-key encryption scheme is an interactive protocol consisting
+of three interactive algorithms $\cA$, $\cB$, and $\cE$, where:
+\begin{itemize}
+  \item the global input is $1^n$, the security parameter;
+  \item $\cA$ gets a uniform random key $k\in\cK$ and a message $m\in\cM$ as private input;
+  \item $\cB$ gets the same uniform random key $k$ as private input;
+  \item $\cE$ gets no private input;
+  \item $\cA$ and $\cB$ may only send messages to each other if they also send
+    the message to $\cE$.
+\end{itemize}
+
+We then say that an encryption scheme is \emph{correct} if $\cB$ outputs $m$ at
+the end of the protocol. We say that an encryption scheme is \emph{secure} if it
+is zero-knowledge for $\cE$; explicitly, if there exists a non-uniform PPT $\cS$
+such that for any choice of security parameter $n$ and message $m$, \[
+  \cS(1^n) \cind \view_\cE^{\<\cA, \cB, \cE\>}(1^n, k, m),
+\]where the randomness of the second distribution is over both the randomness of
+the algorithms and uniform random choice of $k$.
+
+The point is that the eavesdropper should learn nothing from the interaction,
+while the intended recipient should learn the message. Note that we may convert
+the previous formulation to this one by having $\cA$ compute $c = \alg{Enc}(1^n,
+k, m)$, send it to both other parties, and have $\cB$ output $\alg{Dec}(1^n,
+m)$.
+
+A correct-but-not-secure encryption scheme is easy to construct: simply have
+$\cA$ send $m$ to $\cB$ as a message, and $\cB$ output that message. To show
+that this is not secure, for any simulator $\cS$ we must give a choice of $1^n$
+and $m$ and a distinguisher $\cD$ which distinguishes $\cS(1^n)$ from
+$\view_\cE(1^n, k, m) = \{1^n, m\}$, where $k$ is chosen uniformly at random.
+Note that we may choose the message $m$, and hence hard-code it into our
+distinguisher, but the key $k$ must be chosen uniformly at random, because it is
+not a proper input to the protocol. Regardless, we can simply choose any $m$ and
+have $\cD$ output $1$ if and only if its input is $m$; since $\cS$ must be fixed
+before the choice of $m$, this will distinguish between the distributions.
+
+We can also construct a secure-but-not-correct encryption scheme, in which all
+three simply do nothing. In this case, the view of $\cE$ is just the global
+input $1_n$, which is exactly the input given to $\cS$. We can thus let $\cS$
+compute the identity, in which case the two distributions are identical and so
+indistinguishable.
+
+We now give a secure and correct private key encryption scheme, called the
+\emph{one-time pad}. Let $\{G_n\}$ be a sequence of additive finite groups\footnote{
+  We also want that $\{G_n\}$ is \emph{efficiently sampleable}, so that it is
+  possible to generate an element from it uniformly at random in polynomial
+  time.
+} such that $|G_n| = \Omega(2^n)$, for instance $G_n = \ZZ_2^n$. We let $\cM_n =
+\cK_n = G_n$. Given a message $m$ and key $k$, $\cA$ computes $c = m + k$, which
+it sends to $\cB$ (and $\cE$). $\cB$ then computes $c - k$, which it outputs.
+
+Correctness of this scheme is immediate, as $\cB$ outputs $c - k = m + k - k =
+m$. To prove security, our goal is to construct a simulator $\cS$ such that
+$\cS(1^n)$ is indistinguishable from $\view_\cE = \{1^n, m + k\}$. Because
+addition by $m$ is a bijection, and $k$ is chosen uniformly at random, the
+distribution $\{m + k\}$ is just a uniform random sample from $G_n$. As such, we
+simply let $\cS(1^n)$ draw $g$ uniformly at random from $G_n$ and output $\{1^n,
+g\}$. This is again a perfectly-secure encryption scheme, since the two
+distributions are identical.
+
+% \subsection{Functionalities}
+
+% An \emph{$n$-party functionality} is a function $f:
+% \cM_1\times\dots\times\cM_n\to \cM'_1\times\dots\times\cM'_n$.
 
 % \section{Composition}
