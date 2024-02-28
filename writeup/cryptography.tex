@@ -293,12 +293,111 @@ One more closure result is valuable:
   \] by the computational indistinguishability assumption.
 \end{proof}
 
-% \subsection{Interactive Computation}
+\subsection{Interactive and Zero-Knowledge Computation}
 
-% Cryptographic protocols do not occur in a vacuum; instead, they rely on
-% computations involving multiple parties. We formalize such situations using the
-% notion of interactive computation.
+Cryptographic protocols do not occur in a vacuum; instead, they rely on
+computations involving multiple parties. We formalize such situations using the
+notion of interactive computation. In general, a model of interaction depends on
+the underlying model of computation; this is for instance the case with the
+popular notion of interactive Turing machines~\cite[Definition
+4.2.1]{goldreich-2001}. As our approach in this chapter has been
+model-independent, we can only give an informal discussion of interaction.
 
-% \subsection{Zero Knowledge}
+An \emph{interactive computation} consists of a finite number of \emph{parties},
+which we think of as algorithms $\cA_i$, who may potentially communicate by
+sending messages to each other, and whose behavior may change in response to
+messages they receive. There may be limitations on these messages: for instance,
+it may only be possible to send messages broadcasted to all the parties, or it
+may be possible to send ``private'' party-to-party messages. When necessary, we
+will always be clear about our assumptions here. An \emph{interactive protocol}
+just consists of descriptions of some interactive algorithms $\<\cA_1, \dots,
+\cA_n\>$.
+
+At the start of an interactive computation, there is a \emph{global input} $x$
+known to all parties, and each party $\cA_i$ may have a \emph{private} or
+\emph{auxiliary input} $x_i$ known only to itself. At the end of the
+computation, each party may make some output, the sequence of which we denote
+$\<\cA_1, \dots, \cA_n\>(x, x_1, \dots, x_n)$, so that party $i$'s output is
+$\<\cA_1, \dots, \cA_n\>(x, x_1, \dots, x_n)_i$. When any of these algorithms
+are potentially probabilistic, we think of this value as a distribution over
+possible outputs, and we always assume that the internal randomness of the
+parties is independent.
+
+The \emph{view} of a party is roughly all of the information it has available to
+it over the course of the computation. This includes the global input, its
+private input, any random bits it uses, and all the messages it receives. We
+denote the view of party $i$ by $\view_i^{\<\cA_1, \dots, \cA_n\>}(x, x_1,
+\dots, x_n)$. When the algorithms are clear from context, we may omit the
+superscript. Importantly, while each private input $x_k$ is a parameter of each
+view $\view_i$, the view does not necessarily include each of these inputs; they
+are parameters merely because they may affect the messages received by party
+$i$.
+
+The \emph{running time} of an interactive algorithm $\cA$ is now the function
+$T_\cA: \NN\to\NN$ which, for any $n$, gives the maximum number of ``steps'' it
+takes $\cA$ to halt over any choice of:
+\begin{itemize}
+  \item global input $x$ and private input $y$ of total length $n = |x| + |y|$;
+  \item other algorithms involved in the computation;
+  \item internal randomness of either $\cA$ or any of the other algorithms
+    involved in the computation.
+\end{itemize}
+Essentially, when we say an algorithm is polynomial-time, we mean it is
+\emph{always} polynomial-time, no matter what. We sometimes assume that each
+algorithm has a ``clock'' that it uses to count the number of steps it has taken
+and ensure it halts in some fixed polynomial number of steps.
+
+We often think of interactive computations as being indexed by a \emph{security
+parameter} $n\in\NN$. The idea is that instead of asking each algorithm to be
+polynomial in its inputs, we ask them to be polynomial in $n$, with the
+stipulation that the inputs themselves are no more than polynomial in $n$, so
+that each algorithm has time to read its own inputs. Intuitively, the security
+parameter represents a ``tuning'' of the security of the system, so that higher
+security incurs greater computational cost but gives stronger security
+guarantees. Regardless, this notion can be incorporated into the above model by
+padding the global input with the string $1^n$, as was done
+in ~\Cref{def:one-way function}.
+
+This model of interactive computation allows us to formalize the idea of a party
+``learning something'' from an interaction. We say that an interactive
+protocol $\<\cA_1, \dots, \cA_n\>$ is \emph{zero-knowledge for party $i$} if
+for any choice of inputs $(x, x_1, \dots, x_n)$, there exists a non-uniform PPT
+algorithm $\cS$ such that \[
+  \cS(x, x_i) \cind \view_i^{\<\cA_1, \dots, \cA_n\>}(x, x_1, \dots, x_n).
+\]
+The idea is that the ``simulator'' $\cS$ gets only the inputs to $\cA_i$ and is
+responsible for producing a distribution that is indistinguishable from the
+actual view of $\cA_i$. If they can do this, then $\cA_i$ must not have learned
+anything that they could not have computed directly from their inputs.
+
+More often, we want to consider the situation where $\cA_i$ is supposed to learn
+\emph{something} from the computation, but should not learn anything
+\emph{extra}.
+
+\begin{dfn}[Zero-Knowledge]\label{def:zero knowledge}
+  Let $f$ be a function. An interactive protocol $\<\cA_1, \dots, \cA_n\>$ is
+  \emph{zero-knowledge secure for party $i$ relative to $f$} if for any choice
+  of inputs $(x, x_1, \dots, x_n)$, there exists a non-uniform PPT algorithm
+  $\cS$ such that \[
+  \cS(x, x_i, f(x, x_1, \dots, x_n)) \cind \view_i^{\<\cA_1, \dots, \cA_n\>}(x, x_1, \dots, x_n).
+\]
+\end{dfn}
+
+Sometimes we may also want to view $f$ as a function of the internal randomness
+of each of the algorithms in the protocol, but we will not need to be so precise
+here.
+
+One more distinction is important. In the above definition, we are asking that
+the simulator produces a distribution which is negligibly close, in the sense of
+computational indistinguishability, to the actual view. While this is all that
+is possible in many situations in practice, we could ask for the stronger
+condition that the produced distribution is \emph{identical} to the view. We
+call this notion \emph{perfect} or \emph{information-theoretic} zero-knowledge,
+and refer to \Cref{def:zero knowledge} as
+\emph{computational} zero-knowledge when we wish to emphasize the distinction.
+
+\section{Examples}
+
+\subsection{Encryption}
 
 % \section{Composition}
