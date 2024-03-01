@@ -1,0 +1,152 @@
+% vim:ft=tex
+\documentclass{beamer}
+\usetheme{metropolis}
+
+\usepackage{svg}
+\usetikzlibrary{calc}
+\def\laptop{\pgftext{\includesvg[height=2em]{images/laptop.svg}}}
+\def\bank{\pgftext{\includesvg[height=2em]{images/bank.svg}}}
+\def\padlock{\pgftext{\includesvg[height=1em]{images/padlock.svg}}}
+\def\chatbot{\pgftext{\includesvg[height=2.5em]{images/chatbot.svg}}}
+\def\texting{\pgftext{\includesvg[height=2.5em]{images/texting.svg}}}
+\def\government{\pgftext{\includesvg[height=2.5em]{images/government.svg}}}
+\def\email{\pgftext{\includesvg[height=1.5em]{images/email.svg}}}
+\def\phone{\pgftext{\includesvg[height=1.5em]{images/phone.svg}}}
+\def\router{\pgftext{\includesvg[height=1.5em]{images/router.svg}}}
+\def\internet{\pgftext{\includesvg[height=1.5em]{images/internet.svg}}}
+\def\toaster{\pgftext{\includesvg[height=2em]{images/toaster.svg}}}
+\def\voting{\pgftext{\includegraphics[height=3em]{images/voting.png}}}
+
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+  },
+}
+
+% macros
+\input{prelude.tex}
+
+% metadata
+\title{Categories for Cryptographic Composability}
+\author{\textbf{Riley Shahar} \\ Advised by Angélica Osorno (Math) and Adam Groce (CS)}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{frame}{Cryptography}
+  Cryptography is \emph{the \alt<7->{\textbf{mathematical}}{mathematical} study of secure computation.}
+
+  \vspace{2em}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}
+      \draw[thick, dotted, visible on=<2->] (0,1) node[above=1em] {\bank} to (0, .5)
+      node[right, xshift=1mm]
+      {\padlock} to (0,0) node[below=1em] {\laptop};
+
+      \node[visible on=<3->] at (2,1) {\texting};
+      \node[visible on=<4->] at (3,0) {\chatbot};
+
+
+      \node[visible on=<5->] (voting) at (4.25, 1.35) {\voting};
+      \draw[->, thick, dotted, visible on=<6->, bend left] (voting) 
+      to ++(1.25, -1) node[below=1.1em] {\government};
+      % \node[visible on=<5->] at (4.75,1) {\voting};
+      % \node[visible on=<5->] at (5.75,0) {\government};
+    \end{tikzpicture}
+  \end{figure}
+
+  \vspace{2em}
+  \visible<8->{We want \emph{proofs} that these things are secure.}
+\end{frame}
+
+\begin{frame}{Composability}
+  \begin{figure}
+    \begin{tikzpicture}
+      \draw[thick, dotted, alt={<9-9>{draw=red}{draw=black}}] (0,2)
+      node[above=1em] (bank) {\bank} to (0, 1)
+      node[right, xshift=1mm, visible on=<11->]
+      {\padlock} to (0,0) node[below=1em] (laptop) {\laptop};
+      \draw[thick, dotted, visible on=<2-9>] ($(laptop.east)+(1em,0)$) to ++(1,0)
+      node[right=1.1em] (email) {\email};
+      \draw[thick, dotted, visible on=<3-9>] ($(laptop.west)+(-1em,0)$) to
+      ++(-1,0) node[left=.6em] (phone) {\phone};
+      \draw[thick, dotted, visible on=<4-9>, bend right]
+      ($(phone.south east)+(0,-.8em)$) to ($(email.south west)+(0,-.8em)$);
+      \draw[thick, dotted, visible on=<5-9>] ($(bank)+(1.4em,0em)$) to ++(1.4,0)
+      node[xshift=1.4em] (friend) {\tiny\laptop};
+      \draw[thick, dotted, visible on=<5-9>] ($(bank)+(1.3em,.5em)$) to ++(1.2,.4)
+      node[xshift=1.2em,yshift=.4em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<5-9>] ($(bank)+(1em,.9em)$) to ++(.9,.8)
+      node[xshift=1em,yshift=.9em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<5-9>] ($(bank)+(.6em,1.2em)$) to ++(.5,1.1)
+      node[xshift=.6em,yshift=1.2em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<5-9>] ($(bank)+(0em,1.4em)$) to ++(0,1.2)
+      node[yshift=1.2em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<5-9>] ($(bank)+(-1.4em,0em)$) to ++(-1.4,0)
+      node[xshift=-1.4em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<5-9>] ($(bank)+(-1.3em,.5em)$) to ++(-1.2,.4)
+      node[xshift=-1.2em,yshift=.4em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<5-9>] ($(bank)+(-1em,.9em)$) to ++(-.9,.8)
+      node[xshift=-1em,yshift=.9em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<5-9>] ($(bank)+(-.6em,1.2em)$) to ++(-.5,1.1)
+      node[xshift=-.6em,yshift=1.2em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<6-9>] ($(friend.south west)+(-.8em,-.8em)$)
+      to ($(laptop.north east)+(.8em,.8em)$);
+      \draw[thick, dotted, visible on=<7-9>] ($(laptop.north west)+(-.8em,.4em)$)
+      to ++(-1.2em,.6em) node[left=.8em,yshift=.4em] (router) {\router};
+      \draw[thick, dotted, visible on=<7-9>] ($(bank.south west)+(-.8em,-.4em)$)
+      to ++(-1.2em,-.6em) node[left=.8em,yshift=-.4em] (internet) {\internet};
+      \draw[thick, dotted, visible on=<7-9>] ($(router.north)+(0,.6em)$) to
+      ($(internet.south)+(0,-.6em)$);
+      \draw[thick, dotted, visible on=<8-9>] ($(phone.south)+(0,-.6em)$) to ++(0,-1)
+      node[below=.8em] (toaster) {\toaster};
+
+
+      \draw[thick, dotted, visible on=<12->] ($(laptop.east)+(1em,0)$) to ++(1,0)
+      node[right=1.1em] (email) {\email};
+      \draw[thick, dotted, visible on=<12->] ($(laptop.west)+(-1em,0)$) to
+      ++(-1,0) node[left=.6em] (phone) {\phone};
+      \draw[thick, dotted, visible on=<12->, bend right]
+      ($(phone.south east)+(0,-.8em)$) to ($(email.south west)+(0,-.8em)$);
+      \draw[thick, dotted, visible on=<12->] ($(bank)+(1.4em,0em)$) to ++(1.4,0)
+      node[xshift=1.4em] (friend) {\tiny\laptop};
+      \draw[thick, dotted, visible on=<12->] ($(bank)+(1.3em,.5em)$) to ++(1.2,.4)
+      node[xshift=1.2em,yshift=.4em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<12->] ($(bank)+(1em,.9em)$) to ++(.9,.8)
+      node[xshift=1em,yshift=.9em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<12->] ($(bank)+(.6em,1.2em)$) to ++(.5,1.1)
+      node[xshift=.6em,yshift=1.2em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<12->] ($(bank)+(0em,1.4em)$) to ++(0,1.2)
+      node[yshift=1.2em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<12->] ($(bank)+(-1.4em,0em)$) to ++(-1.4,0)
+      node[xshift=-1.4em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<12->] ($(bank)+(-1.3em,.5em)$) to ++(-1.2,.4)
+      node[xshift=-1.2em,yshift=.4em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<12->] ($(bank)+(-1em,.9em)$) to ++(-.9,.8)
+      node[xshift=-1em,yshift=.9em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<12->] ($(bank)+(-.6em,1.2em)$) to ++(-.5,1.1)
+      node[xshift=-.6em,yshift=1.2em] {\tiny\laptop};
+      \draw[thick, dotted, visible on=<12->] ($(friend.south west)+(-.8em,-.8em)$)
+      to ($(laptop.north east)+(.8em,.8em)$);
+      \draw[thick, dotted, visible on=<12->] ($(laptop.north west)+(-.8em,.4em)$)
+      to ++(-1.2em,.6em) node[left=.8em,yshift=.4em] (router) {\router};
+      \draw[thick, dotted, visible on=<12->] ($(bank.south west)+(-.8em,-.4em)$)
+      to ++(-1.2em,-.6em) node[left=.8em,yshift=-.4em] (internet) {\internet};
+      \draw[thick, dotted, visible on=<12->] ($(router.north)+(0,.6em)$) to
+      ($(internet.south)+(0,-.6em)$);
+      \draw[thick, dotted, visible on=<12->] ($(phone.south)+(0,-.6em)$) to ++(0,-1)
+      node[below=.8em] (toaster) {\toaster};
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[shrink=10,fragile]{References}
+	\nocite{*}
+	\printbibliography[heading=none,omitnumbers=true]
+\end{frame}
+
+\end{document}
