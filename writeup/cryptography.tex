@@ -19,8 +19,9 @@ for every $k$, in which case we write $f = \negl$ or just $f = \negl[]$.)
 % us to not worry about the size of the adversary.
 
 \begin{ntn}
-  We will use PPT as shorthand for probabilistic polynomial-time, and the term
-  \emph{adversary} for non-uniform PPT algorithms.
+  We will use PPT as shorthand for probabilistic polynomial-time. When we refer
+  to an \emph{adversary}, \emph{distinguisher}, or \emph{simulator}, we always
+  mean a non-uniform PPT algorithm.
 \end{ntn}
 
 \begin{dfn}[one-way function]\label{def:one-way function}
@@ -54,26 +55,26 @@ However, as in the following examples, we have excellent candidates under fairly
 modest assumptions.
 
 \begin{ex}[Factoring {\cite[subsection 2.3]{pass-shelat-2020}}]
-  Suppose that for any adversary $\cA$ and for uniform random choice of $x = pq$
-  for primes $p$ and $q$, \[
-    \Pr[\cA(x) = \{p, q\}] = \negl[\max\{|p|, |q|\}].
+  Suppose that for any adversary $\cA$ and for uniform random choice of primes
+  $p,q<2^n$, \[
+    \Pr[\cA(pq) = \{p, q\}] = \negl[n].
   \] This is the \emph{factoring hardness assumption}, for which there is
   substantial evidence. Then $(x,y)\mapsto xy$ is one-way.
 \end{ex}
 
 \begin{ex}[Discrete Logarithm {\cite[subsection 8.3.2]{katz-lindell-2014}}]
-  Let $G$ be any fixed group. The \emph{discrete logarithm hardness assumption}
-  for $G$ is that, for any adversary $\cA$ and for uniform random choice of
-  $g\in G$ and $h\in\<g\>$ such that $h = g^k$, \[
-    \Pr[\cA(g,h) = k] = \negl[|g|].
+  Let $\{G_n\}$ be a fixed sequence of finite groups. The \emph{discrete logarithm hardness assumption}
+  for $\{G_n\}$ is that, for any adversary $\cA$ and for uniform random choice of
+  $g\in G_n$ and $h\in\<g\>$ such that $h = g^k$, \[
+    \Pr[\cA(g,h) = k] = \negl[n].
   \]
   Under the discrete logarithm hardness assumption, $(g,k)\mapsto g^k$ is one-way.
 
   The discrete logarithm hardness assumption is known to be false for certain groups, such
   as the additive groups $\ZZ_p$ for prime $p$, in which case $g^k = gk$ and the
   Euclidean algorithm solves the problem. However, it is believed to hold for
-  groups such as $\ZZ^*_p$ for sufficiently big prime $p$. For a survey of
-  various versions of this assumption, see~\cite{sadeghi-steinerr-2002}.
+  groups such as $\ZZ^*_p$. For a survey of various versions of this assumption,
+  see~\cite{sadeghi-steinerr-2002}.
 \end{ex}
 
 \subsection{Proofs by Reduction}
@@ -280,7 +281,7 @@ composition to work up to polynomial bounds.
 
 One more closure result is valuable:
 
-\begin{prop}
+\begin{prop}\label{thm:ci-composition}
   Let $\{X_n\}\cind\{Y_n\}$, and let $\cM$ be a non-uniform PPT algorithm. Then
   $\{\cM(X_n)\} \cind \{\cM(Y_n)\}$.
 \end{prop}
@@ -293,13 +294,43 @@ One more closure result is valuable:
   \] by the computational indistinguishability assumption.
 \end{proof}
 
+\begin{ex}[pseudorandom generators~{\cite[Sections 3.2-3.3]{pass-shelat-2020}}]\label{ex:pseudorandomness}
+  We can use computational indistinguishability to formalize the notion of
+  pseudorandomness.
+
+  Let $\{\cX_n\}$ be a sequence of spaces, and let $\{X_n\}$ be a sequence of
+  probability distributions. We say that $\{X_n\}$ is \emph{pseudorandom for
+  $\cX$} if there exists a polynomial $p$ such that \[
+    \{X_n\} \cind \{\cX_{p(n)}\},
+  \]where the latter is equipped with the uniform distribution. In other words,
+  pseudorandom ensembles look uniformly random to distinguishers.
+
+  For simplicity, we now work over $\cX_n = \ZZ_2^n$. Next, let $G:
+  \ZZ_2^*\to\ZZ_2^*$ be a sequence of \emph{deterministic} functions. We say $G$
+  is a \emph{pseudorandom generator} if \begin{itemize}
+    \item $G$ is polynomial-time computable;
+    \item for any $x$, $|G(x)| > |x|$;
+    \item $\{G(\ZZ_2^n)\}$ is pseudorandom.
+  \end{itemize}
+  The idea is that $G$ gets some input $x\in\ZZ_2^n$ and produces an output in
+  $\ZZ_2^{p(n)}$ which looks uniformly random to distinguishers if $x$ is chosen
+  uniformly at random. The polynomial $p(n)$ in the definition of
+  pseudorandomness is now called the \emph{expansion factor}. It this sense, pseudorandom generators allow us to
+  ``bootstrap'' randomness from random draws even on very small inputs.
+
+  As usual, while we have excellent candidates, we have no proof that
+  pseudorandom generators exist. However, there is a known procedure, due
+  to \citeauthor{hastad-1999}~\cite{hastad-1999}, to turn any one-way function
+  into a pseudorandom generator.
+\end{ex}
+
 \subsection{Interactive and Zero-Knowledge Computation}
 \label{sec:interactive computation}
 \label{sec:zero-knowledge}
 
 Cryptographic protocols do not occur in a vacuum; instead, they rely on
-computations involving multiple parties. We formalize such situations using the
-notion of interactive computation. In general, a model of interaction depends on
+computations involving multiple parties. We call such situations \emph{interactive
+computations}. In general, a model of interaction depends on
 the underlying model of computation; this is for instance the case with the
 popular notion of interactive Turing machines~\cite[Definition
 4.2.1]{goldreich-2001}. As our approach in this chapter has been
@@ -308,32 +339,69 @@ model-independent, we can only give an informal discussion of interaction.
 An \emph{interactive computation} consists of a finite number of \emph{parties},
 which we think of as algorithms $\cA_i$, who may potentially communicate by
 sending messages to each other, and whose behavior may change in response to
-messages they receive. There may be limitations on these messages: for instance,
-it may only be possible to send messages broadcasted to all the parties, or it
-may be possible to send ``private'' party-to-party messages. When necessary, we
-will always be clear about our assumptions here. An \emph{interactive protocol}
+messages they receive. An \emph{interactive protocol}
 just consists of descriptions of some interactive algorithms $\<\cA_1, \dots,
-\cA_n\>$.
+\cA_N\>$.
+
+We often think of interactive computations as being indexed by a \emph{security
+parameter} $n\in\NN$. Instead of asking each algorithm to be polynomial-time in
+its inputs, we ask it to be polynomial in $n$, with the stipulation that the
+inputs themselves are no more than polynomial in $n$, so that each algorithm has
+time to read its own inputs. Intuitively, the security parameter represents a
+``tuning'' of the security of the system, so that a bigger $n$ incurs greater
+computational cost but gives stronger security guarantees. Often, the security
+parameter is formalized by ensuring that all parties get an extra input of $1^n$ at
+the start of the computation, as we did in~\Cref{def:one-way function};
+we assume this formalization in every protocol we give here.
 
 At the start of an interactive computation, there is a \emph{global input} $x$
 known to all parties, and each party $\cA_i$ may have a \emph{private} or
-\emph{auxiliary input} $x_i$ known only to itself. At the end of the
-computation, each party may make some output, the sequence of which we denote
-$\<\cA_1, \dots, \cA_n\>(x, x_1, \dots, x_n)$, so that party $i$'s output is
-$\<\cA_1, \dots, \cA_n\>(x, x_1, \dots, x_n)_i$. When any of these algorithms
+\emph{auxiliary input} $x_i$ known only to itself. We generally assume that
+there are known sequences of \emph{input spaces} $\cX_n$ and $\cX^i_n$, such that
+when the security parameter is $n$, $x\in \cX_n$ and $x_i\in \cX^i_n$. At the end of
+the computation, each party may make some output, the sequence of which we
+denote $\<\cA_1, \dots, \cA_N\>(x, x_1, \dots, x_N)$, so that party $i$'s output
+is $\<\cA_1, \dots, \cA_N\>(x, x_1, \dots, x_N)_i$. When any of these algorithms
 are potentially probabilistic, we think of this value as a distribution over
 possible outputs, and we always assume that the internal randomness of the
 parties is independent.
 
+\begin{ex}\label{ex:swap}
+  Here is a simple interactive protocol. We have two algorithms, $\cA$ and
+  $\cB$. The input spaces are $\cX^\cA_n$ and $\cX^\cB_n$; there is no global
+  input (which means the global input is just the security parameter $1^n$.) The
+  algorithm $\cA$ takes its input $x\in\cX^\cA_n$, sends it to $\cB$, and outputs
+  the first message it recieves from $\cB$. The algorithm $\cB$ takes its input
+  $y\in\cX_n^\cB$, sends it to $\cA$, and outputs the first message it recieves
+  from $\cA$. This protocol interactively computes the function $
+    \<\cA,\cB\>(x,y) = (y,x).
+  $
+\end{ex}
+
 The \emph{view} of a party is roughly all of the information it has available to
 it over the course of the computation. This includes the global input, its
 private input, any random bits it uses, and all the messages it receives. We
-denote the view of party $i$ by $\view_i^{\<\cA_1, \dots, \cA_n\>}(x, x_1,
-\dots, x_n)$. When the algorithms are clear from context, we may omit the
+denote the view of party $i$ by $\view_i^{\<\cA_1, \dots, \cA_N\>}(x, x_1,
+\dots, x_N)$. When the algorithms are clear from context, we may omit the
 superscript. Importantly, while each private input $x_k$ is a parameter of each
 view $\view_i$, the view does not necessarily include each of these inputs; they
 are parameters merely because they may affect the messages received by party
 $i$.
+
+\begin{ex}
+  In the protocol of \Cref{ex:swap}, \[
+    \view_\cA^{\<\cA, \cB\>}(1^n, x, y) = \view_\cB^{\<\cA, \cB\>}(1^n, x, y) = \{1^n, x, y\}.
+  \]
+  Suppose that $\cB'$ always sends the string $0^n$ to $\cA$, instead of its input. Then \[
+    \view_\cA^{\<\cA, \cB'\>}(1^n, x, y) = \{1^n, x, 0\},\quad\quad \view_{\cB'}^{\<\cA, \cB'\>}(1^n, x, y) = \{1^n, x, y\}.
+  \]
+  Notice that $\view_{\cB'}$ does not include the messages which it sends $\cA$.
+\end{ex}
+
+% There may be limitations on these messages: for instance,
+% it may only be possible to send messages broadcasted to all the parties, or it
+% may be possible to send ``private'' party-to-party messages. When necessary, we
+% will always be clear about our assumptions here. 
 
 The \emph{running time} of an interactive algorithm $\cA$ is now the function
 $T_\cA: \NN\to\NN$ which, for any $n$, gives the maximum number of ``steps'' it
@@ -341,31 +409,18 @@ takes $\cA$ to halt over any choice of:
 \begin{itemize}
   \item global input $x$ and private input $y$ of total length $n = |x| + |y|$;
   \item other algorithms involved in the computation;
-  \item internal randomness of either $\cA$ or any of the other algorithms
-    involved in the computation.
+  \item internal randomness of $\cA$ and of any other algorithms involved in the computation.
 \end{itemize}
 Essentially, when we say an algorithm is polynomial-time, we mean it is
 \emph{always} polynomial-time, no matter what. We sometimes assume that each
 algorithm has a ``clock'' that it uses to count the number of steps it has taken
 and ensure it halts in some fixed polynomial number of steps.
 
-We often think of interactive computations as being indexed by a \emph{security
-parameter} $n\in\NN$. The idea is that instead of asking each algorithm to be
-polynomial in its inputs, we ask them to be polynomial in $n$, with the
-stipulation that the inputs themselves are no more than polynomial in $n$, so
-that each algorithm has time to read its own inputs. Intuitively, the security
-parameter represents a ``tuning'' of the security of the system, so that higher
-security incurs greater computational cost but gives stronger security
-guarantees. Regardless, this notion can be incorporated into the above model by
-padding the global input with the string $1^n$, as was done
-in ~\Cref{def:one-way function}.
-
-This model of interactive computation allows us to formalize the idea of a party
-``learning something'' from an interaction. We say that an interactive
-protocol $\<\cA_1, \dots, \cA_n\>$ is \emph{zero-knowledge for party $i$} if
-there exists a non-uniform PPT algorithm $\cS$ such that
-for any choice of inputs $(x, x_1, \dots, x_n)$, \[
-  \cS(x, x_i) \cind \view_i^{\<\cA_1, \dots, \cA_n\>}(x, x_1, \dots, x_n).
+We can now formalize the idea of a party ``learning something'' from an
+interaction. We say that an interactive protocol $\<\cA_1, \dots, \cA_N\>$ is
+\emph{zero-knowledge for party $i$} if there exists a non-uniform PPT algorithm
+$\cS$ such that for any choice of inputs $(x, x_1, \dots, x_N)$, \[
+  \cS(x, x_i) \cind \view_i^{\<\cA_1, \dots, \cA_N\>}(x, x_1, \dots, x_N).
 \]
 The idea is that the ``simulator'' $\cS$ gets only the inputs to $\cA_i$ and is
 responsible for producing a distribution that is indistinguishable from the
@@ -376,124 +431,206 @@ More often, we want to consider the situation where $\cA_i$ is supposed to learn
 \emph{something} from the computation, but should not learn anything
 \emph{extra}.
 
-\begin{dfn}[Zero-Knowledge]\label{def:zero-knowledge}
+\begin{dfn}[zero-knowledge]\label{def:zero-knowledge}
   Let $f$ be a function. An interactive protocol $\<\cA_1, \dots, \cA_n\>$ is
-  \emph{zero-knowledge for party $i$ relative to $f$} if there exists a non-uniform
-  PPT $\cS$ such that for any choice of
-  inputs $(x, x_1, \dots, x_n)$, \[
-  \cS(x, x_i, f(x, x_1, \dots, x_n)) \cind \view_i^{\<\cA_1, \dots, \cA_n\>}(x, x_1, \dots, x_n).
+  \emph{zero-knowledge for party $i$ relative to $f$} if there exists a
+  (non-uniform PPT) simulator $\cS$ such that for any choice of
+  inputs $(x, x_1, \dots, x_N)$, \[
+  \cS(x, x_i, f(x, x_1, \dots, x_N)) \cind \view_i^{\<\cA_1, \dots, \cA_N\>}(x, x_1, \dots, x_N).
 \]
 \end{dfn}
 
-Sometimes we may also want to view $f$ as a function of the internal randomness
-of each of the algorithms in the protocol, but we will not need to be so careful
-here.
-
-One more distinction is important. In the above definition, we are asking that
-the simulator produces a distribution which is negligibly close, in the sense of
-computational indistinguishability, to the actual view. While this is all that
-is possible in many situations in practice, we could ask for the stronger
-condition that the produced distribution is \emph{identical} to the view. We
-call this notion \emph{perfect} or \emph{information-theoretic} zero-knowledge,
-and refer to \Cref{def:zero-knowledge} as
+In the above definition, we are asking that the simulator produces a
+distribution which is negligibly close, in the sense of computational
+indistinguishability, to the actual view. While this is all that is possible in
+many situations in practice, we could ask for the stronger condition that the
+produced distribution is \emph{identical} to the view. We call this notion
+\emph{perfect} or \emph{information-theoretic} zero-knowledge, and refer to
+\Cref{def:zero-knowledge} as
 \emph{computational} zero-knowledge when we wish to emphasize the distinction.
 
-\section{Examples}
+\begin{ex}\label{ex:trivial-protocol}
+  We show that the \emph{trivial protocol}, in which two algorithms $\cA$ and
+  $\cB$ do nothing, is zero-knowledge for $\cB$. Our goal is to give a
+  simulator $\cS$ such that for any choice of security parameter $n$,
+  \[
+    \cS(1^n) \cind \view_\cB^{\<\cA, \cB\>}(1^n).
+  \] Since $\cB$ never gets sent any messages, its view is just the input
+  $1^n$. We therefore let $\cS$ compute the identity, so that the two
+  distributions are both constantly $\{1^n\}$. This shows that the trivial
+  protocol is perfect zero-knowledge.
+\end{ex}
+
+\begin{ex}\label{ex:non-zero-knowledge}
+  Consider the following protocol: $\cA$ gets input $x\in\ZZ_2^n$, which it
+  then sends to $\cB$. To show this is not zero knowledge for $\cB$, we must
+  show that for any simulator $\cS$, there exists a choice of input $x$ and a
+  distinguisher $\cD$ which distinguishes $\cS(1^n)$ from $\view_\cB(1^n, x) =
+  \{1^n, x\}$ with non-negligible probability.
+
+  Let $\cS$ be fixed. If $\cS$ does anything other than outputting $1^n$ and
+  some $y\in\ZZ_2^n$, then we will be able to distinguish it syntactically.
+  We may therefore safely assume that $\cS$ outputs $(1^n, y)$ for some
+  (potentially random) choice of $y$. For each $n$, now choose $x$ such that
+  $P[y = x]\leq 2^{-n}$, which is possible by the pigeonhole principle. Let
+  $\cD$ output $1$ on input $\{1^n, x\}$, and $0$ otherwise. Then \[
+    \Pr[\cD(\cS(1^n)) = 1] = \Pr[y = x] \leq 2^{-n},
+  \] while \[
+    \Pr[\cD(\view_\cB(1^n, x)) = 1] = 1.
+  \] Since $|1 - 2^{-n}|$ is definitely not negligible, the protocol is not
+  zero-knowledge for $\cB$.
+\end{ex}
+
+\section{Cryptographic Problems}
 
 \subsection{Encryption}
 
-A lot of the machinery defined in the previous section was originally developed
+Much of the machinery defined in the previous section was originally developed
 in the 1970s and 80s for the purpose of analyzing \emph{encryption problems},
-culminating in the development of a \emph{public-key encryption protocol}
-by~\cite{goldwasser-micali-1982}. The idea of an encryption problem is that a
-party Alice has a message $m$ in the \emph{message space} $\cM_n$ which they want
-to send to Bob, but any message they send to Bob must also be sent to the
-eavesdropping Eve. In the simpler \emph{private-key encryption problem}, Alice
-and Bob share some secret key $k$ from the \emph{key space $\cK_n$}, which is
-unknown to Eve.
+culminating in the work of
+\citeauthor{goldwasser-micali-1982}~\cite{goldwasser-micali-1982}. The idea of
+an encryption problem is that a party Alice has a message $m$ in the
+\emph{message space} $\cM_n$ which they want to send to Bob, but any message
+they send to Bob must also be sent to the eavesdropping Eve. In the simpler
+\emph{shared-key encryption problem}, which we consider here, Alice and Bob
+share some secret key $k$ from the \emph{key space $\cK_n$}, which is unknown to
+Eve.
 
-In this case, the problem reduces to a choice of three probabilistic
-polynomial-time algorithms\footnote{Here, as is general practice, we omit the
-dependence of the message and key spaces on the security parameter $n$.}:\begin{itemize}
-  \item $\alg{Gen}$, which takes as input a security parameter $1^n$ and
-    outputs a key $k\in\cK$;
-  \item $\alg{Enc}$, which takes as input a security parameter $1^n$, a key
-    $k\in\cK$, and a message $m\in\cM$, and outputs a ciphertext $c\in\cM$;
-  \item $\alg{Dec}$, which takes as input a security parameter $1^n$, a key
-    $k\in\cK$, and a ciphertext $c\in\cM$, and outputs a message $m\in\cM$.
-\end{itemize}
+% In this case, the problem reduces to a choice of three probabilistic
+% polynomial-time algorithms\footnote{Here, as is general practice, we omit the
+% dependence of the message and key spaces on the security parameter $n$.}:\begin{itemize}
+%   \item $\alg{Gen}$, which takes as input a security parameter $1^n$ and
+%     outputs a key $k\in\cK$;
+%   \item $\alg{Enc}$, which takes as input a security parameter $1^n$, a key
+%     $k\in\cK$, and a message $m\in\cM$, and outputs a ciphertext $c\in\cM$;
+%   \item $\alg{Dec}$, which takes as input a security parameter $1^n$, a key
+%     $k\in\cK$, and a ciphertext $c\in\cM$, and outputs a message $m\in\cM$.
+% \end{itemize}
 
-An encryption scheme is \emph{correct} if for any choice of $m$ and $k$ output
-by $\alg{Gen}(1^n)$, \[
-  \alg{Dec}(1^n, k, \alg{Enc}(1^n, k, m)) = m.
-\]
+% An encryption scheme is \emph{correct} if for any choice of $m$ and $k$ output
+% by $\alg{Gen}(1^n)$, \[
+%   \alg{Dec}(1^n, k, \alg{Enc}(1^n, k, m)) = m.
+% \]
 
-It is not hard to show that we may assume that $\alg{Gen}$ outputs a key chosen
-uniformly at random from $\cK$. In this case, and now using the language
-of~\Cref{sec:interactive computation}, we
-say that a private-key encryption scheme is an interactive protocol consisting
-of three interactive algorithms $\cA$, $\cB$, and $\cE$, where:
+% It is not hard to show that we may assume that $\alg{Gen}$ outputs a key chosen
+% uniformly at random from $\cK$. As a result, and now using the language
+% of~\Cref{sec:interactive computation}, we
+% say that:
+
+\begin{dfn}[shared-key encryption scheme]
+Let $\{\cM_n\}$ and $\{\cK_n\}$ be sequences of sets. An $(\cM, \cK)$-shared-key
+encryption scheme is an interactive protocol consisting of three interactive
+algorithms $\cA$, $\cB$, and $\cE$, where:
 \begin{itemize}
   \item the global input is $1^n$, the security parameter;
-  \item $\cA$ gets a uniform random key $k\in\cK$ and a message $m\in\cM$ as private input;
-  \item $\cB$ gets the same uniform random key $k$ as private input;
+  \item $\cA$ gets a uniform random key $k\in\cK_n$ and a message $m\in\cM_n$ as private input;
+  \item $\cB$ gets the same\footnote{
+    Notice that this definition includes the stipulation that $\cA$ and $\cB$ share a
+    uniform random key as input, which is not directly possible using the machinery
+    of~\Cref{sec:interactive computation}.
+    One way to formalize this notion is to add a fourth machine $\cG$ (the
+    ``generator''), which can message $\cA$ and $\cB$ freely (but not recieve
+    messages from them), whose job is to generate the key and send it to both
+    parties. For our purposes, the important point is that while the input $m$
+    is seen as a parameter of the system which can be controlled in
+    indistinguishability proofs, the input $k$ is instead always randomly
+    generated.
+    } key $k$ as private input;
   \item $\cE$ gets no private input;
   \item $\cA$ and $\cB$ may only send messages to each other if they also send
     the message to $\cE$.
 \end{itemize}
 
-We then say that an encryption scheme is \emph{correct} if $\cB$ outputs $m$ at
-the end of the protocol. We say that an encryption scheme is \emph{secure} if it
-is zero-knowledge for $\cE$; explicitly, if there exists a non-uniform PPT $\cS$
+A shared-key encryption scheme is \emph{correct} if $\cB$ outputs $m$ at the
+end of the computation. A shared-key encryption scheme is \emph{secure} if it
+is zero-knowledge for $\cE$; explicitly, if there exists a simulator $\cS$
 such that for any choice of security parameter $n$ and message $m$, \[
   \cS(1^n) \cind \view_\cE^{\<\cA, \cB, \cE\>}(1^n, k, m),
 \]where the randomness of the second distribution is over both the randomness of
 the algorithms and uniform random choice of $k$.
+\end{dfn}
 
 The point is that the eavesdropper should learn nothing from the interaction,
-while the intended recipient should learn the message. Note that we may convert
-the previous formulation to this one by having $\cA$ compute $c = \alg{Enc}(1^n,
-k, m)$, send it to both other parties, and have $\cB$ output $\alg{Dec}(1^n,
-m)$.
+while the intended recipient should learn the message.
 
-A correct-but-not-secure encryption scheme is easy to construct: simply have
-$\cA$ send $m$ to $\cB$ as a message, and $\cB$ output that message. To show
-that this is not secure, for any simulator $\cS$ we must give a choice of $1^n$
-and $m$ and a distinguisher $\cD$ which distinguishes $\cS(1^n)$ from
-$\view_\cE(1^n, k, m) = \{1^n, m\}$, where $k$ is chosen uniformly at random.
-Note that we may choose the message $m$, and hence hard-code it into our
-distinguisher, but the key $k$ must be chosen uniformly at random, because it is
-not a proper input to the protocol. Regardless, we can simply choose any $m$ and
-have $\cD$ output $1$ if and only if its input is $m$; since $\cS$ must be fixed
-before the choice of $m$, this will distinguish between the distributions.
+\begin{ex}
+  We can construct both a secure-but-not-correct and a correct-but-not-secure
+  encryption scheme using work already done.
+  \begin{itemize}
+    \item For the secure-but-not-correct scheme, simply have each machine do
+      nothing. The security proof is exactly the same as
+      in~\Cref{ex:trivial-protocol}.
+    \item For the correct-but-not-secure scheme, have $\cA$ send $m$ to $\cB$ (and
+      therefore also to $\cE$) as a message, and have $\cB$ output that message. The
+      insecurity proof is exactly the same as in~\Cref{ex:non-zero-knowledge}.
+  \end{itemize}
+\end{ex}
 
-We can also construct a secure-but-not-correct encryption scheme, in which all
-three simply do nothing. In this case, the view of $\cE$ is just the global
-input $1_n$, which is exactly the input given to $\cS$. We can thus let $\cS$
-compute the identity, in which case the two distributions are identical and so
-indistinguishable.
-
-We now give a secure and correct private key encryption scheme, called the
-\emph{one-time pad}. Let $\{G_n\}$ be a sequence of additive finite groups\footnote{
+\begin{ex}[the one-time pad]\label{ex:otp}
+We now give a secure and correct shared key encryption scheme, called the
+\emph{one-time pad}. Let $\{G_n\}$ be a sequence of finite additive groups\footnote{
   We also want that $\{G_n\}$ is \emph{efficiently sampleable}, so that it is
   possible to generate an element from it uniformly at random in polynomial
   time.
-} such that $|G_n| = \Omega(2^n)$, for instance $G_n = \ZZ_2^n$. We let $\cM_n =
-\cK_n = G_n$. Given a message $m$ and key $k$, $\cA$ computes $c = m + k$, which
-it sends to $\cB$ (and $\cE$). $\cB$ then computes $c - k$, which it outputs.
+} such that $|G_n| = \Omega(2^n)$, for instance $G_n = \ZZ_2^n$. We work over
+$\cM_n = \cK_n = G_n$. Given a message $m$ and key $k$, $\cA$ computes $c = m +
+k$, which it sends to $\cB$ (and $\cE$). $\cB$ then computes $c - k$, which it
+outputs.
 
 Correctness of this scheme is immediate, as $\cB$ outputs $c - k = m + k - k =
 m$. To prove security, our goal is to construct a simulator $\cS$ such that
-$\cS(1^n)$ is indistinguishable from $\view_\cE = \{1^n, m + k\}$. Because
+$\cS(1^n)$ is indistinguishable from $\view_\cE(1^n, k, m) = \{1^n, m + k\}$. Because
 addition by $m$ is a bijection, and $k$ is chosen uniformly at random, the
 distribution $\{m + k\}$ is just a uniform random sample from $G_n$. As such, we
 simply let $\cS(1^n)$ draw $g$ uniformly at random from $G_n$ and output $\{1^n,
 g\}$. This is again a perfectly-secure encryption scheme, since the two
 distributions are identical.
 
-% \subsection{Functionalities}
+Because the security is perfect, we don't need the asymptotics, so the one-time
+pad is more commonly defined on a fixed group $G$, usually $\ZZ_2^m$ for some
+fixed $m$.
+\end{ex}
 
-% An \emph{$n$-party functionality} is a function $f:
-% \cM_1\times\dots\times\cM_n\to \cM'_1\times\dots\times\cM'_n$.
+\begin{ex}[the bootstrap one-time-pad]\label{ex:botp}
+  One disadvantage of the one-time pad is that the key must be drawn from the
+  same space as the message. We now show how to rectify this, assuming a
+  pseudorandom generator
+  (\Cref{ex:pseudorandomness})
+  $\cG$ with expansion factor $p$ is available.
+  The idea is to use the pseudorandom generator to expand a short
+    key into a longer one.
+
+  The protocol is as follows. We let $\cK_n = \ZZ_2^n$ and $\cM_n =
+  \ZZ_2^{p(n)}$. Given a message $m\in\ZZ_2^{p(n)}$ and a key $k\in\ZZ_2^n$,
+  $\cA$ first computes $\cG(k)$ to get a key $k'\in\ZZ_2^{p(n)}$. It then
+  sends $c = m + k$ to $\cB$. Similarly, $\cB$ computes $k'$ and then $c - k'$,
+  which it outputs.
+
+  Since $\cG$ is deterministic, both $\cA$ and $\cB$ get the same value for
+  $k'$, and so the protocol is correct. Security can be shown by essentially
+  repeating the argument of\label{ex:otp} while carrying a
+  negligible error rate due to the pseudorandomness, but an easier route is
+  available.
+
+  By definition of pseudorandomness, the distributions $\{\cG(\ZZ_2^n)\}$ and
+  $\{\ZZ_2^{p(n)}\}$ are computationally indistinguishable. To obtain $c$ in
+  this protocol and in the one-time pad, we then perform the same computation to
+  both distributions---merely adding the fixed message $m$. Since we perform the
+  same computation to indistinguishable distributions,
+  by~\Cref{thm:ci-composition} the view of $\cE$ in this
+  protocol is indistinguishable from the view of $\cE$ in the one-time pad. Now
+  we obtain the desired result by security of the one-time pad and transitivity of
+  indistinguishability.
+\end{ex}
+
+\subsection{Functionalities}
+
+% TODO: cite \cite{lindell-2017}.
+
+An \emph{$N$-party functionality} is a (potentially stochastic) function \[
+  f: X_1\times\cdots\times X_N\to Y_1\times\cdots\times Y_N.
+\] The idea is that $N$ parties are engaged in an interactive computation, each
+one given a private input $x_i\in X_i$, and are meant to work together so that
+they each output the value $y_i\in Y_i$.
 
 % \section{Composition}
