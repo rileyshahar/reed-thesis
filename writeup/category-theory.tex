@@ -1349,10 +1349,10 @@ We will care primarily about the stronger case in which
   \end{pic}
   \end{equation} which we may then unambiguously write \[
   \begin{pic}
-    \draw (.6,0)  node[right, xshift=3mm, yshift=1mm] {\normalsize,} to[out=100,in=-80] (0,1);
+    \draw (.6,0)  node[right, xshift=3mm, yshift=1mm] {\normalsize;} to[out=100,in=-80] (0,1);
     \draw (0,0) to[out=80,in=-100] (.6,1);
   \end{pic}
-\]and call this map the \emph{symmetry}.
+\]we call this map the \emph{symmetry}.
 
 \begin{dfn}[symmetric monoidal category]\label{def:symmetric monoidal category}
   A \emph{symmetric monoidal category} is a monoidal category $\cat{C}$,
@@ -1525,6 +1525,16 @@ compatibility with the symmetry: \begin{equation}\label{eqn:monoidal functor sym
   \end{itemize}
 \end{ex}
 
+% \subsection{Multicategories}
+
+% cite~\cite{yau-2016}
+
+% While monoidal categories enhance categorical structure with a notion of
+% parallel composition, there is another, possibly simpler, axiomatization
+% possible.
+
+% \section{Resource Theories}
+
 \section*{Bibliographic Notes}
 
 There are many different ways to visually present string diagrams. In
@@ -1532,11 +1542,3 @@ There are many different ways to visually present string diagrams. In
 followed the style of~\cite{broadbent-karvonen-2022} very closely. We program
 our diagrams in part using the Ti\textit{k}Z code
 of~\cite{broadbent-karvonen-2022}, and code due to Zajj Daugherty.
-
-
-
-
-
-% \subsection{Multicategories}
-
-% \section{Resource Theories}
