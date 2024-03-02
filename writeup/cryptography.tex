@@ -10,8 +10,16 @@ informally functions that are easy to compute, but hard to invert. The former
 notion is easy to formalize in terms of time complexity, but the latter is more
 difficult. We typically ask that any ``reasonably efficient'' algorithm---called
 the \emph{adversary}---attempting to invert the function has a negligible chance
-of success. (Recall that a function $f$ is \emph{negligible} if $f = o(n^{-k})$
-for every $k$, in which case we write $f = \negl$ or just $f = \negl[]$.)
+of success.
+
+In computer science, we generally assume that algorithms are efficient if and
+only if they are polynomial-time; this assumption has been borne out by decades
+of practice. This motivates our definition of a ``negligible'' chance: we say
+that a function $f$ is \emph{negligible} if $f(n) = o(n^{-k})$
+for every $k$; in other words, if it is asymptotically smaller than any rational
+function. In this case, we write $f = \negl$ or just $f = \negl[]$.) The set
+of negligible functions has all the nice closure properties we expect; in
+particular, the sum of negligible functions is negligible.
 
 % The difficulty is in determining which adversaries are ``reasonable''. We
 % generally ask that adversaries are non-uniform probabilistic polynomial-time
@@ -191,7 +199,13 @@ was drawn from $X$ or $Y$; the computational advantage is how often it can do
 so.
 
 \begin{prop}\label{thm:advantage is metric}
-  Let $\cD$ be a fixed distinguisher. Then $\ca_\cD$ is a pseudometric on the
+  Let $\cD$ be a fixed distinguisher. Then $\ca_\cD$ is a
+  pseudometric\footnote{
+    A \emph{pseudometric} on a space $X$ is a function $d: X\times X\to\RR_{\geq 0}$ which
+    is zero on identical points, symmetric, and satisfies the triangle
+    inequality; in other words, it is a metric which does not necessarily
+    differentiate distinct points.
+  } on the
   space of probability distributions over an underlying set $A$.
 \end{prop}
 
@@ -305,8 +319,8 @@ One more closure result is valuable:
   \]where the latter is equipped with the uniform distribution. In other words,
   pseudorandom ensembles look uniformly random to distinguishers.
 
-  For simplicity, we now work over $\cX_n = \ZZ_2^n$. Next, let $G:
-  \ZZ_2^*\to\ZZ_2^*$ be a sequence of \emph{deterministic} functions. We say $G$
+  For simplicity, we now work over $\cX_n = \ZZ_2^n$. Let $G:
+  \ZZ_2^*\to\ZZ_2^*$ be a \emph{deterministic} function. We say $G$
   is a \emph{pseudorandom generator} if \begin{itemize}
     \item $G$ is polynomial-time computable;
     \item for any $x$, $|G(x)| > |x|$;
@@ -472,14 +486,26 @@ produced distribution is \emph{identical} to the view. We call this notion
   some $y\in\ZZ_2^n$, then we will be able to distinguish it syntactically.
   We may therefore safely assume that $\cS$ outputs $(1^n, y)$ for some
   (potentially random) choice of $y$. For each $n$, now choose $x$ such that
-  $P[y = x]\leq 2^{-n}$, which is possible by the pigeonhole principle. Let
+  $\Pr[y = x]\leq 2^{-n}$, which is possible by the pigeonhole principle. Let
   $\cD$ output $1$ on input $\{1^n, x\}$, and $0$ otherwise. Then \[
     \Pr[\cD(\cS(1^n)) = 1] = \Pr[y = x] \leq 2^{-n},
   \] while \[
     \Pr[\cD(\view_\cB(1^n, x)) = 1] = 1.
-  \] Since $|1 - 2^{-n}|$ is definitely not negligible, the protocol is not
+  \] Since $|1 - 2^{-n}|$ is not negligible, the protocol is not
   zero-knowledge for $\cB$.
 \end{ex}
+
+\subsection{The Real-Ideal Paradigm}
+
+Zero-knowledge is a surprisingly general tool for formalizing security
+definitions, but in some cases it is not enough. For instance, we may want to
+verify that protocols for electronic coin-flips are fair: in this case, the
+issue is not that the parties may learn something extra, but that they may be
+able to unduly influence the outcome of the computation. The general approach
+taken in the literature is to define security on an ad-hoc basis for each such
+task by enumerating the properties we want the protocol to have and formalizing
+them as adversarial games. We will take a more disciplined approach, sometimes
+called the \emph{real-ideal paradigm}.
 
 \section{Cryptographic Problems}
 
@@ -557,10 +583,10 @@ while the intended recipient should learn the message.
   We can construct both a secure-but-not-correct and a correct-but-not-secure
   encryption scheme using work already done.
   \begin{itemize}
-    \item For the secure-but-not-correct scheme, simply have each machine do
+    \item For a secure-but-not-correct scheme, simply have each machine do
       nothing. The security proof is exactly the same as
       in~\Cref{ex:trivial-protocol}.
-    \item For the correct-but-not-secure scheme, have $\cA$ send $m$ to $\cB$ (and
+    \item For a correct-but-not-secure scheme, have $\cA$ send $m$ to $\cB$ (and
       therefore also to $\cE$) as a message, and have $\cB$ output that message. The
       insecurity proof is exactly the same as in~\Cref{ex:non-zero-knowledge}.
   \end{itemize}
@@ -602,25 +628,21 @@ fixed $m$.
 
   The protocol is as follows. We let $\cK_n = \ZZ_2^n$ and $\cM_n =
   \ZZ_2^{p(n)}$. Given a message $m\in\ZZ_2^{p(n)}$ and a key $k\in\ZZ_2^n$,
-  $\cA$ first computes $\cG(k)$ to get a key $k'\in\ZZ_2^{p(n)}$. It then
-  sends $c = m + k$ to $\cB$. Similarly, $\cB$ computes $k'$ and then $c - k'$,
-  which it outputs.
+  $\cA$ first computes $\cG(k)$ to get a key $k'\in\ZZ_2^{p(n)}$. It then sends
+  $c = m + k$ to $\cB$. Similarly, $\cB$ computes $k'$ and then $c - k'$, which
+  it outputs. Since $\cG$ is deterministic, both $\cA$ and $\cB$ get the same
+  value for $k'$, and so the protocol is correct.
 
-  Since $\cG$ is deterministic, both $\cA$ and $\cB$ get the same value for
-  $k'$, and so the protocol is correct. Security can be shown by essentially
-  repeating the argument of\label{ex:otp} while carrying a
-  negligible error rate due to the pseudorandomness, but an easier route is
-  available.
-
-  By definition of pseudorandomness, the distributions $\{\cG(\ZZ_2^n)\}$ and
-  $\{\ZZ_2^{p(n)}\}$ are computationally indistinguishable. To obtain $c$ in
-  this protocol and in the one-time pad, we then perform the same computation to
-  both distributions---merely adding the fixed message $m$. Since we perform the
-  same computation to indistinguishable distributions,
+  Security can be shown by a reduction to the hardness assumption entailed by
+  pseudorandomness of $\cG$, but an easier route is available. By definition of
+  pseudorandomness, the distributions $\{\cG(\ZZ_2^n)\}$ and $\{\ZZ_2^{p(n)}\}$
+  are computationally indistinguishable. To obtain $c$ in this protocol and in
+  the one-time pad, we perform the same computation on these
+  distributions---merely adding the fixed message $m$. As such,
   by~\Cref{thm:ci-composition} the view of $\cE$ in this
   protocol is indistinguishable from the view of $\cE$ in the one-time pad. Now
-  we obtain the desired result by security of the one-time pad and transitivity of
-  indistinguishability.
+  we obtain the desired result by security of the one-time pad and transitivity
+  of indistinguishability.
 \end{ex}
 
 \subsection{Functionalities}
@@ -631,6 +653,18 @@ An \emph{$N$-party functionality} is a (potentially stochastic) function \[
   f: X_1\times\cdots\times X_N\to Y_1\times\cdots\times Y_N.
 \] The idea is that $N$ parties are engaged in an interactive computation, each
 one given a private input $x_i\in X_i$, and are meant to work together so that
-they each output the value $y_i\in Y_i$.
+they each output the value $y_i\in Y_i$. Such functionalities are extremely
+general. % TODO: examples
+
+A protocol for an $N$-party functionality $f$ is merely an interactive
+protocol $\<\cA_1,\dots,\cA_N\>$. It is \emph{correct} if for any choice of
+inputs $x_1,\dots,x_N$, \[
+  \<\cA_1, \dots, \cA_N\>(x_1,\dots,x_N) = f(x_1,\dots,x_N),
+\] where the equality should be interpreted in the distributional sense.
+
+% To define security is a little trickier. In general, if 
+
+% A protocol for an $N$-party
+% functionality is \emph{secure in the presence of semi-honest adversaires} if 
 
 % \section{Composition}
