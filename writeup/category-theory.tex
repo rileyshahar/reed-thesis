@@ -419,18 +419,10 @@ just a structure-preserving map between categories.
     \item There is also a forgetful functor $\scat{Ring}\to\scat{Grp}$ which
       takes each ring to its underlying additive group, and each ring
       homomorphism to its underlying group homomorphism.
-    \item Let $x\in\cat{C}$. There is a functor $\cat{C}(x, -):
-      \cat{C}\to\scat{Set}$, the \emph{covariant hom-functor at $x$}, which takes an
-      object $y$ to the hom-set $\cat{C}(x, y)$, and a morphism $f: y\to z$ to
-      its action by postcomposition, $f_*(g) = fg$\footnote{The analogous functor
-        $\cat{C}(-, x)$ requires a little bit of machinery---the notions of
-      \emph{opposite categories} and \emph{contravariant functors}---which are
-    outside our scope. It will be defined in any introductory text on category
-    theory.}.
   \end{itemize}
 \end{ex}
 
-\begin{ex}
+\begin{ex}\label{ex:abstract-functors}
   As the following examples show, whenever we can think of each instance of a
   certain mathematical structure as a category, functors reproduce the right
   notion of structure-preserving transformation between those structures.
@@ -458,6 +450,19 @@ just a structure-preserving map between categories.
       ``simulating'' computations in $L_1$.
   \end{itemize}
 \end{ex}
+
+The following class of functors are especially important.
+
+\begin{dfn}[hom-functors]\label{def:hom-functors}
+  Let $x\in\cat{C}$. There is a functor \[
+    \cat{C}(x, -):\cat{C}\to\scat{Set},
+  \] the \emph{covariant hom-functor at $x$}, which takes an object $y$ to the
+  hom-set $\cat{C}(x, y)$, and a morphism $f: y\to z$ to its action by
+  postcomposition, $f_*(g) = fg$\footnote{The analogous functor $\cat{C}(-, x)$
+    requires a little bit of machinery---the notions of \emph{opposite
+  categories} and \emph{contravariant functors}---which are outside our scope.
+  It will be defined in any introductory text on category theory.}.
+\end{dfn}
 
 Since isomorphic objects are meant to look identical to all the machinery of
 category theory, we should expect the following result.
@@ -583,6 +588,13 @@ transformations are natural.
     \item There is a natural transformation $\det:\text{GL}_n\To (-)^*$, where
       $R^*$ is the ring of units from \Cref{ex:functors}, which
       takes the determinant of an invertible matrix.
+    \item Recall from \Cref{ex:abstract-functors} that functors between posets
+      are exactly monotone maps. A natural transformation $\alpha: F\To G$
+      between two monotone maps $\cP\to\cQ$ consists of, for each $p\in\cP$, a
+      morphism $Fp\to Gp$. Since $\cQ$ is a poset, there is at most one such
+      morphism, and it exists if and only if $Fp\leq Gp$. As such, there can
+      only be one such natural transformation, and it exists if and only if
+      $F\leq G$ in the pointwise ordering.
     \item Let $F,G:\cL_1\to\cL_2$ be models of a programming language $L_1$ in
       $L_2$. A natural transformation $\alpha: F\To G$ is a \emph{transpilation}
       between the models: it tells us how to convert programs written in the
@@ -1101,17 +1113,17 @@ is not an unambiguous choice, but fortunately the coherence theorem, discussed i
 equating these morphisms. As such, the general rule is that \emph{string
 diagrams define morphisms up to unique natural isomorphism}.
 
-Since wires of type $I$ can be created or destroyed at will, we denote them with
-a triangle, so that for instance if $f: I\otimes x\to y\otimes I$, then \[
+Similarly, since wires of type $I$ can be created or destroyed at will using
+$\lambda$ and $\rho$, we just do not draw such wires. A morphism with domain or
+codomain $I$ is represented with a triangle, so that for instance if $f: I\to x$
+and $g: x\to I$, then \[
   \begin{pic}
     \setlength\minimummorphismwidth{6mm}
-    \node[morphism] (f) at (0,0) {$f$};
-    \draw (f.south west) to ++(0, -.3) node[state, scale=.5] {};
-    \draw (f.south east) to ++(0, -.8) node[right] {$x$};
-    \draw (f.north west) to ++(0, .8) node[left] {$y$};
-    \draw (f.north east) to ++(0, .3) node[state, scale=.5, rotate=180] {};
+    \node[state,rotate=180,scale=.75] (g) at (0,.7) {\rotatebox{180}{$g$}};
+    \node[state,scale=.75] (f) at (0,0) {$f$};
+    \draw (f.north) -- (g.south);
   \end{pic}
-\]is the morphism $\rho_y\circ f\circ\lambda_x^{-1}: x\to y$.
+\]is the morphism $gf: I\to I$.
 
 Sometimes, we work in settings which have some ``distinguished'' morphisms, in
 which case we will often write them merely with dots. For instance, recall that
@@ -1203,11 +1215,13 @@ morphism \[
   \begin{tikzcd}
     m\otimes (m\otimes m)\ar[r, "1_m\otimes \mu"] & m\otimes m\ar[r, "\mu"] & m\punctuation{.}
   \end{tikzcd}
-\] For the axiom to make sense, there should be a canonical natural
-isomorphism making the domains and codomains equate, and indeed there is:
-$\alpha_{m,m,m}$ for the domains, and just the identity for the codomains. Thus,
-\Cref{eqn:monoid associative} asserts commutativity of the
-diagram \[
+\] It may be worrying that these morphisms have different domains, but as
+discussed, string diagrams merely identify morphisms up to coherence
+isomorphism. As such, for the axiom to make sense, there should be a canonical
+natural isomorphism making the domains and codomains of these morphisms equate,
+and indeed there is: $\alpha_{m,m,m}$ for the domains, and just the identity for
+the codomains. Thus, \Cref{eqn:monoid associative} asserts
+commutativity of the diagram \[
   \begin{tikzcd}
     (m\otimes m)\otimes m\ar[rr, "\alpha_{m,m,m}"]\ar[d, "\mu\otimes 1_m"'] & & m\otimes (m\otimes m)\ar[d, "1_m\otimes\mu"] \\
     m\otimes m\ar[dr, "\mu"'] & & m\otimes m\ar[dl, "\mu"] \\
@@ -1301,7 +1315,8 @@ That $\gamma_{x,y}^{-1}$ is indeed an inverse asserts that \[
   technology of knot theory; this is due to~\cite{joyal-street-1991}.
 }.
 
-What coherence axioms should this satisfy? It should certainly be coherent with
+What coherence axioms should this satisfy---in other words, what manipulations
+should we be allowed to make to the our diagrams? It should certainly be coherent with
 the identity:
 \begin{equation}\label{eqn:braid id}
   \begin{pic}
@@ -1508,14 +1523,12 @@ compatibility with the symmetry: \begin{equation}\label{eqn:monoidal functor sym
         (f, g)
          &\mapsto
         \begin{pic}
-          \node[morphism] (f) at (0,0) {$f$};
-          \draw (f.south) to ++(0,-.9) node[left] {$I$};
+          \node[state,scale=.75] (f) at (0,0) {$f$};
           \draw (f.north) to ++(0,.6) node[left] {$x$};
-          \node[morphism] (g) at (.7,0) {$g$};
-          \draw (g.south) to ++(0, -.2) node[state,scale=.5] {} node[right, xshift=3mm, yshift=2mm] {\normalsize.};
+          \node[state,scale=.75] (g) at (.7,0) {$g$};
           \draw (g.north) to ++(0,.6) node[right] {$y$};
-          \draw[dotted] (-.4, -.95) rectangle (1.1, .6);
         \end{pic}
+        .
       \end{align*}
       If $\cat{C}$ is symmetric, then so too is $\cat{C}(I, -)$.
     \item The $\kk$-span functor is strong symmetric monoidal. In fact, this is
