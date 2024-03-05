@@ -67,7 +67,12 @@ modest assumptions.
   $p,q<2^n$, \[
     \Pr[\cA(pq) = \{p, q\}] = \negl[n].
   \] This is the \emph{factoring hardness assumption}, for which there is
-  substantial evidence. Then $(x,y)\mapsto xy$ is one-way.
+  substantial evidence. Then $(x,y)\mapsto xy$ is one-way\footnote{This
+    statement is slightly imprecise: technically, $(x,y)\mapsto xy$ is \emph{weakly
+    one-way}; to get the stronger notion of~\Cref{def:one-way function}
+    requires a process called \emph{hardness
+    amplification}. See~\cite[Section 2.4]{pass-shelat-2020}
+for details.}.
 \end{ex}
 
 \begin{ex}[Discrete Logarithm {\cite[subsection 8.3.2]{katz-lindell-2014}}]
@@ -88,12 +93,12 @@ modest assumptions.
 \subsection{Proofs by Reduction}
 
 Many cryptographic definitions, including \Cref{def:one-way function},
-take the form \emph{for any adversary $\cA$, natural number $n$, and uniform
+take the form \begin{quote}\emph{for any adversary $\cA$, natural number $n$, and uniform
 random choice of input $x$ such that $|x| = n$, some predicate on the output
-of $\cA$ has negligible probability.} The basic technique for proving results
+of $\cA$ has negligible probability.}\end{quote} The basic technique for proving results
 using these definitions is called \emph{proof by reduction}. The idea is to
 reduce one problem into another by starting with an arbitrary adversary
-attacking the second and showing construct an adversary attacking the first,
+attacking the second and constructing an adversary attacking the first,
 such that the probability of their successes is related. If we assume the first
 problem is hard, then by studying the structure of the reduction we can learn
 about the hardness of the second problem. As such, we often say that reductions
@@ -210,15 +215,8 @@ so.
 \end{prop}
 
 \begin{proof}
-  Symmetry and non-negativity are immediate from the definition. To show the
-  triangle inequality, let $X$, $Y$, and $Z$ be probability distributions over
-  $A$. Let \[
-    \hat{x} = \Pr_{x\from X}[\cD(x) = 1],
-    \] and similarly for $\hat{y}$ and $\hat{z}$. Then, \[
-  \ca_\cD(X, Z) = \left|\hat{x} - \hat{z}\right| \leq \left|\hat{x} -
-  \hat{y}\right| + \left|\hat{y} - \hat{z}\right| = \ca_\cD(X, Y) +
-  \ca_\cD(Y, Z).\qedhere
-\]
+  Symmetry and non-negativity are immediate from the definition, while the
+  triangle inequality follows from the triangle inequality for real numbers.
 \end{proof}
 
 We now turn to the asymptotic case.
@@ -243,7 +241,9 @@ efficient way to tell between them. Formally:
 
 \begin{rmk}
   A natural thought is to define a metric on probability distributions by
-  $\ca(X, Y) = \sup_{\cD}\ca_\cD(X, Y)$, and extend to ensembles by asking
+  \[
+    \ca(X, Y) = \sup_{\cD}\ca_\cD(X, Y),
+  \] and extend to ensembles by asking
   that $\ca(X_n, Y_n) = \negl$. Unfortunately, this does not quite yield the
   correct notion, as there exist ensembles which are computationally
   indistinguishable, but have sequences of distinguishers whose advantages for
@@ -495,17 +495,17 @@ produced distribution is \emph{identical} to the view. We call this notion
   zero-knowledge for $\cB$.
 \end{ex}
 
-\subsection{The Real-Ideal Paradigm}
+% \subsection{The Real-Ideal Paradigm}
 
-Zero-knowledge is a surprisingly general tool for formalizing security
-definitions, but in some cases it is not enough. For instance, we may want to
-verify that protocols for electronic coin-flips are fair: in this case, the
-issue is not that the parties may learn something extra, but that they may be
-able to unduly influence the outcome of the computation. The general approach
-taken in the literature is to define security on an ad-hoc basis for each such
-task by enumerating the properties we want the protocol to have and formalizing
-them as adversarial games. We will take a more disciplined approach, sometimes
-called the \emph{real-ideal paradigm}.
+% Zero-knowledge is a surprisingly general tool for formalizing security
+% definitions, but in some cases it is not enough. For instance, we may want to
+% verify that protocols for electronic coin-flips are fair: in this case, the
+% issue is not that the parties may learn something extra, but that they may be
+% able to unduly influence the outcome of the computation. The general approach
+% taken in the literature is to define security on an ad-hoc basis for each such
+% task by enumerating the properties we want the protocol to have and formalizing
+% them as adversarial games. We will take a more disciplined approach, sometimes
+% called the \emph{real-ideal paradigm}.
 
 \section{Cryptographic Problems}
 
@@ -645,22 +645,22 @@ fixed $m$.
   of indistinguishability.
 \end{ex}
 
-\subsection{Functionalities}
+% \subsection{Functionalities}
 
-% TODO: cite \cite{lindell-2017}.
+% % TODO: cite \cite{lindell-2017}.
 
-An \emph{$N$-party functionality} is a (potentially stochastic) function \[
-  f: X_1\times\cdots\times X_N\to Y_1\times\cdots\times Y_N.
-\] The idea is that $N$ parties are engaged in an interactive computation, each
-one given a private input $x_i\in X_i$, and are meant to work together so that
-they each output the value $y_i\in Y_i$. Such functionalities are extremely
-general. % TODO: examples
+% An \emph{$N$-party functionality} is a (potentially stochastic) function \[
+%   f: X_1\times\cdots\times X_N\to Y_1\times\cdots\times Y_N.
+% \] The idea is that $N$ parties are engaged in an interactive computation, each
+% one given a private input $x_i\in X_i$, and are meant to work together so that
+% they each output the value $y_i\in Y_i$. Such functionalities are extremely
+% general. % TODO: examples
 
-A protocol for an $N$-party functionality $f$ is merely an interactive
-protocol $\<\cA_1,\dots,\cA_N\>$. It is \emph{correct} if for any choice of
-inputs $x_1,\dots,x_N$, \[
-  \<\cA_1, \dots, \cA_N\>(x_1,\dots,x_N) = f(x_1,\dots,x_N),
-\] where the equality should be interpreted in the distributional sense.
+% A protocol for an $N$-party functionality $f$ is merely an interactive
+% protocol $\<\cA_1,\dots,\cA_N\>$. It is \emph{correct} if for any choice of
+% inputs $x_1,\dots,x_N$, \[
+%   \<\cA_1, \dots, \cA_N\>(x_1,\dots,x_N) = f(x_1,\dots,x_N),
+% \] where the equality should be interpreted in the distributional sense.
 
 % To define security is a little trickier. In general, if 
 
