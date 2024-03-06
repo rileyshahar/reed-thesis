@@ -99,6 +99,7 @@
 
 \theoremstyle{definition}
 \newtheorem{dfn}[thm]{Definition}
+\newtheorem{con}[thm]{Construction}
 \newtheorem{ex}[thm]{Example}
 \newtheorem{_prot}[thm]{Protocol}
 \newtheorem{_game}[thm]{Game}
@@ -226,4 +227,26 @@
   functor/.style args={#1}{
     rounded corners,fill=#1,fill opacity=.2
   }
+}
+\tikzset{
+  multimorphism/.style = {regular polygon, regular polygon sides=3,draw,shape border rotate=-90}
+}
+% \def\multimorphism[#1,#2][#3,#4]#5#6#7
+%   \path (#1,#2)
+%     node [triangle,draw,shape border rotate=-90,inner sep=0pt,label=178:$\vdots$] (a) {#5} (#1,#4)
+%     node [triangle,draw,shape border rotate=-90,inner sep=0pt,label=178:$\vdots$] (b) {#6} (#3,($1/2*(#4 + #5)$))
+%     node [triangle,draw,shape border rotate=-90,label=135:$a_1$,label=230:$a_n$,label=178:$\vdots$] (#7) {$\theta$} (9,2)
+%     node [triangle,draw,shape border rotate=-90,inner sep=-25pt,label=178:$\vdots$] (d) {$\qquad\theta\circ(\theta_1,\ldots,\theta_n)$};
+% }
+
+\def\multimorphism[#1,#2][#3][#4][#5][#6] {
+    \node[multimorphism] (#3) at (#1,#2) {$#3$};
+    \draw (#3.north west) to ++(-.5,0) node[left] (#3x1) {#4};
+    \draw (#3.south west) to ++(-.5,0) node[left] (#3xn) {#5};
+    \draw (#3.east) to ++(.5,0) node[right] (#3y) {#6};
+    \node[anchor=center,left of=#3,yshift=1mm,xshift=2mm] {$\vdots$};
+  }
+
+\def\wire[#1][#2][#3] {
+  \draw ($(#1.east)+(.5,0)$) to[out=0,in=180] ($(#2.#3 west)+(-.5,0)$);
 }

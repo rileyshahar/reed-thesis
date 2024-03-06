@@ -875,7 +875,7 @@ manipulated\footnote{
 The notion of a monoidal category is quite general; we survey some important
 examples here.
 
-\begin{ex}
+\begin{ex}\label{ex:set-monoidal}
   Let us very explicitly construct the required data to show that
   \scat{Set} is a monoidal category under the Cartesian product. The tensor unit
   is the singleton $\{*\}$. The associator is the natural isomorphism with
@@ -1538,15 +1538,151 @@ compatibility with the symmetry: \begin{equation}\label{eqn:monoidal functor sym
   \end{itemize}
 \end{ex}
 
-% \subsection{Multicategories}
+\subsection{Multicategories}
 
 % cite~\cite{yau-2016}
 
-% While monoidal categories enhance categorical structure with a notion of
-% parallel composition, there is another, possibly simpler, axiomatization
-% possible.
+While monoidal categories are extremely elegant structures, as seen
+in~\Cref{ex:set-monoidal} it can be tedious to construct all the
+required data. In this section, we give a useful tool for constructing monoidal
+categories via a related structure called a \emph{multicategory}, which is just
+a category whose morphisms may take multiple inputs.
+
+As usual, it is often easier to understand the algebric structure diagramtically
+than symbolically. A morphism in a multicategory looks like \[
+  \begin{pic}
+    \multimorphism[0,0][f][$x_1$][$x_n$][$y$\normalsize.]
+  \end{pic}
+\]
+Such morphisms can be composed when the domains and codomains line up, as in \[
+  \begin{pic}
+    \multimorphism[0,1.2][f_1][][][]
+    \multimorphism[4,0][g][][][\normalsize.]
+    \multimorphism[0,-1.2][f_n][][][]
+    % \draw ($(f_1.east)+(.5,0)$) -- ($(g.north west)+(-.5,0)$);
+    \wire[f_1][g][north]
+    \wire[f_n][g][south]
+    \node[anchor=center,yshift=1mm] at (0,0) {\vdots};
+  \end{pic}
+\]
+This composition is (strictly) associative, which just means that the composite \[
+  \begin{pic}
+    \multimorphism[0,3.6][f^1_1][][][]
+    \multimorphism[4,2.4][g_1][][][]
+    \multimorphism[0,1.2][f^1_{m_1}][][][]
+    \wire[f^1_1][g_1][north]
+    \wire[f^1_{m_1}][g_1][south]
+
+    \multimorphism[0,-1.2][f^n_1][][][]
+    \multimorphism[4,-2.4][g_n][][][]
+    \multimorphism[0,-3.6][f^n_{m_n}][][][]
+    \wire[f^n_1][g_n][north]
+    \wire[f^n_{m_n}][g_n][south]
+
+    \multimorphism[10,0][h][][][]
+    \wire[g_1][h][north]
+    \wire[g_n][h][south]
+    % \node[anchor=center,yshift=1mm] at (0,0) {\vdots};
+  \end{pic}
+\]is well-defined.
+
+We now state the explicit definition.
+
+\begin{dfn}[multicategory]\label{def:multicategory}
+  A \emph{multicategory} consists of the following data:
+  \begin{itemize}
+    \item a collection of objects $\cat{C}$;
+    \item for any finite list of objects $x_1, \dots, x_n\in\cat{C}$ and any
+      object $y\in\cat{C}$, a collection of morphisms $\cat{C}(x_1,\dots,x_n;y)$;
+    \item for any finite list of morphisms $f_1,\dots,f_n$, and any morphism
+      $g$ such that the domain of $g$ has length $n$ and the $i$th object in
+      its domain is the codomain of $f_i$, a composite morphism
+      $g\circ(f_1,\dots,f_n)$ whose domain is the concatenation of the domains
+      of the $f_i$s and whose codomain is the codomain of $g$;
+    \item for any object $x\in\cat{C}$, a morphism $1_x\in\cat{C}(x;x)$.
+  \end{itemize}
+  This data must satisfy the following associativity and unitality axioms:
+  \begin{itemize}
+    \item for any morphism $(x_1,\dots,x_n)\xto{f} y$, \[
+        1_y\circ f = f = f\circ(1_{x_1},\dots,1_{x_n});
+      \]
+    \item for any morphisms
+      $h,g_1,\dots,g_n,f_1^1,\dots,f_1^{m_1},\dots,f_n^1,\dots,f_n^{m_n}$ where
+      the composites are defined,
+      \begin{align*}
+      &h\circ(g_1\circ(f_1^1,\dots,f_1^{m_1}),\dots,g_n\circ(f_n^1,\dots,f_n^{m_n})) \\
+      &= (h\circ(g_1,\dots,g_n))\circ(f_1^1,\dots,f_1^{m_1},\dots,f_n^1,\dots,f_n^{m_n}).
+      \end{align*}
+  \end{itemize}
+\end{dfn}
+
+\begin{ntn}
+  The \emph{arity} of a morphism in a multicategory is the length of its domain
+  list.
+\end{ntn}
+
+\begin{ex}
+  Any category is a multicategory, with no morphisms of arity greater
+  than one. Such multicategories are called \emph{unary}.
+\end{ex}
+
+\begin{ex}
+  Any monoidal category has an \emph{underlying multicategory}, where the maps
+  $x_1,\dots,x_n\to y$ are exactly the maps $x_1\otimes\dots\otimes x_n\to y$.
+\end{ex}
 
 % \section{Resource Theories}
+
+% \subsection{Theories of Resource Conversions}
+
+% Our main use for multicategories will be the following procedure.
+
+% \begin{con}[{\cite[Definition 3.20]{coecke-2016}}]
+%   Let $\cat{C}$ be a multicategory. Then there is an associated
+%   \emph{monoidal category of linear resource conversions}
+%   $\cat{C}^\otimes$ defined as follows:
+%   \begin{itemize}
+%     \item an object in $\cat{C}^\otimes$ is a finite list of objects in
+%       $\cat{C}$, written $x_1\otimes\dots\otimes x_n$;
+%     \item a morphism $x_1\otimes\dots\otimes x_n\xto{f} y_1\otimes \dots\otimes
+%       y_m$ consists of a \emph{partition function}
+%       $\alpha_f: \{1,\dots,n\}\to\{1,\dots,m\}$ and for each $i\in\{1,\dots,m\}$,
+%       an enumeration $\{\sigma_i(1),\dots,\sigma_i(k)\}$ of $\alpha^{-1}(i)$ and a morphism \[
+%         x_{\sigma_i(1)}, \dot, x_{\sigma_i(k)}\xto{f_i} y_i,
+%       \] called the \emph{$y_i$ component};
+%     \item the composite morphism $x_1\otimes\dots\otimes
+%       x_n\xto{f}y_1\otimes\dots\otimes y_m\xto{g}z_1\otimes\dots\otimes z_p$ is
+%       given by the partition function $\alpha_{gf} = \alpha_g\alpha_f$ and for
+%       each $z_i$, the component \[
+%         g_i\circ(f_{\sigma_i(1)},\dots,f_{\sigma_i(k)})
+%       \]in $\cat{C}$, where $\sigma_i$ is from $g$;
+%     \item the identity on $x_1\otimes\dots\otimes x_n$ is given by the identity
+%       partition and the identities $1_{x_i}$ from $\cat{C}$;
+%     \item the tensor product of $x_1\otimes\dots\otimes x_n$ and
+%       $y_1\otimes\dots\otimes y_m$ is given by the concatenation
+%       $x_1\otimes\dots\otimes x_n\otimes y_1\otimes \dots\otimes y_m$;
+%     \item the tensor product of $x_1\otimes\dots\otimes x_n\xto{f} y_1\otimes\dots\otimes y_m$
+%       and $z_1\otimes\dots\otimes z_p\xto{g} w_1\otimes\dots\otimes w_q$ is given
+%       by lifting the partitions to the disjoint union, so the $y_i$
+%       component is just $f_i$ while the $w_i$ component is just $g_i$.
+%   \end{itemize}
+% \end{con}
+
+% % TODO: proof?
+% % \begin{proof}
+% %   Associativity and unitality come directly from the axioms of a multicategory.
+
+% %   Funcotriality of the tensor is 
+% % \end{proof}
+% % \section{Resource Theories}
+
+% The idea is that each object in $x_1\otimes\dots\otimes x_n\in\cat{C}^\otimes$
+% represents the presence of the ``resources'' represented by the objects
+% $x_1,\dots,x_n\in\cat{C}$. A morphism must consume precisely one ``copy'' of
+% each resource in that list and produce one copy of each resource in its
+% codomain. The partition $\alpha$ is an allocation of input resources to output
+% resources: $\alpha^{-1}(i)$ is exactly the input resources used to produce the
+% resource $y_i$.
 
 \section*{Bibliographic Notes}
 

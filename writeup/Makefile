@@ -1,9 +1,9 @@
 all: thesis.pdf
 
-thesis-tufte.pdf: *.tex references.bib reedthesis.cls
+thesis-tufte.pdf: *.tex prelude.tex references.bib reedthesis.cls
 	latexmk -pdf -halt-on-error thesis-tufte.tex
 
-thesis.pdf: *.tex references.bib reedthesis.cls
+thesis.pdf: *.tex prelude.tex references.bib reedthesis.cls
 	latexmk -pdf -halt-on-error thesis.tex
 
 .PHONY: clean
