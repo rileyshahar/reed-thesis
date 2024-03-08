@@ -495,19 +495,55 @@ produced distribution is \emph{identical} to the view. We call this notion
   zero-knowledge for $\cB$.
 \end{ex}
 
-% \subsection{The Real-Ideal Paradigm}
+\subsection{Adversaires and the Real-Ideal Paradigm}
 
-% Zero-knowledge is a surprisingly general tool for formalizing security
-% definitions, but in some cases it is not enough. For instance, we may want to
-% verify that protocols for electronic coin-flips are fair: in this case, the
-% issue is not that the parties may learn something extra, but that they may be
-% able to unduly influence the outcome of the computation. The general approach
-% taken in the literature is to define security on an ad-hoc basis for each such
-% task by enumerating the properties we want the protocol to have and formalizing
-% them as adversarial games. We will take a more disciplined approach, sometimes
-% called the \emph{real-ideal paradigm}.
+Zero-knowledge is a surprisingly general tool for formalizing security
+definitions, but in some cases it is not enough. For instance, we may want to
+verify that protocols for electronic coin-flips are fair: in this case, the
+issue is not that the parties may learn something extra, but that they may be
+able to unduly influence the outcome of the computation. The general approach
+taken in the literature is to define security on an ad-hoc basis for each such
+task by enumerating the properties we want the protocol to have and formalizing
+them as adversarial games. We will take a more systematic approach, sometimes
+called the \emph{real-ideal paradigm}.
+
+The idea is to define an \emph{ideal protocol}---also called an \emph{ideal
+functionality}---which represents the desired behavior of the cryptosystem. The
+protocol under study---the \emph{real protcol}---is then supposed to emulate the
+ideal protocol, in the sense that its outcomes should be computationally
+indistinguishable from the outcomes of the ideal protocol. The subtelty here is
+our use of the term \emph{outcome}; which necessarily looks different for
+different protocols: it may just be the information learned by a party, in which
+case we recover zero-knowledge, it may be some function of the party's outputs,
+or it may be something else altogether. We will see several different examples
+of this in \Cref{sec:crypto-problems}, but the important point is that to define
+security in this paradigm requires both a definition of the ideal protocol and
+of the data to be compared.
+
+Unlike in the case of zero-knowledge, where we only cared about what parties
+could learn from the protocol assuming it was executed correctly, in this
+setting we also want to discuss security against \emph{malicious behavior}, in
+which one or more parties deliberately try to sabotage the outcome of the
+protocol. We often refer to these parties as the \emph{adversaries}, and allow
+them to be non-uniform even when ordinary parties in the protocol are uniform.
+Since a protocol is not secure if even one possible attack is likely to succeed,
+we say that a protocol is \emph{secure in the presence of malicious adversaries}
+if for any choice of algorithms taking over some fixed number of parties, the
+outcomes of the protocol are indistinguishable from the ideal. Again, we will
+see examples of this notion in the next section.
+
+In contrast, sometimes we do want to talk about a protocol being zero-knowledge
+without dealing with arbitrary adversarial behavior. In this case, we use the
+term \emph{semi-honest adversaries}, which informally refers to adversaries
+which follow the prescriptions of the protocol, but attempt to learn as much as
+they can within those bounds. There are several other notions of adversarial
+strength considered in the literature---for instance, adaptive vs. static
+adversaries~\cite{asharov-et-al-2022}, Byzantine
+adversaries~\cite{lindell-et-al-2002}, and ``coercible''
+parties~\cite{canetti-et-al-2015}. We do not explore all these models here.
 
 \section{Cryptographic Problems}
+\label{sec:crypto-problems}
 
 \subsection{Encryption}
 
@@ -563,8 +599,8 @@ algorithms $\cA$, $\cB$, and $\cE$, where:
     generated.
     } key $k$ as private input;
   \item $\cE$ gets no private input;
-  \item $\cA$ and $\cB$ may only send messages to each other if they also send
-    the message to $\cE$.
+  \item $\cA$ and $\cB$ only send messages to each other if they also send the
+    message to $\cE$.
 \end{itemize}
 
 A shared-key encryption scheme is \emph{correct} if $\cB$ outputs $m$ at the
