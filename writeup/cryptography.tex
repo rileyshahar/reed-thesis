@@ -3,7 +3,7 @@ cite~\cite{katz-lindell-2014, pass-shelat-2020, rosulek-2021}.]
 
 \section{Foundations}
 
-\subsection{One-way functions}
+\subsection{One-Way Functions}
 
 Many cryptographic protocols rely on \emph{one-way functions}, which are
 informally functions that are easy to compute, but hard to invert. The former
@@ -387,7 +387,7 @@ parties is independent.
   algorithm $\cA$ takes its input $x\in\cX^\cA_n$, sends it to $\cB$, and outputs
   the first message it recieves from $\cB$. The algorithm $\cB$ takes its input
   $y\in\cX_n^\cB$, sends it to $\cA$, and outputs the first message it recieves
-  from $\cA$. This protocol interactively computes the function $
+  from $\cA$. Then we have that $
     \<\cA,\cB\>(x,y) = (y,x).
   $
 \end{ex}
@@ -495,7 +495,8 @@ produced distribution is \emph{identical} to the view. We call this notion
   zero-knowledge for $\cB$.
 \end{ex}
 
-\subsection{Adversaires and the Real-Ideal Paradigm}
+\subsection{Adversaries and the Real-Ideal Paradigm}
+\label{sec:real-ideal}
 
 Zero-knowledge is a surprisingly general tool for formalizing security
 definitions, but in some cases it is not enough. For instance, we may want to
@@ -538,7 +539,7 @@ term \emph{semi-honest adversaries}, which informally refers to adversaries
 which follow the prescriptions of the protocol, but attempt to learn as much as
 they can within those bounds. There are several other notions of adversarial
 strength considered in the literature---for instance, adaptive vs. static
-adversaries~\cite{asharov-et-al-2022}, Byzantine
+adversaries~\cite{cramer-et-al-1999}, Byzantine
 adversaries~\cite{lindell-et-al-2002}, and ``coercible''
 parties~\cite{canetti-et-al-2015}. We do not explore all these models here.
 
@@ -681,26 +682,97 @@ fixed $m$.
   of indistinguishability.
 \end{ex}
 
-% \subsection{Functionalities}
+\subsection{Interactive Function Computation}
 
-% % TODO: cite \cite{lindell-2017}.
+% TODO: cite \cite{lindell-2017}.
 
-% An \emph{$N$-party functionality} is a (potentially stochastic) function \[
-%   f: X_1\times\cdots\times X_N\to Y_1\times\cdots\times Y_N.
-% \] The idea is that $N$ parties are engaged in an interactive computation, each
-% one given a private input $x_i\in X_i$, and are meant to work together so that
-% they each output the value $y_i\in Y_i$. Such functionalities are extremely
-% general. % TODO: examples
+Suppose we are given a (potentially stochastic) series of functions \[
+  f: X_1\times\cdots\times X_N\to Y_1\times\cdots\times Y_N.
+\] Each such function yields the following cryptographic problem\footnote{
+  Here we need to assume that there is a canonical grading on each input set, for
+  instance given by the length of a bitstring, so that each $X_i$ can also be
+  thought of as a sequence of sets $\cX^i_n$ in the style of
+  \Cref{sec:interactive computation}.
+}:
+\begin{quote}
+  Can $N$ parties, each given a private input $x_i\in X_i$, work together so
+  that the $i$th party outputs the value $f_i(x_1,\dots,x_n)$?
+\end{quote}
+Here, $f_i$ is the projection $\pr_i\circ f$. In particular:
 
-% A protocol for an $N$-party functionality $f$ is merely an interactive
-% protocol $\<\cA_1,\dots,\cA_N\>$. It is \emph{correct} if for any choice of
-% inputs $x_1,\dots,x_N$, \[
-%   \<\cA_1, \dots, \cA_N\>(x_1,\dots,x_N) = f(x_1,\dots,x_N),
-% \] where the equality should be interpreted in the distributional sense.
+\begin{dfn}
+An interactive protocol $\<\cA_1,\dots,\cA_N\>$ \emph{computes the function $f$}
+if for any choice of inputs $x_1,\dots,x_N$, \[ \<\cA_1, \dots,
+  \cA_N\>(x_1,\dots,x_N) = f(x_1,\dots,x_N),
+\] where if $f$ is stochastic the equality should be interpreted in the
+distributional sense.
+\end{dfn}
 
-% To define security is a little trickier. In general, if 
+\begin{ex}
+  The protocol of \Cref{ex:swap} computes the function $f(x,y) = (y,x)$.
+\end{ex}
 
-% A protocol for an $N$-party
-% functionality is \emph{secure in the presence of semi-honest adversaires} if 
+On the other hand, there are several possible notions of security in this
+setting, roughly following the lines discussed
+in~\Cref{sec:real-ideal}.
+We first consider the more straightforward semi-honest case, in which we ask
+that no party should learn anything from the computation other than the value
+they are intended to output.
+
+\begin{dfn}\label{def:semi-honest-secure}
+  A protocol $\<\cA_1,\dots,\cA_N\>$ \emph{securely computes the function $f$ in
+  the presence of semi-honest adversaries} if it computes $f$ and it is
+  zero-knowledge for each $i$th party relative to $f_i$.
+\end{dfn}
+
+\begin{ex}
+  Consider the following protocol for $f(x, y, *) = (*, *, xy)$: the first two
+  algorithms each send their inputs two the third, which computes and outputs the
+  product. This protocol is not secure in the presence of semi-honest
+  adversaries, because the third party learns the two factors, not just the
+  product; this insecurity can be proved very similarly to
+  \Cref{ex:non-zero-knowledge}.
+
+  On the other hand, consider the following protocol for $f(x, y) = (*, xy)$:
+  the first algorithm sends $x$ to the second, which computes and outputs the
+  product. This protocol is secure in the presence of semi-honest adversaries.
+  The simulator for the second algorithm, which gets its input $y$ and output
+  $xy$, is responsible for producing a distribution indistinguishable from $\{x,
+  y\}$; it can do this by computing $xy / y$.
+\end{ex}
+
+\begin{ex}[oblivious bit-transfer]
+  The \emph{oblivious bit-transfer problem} is as follows.Alice has two
+  bits $b_1,b_2\in\ZZ_2$, and Bob has a query $\sigma\in\{1,2\}$.
+  The goal is for Bob to learn the appropriate bit from Alice,
+  without revealing which bit they asked for. We can formalize this
+  using~\Cref{def:semi-honest-secure}: the problem is to securely
+  compute \[
+    f: \ZZ_2^2\times \{1,2\}\to \{*\}\times\ZZ_2,\quad\quad ((b_1,b_2), \sigma) \mapsto (*, b_\sigma)
+  \]in the presence of semi-honest adversaries. While the solution is outside
+  our scope, this is possible (under standard complexity-theoretic assumptions)
+  via a protocol originally due to~\cite{even-et-al-1985}.
+\end{ex}
+
+The situation with malicious adversaries is much more complicated. [TODO:
+malicious adversaries.]
+
+% \begin{dfn}
+%   Let $f$ be an $N$-party function. The \emph{ideal protocol for computing $f$}
+%   has $N$ parties $\cA_1,\dots,\cA_N$ and a \emph{trusted party} $\cT$,
+%   proceeding as follows:
+%   \begin{itemize}
+%     \item $\cA_i$ gets $x_i$ as input and sends it to $\cT$;
+%     \item $\cT$ computes $y_1,\dots,y_n = f(x_1,\dots,x_N)$ and sends $y_i$ to
+%       $\cA_i$;
+%     \item $\cA_i$ outputs the received value $y_i$.
+%   \end{itemize}
+
+%   The \emph{outcome of the ideal protocol} is the distribution \[
+%     \ideal^\<\cA_1,\dots,\cA_N\>_f(x_1,\dots,x_N) =
+%     \{\view^{\<\cA_1,\dots,\cA_N,\cT\>}_{\cA_i}(x_1,\dots,x_N): i\in\{1,\dots,N\}\}.
+%   \]
+% \end{dfn}
+
 
 % \section{Composition}
