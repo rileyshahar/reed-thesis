@@ -742,7 +742,7 @@ they are intended to output.
 \end{ex}
 
 \begin{ex}[oblivious bit-transfer]
-  The \emph{oblivious bit-transfer problem} is as follows.Alice has two
+  The \emph{oblivious bit-transfer problem} is as follows. Alice has two
   bits $b_1,b_2\in\ZZ_2$, and Bob has a query $\sigma\in\{1,2\}$.
   The goal is for Bob to learn the appropriate bit from Alice,
   without revealing which bit they asked for. We can formalize this
@@ -773,6 +773,94 @@ malicious adversaries.]
 %     \{\view^{\<\cA_1,\dots,\cA_N,\cT\>}_{\cA_i}(x_1,\dots,x_N): i\in\{1,\dots,N\}\}.
 %   \]
 % \end{dfn}
+
+% \subsection{Commitment}
+
+\subsection{Zero-Knowledge Proof}
+
+In an \emph{interactive proof}, one party---the \emph{prover}---tries to
+convince the other---the \emph{verifier}---that some statement is true. We
+generally consider proofs of membership predicates over fixed sets (called
+\emph{languages} in this context), so that the prover is trying to convince the
+verifier that some global input $x$ is in a fixed set $\cL$. The key point is
+that the prover generally has some computational advantage over the verifier, so
+that the verifier cannot simply reproduce all the steps taken by the prover.
+
+Informally, there are two correctness properties we want an interactive proof
+system to have. It should be \emph{sound}: when given an input $x\in\cL$, the
+verifier should except with high probability. It should also be \emph{complete},
+which informally means that no adversarial machine should be able to convince
+the verifier to accept an input not in $\cL$ except with low probability.
+Formally:
+\begin{dfn}[interactive proof system]
+  Let $\cL$ be a fixed language. An \emph{interactive proof system for $\cL$}
+  consists of an algorithm $\cP$ and a PPT algorithm $\cV$, such that:
+  \begin{itemize}
+    \item (soundness) for each $x\in\cL$, \[
+        \Pr[\<\cP,\cV\>(x)_{\cV} = 1] > \frac{2}{3};
+      \]
+    \item (completeness) for each $x\notin\cL$ and each algorithm $\cP'$, \[
+        \Pr[\<\cP',\cV\>(x)_{\cV} = 1] < \frac{1}{3}.
+      \]
+  \end{itemize}
+\end{dfn}
+Once we achieve any probability of success greater than $\frac{1}{2}$, we can
+repeat the protocol to achieve any constant probability of success. It is
+standard to choose $\frac{2}{3}$ as the desired bound for such cases.
+
+\begin{ex}[graph non-isomorphism~{\cite[Section 4.2.2]{goldreich-2001}}]
+  We give an interactive proof system for the problem of \emph{graph
+  non-isomorphism}\footnote{
+    Since we do not know whether graph non-isomorphism is in NP, the reader may
+    now wonder what the computational strength of interactive proof is. It turns
+    out that IP, the class of languages with interactive proof, equals PSPACE,
+    the class of languages whose membership predicates can be computed in
+    polynomial space. This result was first proven by~\cite{shamir-1992}.
+  }, which is formalized as the language \[
+    \text{GNI} = \{(G_1,G_2): G_1\text{ and }G_2\text{ are non-isomorphic finite graphs}\}.
+  \]
+  The idea is that the verifier will construct a random graph isomorphic to one
+  of the chosen graphs, and the prover will have to guess which one. If the
+  graphs are non-isomorphic, then it should always be able to do so; if they
+  are, it can only do so with probability $\frac{1}{2}$.
+
+  The algorithms get a pair of graphs $(G_1,G_2)$ as shared input; we let $G_1 =
+  (V_1,E_1)$ and similarly for $G_2$. The verifier uniform-randomly chooses $\sigma\in\{1,2\}$
+  and a relabeling of $G_\sigma$. In particular, it uniform-randomly chooses a
+  bijection $\pi: V_\sigma\to \{1,\dots,|V_\sigma|\}$ and generates the graph \[
+    G_\sigma' = (\{1,\dots,|V_\sigma|\}, \{(\pi(v),\pi(w)): (v,w)\in E_\sigma\}),
+  \]
+  which it sends to the prover. The prover, which is unbounded, can then check
+  whether $G_\sigma'\cong G_1$ or $G_\sigma'\cong G_2$ and send the result to
+  the verifier; if both hold, then it sends a random bit. The verifier repeats
+  the experiment again, outputting $1$ if the prover guessed right both times,
+  and $0$ otherwise.
+
+  To show soundness, note that if $G_1\not\cong G_2$, then the prover will always
+  guess correctly, in which case the verifier outs $1$ with probability $1$.
+
+  To show completeness, note that $G_\sigma'$ is a uniform random draw from \[
+    \{G = (V,E): G\cong G_\sigma, V = \{1,\dots,|V_\sigma|\},
+  \]
+  i.e. from the isomorphism class of $G_\sigma$ with vertex set
+  $\{1,\dots,|V_\sigma|\}$. Since $G_1$ and $G_2$ have identical isomorphism
+  classes and the same number of vertices, this implies that the distribution of
+  $G_\sigma'$ is independent of $\sigma$. Now let $\cP'$ be any algorithm which
+  is given $G_1$, $G_2$, and $G'_\sigma$ and must guess $\sigma$. By
+  independence, we have that
+  \begin{align*}
+    \Pr[\cP'(G'_\sigma) = \sigma] &= \sum_{\tau\in\{1,2\}}\Pr[\cP'(G'_\sigma) = \tau \text{ and } \sigma = \tau] \\
+                                  &= \sum_{\tau\in\{1,2\}}\Pr[\cP'(G'_\sigma) = \tau]\Pr[\sigma = \tau] \\
+                                  &= \frac{\Pr[\cP'(G'_\sigma\in\{1,2\})]}{2} \\
+                                  &\leq \frac{1}{2};
+  \end{align*}
+  since the experiment repeats twice, we get a probability of
+  $\frac{1}{4}<\frac{1}{3}$, as desired.
+\end{ex}
+
+In cryptography, we are especially concerned with \emph{zero-knowledge proofs},
+which are meant to reveal no information other than the truth of the statement
+under proof.
 
 
 % \section{Composition}
