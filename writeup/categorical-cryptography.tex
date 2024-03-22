@@ -15,24 +15,24 @@ idea generalizes~\Cref{ex:functional
 programming}: objects are types
 and morphisms are typed computations. The most disciplined approach is to
 consider the categorical structure needed to model certain forms of computation, so that
-for instance models of simply typed computation are \emph{cartesian closed
+for instance models of simply typed computation are \emph{bicartesian closed
 categories}~\cite{lambeck-1974}, of linear computation are \emph{star-autonomous
-categories}~\cite{seely-1989}, and of quantum computation are \emph{compact-closed
-categories}~\cite{abramsky-coecke-2004}. This approach is explored in detail
-by~\cite{crole-1994}; we will not review it here. Instead, our focus will be on
-constructing specific categorical models of forms computations of interest to
-cryptographers.
+categories}~\cite{seely-1989}, of quantum computation are \emph{compact-closed
+categories}~\cite{abramsky-coecke-2004}, and of probabilistic computation are \emph{Markov
+categories}~\cite{fritz-2020}. We will not review this approach here. Instead,
+our focus will be on constructing specific categorical models of forms of
+computations of interest to cryptographers.
 
 \subsection{Deterministic Computation}
 
-We would like a category of deterministic computations to have computable functions
-as morphisms. However, the natural choice, taking objects as sets and morphisms
-as computable functions, is actually not yet precise. The first issue is that
-there are several distinct notions of computability on uncountable sets. Each
-such notion forms a category, but formal definitions are outside our scope, as
-cryptographers tend not to care about uncountable sets anyway\footnote{These
-  issues are studied in the field of \emph{computable analysis}; see for
-instance the PhD thesis of Andre Bauer~\cite{bauer-2000}.}.
+We would like a category of deterministic computations to have computable
+functions as morphisms. However, the natural choice, taking sets as objects and
+computable functions as morphisms, is actually not yet precise. The first issue
+is that there are several distinct notions of computability on uncountable sets.
+Each such notion forms a category, but formal definitions are outside our scope,
+as cryptographers tend not to care about uncountable sets anyway\footnote{These
+issues are studied in the field of \emph{computable analysis}; see for instance
+the PhD thesis of Andre Bauer~\cite{bauer-2000}.}.
 
 We can resolve this issue simply, by limiting ourselves to finite sets, in which
 case every function is computable (simply by a lookup table):
@@ -55,8 +55,8 @@ ourselves to working only with binary strings:
 
 In practice, however, we like to think of computations as working over arbitrary
 sets, which in particular may have more algebraic structure than sets of binary
-strings. Our strategy, partially following~\cite{pavlovic-2014}, will be to work
-over sets with fixed binary encodings.
+strings. Our strategy, following~\cite{pavlovic-2014}, will be to work over sets
+with fixed binary encodings.
 \begin{dfn}[binary-encoded set]
   A \emph{binary-encoded set} is a set $X$ together with an injection
   $\denote{-}_X: X\to\bin^*$, called the \emph{encoding}.
@@ -89,26 +89,193 @@ It needs to be shown that this is a category. First, the identities
 $1_X$ are computable, as $\denote{1_X} = 1_{\denote{X}}$ is computable. Second,
 the composite of computable functions is computable, as the composition of
 computable binary functions is computable, and composition is preserved by
-$\denote{-}$\footnote{
-  As this paragraph suggests, there is a functor $\denote{-}:
-  \scat{Comp}\to\scat{BinComp}$; in fact this functor is an \emph{equivalence of
-  categories}. Nevertheless, the expanded perspective provided by $\scat{Comp}$ will be
-  convenient.
-}.
+$\denote{-}$. As this argument indicates, there is a functor $\denote{-}:
+\scat{Comp}\to\scat{BinComp}$; in fact this functor is an \emph{equivalence of
+categories}. Nevertheless, the expanded perspective provided by $\scat{Comp}$ will be
+convenient.
 
-% \subsection{Probabilistic Computation}
+% [TODO: SMC structure]
 
-% Again, there is some subtelty with probabilistic computation. Even in the case
-% of finite sets, not every stochastic function is computable by algorithms with
-% access to fair coin flips. However, we can proceed much as before, defining:
-% \begin{dfn}
-%   A stochastic function $f:X\to Y $ is \emph{computable} if 
-% \end{dfn}
-% \begin{dfn}
-%   The category \scat{BinCompStoch} has sets of finite binary strings as objects and computable 
-%   stochastic functions as morphisms. The cateogry \scat{CompStoch} has
-%   binary-encoded sets as objects and computable stochastic functions as morphisms.
-% \end{dfn}
+% It is somewhat subtle to define a symmetric monoidal structure on \scat{Comp}.
+% In particular, for two binary-encoded sets $X$ and $Y$, we would like to define
+% the product $X\otimes Y$ as the set $X\times Y$, but it is unclear what
+% $\denote{-}_{X\times Y}$ should be.
+
+\subsection{Probabilistic Computation}
+
+Again, there is some subtelty with probabilistic computation. Even in the case
+of finite sets, not every stochastic function is computable by algorithms with
+access to fair coin flips\footnote{
+  We believe this is a slight conceptual problem with the strategy
+  of~\cite[Section 6]{broadbent-karvonen-2022}, which models unbounded
+  probabilistic computation in the category of finite sets and stochastic
+  functions: this category is too powerful to reasonably model computation. This
+  does not pose a technical issue in their specific example.
+}. However, there is again a standard notion of computable stochastic function
+of binary strings, so we can proceed much as before, defining:
+\begin{dfn}[category of computable stochastic functions]
+  The category \scat{BinCompStoch} has sets of binary strings as objects and
+  computable stochastic functions as morphisms.
+
+  A stochastic function $f:X\to Y $ between binary-encoded sets is
+  \emph{computable} if $\denote{f}$ is computable. The \emph{category of
+  computable stochastic functions} \scat{CompStoch} has binary-encoded sets as
+  objects and computable stochastic functions as morphisms.
+\end{dfn}
+
+Again, it needs to be shown that this is a category. The identities are
+computable (and stochastic, since every determinstic function is stochastic),
+and composition commutes with $\denote{-}$, so the composite of computable
+functions is computable.
+
+We give a more abstract characterization of this category. There
+are only countably many computable probability distributions on $\bin^*$, since
+there are only countably many Turing machines. Fix a choice $\varphi$ of
+bijection witnessing this fact. Note further that any probability distribution
+$P$ on a binary-encoded set $X$ induces a probability distribution
+$\denote{P}$ on $\bin^*$ by \[
+  \Pr_{s\from \denote{P}}[s = s_0] = \Pr_{x\from P}[\denote{x} = s_0].
+\]
+There is now a monad $G_c: \scat{Comp}\to\scat{Comp}$, which we call the
+\emph{computable Giry monad}, which takes any binary-encoded set $X$ to the set
+of computable probability distributions on $X$, i.e. those such that
+$\denote{P}$ is a computable probability distribution on $\bin^*$, with encoding
+given by $\denote{P}_{G_c X} = \varphi(\denote{P}_X)$. Given $f: X\to Y$ and
+$P\in G_c X$, we define the probability distribution $G_c f(P)$ on $Y$ by
+\[
+  \Pr_{y\from G_c f(P)}[y = y_0] = \Pr_{x\from P}[f(x) = y_0].
+\]
+The unit of $G_c$ is the function $X\to G_c X$ taking $x$ to the point
+distribution at x. The multiplication is the function $\mu_X: G_c G_c X\to G_c X$
+acting by summation: given a probability distribution $Q$ on $G_c X$, we define
+a distribution $\mu_X (Q)$ on $X$ by \begin{equation}\label{eqn:giry-sum}
+  \Pr_{x\from \mu_X(Q)}[x = x_0] = \sum_{P_0\in G_c X} \Pr_{P\from Q}[P =
+  P_0]\Pr_{x\from P}[x = x_0],
+\end{equation}which converges because $Q$ is a probability distribution. The proofs of
+functorality and the monad laws as exactly as for the ordinary Giry
+monad~\cite{giry-1982}, so we do not give them here. Now \scat{CompStoch} is in
+fact (isomorphic to) the Kleisi category of $G_c$.
+
+\subsection{Efficient and Effectful Computation}
+
+Suppose that we are given some wide subcategory \scat{EffBin} of \scat{BinComp},
+for instance that of poly-time computable maps. We can define the category
+\scat{EffComp} of efficient computations as the wide subcategory of \scat{Comp}
+consisting of morphisms $f$ whose encodings $\denote{f}$ are in $\scat{EffBin}$:
+this is the \emph{preimage} of $\scat{EffBin}$ under the functor $\denote{-}$.
+
+\begin{dfn}
+  The category \scat{P} of poly-time computable maps is the wide subcategory
+  of $\scat{Comp}$ consisting of those morphisms $f$ such that $\denote{f}$ is
+  poly-time computable.
+\end{dfn}
+
+Similarly, suppose that we are give some wide subcategory of
+\scat{BinCompStoch}, for instance that of poly-time computable stochastic maps.
+We can similarly define the cateogry \scat{EffCompStoch}.
+
+\begin{dfn}
+  The category \scat{PPT} of poly-time computable stochastic maps is the wide is
+  the wide subcategory of $\scat{CompStoch}$ consisting of those morphisms $f$
+  such that $\denote{f}$ is probabilistic poly-time-computable.
+\end{dfn}
+
+In general, we can perform this construction for any complexity class $C$ which
+is closed under composition.
+
+Even more generally, let \scat{Bin} be the category of sets of binary strings and
+(maybe uncomputable) set-functions between them. Let \scat{Enc} be the category
+of binary-encoded sets and (maybe uncomputable) set-functions between them. Then
+$\denote{-}$ is an equivalence of categories $\scat{Enc}\simeq \scat{Bin}$.
+
+Now let \scat{EffBin} be any subcategory of \scat{Bin}. Then the \emph{category
+of efficient computations} \scat{Eff} is the subcategory of \scat{Enc}
+consisting of morphisms $f$ such that $\denote{f}$ is in \scat{EffBin}, i.e. the
+preimage of \scat{EffBin} under $\denote{-}$. Finally, let $T$ be any monad on
+\scat{Enc} which restricts to a monad on \scat{Eff}. Then the \emph{category of
+efficient $T$-computations} is the Kleisi category of the restriction of $T$ to
+\scat{Eff}.
+
+\begin{ex}
+  Each example in the previous three sections is a special case of this
+  construction.
+  \begin{itemize}
+    \item When $\scat{EffBin}$ consists of computable functions and $T$ is the identity
+      monad, we recover \scat{Comp}.
+    \item When $\scat{EffBin}$ consists of computable functions and $T$ is the
+      computable Giry monad, we recover \scat{CompStoch}.
+    \item When $\scat{EffBin}$ consists of poly-time computable functions and $T$
+      is the identity monad, we recover \scat{P}.
+    \item When $\scat{EffBin}$ consists of poly-time computable functions and $T$
+      is the \emph{poly-time computable Giry monad}, which sends a set $X$ to
+      the set of poly-time computable probability distributions on $X$, we
+      recover \scat{PPT}\footnote{
+        Some work needs to be done in this case to check this this is genuinely
+        a monad on $\scat{P}$---in particular, it is not immediately clear that
+        the sum in \Cref{eqn:giry-sum} should be poly-time
+        computable, even though all the probability distributions involved
+        certainly are.
+      }.
+  \end{itemize}
+\end{ex}
+
+The point is that for any notion of efficient computation, and any notion of
+computational effect (since effects are generally
+monadic~\cite{wadler-thiemann-2003}), as long as the effect can be efficiently
+represented, we can use the machinery of binary-encoded sets to define a
+category of efficient computations carrying the given effect.
+
+\subsection{Quantum Computation}
+
+While an complete introduction to quantum computation is outside our scope, we
+can sketch a categorical perspective; a standard introduction
+is~\cite{nielsen-chuang-2010}. The \emph{category of quantum computations}
+\scat{FinHilb} is the category of finite-dimensional Hilbert spaces over $\CC$ and
+linear maps. Since nontrivial complex Hilbert spaces have
+uncountably many vectors, we cannot directly model this category using the
+machinery of the previous section, as there is no way to encode a complex
+Hilbert space as an object of \scat{Bin}. If we had developed a more general
+theory relying on a notion of computability over uncountable sets, then we could
+now unify these perspectives; indeed, there have been several attempts to
+monadically embed quantum computation into classical
+calculi~\cite{altenrich-green-2009,abramsky-2017}. As we have chosen not to
+develop such a general theory, in this section we will treat Hilbert spaces as
+our primitive object.
+
+A \emph{quantum computation} is a sequence of unitary transformations and
+\emph{measurements}. There are several ways to provide categorical semantics to
+quantum measurement; we follow~\cite{heunen-vicary-2014}.
+
+Let $I$ be the one-dimensional Hilbert space. Note that the maps $I\to I$
+correspond to choices of scalars $\lambda\in\CC$; as such, we say that a
+\emph{scalar} is a map $I\to I$. Given a Hilbert space $V$, a \emph{state} is a
+map $I\to X$, so that the a state is determined by a choice of vector in $V$. If
+$I\xto{a} X$ and $I\xto{b} X$ are states, then the projection of $a$ onto $b$
+has amplitude \[
+  I\xto{a}X\xto{b^\dag} I,
+\]where $(-)^\dag$ denotes the adjoint; the corresponding element of $\CC$ is
+the inner product $\<b,a\>$. Now the \emph{Born rule} of quantum mechanics
+asserts that the probability of measuring the outcome $b$ is $|\<b, a\>|^2$.
+Categorically:
+
+\begin{dfn}[measurement]
+  If $I\xto{a,b} X$ are states, then the \emph{probability of measuring $b$
+  from the state $a$} is the scalar \[
+    I\xto{a}X\xto{b^\dag} I\xto{b} X\xto{a^\dag} I.
+  \]
+\end{dfn}
+In this event, the state $a$ \emph{collapses} to the state $b$, which we
+represent as the map $X\xto{b^\dag} I$. As such, maps $X\to I$ are also called
+\emph{outcomes}.
+
+This is just a brief sketch of a very rich theory; see especially the work of
+Bob Coecke such
+as~\cite{abramsky-coecke-2004,coecke-perdrix-2012,coecke-kissinger-2017}, or the
+book by Heunen and Vicary~\cite{heunen-vicary-2014}. The key point is that any
+fully categorical treatment of cryptography should obtain quantum cryptography as
+a special case.
+
+
 
 % \section{Paths Not Taken}
 

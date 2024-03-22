@@ -1,0 +1,2988 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{anyt/global//global/global}
+    \entry{abramsky-2017}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=f4721a56c3b94b002e7ef8e0ef2b89fa}{%
+           family={Abramsky},
+           familyi={A\bibinitperiod},
+           given={Samson},
+           giveni={S\bibinitperiod}}}%
+        {{hash=3105bbdd3d5c09581585b613cb552618}{%
+           family={Barbosa},
+           familyi={B\bibinitperiod},
+           given={Rui\bibnamedelima Soares},
+           giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=036d6112d753044b8a96613efc69387c}{%
+           family={Silva},
+           familyi={S\bibinitperiod},
+           given={Nadish},
+           giveni={N\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+        {{hash=71b01b70acf4207960806dac56793dca}{%
+           family={Zapata},
+           familyi={Z\bibinitperiod},
+           given={Octavio},
+           giveni={O\bibinitperiod}}}%
+      }
+      \name{editor}{3}{}{%
+        {{hash=1d74b0c6afa306c62f868ed08f077ddd}{%
+           family={Larsen},
+           familyi={L\bibinitperiod},
+           given={Kim\bibnamedelima G.},
+           giveni={K\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=85d4ff4ae6234ff61c5dfd4020e20bbb}{%
+           family={Bodlaender},
+           familyi={B\bibinitperiod},
+           given={Hans\bibnamedelima L.},
+           giveni={H\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=5992b6893cf4459982cf1e07bfa5a1eb}{%
+           family={Raskin},
+           familyi={R\bibinitperiod},
+           given={Jean-Francois},
+           giveni={J\bibinithyphendelim F\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Dagstuhl, Germany}%
+      }
+      \list{publisher}{1}{%
+        {Schloss Dagstuhl -- Leibniz-Zentrum für Informatik}%
+      }
+      \strng{namehash}{d8bd77fe10bf40874a3818a06030a225}
+      \strng{fullhash}{ac3379529c398a80ab42c8a9d498d1e5}
+      \strng{bibnamehash}{d8bd77fe10bf40874a3818a06030a225}
+      \strng{authorbibnamehash}{d8bd77fe10bf40874a3818a06030a225}
+      \strng{authornamehash}{d8bd77fe10bf40874a3818a06030a225}
+      \strng{authorfullhash}{ac3379529c398a80ab42c8a9d498d1e5}
+      \strng{editorbibnamehash}{10989e182d22776232a35e9f1fb8c5e3}
+      \strng{editornamehash}{10989e182d22776232a35e9f1fb8c5e3}
+      \strng{editorfullhash}{10989e182d22776232a35e9f1fb8c5e3}
+      \field{labelalpha}{Abr+17}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Keywords: non-local games, quantum computation, monads}
+      \field{booktitle}{42nd International Symposium on Mathematical Foundations of Computer Science (MFCS 2017)}
+      \field{isbn}{978-3-95977-046-0}
+      \field{issn}{1868-8969}
+      \field{series}{Leibniz International Proceedings in Informatics (LIPIcs)}
+      \field{title}{{The Quantum Monad on Relational Structures}}
+      \field{volume}{83}
+      \field{year}{2017}
+      \field{pages}{35:1\bibrangedash 35:19}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.4230/LIPIcs.MFCS.2017.35
+      \endverb
+      \verb{urlraw}
+      \verb https://drops-dev.dagstuhl.de/entities/document/10.4230/LIPIcs.MFCS.2017.35
+      \endverb
+      \verb{url}
+      \verb https://drops-dev.dagstuhl.de/entities/document/10.4230/LIPIcs.MFCS.2017.35
+      \endverb
+    \endentry
+    \entry{abramsky-coecke-2004}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=9fe5cdf69e7c21fb4768948b13101d02}{%
+           family={Abramsky},
+           familyi={A\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=af792c177819ce471c73aeac1a75a46b}{%
+           family={Coecke},
+           familyi={C\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{31cc5f698fcc5877118a25c8e739a3fa}
+      \strng{fullhash}{31cc5f698fcc5877118a25c8e739a3fa}
+      \strng{bibnamehash}{31cc5f698fcc5877118a25c8e739a3fa}
+      \strng{authorbibnamehash}{31cc5f698fcc5877118a25c8e739a3fa}
+      \strng{authornamehash}{31cc5f698fcc5877118a25c8e739a3fa}
+      \strng{authorfullhash}{31cc5f698fcc5877118a25c8e739a3fa}
+      \field{labelalpha}{AC04}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 19th Annual IEEE Symposium on Logic in Computer Science, 2004.}
+      \field{title}{A categorical semantics of quantum protocols}
+      \field{year}{2004}
+      \field{pages}{415\bibrangedash 425}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1109/LICS.2004.1319636
+      \endverb
+      \keyw{Protocols;Teleportation;Performance evaluation;Quantum computing;Quantum entanglement;Quantum mechanics;Laboratories;Communication channels;Force measurement;Measurement standards}
+    \endentry
+    \entry{asharov-et-al-2022}{misc}{}
+      \name{author}{3}{}{%
+        {{hash=97c58a2069f4f68e5bc065698ed7f421}{%
+           family={Asharov},
+           familyi={A\bibinitperiod},
+           given={Gilad},
+           giveni={G\bibinitperiod}}}%
+        {{hash=5158c591e66c68b87a729fa953669f4d}{%
+           family={Cohen},
+           familyi={C\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+        {{hash=9d19dac5f5c5c4349ddc63a84b9e23bc}{%
+           family={Shochat},
+           familyi={S\bibinitperiod},
+           given={Oren},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{861ba5d0345088d1c634ce424662515c}
+      \strng{fullhash}{861ba5d0345088d1c634ce424662515c}
+      \strng{bibnamehash}{861ba5d0345088d1c634ce424662515c}
+      \strng{authorbibnamehash}{861ba5d0345088d1c634ce424662515c}
+      \strng{authornamehash}{861ba5d0345088d1c634ce424662515c}
+      \strng{authorfullhash}{861ba5d0345088d1c634ce424662515c}
+      \field{labelalpha}{ACS22}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Paper 2022/758}
+      \field{note}{\url{https://eprint.iacr.org/2022/758}}
+      \field{title}{Static vs. Adaptive Security in Perfect MPC: A Separation and the Adaptive Security of BGW}
+      \field{year}{2022}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2022/758
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2022/758
+      \endverb
+    \endentry
+    \entry{altenrich-green-2009}{inbook}{}
+      \name{author}{2}{}{%
+        {{hash=90877ea5f7e44778ae02b3d3954a7a1e}{%
+           family={Altenkirch},
+           familyi={A\bibinitperiod},
+           given={Thorsten},
+           giveni={T\bibinitperiod}}}%
+        {{hash=b99958ebde6117a5575ccbde27797b51}{%
+           family={Green},
+           familyi={G\bibinitperiod},
+           given={Alexander\bibnamedelima S.},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=431da8484184d76f43a2f8ca8fc73388}{%
+           family={Gay},
+           familyi={G\bibinitperiod},
+           given={Simon},
+           giveni={S\bibinitperiod}}}%
+        {{hash=fd09e4f8516a4eb2330476ae09b4e14d}{%
+           family={Mackie},
+           familyi={M\bibinitperiod},
+           given={IanEditors},
+           giveni={I\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{06f8061a86ad4624d96b899c208dcbbe}
+      \strng{fullhash}{06f8061a86ad4624d96b899c208dcbbe}
+      \strng{bibnamehash}{06f8061a86ad4624d96b899c208dcbbe}
+      \strng{authorbibnamehash}{06f8061a86ad4624d96b899c208dcbbe}
+      \strng{authornamehash}{06f8061a86ad4624d96b899c208dcbbe}
+      \strng{authorfullhash}{06f8061a86ad4624d96b899c208dcbbe}
+      \strng{editorbibnamehash}{2831f5db80f87a50b641ee7ae51367f4}
+      \strng{editornamehash}{2831f5db80f87a50b641ee7ae51367f4}
+      \strng{editorfullhash}{2831f5db80f87a50b641ee7ae51367f4}
+      \field{labelalpha}{AG09}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Semantic Techniques in Quantum Computation}
+      \field{title}{The Quantum IO Monad}
+      \field{year}{2009}
+      \field{pages}{173\bibrangedash 205}
+      \range{pages}{33}
+    \endentry
+    \entry{anderson-2017}{unpublished}{}
+      \name{author}{1}{}{%
+        {{hash=ed71a1ed799241c5cf71cb20ed27a968}{%
+           family={Anderson},
+           familyi={A\bibinitperiod},
+           given={Scott},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{ed71a1ed799241c5cf71cb20ed27a968}
+      \strng{fullhash}{ed71a1ed799241c5cf71cb20ed27a968}
+      \strng{bibnamehash}{ed71a1ed799241c5cf71cb20ed27a968}
+      \strng{authorbibnamehash}{ed71a1ed799241c5cf71cb20ed27a968}
+      \strng{authornamehash}{ed71a1ed799241c5cf71cb20ed27a968}
+      \strng{authorfullhash}{ed71a1ed799241c5cf71cb20ed27a968}
+      \field{labelalpha}{And17}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{P $\overset{?}{=}$ NP}
+      \field{year}{2017}
+      \verb{urlraw}
+      \verb https://www.scottaaronson.com/papers/pnp.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.scottaaronson.com/papers/pnp.pdf
+      \endverb
+    \endentry
+    \entry{bauer-2000}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=3d00839a7d4e4ff29f609b74c7a30980}{%
+           family={Bauer},
+           familyi={B\bibinitperiod},
+           given={Andrej},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {School of Computer Science}%
+      }
+      \strng{namehash}{3d00839a7d4e4ff29f609b74c7a30980}
+      \strng{fullhash}{3d00839a7d4e4ff29f609b74c7a30980}
+      \strng{bibnamehash}{3d00839a7d4e4ff29f609b74c7a30980}
+      \strng{authorbibnamehash}{3d00839a7d4e4ff29f609b74c7a30980}
+      \strng{authornamehash}{3d00839a7d4e4ff29f609b74c7a30980}
+      \strng{authorfullhash}{3d00839a7d4e4ff29f609b74c7a30980}
+      \field{labelalpha}{Bau00}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{journaltitle}{The realizability approach to computable analysis and topology}
+      \field{type}{phdthesis}
+      \field{year}{2000}
+    \endentry
+    \entry{broadbent-karvonen-2022}{incollection}{}
+      \name{author}{2}{}{%
+        {{hash=9ea2a45d7ab1a2ec555771051f412c9b}{%
+           family={Broadbent},
+           familyi={B\bibinitperiod},
+           given={Anne},
+           giveni={A\bibinitperiod}}}%
+        {{hash=9c820cf5d358bdb1f15fd7f6ff47df41}{%
+           family={Karvonen},
+           familyi={K\bibinitperiod},
+           given={Martti},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer, Cham}%
+      }
+      \strng{namehash}{a48f8421d4759664273304cd48e3e49c}
+      \strng{fullhash}{a48f8421d4759664273304cd48e3e49c}
+      \strng{bibnamehash}{a48f8421d4759664273304cd48e3e49c}
+      \strng{authorbibnamehash}{a48f8421d4759664273304cd48e3e49c}
+      \strng{authornamehash}{a48f8421d4759664273304cd48e3e49c}
+      \strng{authorfullhash}{a48f8421d4759664273304cd48e3e49c}
+      \field{labelalpha}{BK22}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Foundations of software science and computation structures}
+      \field{isbn}{9783030992538}
+      \field{series}{Lecture Notes in Comput. Sci.}
+      \field{title}{Categorical composable cryptography}
+      \field{volume}{13242}
+      \field{year}{2022}
+      \field{pages}{161\bibrangedash 183}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1007/978-3-030-99253-8\_9
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-030-99253-8_9
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-030-99253-8_9
+      \endverb
+    \endentry
+    \entry{bkm-2019}{article}{}
+      \name{author}{3}{}{%
+        {{hash=cfd3b9848839873cc8adc5f9f22cb03f}{%
+           family={Breiner},
+           familyi={B\bibinitperiod},
+           given={Spencer},
+           giveni={S\bibinitperiod}}}%
+        {{hash=26839fa0f19473a88879bda98b25dbce}{%
+           family={Kalev},
+           familyi={K\bibinitperiod},
+           given={Amir},
+           giveni={A\bibinitperiod}}}%
+        {{hash=d47c507fc26d5e60241429f551e0fdcd}{%
+           family={Miller},
+           familyi={M\bibinitperiod},
+           given={Carl\bibnamedelima A.},
+           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Open Publishing Association}%
+      }
+      \strng{namehash}{cc1c45500fefc9db38817e31347bdc5a}
+      \strng{fullhash}{cc1c45500fefc9db38817e31347bdc5a}
+      \strng{bibnamehash}{cc1c45500fefc9db38817e31347bdc5a}
+      \strng{authorbibnamehash}{cc1c45500fefc9db38817e31347bdc5a}
+      \strng{authornamehash}{cc1c45500fefc9db38817e31347bdc5a}
+      \strng{authorfullhash}{cc1c45500fefc9db38817e31347bdc5a}
+      \field{labelalpha}{BKM19}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{2075-2180}
+      \field{journaltitle}{Electronic Proceedings in Theoretical Computer Science}
+      \field{month}{1}
+      \field{title}{Parallel Self-Testing of the GHZ State with a Proof by Diagrams}
+      \field{volume}{287}
+      \field{year}{2019}
+      \field{pages}{43\bibrangedash 66}
+      \range{pages}{24}
+      \verb{doi}
+      \verb 10.4204/eptcs.287.3
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.4204/EPTCS.287.3
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.4204/EPTCS.287.3
+      \endverb
+    \endentry
+    \entry{bmr-2019}{article}{}
+      \name{author}{3}{}{%
+        {{hash=cfd3b9848839873cc8adc5f9f22cb03f}{%
+           family={Breiner},
+           familyi={B\bibinitperiod},
+           given={Spencer},
+           giveni={S\bibinitperiod}}}%
+        {{hash=d47c507fc26d5e60241429f551e0fdcd}{%
+           family={Miller},
+           familyi={M\bibinitperiod},
+           given={Carl\bibnamedelima A.},
+           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=458af5435b9c9f9b22c7d3f90fb4ec40}{%
+           family={Ross},
+           familyi={R\bibinitperiod},
+           given={Neil\bibnamedelima J.},
+           giveni={N\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Verein zur Förderung des Open Access Publizierens in den Quantenwissenschaften}%
+      }
+      \strng{namehash}{deaef4d0e851d9ae7ba75301d6afb5ac}
+      \strng{fullhash}{deaef4d0e851d9ae7ba75301d6afb5ac}
+      \strng{bibnamehash}{deaef4d0e851d9ae7ba75301d6afb5ac}
+      \strng{authorbibnamehash}{deaef4d0e851d9ae7ba75301d6afb5ac}
+      \strng{authornamehash}{deaef4d0e851d9ae7ba75301d6afb5ac}
+      \strng{authorfullhash}{deaef4d0e851d9ae7ba75301d6afb5ac}
+      \field{labelalpha}{BMR19}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{2521-327X}
+      \field{journaltitle}{{Quantum}}
+      \field{month}{5}
+      \field{title}{Graphical {M}ethods in {D}evice-{I}ndependent {Q}uantum {C} ryptography}
+      \field{volume}{3}
+      \field{year}{2019}
+      \field{pages}{146}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.22331/q-2019-05-27-146
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.22331/q-2019-05-27-146
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.22331/q-2019-05-27-146
+      \endverb
+    \endentry
+    \entry{baez-2017}{article}{}
+      \name{author}{2}{}{%
+        {{hash=77c130b1ed4688a565b29481eee08ae3}{%
+           family={Baez},
+           familyi={B\bibinitperiod},
+           given={John\bibnamedelima C.},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=6fd121fbd0304d1d748c1d3174c953e3}{%
+           family={Pollard},
+           familyi={P\bibinitperiod},
+           given={Blake\bibnamedelima S.},
+           giveni={B\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {World Scientific Pub Co Pte Ltd}%
+      }
+      \strng{namehash}{cf1e43133371aa9ac014eb2135857787}
+      \strng{fullhash}{cf1e43133371aa9ac014eb2135857787}
+      \strng{bibnamehash}{cf1e43133371aa9ac014eb2135857787}
+      \strng{authorbibnamehash}{cf1e43133371aa9ac014eb2135857787}
+      \strng{authornamehash}{cf1e43133371aa9ac014eb2135857787}
+      \strng{authorfullhash}{cf1e43133371aa9ac014eb2135857787}
+      \field{labelalpha}{BP17}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Reviews in Mathematical Physics}
+      \field{month}{9}
+      \field{number}{09}
+      \field{title}{A compositional framework for reaction networks}
+      \field{volume}{29}
+      \field{year}{2017}
+      \field{pages}{1750028}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1142/s0129055x17500283
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1142%2Fs0129055x17500283
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1142%2Fs0129055x17500283
+      \endverb
+    \endentry
+    \entry{baez-stay-2011}{inbook}{}
+      \name{author}{2}{}{%
+        {{hash=4de2da2c3d69f6f5beae8a2a645d6e3a}{%
+           family={Baez},
+           familyi={B\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=c2d188413ee9b24e318d9aa19441f8ef}{%
+           family={Stay},
+           familyi={S\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=c8d0d6b0d8ca354b544208d9fa6abd9d}{%
+           family={Coecke},
+           familyi={C\bibinitperiod},
+           given={Bob},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{2c0550a8ec4271f46ad4f217122c4a37}
+      \strng{fullhash}{2c0550a8ec4271f46ad4f217122c4a37}
+      \strng{bibnamehash}{2c0550a8ec4271f46ad4f217122c4a37}
+      \strng{authorbibnamehash}{2c0550a8ec4271f46ad4f217122c4a37}
+      \strng{authornamehash}{2c0550a8ec4271f46ad4f217122c4a37}
+      \strng{authorfullhash}{2c0550a8ec4271f46ad4f217122c4a37}
+      \strng{editorbibnamehash}{c8d0d6b0d8ca354b544208d9fa6abd9d}
+      \strng{editornamehash}{c8d0d6b0d8ca354b544208d9fa6abd9d}
+      \strng{editorfullhash}{c8d0d6b0d8ca354b544208d9fa6abd9d}
+      \field{labelalpha}{BS11}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In physics, Feynman diagrams are used to reason about quantum processes. In the 1980s, it became clear that underlying these diagrams is a powerful analogy between quantum physics and topology. Namely, a linear operator behaves very much like a ``cobordism'': a manifold representing spacetime, going between two manifolds representing space. This led to a burst of work on topological quantum field theory and ``quantum topology''. But this was just the beginning: similar diagrams can be used to reason about logic, where they represent proofs, and computation, where they represent programs. With the rise of interest in quantum cryptography and quantum computation, it became clear that there is extensive network of analogies between physics, topology, logic and computation. In this expository paper, we make some of these analogies precise using the concept of ``closed symmetric monoidal category''. We assume no prior knowledge of category theory, proof theory or computer science.}
+      \field{booktitle}{New Structures for Physics}
+      \field{isbn}{978-3-642-12821-9}
+      \field{title}{Physics, Topology, Logic and Computation: A Rosetta Stone}
+      \field{year}{2011}
+      \field{pages}{95\bibrangedash 172}
+      \range{pages}{78}
+      \verb{doi}
+      \verb 10.1007/978-3-642-12821-9_2
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-642-12821-9_2
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-642-12821-9_2
+      \endverb
+    \endentry
+    \entry{boisseau-sobocinski-2022}{article}{}
+      \name{author}{2}{}{%
+        {{hash=71899fea2d68881c4df16d069cc6fbef}{%
+           family={Boisseau},
+           familyi={B\bibinitperiod},
+           given={Guillaume},
+           giveni={G\bibinitperiod}}}%
+        {{hash=59470481aaa6749da6f4102f4e2e1e14}{%
+           family={Sobociński},
+           familyi={S\bibinitperiod},
+           given={Paweł},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Open Publishing Association}%
+      }
+      \strng{namehash}{a6594f12b88ef4dc2e646f3e19d44d60}
+      \strng{fullhash}{a6594f12b88ef4dc2e646f3e19d44d60}
+      \strng{bibnamehash}{a6594f12b88ef4dc2e646f3e19d44d60}
+      \strng{authorbibnamehash}{a6594f12b88ef4dc2e646f3e19d44d60}
+      \strng{authornamehash}{a6594f12b88ef4dc2e646f3e19d44d60}
+      \strng{authorfullhash}{a6594f12b88ef4dc2e646f3e19d44d60}
+      \field{labelalpha}{BS22}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{2075-2180}
+      \field{journaltitle}{Electronic Proceedings in Theoretical Computer Science}
+      \field{month}{11}
+      \field{title}{String Diagrammatic Electrical Circuit Theory}
+      \field{volume}{372}
+      \field{year}{2022}
+      \field{pages}{178\bibrangedash 191}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.4204/eptcs.372.13
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.4204/EPTCS.372.13
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.4204/EPTCS.372.13
+      \endverb
+    \endentry
+    \entry{barr-wells-1990}{book}{}
+      \name{author}{2}{}{%
+        {{hash=1f590f436d602e75c03b0fa9947edc3c}{%
+           family={Barr},
+           familyi={B\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=a0acd594dc6393fda9703e412ef40bac}{%
+           family={Wells},
+           familyi={W\bibinitperiod},
+           given={Charles},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {USA}%
+      }
+      \list{publisher}{1}{%
+        {Prentice-Hall, Inc.}%
+      }
+      \strng{namehash}{2d741f7e706a6ef34c35fea1376d499a}
+      \strng{fullhash}{2d741f7e706a6ef34c35fea1376d499a}
+      \strng{bibnamehash}{2d741f7e706a6ef34c35fea1376d499a}
+      \strng{authorbibnamehash}{2d741f7e706a6ef34c35fea1376d499a}
+      \strng{authornamehash}{2d741f7e706a6ef34c35fea1376d499a}
+      \strng{authorfullhash}{2d741f7e706a6ef34c35fea1376d499a}
+      \field{labelalpha}{BW90}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{0131204866}
+      \field{title}{Category theory for computing science}
+      \field{year}{1990}
+    \endentry
+    \entry{canetti-2000}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=7faf0f3900af6c70795ea089d283f02e}{%
+           family={Canetti},
+           familyi={C\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{fullhash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{bibnamehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{authorbibnamehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{authornamehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{authorfullhash}{7faf0f3900af6c70795ea089d283f02e}
+      \field{extraname}{1}
+      \field{labelalpha}{Can00}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Paper 2000/067}
+      \field{note}{\url{https://eprint.iacr.org/2000/067}}
+      \field{title}{Universally Composable Security: A New Paradigm for Cryptographic Protocols}
+      \field{year}{2000}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2000/067
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2000/067
+      \endverb
+    \endentry
+    \entry{canetti-2008}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=7faf0f3900af6c70795ea089d283f02e}{%
+           family={Canetti},
+           familyi={C\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{fullhash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{bibnamehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{authorbibnamehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{authornamehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{authorfullhash}{7faf0f3900af6c70795ea089d283f02e}
+      \field{extraname}{2}
+      \field{labelalpha}{Can08}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{Spring}
+      \field{title}{Lecture 11}
+      \field{year}{2008}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.cs.tau.ac.il/~canetti/f08-materials/scribe11.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.cs.tau.ac.il/~canetti/f08-materials/scribe11.pdf
+      \endverb
+    \endentry
+    \entry{canetti-2020}{article}{}
+      \name{author}{1}{}{%
+        {{hash=7faf0f3900af6c70795ea089d283f02e}{%
+           family={Canetti},
+           familyi={C\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{fullhash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{bibnamehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{authorbibnamehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{authornamehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{authorfullhash}{7faf0f3900af6c70795ea089d283f02e}
+      \field{extraname}{3}
+      \field{labelalpha}{Can20}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This work presents a general framework for describing cryptographic protocols and analyzing their security. The framework allows specifying the security requirements of practically any cryptographic task in a unified and systematic way. Furthermore, in this framework the security of protocols is preserved under a general composition operation, called universal composition. The proposed framework with its security-preserving composition operation allows for modular design and analysis of complex cryptographic protocols from simpler building blocks. Moreover, within this framework, protocols are guaranteed to maintain their security in any context, even in the presence of an unbounded number of arbitrary protocol sessions that run concurrently in an adversarially controlled manner. This is a useful guarantee, which allows arguing about the security of cryptographic protocols in complex and unpredictable environments such as modern communication networks.}
+      \field{issn}{0004-5411}
+      \field{journaltitle}{J. ACM}
+      \field{month}{9}
+      \field{number}{5}
+      \field{title}{Universally Composable Security}
+      \field{volume}{67}
+      \field{year}{2020}
+      \true{nocite}
+      \verb{doi}
+      \verb 10.1145/3402457
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/3402457
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/3402457
+      \endverb
+      \keyw{security-preserving composition,modular security,universal composition,Security modeling,specification,and analysis}
+    \endentry
+    \entry{canetti-fischlin-2001}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=7faf0f3900af6c70795ea089d283f02e}{%
+           family={Canetti},
+           familyi={C\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+        {{hash=23091f1713beeb72d7a1d501b5d5923e}{%
+           family={Fischlin},
+           familyi={F\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=4591268c67f1c3a2dddd96c8b3457967}{%
+           family={Kilian},
+           familyi={K\bibinitperiod},
+           given={Joe},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{ab1900a1f5f57be7807e137f8fdab502}
+      \strng{fullhash}{ab1900a1f5f57be7807e137f8fdab502}
+      \strng{bibnamehash}{ab1900a1f5f57be7807e137f8fdab502}
+      \strng{authorbibnamehash}{ab1900a1f5f57be7807e137f8fdab502}
+      \strng{authornamehash}{ab1900a1f5f57be7807e137f8fdab502}
+      \strng{authorfullhash}{ab1900a1f5f57be7807e137f8fdab502}
+      \strng{editorbibnamehash}{4591268c67f1c3a2dddd96c8b3457967}
+      \strng{editornamehash}{4591268c67f1c3a2dddd96c8b3457967}
+      \strng{editorfullhash}{4591268c67f1c3a2dddd96c8b3457967}
+      \field{labelalpha}{CF01}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We propose a new security measure for commitment protocols, called Universally Composable (UC) Commitment. The measure guarantees that commitment protocols behave like an ``ideal commitment service,'' even when concurrently composed with an arbitrary set of protocols. This is a strong guarantee: it implies that security is maintained even when an unbounded number of copies of the scheme are running concurrently, it implies non-malleability (not only with respect to other copies of the same protocol but even with respect to other protocols), it provides resilience to selective decommitment, and more.}
+      \field{booktitle}{Advances in Cryptology --- CRYPTO 2001}
+      \field{isbn}{978-3-540-44647-7}
+      \field{title}{Universally Composable Commitments}
+      \field{year}{2001}
+      \true{nocite}
+      \field{pages}{19\bibrangedash 40}
+      \range{pages}{22}
+    \endentry
+    \entry{coecke-2016}{article}{}
+      \name{author}{3}{}{%
+        {{hash=c8d0d6b0d8ca354b544208d9fa6abd9d}{%
+           family={Coecke},
+           familyi={C\bibinitperiod},
+           given={Bob},
+           giveni={B\bibinitperiod}}}%
+        {{hash=485f579f829f8629fec8c85c28a33f28}{%
+           family={Fritz},
+           familyi={F\bibinitperiod},
+           given={Tobias},
+           giveni={T\bibinitperiod}}}%
+        {{hash=ad7568d5c39cdf77d9b5b9b709764274}{%
+           family={Spekkens},
+           familyi={S\bibinitperiod},
+           given={Robert\bibnamedelima W.},
+           giveni={R\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \strng{namehash}{34860f989c954bd3dc3e64b208d37bd5}
+      \strng{fullhash}{34860f989c954bd3dc3e64b208d37bd5}
+      \strng{bibnamehash}{34860f989c954bd3dc3e64b208d37bd5}
+      \strng{authorbibnamehash}{34860f989c954bd3dc3e64b208d37bd5}
+      \strng{authornamehash}{34860f989c954bd3dc3e64b208d37bd5}
+      \strng{authorfullhash}{34860f989c954bd3dc3e64b208d37bd5}
+      \field{labelalpha}{CFS16}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Many fields of science investigate states and processes as resources. Chemistry, thermodynamics, Shannon's theory of communication channels, and the theory of quantum entanglement are prominent examples. Questions addressed by these theories include: Which resources can be converted into which others? At what rate can many copies of one resource be converted into many copies of another? Can a catalyst enable a conversion? How to quantify a resource? We propose a general mathematical definition of resource theory. We prove general theorems about how resource theories can be constructed from theories of processes with a subclass of processes that are freely implementable. These define the means by which costly states and processes can be interconverted. We outline how various existing resource theories fit into our framework, which is a first step in a project of identifying universal features and principles of resource theories. We develop a few general results concerning resource convertibility.}
+      \field{issn}{0890-5401}
+      \field{journaltitle}{Information and Computation}
+      \field{note}{Quantum Physics and Logic}
+      \field{title}{A mathematical theory of resources}
+      \field{volume}{250}
+      \field{year}{2016}
+      \true{nocite}
+      \field{pages}{59\bibrangedash 86}
+      \range{pages}{28}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.ic.2016.02.008
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0890540116000353
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0890540116000353
+      \endverb
+    \endentry
+    \entry{chitambar-gour-2019}{article}{}
+      \name{author}{2}{}{%
+        {{hash=05b83f1fff278e138e1eea3c8bf912bc}{%
+           family={Chitambar},
+           familyi={C\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod}}}%
+        {{hash=06805112e805d821f0d3e1122867cdcf}{%
+           family={Gour},
+           familyi={G\bibinitperiod},
+           given={Gilad},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Physical Society}%
+      }
+      \strng{namehash}{031366905d6e986e5bead508ad995a46}
+      \strng{fullhash}{031366905d6e986e5bead508ad995a46}
+      \strng{bibnamehash}{031366905d6e986e5bead508ad995a46}
+      \strng{authorbibnamehash}{031366905d6e986e5bead508ad995a46}
+      \strng{authornamehash}{031366905d6e986e5bead508ad995a46}
+      \strng{authorfullhash}{031366905d6e986e5bead508ad995a46}
+      \field{labelalpha}{CG19}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issue}{2}
+      \field{journaltitle}{Rev. Mod. Phys.}
+      \field{month}{4}
+      \field{title}{Quantum resource theories}
+      \field{volume}{91}
+      \field{year}{2019}
+      \field{pages}{025001}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/RevModPhys.91.025001
+      \endverb
+      \verb{urlraw}
+      \verb https://link.aps.org/doi/10.1103/RevModPhys.91.025001
+      \endverb
+      \verb{url}
+      \verb https://link.aps.org/doi/10.1103/RevModPhys.91.025001
+      \endverb
+    \endentry
+    \entry{canetti-et-al-2015}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=7faf0f3900af6c70795ea089d283f02e}{%
+           family={Canetti},
+           familyi={C\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+        {{hash=39e4a0690915f1d991133196a545b37b}{%
+           family={Goldwasser},
+           familyi={G\bibinitperiod},
+           given={Shafi},
+           giveni={S\bibinitperiod}}}%
+        {{hash=cd9002afd9b253a8d58e4413d640d1c2}{%
+           family={Poburinnaya},
+           familyi={P\bibinitperiod},
+           given={Oxana},
+           giveni={O\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=21ac2ee1e3dbf5809549b834bf94ba2e}{%
+           family={Dodis},
+           familyi={D\bibinitperiod},
+           given={Yevgeniy},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=6535189281ff6a1012638e384823f5cf}{%
+           family={Nielsen},
+           familyi={N\bibinitperiod},
+           given={Jesper\bibnamedelima Buus},
+           giveni={J\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{b14410c6fe8feb98ce89cb44ffbbd012}
+      \strng{fullhash}{b14410c6fe8feb98ce89cb44ffbbd012}
+      \strng{bibnamehash}{b14410c6fe8feb98ce89cb44ffbbd012}
+      \strng{authorbibnamehash}{b14410c6fe8feb98ce89cb44ffbbd012}
+      \strng{authornamehash}{b14410c6fe8feb98ce89cb44ffbbd012}
+      \strng{authorfullhash}{b14410c6fe8feb98ce89cb44ffbbd012}
+      \strng{editorbibnamehash}{914f3deaba04129be977560114339b2d}
+      \strng{editornamehash}{914f3deaba04129be977560114339b2d}
+      \strng{editorfullhash}{914f3deaba04129be977560114339b2d}
+      \field{labelalpha}{CGP15}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We present the first two-round, two-party general function evaluation protocol that is secure against honest-but-curious adaptive corruption of both parties. In addition, the protocol is incoercible for one of the parties, and fully leakage tolerant. It requires a global (non-programmable) reference string and is based on one way functions and general-purpose indistinguishability obfuscation with sub-exponential security, as well as augmented non-committing encryption.}
+      \field{booktitle}{Theory of Cryptography}
+      \field{isbn}{978-3-662-46497-7}
+      \field{title}{Adaptively Secure Two-Party Computation from Indistinguishability Obfuscation}
+      \field{year}{2015}
+      \field{pages}{557\bibrangedash 585}
+      \range{pages}{29}
+    \endentry
+    \entry{coecke-kissinger-2017}{book}{}
+      \name{author}{2}{}{%
+        {{hash=c8d0d6b0d8ca354b544208d9fa6abd9d}{%
+           family={Coecke},
+           familyi={C\bibinitperiod},
+           given={Bob},
+           giveni={B\bibinitperiod}}}%
+        {{hash=0dcc317455baeefdf9b65140659af27d}{%
+           family={Kissinger},
+           familyi={K\bibinitperiod},
+           given={Aleks},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{125ba65696ccd5f6b57722426b3a1bd0}
+      \strng{fullhash}{125ba65696ccd5f6b57722426b3a1bd0}
+      \strng{bibnamehash}{125ba65696ccd5f6b57722426b3a1bd0}
+      \strng{authorbibnamehash}{125ba65696ccd5f6b57722426b3a1bd0}
+      \strng{authornamehash}{125ba65696ccd5f6b57722426b3a1bd0}
+      \strng{authorfullhash}{125ba65696ccd5f6b57722426b3a1bd0}
+      \field{labelalpha}{CK17}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Picturing Quantum Processes: A First Course in Quantum Theory and Diagrammatic Reasoning}
+      \field{year}{2017}
+    \endentry
+    \entry{coecke-perdrix-2012}{article}{}
+      \name{author}{2}{}{%
+        {{hash=c8d0d6b0d8ca354b544208d9fa6abd9d}{%
+           family={Coecke},
+           familyi={C\bibinitperiod},
+           given={Bob},
+           giveni={B\bibinitperiod}}}%
+        {{hash=2cfa2528fc3a1c11861293c11239171a}{%
+           family={Perdrix},
+           familyi={P\bibinitperiod},
+           given={Simon},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Centre pour la Communication Scientifique Directe (CCSD)}%
+      }
+      \strng{namehash}{d5f85b68f14bae151fd40656b3964556}
+      \strng{fullhash}{d5f85b68f14bae151fd40656b3964556}
+      \strng{bibnamehash}{d5f85b68f14bae151fd40656b3964556}
+      \strng{authorbibnamehash}{d5f85b68f14bae151fd40656b3964556}
+      \strng{authornamehash}{d5f85b68f14bae151fd40656b3964556}
+      \strng{authorfullhash}{d5f85b68f14bae151fd40656b3964556}
+      \field{labelalpha}{CP12}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1860-5974}
+      \field{journaltitle}{Logical Methods in Computer Science}
+      \field{month}{11}
+      \field{title}{Environment and classical channels in categorical quantum mechanics}
+      \field{volume}{Volume 8, Issue 4}
+      \field{year}{2012}
+      \verb{doi}
+      \verb 10.2168/lmcs-8(4:14)2012
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.2168/LMCS-8(4:14)2012
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.2168/LMCS-8(4:14)2012
+      \endverb
+    \endentry
+    \entry{cramer-et-al-1999}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{hash=e712b1b3271b096addfc108a5acd1bcb}{%
+           family={Cramer},
+           familyi={C\bibinitperiod},
+           given={Ronald},
+           giveni={R\bibinitperiod}}}%
+        {{hash=e7d2c4b806bfb9a8aa20810a903c51d2}{%
+           family={Damg{å}rd},
+           familyi={D\bibinitperiod},
+           given={Ivan},
+           giveni={I\bibinitperiod}}}%
+        {{hash=4641f8e4bba0a4c46eb5ab3c1ee8bd9e}{%
+           family={Dziembowski},
+           familyi={D\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=ebbe8901cb4342e1eb1de3afc6cfc064}{%
+           family={Hirt},
+           familyi={H\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=d0a232b92e9efa1d3b250cd86aeee031}{%
+           family={Rabin},
+           familyi={R\bibinitperiod},
+           given={Tal},
+           giveni={T\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=1376067edec67519daf9e0c439f72c89}{%
+           family={Stern},
+           familyi={S\bibinitperiod},
+           given={Jacques},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{b43797e83d2277b0c07e1e8b5a209cf3}
+      \strng{fullhash}{c050636037b3016015c5754effb73330}
+      \strng{bibnamehash}{b43797e83d2277b0c07e1e8b5a209cf3}
+      \strng{authorbibnamehash}{b43797e83d2277b0c07e1e8b5a209cf3}
+      \strng{authornamehash}{b43797e83d2277b0c07e1e8b5a209cf3}
+      \strng{authorfullhash}{c050636037b3016015c5754effb73330}
+      \strng{editorbibnamehash}{1376067edec67519daf9e0c439f72c89}
+      \strng{editornamehash}{1376067edec67519daf9e0c439f72c89}
+      \strng{editorfullhash}{1376067edec67519daf9e0c439f72c89}
+      \field{labelalpha}{Cra+99}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We consider verifiable secret sharing (VSS) and multiparty computation (MPC) in the secure-channels model, where a broadcast channel is given and a non-zero error probability is allowed. In this model Rabin and Ben-Or proposed VSS and MPC protocols secure against an adversary that can corrupt any minority of the players. In this paper, we first observe that a subprotocol of theirs, known as weak secret sharing (WSS), is not secure against an adaptive adversary, contrary to what was believed earlier. We then propose new and adaptively secure protocols for WSS, VSS and MPC that are substantially more efficient than the original ones. Our protocols generalize easily to provide security against general Q2-adversaries.}
+      \field{booktitle}{Advances in Cryptology --- EUROCRYPT '99}
+      \field{isbn}{978-3-540-48910-8}
+      \field{title}{Efficient Multiparty Computations Secure Against an Adaptive Adversary}
+      \field{year}{1999}
+      \field{pages}{311\bibrangedash 326}
+      \range{pages}{16}
+    \endentry
+    \entry{crole-1994}{book}{}
+      \name{author}{1}{}{%
+        {{hash=0eb196ac925eac9cb908d2aac105c34c}{%
+           family={Crole},
+           familyi={C\bibinitperiod},
+           given={Roy\bibnamedelima L.},
+           giveni={R\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{0eb196ac925eac9cb908d2aac105c34c}
+      \strng{fullhash}{0eb196ac925eac9cb908d2aac105c34c}
+      \strng{bibnamehash}{0eb196ac925eac9cb908d2aac105c34c}
+      \strng{authorbibnamehash}{0eb196ac925eac9cb908d2aac105c34c}
+      \strng{authornamehash}{0eb196ac925eac9cb908d2aac105c34c}
+      \strng{authorfullhash}{0eb196ac925eac9cb908d2aac105c34c}
+      \field{labelalpha}{Cro94}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Categories for Types}
+      \field{year}{1994}
+      \true{nocite}
+    \endentry
+    \entry{cockett-seely-1999}{article}{}
+      \name{author}{2}{}{%
+        {{hash=4b2ead6b2242da831bdc060262dc802c}{%
+           family={Cockett},
+           familyi={C\bibinitperiod},
+           given={J.R.B.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b3a03d72c59e95a75556eecf49509dda}{%
+           family={Seely},
+           familyi={S\bibinitperiod},
+           given={R.A.G.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{6acfd43a14aefffd94dbd05426916657}
+      \strng{fullhash}{6acfd43a14aefffd94dbd05426916657}
+      \strng{bibnamehash}{6acfd43a14aefffd94dbd05426916657}
+      \strng{authorbibnamehash}{6acfd43a14aefffd94dbd05426916657}
+      \strng{authornamehash}{6acfd43a14aefffd94dbd05426916657}
+      \strng{authorfullhash}{6acfd43a14aefffd94dbd05426916657}
+      \field{labelalpha}{CS99}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper introduces a notion of “linear functor” between linearly distributive categories that is general enough to account for common structure in linear logic, such as the exponentials (!, ?), and the additives (product, coproduct), and yet when interpreted in the doctrine of ∗-autonomous categories, gives the familiar notion of monoidal functor. We show that there is a bi-adjunction between the 2-categories of linearly distributive categories and linear functors, and of ∗-autonomous categories and monoidal functors, given by the construction of the “nucleus” of a linearly distributive category. We develop a calculus of proof nets for linear functors, and show how linearity accounts for the essential coherence structure of the exponentials and the additives.}
+      \field{issn}{0022-4049}
+      \field{journaltitle}{Journal of Pure and Applied Algebra}
+      \field{number}{1}
+      \field{title}{Linearly distributive functors}
+      \field{volume}{143}
+      \field{year}{1999}
+      \field{pages}{155\bibrangedash 203}
+      \range{pages}{49}
+      \verb{doi}
+      \verb https://doi.org/10.1016/S0022-4049(98)00110-8
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0022404998001108
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0022404998001108
+      \endverb
+    \endentry
+    \entry{even-et-al-1985}{article}{}
+      \name{author}{3}{}{%
+        {{hash=1df6d440bdcf5ce3d3ad82d370770f54}{%
+           family={Even},
+           familyi={E\bibinitperiod},
+           given={Shimon},
+           giveni={S\bibinitperiod}}}%
+        {{hash=66aba379c7d3adb8af5b662a65c4c140}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={Oded},
+           giveni={O\bibinitperiod}}}%
+        {{hash=9ec428e0d60131cb1733175cf93a46d1}{%
+           family={Lempel},
+           familyi={L\bibinitperiod},
+           given={Abraham},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{8f1d9f7ebb93a75da3babecffbb58ba9}
+      \strng{fullhash}{8f1d9f7ebb93a75da3babecffbb58ba9}
+      \strng{bibnamehash}{8f1d9f7ebb93a75da3babecffbb58ba9}
+      \strng{authorbibnamehash}{8f1d9f7ebb93a75da3babecffbb58ba9}
+      \strng{authornamehash}{8f1d9f7ebb93a75da3babecffbb58ba9}
+      \strng{authorfullhash}{8f1d9f7ebb93a75da3babecffbb58ba9}
+      \field{labelalpha}{EGL85}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0001-0782}
+      \field{number}{6}
+      \field{title}{A randomized protocol for signing contracts}
+      \field{volume}{28}
+      \field{year}{1985}
+      \verb{doi}
+      \verb 10. author = {Even, Shimon and Goldreich, Oded and Lempel, Abraham}, title = {A randomized protocol for signing contracts}, year = {1985}, issue_date = {June 1985}, publisher = {Association for Computing Machinery}, address = {New York, NY, USA}, volume = {28}, number = {6}, issn = {0001-0782}, url = {https://doi.org/10.1145/3812.3818}, doi = { 10.1145/3812.3818}, abstract = {Randomized protocols for signing contracts, certified mail, and flipping a coin are presented. The protocols use a 1-out-of-2 oblivious transfer subprotocol which is axiomatically defined.The 1-out-of-2 oblivious transfer allows one party to transfer exactly one secret, out of two recognizable secrets, to his counterpart. The first (second) secret is received with probability one half, while the sender is ignorant of which secret has been received.An implementation of the 1-out-of-2 oblivious transfer, using any public key cryptosystem, is presented.}, journal = {Commun. ACM}, month = {jun} , pages = {637–647}, numpages = {11}
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/3812.3818
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/3812.3818
+      \endverb
+    \endentry
+    \entry{fritz-2020}{article}{}
+      \name{author}{1}{}{%
+        {{hash=485f579f829f8629fec8c85c28a33f28}{%
+           family={Fritz},
+           familyi={F\bibinitperiod},
+           given={Tobias},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier BV}%
+      }
+      \strng{namehash}{485f579f829f8629fec8c85c28a33f28}
+      \strng{fullhash}{485f579f829f8629fec8c85c28a33f28}
+      \strng{bibnamehash}{485f579f829f8629fec8c85c28a33f28}
+      \strng{authorbibnamehash}{485f579f829f8629fec8c85c28a33f28}
+      \strng{authornamehash}{485f579f829f8629fec8c85c28a33f28}
+      \strng{authorfullhash}{485f579f829f8629fec8c85c28a33f28}
+      \field{labelalpha}{Fri20}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0001-8708}
+      \field{journaltitle}{Advances in Mathematics}
+      \field{month}{8}
+      \field{title}{A synthetic approach to Markov kernels, conditional independence and theorems on sufficient statistics}
+      \field{volume}{370}
+      \field{year}{2020}
+      \field{pages}{107239}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.aim.2020.107239
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1016/j.aim.2020.107239
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1016/j.aim.2020.107239
+      \endverb
+    \endentry
+    \entry{giry-1982}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=4b2ee17af47c1a78a537cfb0b6f956af}{%
+           family={Giry},
+           familyi={G\bibinitperiod},
+           given={Michèle},
+           giveni={M\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=7e8885729bf50f0d46ea12e6fc1d86d3}{%
+           family={Banaschewski},
+           familyi={B\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{4b2ee17af47c1a78a537cfb0b6f956af}
+      \strng{fullhash}{4b2ee17af47c1a78a537cfb0b6f956af}
+      \strng{bibnamehash}{4b2ee17af47c1a78a537cfb0b6f956af}
+      \strng{authorbibnamehash}{4b2ee17af47c1a78a537cfb0b6f956af}
+      \strng{authornamehash}{4b2ee17af47c1a78a537cfb0b6f956af}
+      \strng{authorfullhash}{4b2ee17af47c1a78a537cfb0b6f956af}
+      \strng{editorbibnamehash}{7e8885729bf50f0d46ea12e6fc1d86d3}
+      \strng{editornamehash}{7e8885729bf50f0d46ea12e6fc1d86d3}
+      \strng{editorfullhash}{7e8885729bf50f0d46ea12e6fc1d86d3}
+      \field{labelalpha}{Gir82}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Categorical Aspects of Topology and Analysis}
+      \field{isbn}{978-3-540-39041-1}
+      \field{title}{A categorical approach to probability theory}
+      \field{year}{1982}
+      \field{pages}{68\bibrangedash 85}
+      \range{pages}{18}
+    \endentry
+    \entry{goldreich-krawczyk-1996}{article}{}
+      \name{author}{2}{}{%
+        {{hash=66aba379c7d3adb8af5b662a65c4c140}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={Oded},
+           giveni={O\bibinitperiod}}}%
+        {{hash=088445b3855bedf4bcc9d25651eb98b2}{%
+           family={Krawczyk},
+           familyi={K\bibinitperiod},
+           given={Hugo},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{e079853701a77c14a9237de60d672e34}
+      \strng{fullhash}{e079853701a77c14a9237de60d672e34}
+      \strng{bibnamehash}{e079853701a77c14a9237de60d672e34}
+      \strng{authorbibnamehash}{e079853701a77c14a9237de60d672e34}
+      \strng{authornamehash}{e079853701a77c14a9237de60d672e34}
+      \strng{authorfullhash}{e079853701a77c14a9237de60d672e34}
+      \field{labelalpha}{GK96}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{SIAM Journal on Computing}
+      \field{number}{1}
+      \field{title}{On the Composition of Zero-Knowledge Proof Systems}
+      \field{volume}{25}
+      \field{year}{1996}
+      \true{nocite}
+      \field{pages}{169\bibrangedash 192}
+      \range{pages}{24}
+      \verb{doi}
+      \verb 10.1137/S0097539791220688
+      \endverb
+      \verb{eprint}
+      \verb https://doi.org/10.1137/S0097539791220688
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1137/S0097539791220688
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1137/S0097539791220688
+      \endverb
+    \endentry
+    \entry{goldreich-levin-1989}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=b853abc93e016bf8e812e1ae477e4c6a}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={O.},
+           giveni={O\bibinitperiod}}}%
+        {{hash=2e56e7e20c813b1073ec146394fca489}{%
+           family={Levin},
+           familyi={L\bibinitperiod},
+           given={L.\bibnamedelimi A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Seattle, Washington, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{2d48d25ea705b23d38002cce42fb5748}
+      \strng{fullhash}{2d48d25ea705b23d38002cce42fb5748}
+      \strng{bibnamehash}{2d48d25ea705b23d38002cce42fb5748}
+      \strng{authorbibnamehash}{2d48d25ea705b23d38002cce42fb5748}
+      \strng{authornamehash}{2d48d25ea705b23d38002cce42fb5748}
+      \strng{authorfullhash}{2d48d25ea705b23d38002cce42fb5748}
+      \field{labelalpha}{GL89}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the Twenty-First Annual ACM Symposium on Theory of Computing}
+      \field{isbn}{0897913078}
+      \field{series}{STOC '89}
+      \field{title}{A Hard-Core Predicate for All One-Way Functions}
+      \field{year}{1989}
+      \true{nocite}
+      \field{pages}{25\bibrangedash 32}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1145/73007.73010
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/73007.73010
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/73007.73010
+      \endverb
+    \endentry
+    \entry{goldwasser-micali-1982}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=39e4a0690915f1d991133196a545b37b}{%
+           family={Goldwasser},
+           familyi={G\bibinitperiod},
+           given={Shafi},
+           giveni={S\bibinitperiod}}}%
+        {{hash=fb54c363f1b0d126e883c84df49e4790}{%
+           family={Micali},
+           familyi={M\bibinitperiod},
+           given={Silvio},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {San Francisco, California, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{e2fcd4b77aaf423ef0aa2cd8cc61e8fe}
+      \strng{fullhash}{e2fcd4b77aaf423ef0aa2cd8cc61e8fe}
+      \strng{bibnamehash}{e2fcd4b77aaf423ef0aa2cd8cc61e8fe}
+      \strng{authorbibnamehash}{e2fcd4b77aaf423ef0aa2cd8cc61e8fe}
+      \strng{authornamehash}{e2fcd4b77aaf423ef0aa2cd8cc61e8fe}
+      \strng{authorfullhash}{e2fcd4b77aaf423ef0aa2cd8cc61e8fe}
+      \field{labelalpha}{GM82}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper proposes an Encryption Scheme that possess the following property : An adversary, who knows the encryption algorithm and is given the cyphertext, cannot obtain any information about the clear-text.Any implementation of a Public Key Cryptosystem, as proposed by Diffie and Hellman in [8], should possess this property.Our Encryption Scheme follows the ideas in the number theoretic implementations of a Public Key Cryptosystem due to Rivest, Shamir and Adleman [13], and Rabin [12].}
+      \field{booktitle}{Proceedings of the Fourteenth Annual ACM Symposium on Theory of Computing}
+      \field{isbn}{0897910702}
+      \field{series}{STOC '82}
+      \field{title}{Probabilistic encryption \& how to play mental poker keeping secret all partial information}
+      \field{year}{1982}
+      \field{pages}{365\bibrangedash 377}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1145/800070.802212
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/800070.802212
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/800070.802212
+      \endverb
+    \endentry
+    \entry{goguen-et-al-1973}{report}{}
+      \name{author}{4}{}{%
+        {{hash=94ab6b6c4efab9d6906a4b6e41a4496e}{%
+           family={Goguen},
+           familyi={G\bibinitperiod},
+           given={J.\bibnamedelimi A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=9b8ecf0d20604b78433a6b7f0dffa047}{%
+           family={Thatcher},
+           familyi={T\bibinitperiod},
+           given={J.\bibnamedelimi W.},
+           giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=6149ed8bf7519bb865439ae9e35e91ea}{%
+           family={Wagner},
+           familyi={W\bibinitperiod},
+           given={E.\bibnamedelimi G.},
+           giveni={E\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=0b44b33e924fa69438f5b359bb2fe0e3}{%
+           family={Wright},
+           familyi={W\bibinitperiod},
+           given={J.\bibnamedelimi B.},
+           giveni={J\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IBM Research}%
+      }
+      \strng{namehash}{d5bc7e5bf2512fb5384c11da8f99faa0}
+      \strng{fullhash}{5fa0d7936d929089f15383b186d9f242}
+      \strng{bibnamehash}{d5bc7e5bf2512fb5384c11da8f99faa0}
+      \strng{authorbibnamehash}{d5bc7e5bf2512fb5384c11da8f99faa0}
+      \strng{authornamehash}{d5bc7e5bf2512fb5384c11da8f99faa0}
+      \strng{authorfullhash}{5fa0d7936d929089f15383b186d9f242}
+      \field{labelalpha}{Gog+73}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A Junction between Computer Science and Category Theory}
+      \field{type}{techreport}
+      \field{year}{1973}
+      \verb{urlraw}
+      \verb https://dominoweb.draco.res.ibm.com/49eae98dc5a21de0852574ff005001c8.html
+      \endverb
+      \verb{url}
+      \verb https://dominoweb.draco.res.ibm.com/49eae98dc5a21de0852574ff005001c8.html
+      \endverb
+    \endentry
+    \entry{goldreich-2001}{book}{}
+      \name{author}{1}{}{%
+        {{hash=b853abc93e016bf8e812e1ae477e4c6a}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={O.},
+           giveni={O\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{b853abc93e016bf8e812e1ae477e4c6a}
+      \strng{fullhash}{b853abc93e016bf8e812e1ae477e4c6a}
+      \strng{bibnamehash}{b853abc93e016bf8e812e1ae477e4c6a}
+      \strng{authorbibnamehash}{b853abc93e016bf8e812e1ae477e4c6a}
+      \strng{authornamehash}{b853abc93e016bf8e812e1ae477e4c6a}
+      \strng{authorfullhash}{b853abc93e016bf8e812e1ae477e4c6a}
+      \field{labelalpha}{Gol01}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780521791724}
+      \field{title}{Foundations of Cryptography: Volume 1, Basic Tools}
+      \field{year}{2001}
+    \endentry
+    \entry{hastad-1999}{article}{}
+      \name{author}{4}{}{%
+        {{hash=804cd45ec4be77b4cc5e4d994ba18af0}{%
+           family={Håstad},
+           familyi={H\bibinitperiod},
+           given={Johan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=fecb48e0778d57043f598aa75fabb52e}{%
+           family={Impagliazzo},
+           familyi={I\bibinitperiod},
+           given={Russell},
+           giveni={R\bibinitperiod}}}%
+        {{hash=d5e3b7202f03ae0df5cbadb9ad44c9f8}{%
+           family={Levin},
+           familyi={L\bibinitperiod},
+           given={Leonid\bibnamedelima A.},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=e6551d9c62955309f7597c6fc741020a}{%
+           family={Luby},
+           familyi={L\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{d56cc26a352bc40f409addf621af33cb}
+      \strng{fullhash}{9909294bb0dc5eb02fa8fa24feaa9711}
+      \strng{bibnamehash}{d56cc26a352bc40f409addf621af33cb}
+      \strng{authorbibnamehash}{d56cc26a352bc40f409addf621af33cb}
+      \strng{authornamehash}{d56cc26a352bc40f409addf621af33cb}
+      \strng{authorfullhash}{9909294bb0dc5eb02fa8fa24feaa9711}
+      \field{labelalpha}{Hås+99}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Pseudorandom generators are fundamental to many theoretical and applied aspects of computing. We show how to construct a pseudorandom generator from any one-way function. Since it is easy to construct a one-way function from a pseudorandom generator, this result shows that there is a pseudorandom generator if and only if there is a one-way function.}
+      \field{journaltitle}{SIAM Journal on Computing}
+      \field{number}{4}
+      \field{title}{A Pseudorandom Generator from any One-way Function}
+      \field{volume}{28}
+      \field{year}{1999}
+      \field{pages}{1364\bibrangedash 1396}
+      \range{pages}{33}
+      \verb{doi}
+      \verb 10.1137/S0097539793244708
+      \endverb
+      \verb{eprint}
+      \verb https://doi.org/10.1137/S0097539793244708
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1137/S0097539793244708
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1137/S0097539793244708
+      \endverb
+    \endentry
+    \entry{hines-2020}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=dd7f98cdadba56c6a068f964f010e460}{%
+           family={Hines},
+           familyi={H\bibinitperiod},
+           given={Peter\bibnamedelima M.},
+           giveni={P\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=c8f51f0b3375b6ed688b197ce76048af}{%
+           family={Eades\bibnamedelima III},
+           familyi={E\bibinitperiod\bibinitdelim I\bibinitperiod},
+           given={Harley},
+           giveni={H\bibinitperiod}}}%
+        {{hash=e8c9851b54b17fa6ab7290158c810f1e}{%
+           family={Gadyatskaya},
+           familyi={G\bibinitperiod},
+           given={Olga},
+           giveni={O\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cham}%
+      }
+      \list{publisher}{1}{%
+        {Springer International Publishing}%
+      }
+      \strng{namehash}{dd7f98cdadba56c6a068f964f010e460}
+      \strng{fullhash}{dd7f98cdadba56c6a068f964f010e460}
+      \strng{bibnamehash}{dd7f98cdadba56c6a068f964f010e460}
+      \strng{authorbibnamehash}{dd7f98cdadba56c6a068f964f010e460}
+      \strng{authornamehash}{dd7f98cdadba56c6a068f964f010e460}
+      \strng{authorfullhash}{dd7f98cdadba56c6a068f964f010e460}
+      \strng{editorbibnamehash}{085a460ac1e30833898115b92ddc6008}
+      \strng{editornamehash}{085a460ac1e30833898115b92ddc6008}
+      \strng{editorfullhash}{085a460ac1e30833898115b92ddc6008}
+      \field{labelalpha}{Hin20}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We give diagrammatic tools to reason about information flow within encrypted communication. In particular, we are interested in deducing where information flow (communication or otherwise) has taken place, and fully accounting for all possible paths.}
+      \field{booktitle}{Graphical Models for Security}
+      \field{isbn}{978-3-030-62230-5}
+      \field{title}{A Diagrammatic Approach to Information Flow in Encrypted Communication}
+      \field{year}{2020}
+      \field{pages}{166\bibrangedash 185}
+      \range{pages}{20}
+    \endentry
+    \entry{hofheinz-mullerquade-2003}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=405c6134bda3e13e109f9c9e4c3dbc6c}{%
+           family={Hofheinz},
+           familyi={H\bibinitperiod},
+           given={Dennis},
+           giveni={D\bibinitperiod}}}%
+        {{hash=a9de23f22fb00e2b3cd154043b0225cf}{%
+           family={Müller-Quade},
+           familyi={M\bibinithyphendelim Q\bibinitperiod},
+           given={Jörn},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{1dc33cb9e7a272fc5c2b94923742976a}
+      \strng{fullhash}{1dc33cb9e7a272fc5c2b94923742976a}
+      \strng{bibnamehash}{1dc33cb9e7a272fc5c2b94923742976a}
+      \strng{authorbibnamehash}{1dc33cb9e7a272fc5c2b94923742976a}
+      \strng{authornamehash}{1dc33cb9e7a272fc5c2b94923742976a}
+      \strng{authorfullhash}{1dc33cb9e7a272fc5c2b94923742976a}
+      \field{labelalpha}{HM03}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A Paradox of Quantum Universal Composability}
+      \field{year}{2003}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.quiprocone.org/Hot%20Topics%20posters/muellerquade_poster.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.quiprocone.org/Hot%20Topics%20posters/muellerquade_poster.pdf
+      \endverb
+    \endentry
+    \entry{heunen-vicary-2014}{incollection}{}
+      \name{author}{2}{}{%
+        {{hash=c3024eeb0bd8a7ab10c20dc0c7d03b48}{%
+           family={Heunen},
+           familyi={H\bibinitperiod},
+           given={Chris},
+           giveni={C\bibinitperiod}}}%
+        {{hash=ccff9cb0ea86d9f63e3984a5b7d2f23a}{%
+           family={Vicary},
+           familyi={V\bibinitperiod},
+           given={Jamie},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Oxford University Press}%
+      }
+      \strng{namehash}{793263875b0a0d714a59fb6fe8339cd5}
+      \strng{fullhash}{793263875b0a0d714a59fb6fe8339cd5}
+      \strng{bibnamehash}{793263875b0a0d714a59fb6fe8339cd5}
+      \strng{authorbibnamehash}{793263875b0a0d714a59fb6fe8339cd5}
+      \strng{authornamehash}{793263875b0a0d714a59fb6fe8339cd5}
+      \strng{authorfullhash}{793263875b0a0d714a59fb6fe8339cd5}
+      \field{labelalpha}{HV19}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{{This book assumes familiarity with some basic ideas from category theory, linear algebra and quantum computing. This self-contained chapter gives a quick summary of the essential aspects of these areas, including categories, functors, natural transformations, vector spaces, Hilbert spaces, tensor products, density matrices, measurement and quantum teleportation.}}
+      \field{booktitle}{{Categories for Quantum Theory: An Introduction}}
+      \field{isbn}{9780198739623}
+      \field{month}{11}
+      \field{title}{{1Basics}}
+      \field{year}{2019}
+      \verb{doi}
+      \verb 10.1093/oso/9780198739623.003.0009
+      \endverb
+      \verb{eprint}
+      \verb https://academic.oup.com/book/0/chapter/367235017/chapter-pdf/50991620/oso-9780198739623-chapter-9.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1093/oso/9780198739623.003.0009
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1093/oso/9780198739623.003.0009
+      \endverb
+    \endentry
+    \entry{impagliazzo-1995}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=3ea89603cd068784b23a6b0af806f42d}{%
+           family={Impagliazzo},
+           familyi={I\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{3ea89603cd068784b23a6b0af806f42d}
+      \strng{fullhash}{3ea89603cd068784b23a6b0af806f42d}
+      \strng{bibnamehash}{3ea89603cd068784b23a6b0af806f42d}
+      \strng{authorbibnamehash}{3ea89603cd068784b23a6b0af806f42d}
+      \strng{authornamehash}{3ea89603cd068784b23a6b0af806f42d}
+      \strng{authorfullhash}{3ea89603cd068784b23a6b0af806f42d}
+      \field{labelalpha}{Imp95}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of Structure in Complexity Theory. Tenth Annual IEEE Conference}
+      \field{title}{A personal view of average-case complexity}
+      \field{year}{1995}
+      \field{pages}{134\bibrangedash 147}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1109/SCT.1995.514853
+      \endverb
+      \keyw{Computer science;Drives;Distributed computing;Cryptography;Complexity theory;Bibliographies}
+    \endentry
+    \entry{jacobs-1999}{book}{}
+      \name{author}{1}{}{%
+        {{hash=367f1973d8081b3a22f5fed891607334}{%
+           family={Jacobs},
+           familyi={J\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Amsterdam}%
+      }
+      \list{publisher}{1}{%
+        {North Holland}%
+      }
+      \strng{namehash}{367f1973d8081b3a22f5fed891607334}
+      \strng{fullhash}{367f1973d8081b3a22f5fed891607334}
+      \strng{bibnamehash}{367f1973d8081b3a22f5fed891607334}
+      \strng{authorbibnamehash}{367f1973d8081b3a22f5fed891607334}
+      \strng{authornamehash}{367f1973d8081b3a22f5fed891607334}
+      \strng{authorfullhash}{367f1973d8081b3a22f5fed891607334}
+      \field{labelalpha}{Jac99}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{number}{141}
+      \field{series}{Studies in Logic and the Foundations of Mathematics}
+      \field{title}{Categorical Logic and Type Theory}
+      \field{year}{1999}
+    \endentry
+    \entry{joyal-street-1991}{article}{}
+      \name{author}{2}{}{%
+        {{hash=879e6f70ccf8d5999602c642fcda57b3}{%
+           family={Joyal},
+           familyi={J\bibinitperiod},
+           given={André},
+           giveni={A\bibinitperiod}}}%
+        {{hash=faea870f61e1c45828077d18a31465d2}{%
+           family={Street},
+           familyi={S\bibinitperiod},
+           given={Ross},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{d92010c48602800b7ba54dde2f390632}
+      \strng{fullhash}{d92010c48602800b7ba54dde2f390632}
+      \strng{bibnamehash}{d92010c48602800b7ba54dde2f390632}
+      \strng{authorbibnamehash}{d92010c48602800b7ba54dde2f390632}
+      \strng{authornamehash}{d92010c48602800b7ba54dde2f390632}
+      \strng{authorfullhash}{d92010c48602800b7ba54dde2f390632}
+      \field{labelalpha}{JS91}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0001-8708}
+      \field{journaltitle}{Advances in Mathematics}
+      \field{number}{1}
+      \field{title}{The geometry of tensor calculus, I}
+      \field{volume}{88}
+      \field{year}{1991}
+      \field{pages}{55\bibrangedash 112}
+      \range{pages}{58}
+      \verb{doi}
+      \verb https://doi.org/10.1016/0001-8708(91)90003-P
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/000187089190003P
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/000187089190003P
+      \endverb
+    \endentry
+    \entry{katz-lindell-2014}{book}{}
+      \name{author}{2}{}{%
+        {{hash=85053e14c4a72772970b91a572b9b9c1}{%
+           family={Katz},
+           familyi={K\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=e20af851262c583d34b7a667a7039cb4}{%
+           family={Lindell},
+           familyi={L\bibinitperiod},
+           given={Yehuda},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Taylor \& Francis}%
+      }
+      \strng{namehash}{071317b1567a0e9750e8234cb19c146d}
+      \strng{fullhash}{071317b1567a0e9750e8234cb19c146d}
+      \strng{bibnamehash}{071317b1567a0e9750e8234cb19c146d}
+      \strng{authorbibnamehash}{071317b1567a0e9750e8234cb19c146d}
+      \strng{authornamehash}{071317b1567a0e9750e8234cb19c146d}
+      \strng{authorfullhash}{071317b1567a0e9750e8234cb19c146d}
+      \field{labelalpha}{KL14}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9781466570269}
+      \field{series}{Chapman \& Hall/CRC Cryptography and Network Security Series}
+      \field{title}{Introduction to Modern Cryptography, Second Edition}
+      \field{year}{2014}
+    \endentry
+    \entry{lambeck-1974}{article}{}
+      \name{author}{1}{}{%
+        {{hash=dcdaa68018161d2153831584aabf501a}{%
+           family={Lambek},
+           familyi={L\bibinitperiod},
+           given={Joachim},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {North-Holland}%
+      }
+      \strng{namehash}{dcdaa68018161d2153831584aabf501a}
+      \strng{fullhash}{dcdaa68018161d2153831584aabf501a}
+      \strng{bibnamehash}{dcdaa68018161d2153831584aabf501a}
+      \strng{authorbibnamehash}{dcdaa68018161d2153831584aabf501a}
+      \strng{authornamehash}{dcdaa68018161d2153831584aabf501a}
+      \strng{authorfullhash}{dcdaa68018161d2153831584aabf501a}
+      \field{extraname}{1}
+      \field{labelalpha}{Lam74}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annals of Mathematical Logic}
+      \field{number}{3-4}
+      \field{title}{Functional completeness of cartesian categories}
+      \field{volume}{6}
+      \field{year}{1974}
+      \field{pages}{259\bibrangedash 292}
+      \range{pages}{34}
+    \endentry
+    \entry{lambeck-1980}{article}{}
+      \name{author}{1}{}{%
+        {{hash=dcdaa68018161d2153831584aabf501a}{%
+           family={Lambek},
+           familyi={L\bibinitperiod},
+           given={Joachim},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Academic Press London}%
+      }
+      \strng{namehash}{dcdaa68018161d2153831584aabf501a}
+      \strng{fullhash}{dcdaa68018161d2153831584aabf501a}
+      \strng{bibnamehash}{dcdaa68018161d2153831584aabf501a}
+      \strng{authorbibnamehash}{dcdaa68018161d2153831584aabf501a}
+      \strng{authornamehash}{dcdaa68018161d2153831584aabf501a}
+      \strng{authorfullhash}{dcdaa68018161d2153831584aabf501a}
+      \field{extraname}{2}
+      \field{labelalpha}{Lam80}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{To HB Curry: essays on combinatory logic, lambda calculus and formalism}
+      \field{title}{From lambda-calculus to cartesian closed categories}
+      \field{year}{1980}
+      \field{pages}{375\bibrangedash 402}
+      \range{pages}{28}
+    \endentry
+    \entry{lawvere-1969}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=7f4e82b361c38ad671615c08cb0678cd}{%
+           family={Lawvere},
+           familyi={L\bibinitperiod},
+           given={F.\bibnamedelimi William},
+           giveni={F\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{7f4e82b361c38ad671615c08cb0678cd}
+      \strng{fullhash}{7f4e82b361c38ad671615c08cb0678cd}
+      \strng{bibnamehash}{7f4e82b361c38ad671615c08cb0678cd}
+      \strng{authorbibnamehash}{7f4e82b361c38ad671615c08cb0678cd}
+      \strng{authornamehash}{7f4e82b361c38ad671615c08cb0678cd}
+      \strng{authorfullhash}{7f4e82b361c38ad671615c08cb0678cd}
+      \field{labelalpha}{Law69}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Category Theory, Homology Theory and their Applications II}
+      \field{isbn}{978-3-540-36101-5}
+      \field{title}{Diagonal arguments and cartesian closed categories}
+      \field{year}{1969}
+      \field{pages}{134\bibrangedash 145}
+      \range{pages}{12}
+    \endentry
+    \entry{lindell-2017}{inbook}{}
+      \name{author}{1}{}{%
+        {{hash=e20af851262c583d34b7a667a7039cb4}{%
+           family={Lindell},
+           familyi={L\bibinitperiod},
+           given={Yehuda},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer International Publishing}%
+      }
+      \strng{namehash}{e20af851262c583d34b7a667a7039cb4}
+      \strng{fullhash}{e20af851262c583d34b7a667a7039cb4}
+      \strng{bibnamehash}{e20af851262c583d34b7a667a7039cb4}
+      \strng{authorbibnamehash}{e20af851262c583d34b7a667a7039cb4}
+      \strng{authornamehash}{e20af851262c583d34b7a667a7039cb4}
+      \strng{authorfullhash}{e20af851262c583d34b7a667a7039cb4}
+      \field{labelalpha}{Lin17}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Tutorials on the Foundations of Cryptography: Dedicated to Oded Goldreich}
+      \field{isbn}{9783319570488}
+      \field{title}{How to Simulate It---A Tutorial on the Simulation Proof Technique}
+      \field{year}{2017}
+      \true{nocite}
+      \field{pages}{277\bibrangedash 346}
+      \range{pages}{70}
+      \verb{doi}
+      \verb 10.1007/978-3-319-57048-8_6
+      \endverb
+    \endentry
+    \entry{lindell-et-al-2002}{misc}{}
+      \name{author}{3}{}{%
+        {{hash=e20af851262c583d34b7a667a7039cb4}{%
+           family={Lindell},
+           familyi={L\bibinitperiod},
+           given={Yehuda},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=3dbb05c09a87b99a42207c787de0bea0}{%
+           family={Lysyanskaya},
+           familyi={L\bibinitperiod},
+           given={Anna},
+           giveni={A\bibinitperiod}}}%
+        {{hash=d0a232b92e9efa1d3b250cd86aeee031}{%
+           family={Rabin},
+           familyi={R\bibinitperiod},
+           given={Tal},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{c66ad750ed2565085d7533f94abbf9df}
+      \strng{fullhash}{c66ad750ed2565085d7533f94abbf9df}
+      \strng{bibnamehash}{c66ad750ed2565085d7533f94abbf9df}
+      \strng{authorbibnamehash}{c66ad750ed2565085d7533f94abbf9df}
+      \strng{authornamehash}{c66ad750ed2565085d7533f94abbf9df}
+      \strng{authorfullhash}{c66ad750ed2565085d7533f94abbf9df}
+      \field{labelalpha}{LLR04}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Paper 2004/181}
+      \field{note}{\url{https://eprint.iacr.org/2004/181}}
+      \field{title}{On the Composition of Authenticated Byzantine Agreement}
+      \field{year}{2004}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2004/181
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2004/181
+      \endverb
+    \endentry
+    \entry{maclane-1971}{book}{}
+      \name{author}{1}{}{%
+        {{hash=d35756c9f39a938d9533376dfaa5ad43}{%
+           family={MacLane},
+           familyi={M\bibinitperiod},
+           given={Saunders},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {Springer-Verlag}%
+      }
+      \strng{namehash}{d35756c9f39a938d9533376dfaa5ad43}
+      \strng{fullhash}{d35756c9f39a938d9533376dfaa5ad43}
+      \strng{bibnamehash}{d35756c9f39a938d9533376dfaa5ad43}
+      \strng{authorbibnamehash}{d35756c9f39a938d9533376dfaa5ad43}
+      \strng{authornamehash}{d35756c9f39a938d9533376dfaa5ad43}
+      \strng{authorfullhash}{d35756c9f39a938d9533376dfaa5ad43}
+      \field{labelalpha}{Mac71}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Graduate Texts in Mathematics, Vol. 5}
+      \field{title}{Categories for the Working Mathematician}
+      \field{year}{1971}
+      \field{pages}{ix+262}
+      \range{pages}{-1}
+      \keyw{CategoryTheory}
+    \endentry
+    \entry{mellies-2006}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=a9f37916182d59fd60115ad8a650c06d}{%
+           family={Melliès},
+           familyi={M\bibinitperiod},
+           given={Paul-André},
+           giveni={P\bibinithyphendelim A\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=78b636f23e0d6159d65a22a731069a39}{%
+           family={Ésik},
+           familyi={É\bibinitperiod},
+           given={Zoltán},
+           giveni={Z\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{a9f37916182d59fd60115ad8a650c06d}
+      \strng{fullhash}{a9f37916182d59fd60115ad8a650c06d}
+      \strng{bibnamehash}{a9f37916182d59fd60115ad8a650c06d}
+      \strng{authorbibnamehash}{a9f37916182d59fd60115ad8a650c06d}
+      \strng{authornamehash}{a9f37916182d59fd60115ad8a650c06d}
+      \strng{authorfullhash}{a9f37916182d59fd60115ad8a650c06d}
+      \strng{editorbibnamehash}{78b636f23e0d6159d65a22a731069a39}
+      \strng{editornamehash}{78b636f23e0d6159d65a22a731069a39}
+      \strng{editorfullhash}{78b636f23e0d6159d65a22a731069a39}
+      \field{labelalpha}{Mel06}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{String diagrams were introduced by Roger Penrose as a handy notation to manipulate morphisms in a monoidal category. In principle, this graphical notation should encompass the various pictorial systems introduced in proof-theory (like Jean-Yves Girard's proof-nets) and in concurrency theory (like Robin Milner's bigraphs). This is not the case however, at least because string diagrams do not accomodate boxes --- a key ingredient in these pictorial systems. In this short tutorial, based on our accidental rediscovery of an idea by Robin Cockett and Robert Seely, we explain how string diagrams may be extended with a notion of functorial box depicting a functor transporting an inside world (its source category) to an outside world (its target category). We expose two elementary applications of the notation: first, we characterize graphically when a faithful balanced monoidal functor F:ℂ {\$}{\backslash}longrightarrow{\$}{\$}{\backslash}mathbb{\{}D{ \}}{\$}transports a trace operator from the category {\$}{ \backslash}mathbb{\{}D{\}}{\$}to the category ℂ, and exploit this to construct well-behaved fixpoint operators in cartesian closed categories generated by models of linear logic; second, we explain how the categorical semantics of linear logic induces that the exponential box of proof-nets decomposes as two enshrined boxes.}
+      \field{booktitle}{Computer Science Logic}
+      \field{isbn}{978-3-540-45459-5}
+      \field{title}{Functorial Boxes in String Diagrams}
+      \field{year}{2006}
+      \field{pages}{1\bibrangedash 30}
+      \range{pages}{30}
+    \endentry
+    \entry{meseguer-montanari-1990}{article}{}
+      \name{author}{2}{}{%
+        {{hash=3db091e4a8ac487951475a5465f6c566}{%
+           family={Meseguer},
+           familyi={M\bibinitperiod},
+           given={José},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b4e778cc0867adfe94fd9c508074dfda}{%
+           family={Montanari},
+           familyi={M\bibinitperiod},
+           given={Ugo},
+           giveni={U\bibinitperiod}}}%
+      }
+      \strng{namehash}{669ddf296ccf63294aa74b8009fbea01}
+      \strng{fullhash}{669ddf296ccf63294aa74b8009fbea01}
+      \strng{bibnamehash}{669ddf296ccf63294aa74b8009fbea01}
+      \strng{authorbibnamehash}{669ddf296ccf63294aa74b8009fbea01}
+      \strng{authornamehash}{669ddf296ccf63294aa74b8009fbea01}
+      \strng{authorfullhash}{669ddf296ccf63294aa74b8009fbea01}
+      \field{labelalpha}{MM90}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Petri nets are widely used to model concurrent systems. However, their composition and abstraction mechanisms are inadequate: we solve this problem in a satisfactory way. We start by remarking that place/transition Petri nets can be viewed as ordinary, directed graphs equipped with two algebraic operations corresponding to parallell and sequential composition of transitions. A distributive law between the two operations captures a basic fact about concurrency. New morphisms are defined, mapping single, atomic transitions into whole computations, thus relating system descriptions at different levels of abstraction. Categories equipped with products and coproducts (corresponding to parallel and nondeterministic compositions) are introduced for Petri nets with and without initial markings. Petri net duality is expressed as a duality functor, and several new invariants are introduced. A tensor product is defined on nets, and their category is proved to be symmetric monoidal closed. This construction is generalized to a large class of algebraic theories on graphs. These results provide a formal basis for expressing the semantics of concurrent languages in terms of Petri nets. They also provide a new understanding of concurrency in terms of algebraic structures over graphs and categories that should apply to other models besides Petri nets and thus contribute to the conceptual unification of concurrency.}
+      \field{issn}{0890-5401}
+      \field{journaltitle}{Information and Computation}
+      \field{number}{2}
+      \field{title}{Petri nets are monoids}
+      \field{volume}{88}
+      \field{year}{1990}
+      \field{pages}{105\bibrangedash 155}
+      \range{pages}{51}
+      \verb{doi}
+      \verb https://doi.org/10.1016/0890-5401(90)90013-8
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/0890540190900138
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/0890540190900138
+      \endverb
+    \endentry
+    \entry{micali-rogaway-1992}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=fb54c363f1b0d126e883c84df49e4790}{%
+           family={Micali},
+           familyi={M\bibinitperiod},
+           given={Silvio},
+           giveni={S\bibinitperiod}}}%
+        {{hash=2198941c13b8201b0e0d2127034bb263}{%
+           family={Rogaway},
+           familyi={R\bibinitperiod},
+           given={Phillip},
+           giveni={P\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=287fefd25f3e4df488c1518e70fa1bd5}{%
+           family={Feigenbaum},
+           familyi={F\bibinitperiod},
+           given={Joan},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{ecbb91aa94bc506cb498b93afae1c8ff}
+      \strng{fullhash}{ecbb91aa94bc506cb498b93afae1c8ff}
+      \strng{bibnamehash}{ecbb91aa94bc506cb498b93afae1c8ff}
+      \strng{authorbibnamehash}{ecbb91aa94bc506cb498b93afae1c8ff}
+      \strng{authornamehash}{ecbb91aa94bc506cb498b93afae1c8ff}
+      \strng{authorfullhash}{ecbb91aa94bc506cb498b93afae1c8ff}
+      \strng{editorbibnamehash}{287fefd25f3e4df488c1518e70fa1bd5}
+      \strng{editornamehash}{287fefd25f3e4df488c1518e70fa1bd5}
+      \strng{editorfullhash}{287fefd25f3e4df488c1518e70fa1bd5}
+      \field{labelalpha}{MR92}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We define what it means for a network of communicating players to securely compute a function of privately held inputs. Intuitively, we wish to correctly compute its value in a manner which protects the privacy of each player's contribution, even though a powerful adversary may endeavor to disrupt this enterprise.}
+      \field{booktitle}{Advances in Cryptology --- CRYPTO '91}
+      \field{isbn}{978-3-540-46766-3}
+      \field{title}{Secure Computation}
+      \field{year}{1992}
+      \true{nocite}
+      \field{pages}{392\bibrangedash 404}
+      \range{pages}{13}
+    \endentry
+    \entry{nielsen-chuang-2010}{book}{}
+      \name{author}{2}{}{%
+        {{hash=afe17482fc813e497188aee3b3783879}{%
+           family={Nielsen},
+           familyi={N\bibinitperiod},
+           given={Michael\bibnamedelima A.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=415ddff2f58b25977b1a2dedf18f4501}{%
+           family={Chuang},
+           familyi={C\bibinitperiod},
+           given={Isaac\bibnamedelima L.},
+           giveni={I\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{456599bb4a61c2e997e2a7e1a21b25b4}
+      \strng{fullhash}{456599bb4a61c2e997e2a7e1a21b25b4}
+      \strng{bibnamehash}{456599bb4a61c2e997e2a7e1a21b25b4}
+      \strng{authorbibnamehash}{456599bb4a61c2e997e2a7e1a21b25b4}
+      \strng{authornamehash}{456599bb4a61c2e997e2a7e1a21b25b4}
+      \strng{authorfullhash}{456599bb4a61c2e997e2a7e1a21b25b4}
+      \field{labelalpha}{NC10}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Quantum Computation and Quantum Information: 10th Anniversary Edition}
+      \field{year}{2010}
+    \endentry
+    \entry{pavlovic-2012}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=9a33fccc9c7a6856d6d48fd1edcf051e}{%
+           family={Pavlovic},
+           familyi={P\bibinitperiod},
+           given={Dusko},
+           giveni={D\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=8a6b66ad8074194f4a1369b26fc96ed8}{%
+           family={Pattinson},
+           familyi={P\bibinitperiod},
+           given={Dirk},
+           giveni={D\bibinitperiod}}}%
+        {{hash=2cfdbd805251ea824ac6632e79629aef}{%
+           family={Schröder},
+           familyi={S\bibinitperiod},
+           given={Lutz},
+           giveni={L\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{9a33fccc9c7a6856d6d48fd1edcf051e}
+      \strng{fullhash}{9a33fccc9c7a6856d6d48fd1edcf051e}
+      \strng{bibnamehash}{9a33fccc9c7a6856d6d48fd1edcf051e}
+      \strng{authorbibnamehash}{9a33fccc9c7a6856d6d48fd1edcf051e}
+      \strng{authornamehash}{9a33fccc9c7a6856d6d48fd1edcf051e}
+      \strng{authorfullhash}{9a33fccc9c7a6856d6d48fd1edcf051e}
+      \strng{editorbibnamehash}{bb6694931e04aba3b468b225f28e4799}
+      \strng{editornamehash}{bb6694931e04aba3b468b225f28e4799}
+      \strng{editorfullhash}{bb6694931e04aba3b468b225f28e4799}
+      \field{extraname}{1}
+      \field{labelalpha}{Pav12}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Man-in-the-Middle (MM) is not only a ubiquitous attack pattern in security, but also an important paradigm of network computation and economics. Recognizing ongoing MM-attacks is an important security task; modeling MM-interactions is an interesting task for semantics of computation. Traced monoidal categories are a natural framework for MM-modelling, as the trace structure provides a tool to hide what happens in the middle. An effective analysis of what has been traced out seems to require an additional property of traces, called normality. We describe a modest model of network computation , based on partially ordered multisets (pomsets), where basic network interactions arise from the monoidal trace structure, and a normal trace structure arises from an iterative, i.e. coalgebraic structure over terms and messages used in computation and communication. The correspondence is established using a convenient monadic description of normally traced monoidal categories.}
+      \field{booktitle}{Coalgebraic Methods in Computer Science}
+      \field{isbn}{978-3-642-32784-1}
+      \field{title}{Tracing the Man in the Middle in Monoidal Categories}
+      \field{year}{2012}
+      \field{pages}{191\bibrangedash 217}
+      \range{pages}{27}
+    \endentry
+    \entry{pavlovic-2014}{inbook}{}
+      \name{author}{1}{}{%
+        {{hash=9a33fccc9c7a6856d6d48fd1edcf051e}{%
+           family={Pavlovic},
+           familyi={P\bibinitperiod},
+           given={Dusko},
+           giveni={D\bibinitperiod}}}%
+      }
+      \name{editor}{4}{}{%
+        {{hash=90a7378ce555a39b3f09cdc65ae8c8c6}{%
+           family={Casadio},
+           familyi={C\bibinitperiod},
+           given={Claudia},
+           giveni={C\bibinitperiod}}}%
+        {{hash=c8d0d6b0d8ca354b544208d9fa6abd9d}{%
+           family={Coecke},
+           familyi={C\bibinitperiod},
+           given={Bob},
+           giveni={B\bibinitperiod}}}%
+        {{hash=c73b24892dc79a5a63ee0140b27424be}{%
+           family={Moortgat},
+           familyi={M\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=9afc1a8b5d33c8bb68f26bbbc795848e}{%
+           family={Scott},
+           familyi={S\bibinitperiod},
+           given={Philip},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{9a33fccc9c7a6856d6d48fd1edcf051e}
+      \strng{fullhash}{9a33fccc9c7a6856d6d48fd1edcf051e}
+      \strng{bibnamehash}{9a33fccc9c7a6856d6d48fd1edcf051e}
+      \strng{authorbibnamehash}{9a33fccc9c7a6856d6d48fd1edcf051e}
+      \strng{authornamehash}{9a33fccc9c7a6856d6d48fd1edcf051e}
+      \strng{authorfullhash}{9a33fccc9c7a6856d6d48fd1edcf051e}
+      \strng{editorbibnamehash}{ed1f7808034e3e5dcf3e61dffd43110b}
+      \strng{editornamehash}{ed1f7808034e3e5dcf3e61dffd43110b}
+      \strng{editorfullhash}{bd5773ddc5a27f50af3f0c5e9592f46d}
+      \field{extraname}{2}
+      \field{labelalpha}{Pav14}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Cryptography is a theory of secret functions. Category theory is a general theory of functions. Cryptography has reached a stage where its structures often take several pages to define, and its formulas sometime run from page to page. Category theory has some complicated definitions as well, but one of its specialties is taming the flood of structure. Cryptography seems to be in need of high level methods, whereas category theory always needs concrete applications. So why is there no categorical cryptography? One reason may be that the foundations of modern cryptography are built from probabilistic polynomial-time Turing machines, and category theory does not have a good handle on such things. On the other hand, such foundational problems might be the very reason why cryptographic constructions often resemble low level machine programming. I present some preliminary explorations towards categorical cryptography. It turns out that some of the main security concepts are easily characterized through diagram chasing, going back to Lambek's seminal `Lecture Notes on Rings and Modules'.}
+      \field{booktitle}{Categories and Types in Logic, Language, and Physics: Essays Dedicated to Jim Lambek on the Occasion of His 90th Birthday}
+      \field{isbn}{978-3-642-54789-8}
+      \field{title}{Chasing Diagrams in Cryptography}
+      \field{year}{2014}
+      \field{pages}{353\bibrangedash 367}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1007/978-3-642-54789-8_19
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-642-54789-8_19
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-642-54789-8_19
+      \endverb
+    \endentry
+    \entry{pederson-1991}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=ee278eaf10727ef21f15ba59cdfcb51b}{%
+           family={Pedersen},
+           familyi={P\bibinitperiod},
+           given={Torben\bibnamedelima Pryds},
+           giveni={T\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{ee278eaf10727ef21f15ba59cdfcb51b}
+      \strng{fullhash}{ee278eaf10727ef21f15ba59cdfcb51b}
+      \strng{bibnamehash}{ee278eaf10727ef21f15ba59cdfcb51b}
+      \strng{authorbibnamehash}{ee278eaf10727ef21f15ba59cdfcb51b}
+      \strng{authornamehash}{ee278eaf10727ef21f15ba59cdfcb51b}
+      \strng{authorfullhash}{ee278eaf10727ef21f15ba59cdfcb51b}
+      \field{labelalpha}{Ped91}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Annual international cryptology conference}
+      \field{title}{Non-interactive and information-theoretic secure verifiable secret sharing}
+      \field{year}{1991}
+      \true{nocite}
+      \field{pages}{129\bibrangedash 140}
+      \range{pages}{12}
+    \endentry
+    \entry{pierce-1991}{book}{}
+      \name{author}{1}{}{%
+        {{hash=7365a4e827c2dfa2c5af0c0ec4c18c27}{%
+           family={Pierce},
+           familyi={P\bibinitperiod},
+           given={Benjamin\bibnamedelima C.},
+           giveni={B\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {The MIT Press}%
+      }
+      \strng{namehash}{7365a4e827c2dfa2c5af0c0ec4c18c27}
+      \strng{fullhash}{7365a4e827c2dfa2c5af0c0ec4c18c27}
+      \strng{bibnamehash}{7365a4e827c2dfa2c5af0c0ec4c18c27}
+      \strng{authorbibnamehash}{7365a4e827c2dfa2c5af0c0ec4c18c27}
+      \strng{authornamehash}{7365a4e827c2dfa2c5af0c0ec4c18c27}
+      \strng{authorfullhash}{7365a4e827c2dfa2c5af0c0ec4c18c27}
+      \field{labelalpha}{Pie91}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{{Basic Category Theory for Computer Scientists provides a straightforward presentation of the basic constructions and terminology of category theory, including limits, functors, natural transformations, adjoints, and cartesian closed categories.Category theory is a branch of pure mathematics that is becoming an increasingly important tool in theoretical computer science, especially in programming language semantics, domain theory, and concurrency, where it is already a standard language of discourse. Assuming a minimum of mathematical preparation, Basic Category Theory for Computer Scientists provides a straightforward presentation of the basic constructions and terminology of category theory, including limits, functors, natural transformations, adjoints, and cartesian closed categories. Four case studies illustrate applications of category theory to programming language design, semantics, and the solution of recursive domain equations. A brief literature survey offers suggestions for further study in more advanced texts. Contents Tutorial • Applications • Further Reading}}
+      \field{isbn}{9780262288460}
+      \field{month}{08}
+      \field{title}{{Basic Category Theory for Computer Scientists}}
+      \field{year}{1991}
+      \verb{doi}
+      \verb 10.7551/mitpress/1524.001.0001
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.7551/mitpress/1524.001.0001
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.7551/mitpress/1524.001.0001
+      \endverb
+    \endentry
+    \entry{pass-shelat-2020}{book}{}
+      \name{author}{2}{}{%
+        {{hash=0dc46dfd4b7acca6670493ad02ec2d9c}{%
+           family={Pass},
+           familyi={P\bibinitperiod},
+           given={Raphael},
+           giveni={R\bibinitperiod}}}%
+        {{hash=26e6fa2b44b2040e717d206a3959718b}{%
+           family={Shelat},
+           familyi={S\bibinitperiod},
+           given={Abhi},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{668dc5d7e50a2c2374bddd351d8a66be}
+      \strng{fullhash}{668dc5d7e50a2c2374bddd351d8a66be}
+      \strng{bibnamehash}{668dc5d7e50a2c2374bddd351d8a66be}
+      \strng{authorbibnamehash}{668dc5d7e50a2c2374bddd351d8a66be}
+      \strng{authornamehash}{668dc5d7e50a2c2374bddd351d8a66be}
+      \strng{authorfullhash}{668dc5d7e50a2c2374bddd351d8a66be}
+      \field{labelalpha}{PS10}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A Course in Cryptography}
+      \field{year}{2010}
+      \verb{urlraw}
+      \verb https://www.cs.cornell.edu/courses/cs4830/2010fa/lecnotes.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.cs.cornell.edu/courses/cs4830/2010fa/lecnotes.pdf
+      \endverb
+    \endentry
+    \entry{reynolds-1983}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=34c2c5f9ff95cb3442400d374c40483b}{%
+           family={Reynolds},
+           familyi={R\bibinitperiod},
+           given={John\bibnamedelima C.},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=d8e1fb31b7eeade7aa233aea3b19f714}{%
+           family={Mason},
+           familyi={M\bibinitperiod},
+           given={R.\bibnamedelimi E.\bibnamedelimi A.},
+           giveni={R\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {North-Holland/IFIP}%
+      }
+      \strng{namehash}{34c2c5f9ff95cb3442400d374c40483b}
+      \strng{fullhash}{34c2c5f9ff95cb3442400d374c40483b}
+      \strng{bibnamehash}{34c2c5f9ff95cb3442400d374c40483b}
+      \strng{authorbibnamehash}{34c2c5f9ff95cb3442400d374c40483b}
+      \strng{authornamehash}{34c2c5f9ff95cb3442400d374c40483b}
+      \strng{authorfullhash}{34c2c5f9ff95cb3442400d374c40483b}
+      \strng{editorbibnamehash}{d8e1fb31b7eeade7aa233aea3b19f714}
+      \strng{editornamehash}{d8e1fb31b7eeade7aa233aea3b19f714}
+      \strng{editorfullhash}{d8e1fb31b7eeade7aa233aea3b19f714}
+      \field{labelalpha}{Rey83}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{IFIP Congress}
+      \field{isbn}{0-444-86729-5}
+      \field{title}{Types, Abstraction and Parametric Polymorphism.}
+      \field{year}{1983}
+      \field{pages}{513\bibrangedash 523}
+      \range{pages}{11}
+      \verb{urlraw}
+      \verb http://dblp.uni-trier.de/db/conf/ifip/ifip83.html#Reynolds83
+      \endverb
+      \verb{url}
+      \verb http://dblp.uni-trier.de/db/conf/ifip/ifip83.html#Reynolds83
+      \endverb
+      \keyw{dblp}
+    \endentry
+    \entry{riehl-2017}{book}{}
+      \name{author}{1}{}{%
+        {{hash=45a94503b2898b54c4e429a46414d3ad}{%
+           family={Riehl},
+           familyi={R\bibinitperiod},
+           given={Emily},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \list{publisher}{1}{%
+        {Courier Dover Publications}%
+      }
+      \strng{namehash}{45a94503b2898b54c4e429a46414d3ad}
+      \strng{fullhash}{45a94503b2898b54c4e429a46414d3ad}
+      \strng{bibnamehash}{45a94503b2898b54c4e429a46414d3ad}
+      \strng{authorbibnamehash}{45a94503b2898b54c4e429a46414d3ad}
+      \strng{authornamehash}{45a94503b2898b54c4e429a46414d3ad}
+      \strng{authorfullhash}{45a94503b2898b54c4e429a46414d3ad}
+      \field{labelalpha}{Rie17}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Introduction to concepts of category theory --- categories, functors, natural transformations, the Yoneda lemma, limits and colimits, adjunctions, monads --- revisits a broad range of mathematical examples from the categorical perspective. 2016 edition.}
+      \field{month}{3}
+      \field{title}{Category theory in context}
+      \field{year}{2017}
+    \endentry
+    \entry{rosulek-2021}{book}{}
+      \name{author}{1}{}{%
+        {{hash=98419613b7fd8103780e4fc807177469}{%
+           family={Rosulek},
+           familyi={R\bibinitperiod},
+           given={Mike},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{98419613b7fd8103780e4fc807177469}
+      \strng{fullhash}{98419613b7fd8103780e4fc807177469}
+      \strng{bibnamehash}{98419613b7fd8103780e4fc807177469}
+      \strng{authorbibnamehash}{98419613b7fd8103780e4fc807177469}
+      \strng{authornamehash}{98419613b7fd8103780e4fc807177469}
+      \strng{authorfullhash}{98419613b7fd8103780e4fc807177469}
+      \field{labelalpha}{Ros21}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The Joy of Cryptography}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://joyofcryptography.com
+      \endverb
+      \verb{url}
+      \verb https://joyofcryptography.com
+      \endverb
+    \endentry
+    \entry{seely-1984}{article}{}
+      \name{author}{1}{}{%
+        {{hash=b3a03d72c59e95a75556eecf49509dda}{%
+           family={Seely},
+           familyi={S\bibinitperiod},
+           given={R.\bibnamedelimi A.\bibnamedelimi G.},
+           giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{fullhash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{bibnamehash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{authorbibnamehash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{authornamehash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{authorfullhash}{b3a03d72c59e95a75556eecf49509dda}
+      \field{extraname}{1}
+      \field{labelalpha}{See84}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Mathematical Proceedings of the Cambridge Philosophical Society}
+      \field{number}{1}
+      \field{title}{Locally cartesian closed categories and type theory}
+      \field{volume}{95}
+      \field{year}{1984}
+      \field{pages}{33\bibrangedash 48}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1017/S0305004100061284
+      \endverb
+    \endentry
+    \entry{seely-1989}{article}{}
+      \name{author}{1}{}{%
+        {{hash=b3a03d72c59e95a75556eecf49509dda}{%
+           family={Seely},
+           familyi={S\bibinitperiod},
+           given={R.\bibnamedelimi A.\bibnamedelimi G.},
+           giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{fullhash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{bibnamehash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{authorbibnamehash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{authornamehash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{authorfullhash}{b3a03d72c59e95a75556eecf49509dda}
+      \field{extraname}{2}
+      \field{labelalpha}{See89}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Categories in Computer Science and Logic}
+      \field{title}{Linear Logic, *-autonomous categories and Cofree Coalgebras}
+      \field{year}{1989}
+      \field{pages}{371\bibrangedash 382}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1090/conm/092/1003210
+      \endverb
+    \endentry
+    \entry{selinger-2011}{inbook}{}
+      \name{author}{1}{}{%
+        {{hash=d2f4fe3e8233ef50e378918bebf9f4a7}{%
+           family={Selinger},
+           familyi={S\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=c8d0d6b0d8ca354b544208d9fa6abd9d}{%
+           family={Coecke},
+           familyi={C\bibinitperiod},
+           given={Bob},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{d2f4fe3e8233ef50e378918bebf9f4a7}
+      \strng{fullhash}{d2f4fe3e8233ef50e378918bebf9f4a7}
+      \strng{bibnamehash}{d2f4fe3e8233ef50e378918bebf9f4a7}
+      \strng{authorbibnamehash}{d2f4fe3e8233ef50e378918bebf9f4a7}
+      \strng{authornamehash}{d2f4fe3e8233ef50e378918bebf9f4a7}
+      \strng{authorfullhash}{d2f4fe3e8233ef50e378918bebf9f4a7}
+      \strng{editorbibnamehash}{c8d0d6b0d8ca354b544208d9fa6abd9d}
+      \strng{editornamehash}{c8d0d6b0d8ca354b544208d9fa6abd9d}
+      \strng{editorfullhash}{c8d0d6b0d8ca354b544208d9fa6abd9d}
+      \field{labelalpha}{Sel11}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This article is intended as a reference guide to various notions of monoidal categories and their associated string diagrams. It is hoped that this will be useful not just to mathematicians, but also to physicists, computer scientists, and others who use diagrammatic reasoning. We have opted for a somewhat informal treatment of topological notions, and have omitted most proofs. Nevertheless, the exposition is sufficiently detailed to make it clear what is presently known, and to serve as a starting place for more in-depth study. Where possible, we provide pointers to more rigorous treatments in the literature. Where we include results that have only been proved in special cases, we indicate this in the form of caveats.}
+      \field{booktitle}{New Structures for Physics}
+      \field{isbn}{978-3-642-12821-9}
+      \field{title}{A Survey of Graphical Languages for Monoidal Categories}
+      \field{year}{2011}
+      \field{pages}{289\bibrangedash 355}
+      \range{pages}{67}
+      \verb{doi}
+      \verb 10.1007/978-3-642-12821-9_4
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-642-12821-9_4
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-642-12821-9_4
+      \endverb
+    \endentry
+    \entry{shamir-1992}{article}{}
+      \name{author}{1}{}{%
+        {{hash=71b77dd8ab33fe646ef25cded49e9881}{%
+           family={Shamir},
+           familyi={S\bibinitperiod},
+           given={Adi},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{71b77dd8ab33fe646ef25cded49e9881}
+      \strng{fullhash}{71b77dd8ab33fe646ef25cded49e9881}
+      \strng{bibnamehash}{71b77dd8ab33fe646ef25cded49e9881}
+      \strng{authorbibnamehash}{71b77dd8ab33fe646ef25cded49e9881}
+      \strng{authornamehash}{71b77dd8ab33fe646ef25cded49e9881}
+      \strng{authorfullhash}{71b77dd8ab33fe646ef25cded49e9881}
+      \field{labelalpha}{Sha92}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper, it is proven that when both randomization and interaction are allowed, the proofs that can be verified in polynomial time are exactly those proofs that can be generated with polynomial space.}
+      \field{issn}{0004-5411}
+      \field{journaltitle}{J. ACM}
+      \field{month}{10}
+      \field{number}{4}
+      \field{title}{IP = PSPACE}
+      \field{volume}{39}
+      \field{year}{1992}
+      \field{pages}{869\bibrangedash 877}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1145/146585.146609
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/146585.146609
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/146585.146609
+      \endverb
+      \keyw{IP,PSPACE,interactive proofs}
+    \endentry
+    \entry{simmons-2011}{book}{}
+      \name{author}{1}{}{%
+        {{hash=3b8d8037632d0039fa401a0c70a50348}{%
+           family={Simmons},
+           familyi={S\bibinitperiod},
+           given={Harold},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {USA}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{3b8d8037632d0039fa401a0c70a50348}
+      \strng{fullhash}{3b8d8037632d0039fa401a0c70a50348}
+      \strng{bibnamehash}{3b8d8037632d0039fa401a0c70a50348}
+      \strng{authorbibnamehash}{3b8d8037632d0039fa401a0c70a50348}
+      \strng{authornamehash}{3b8d8037632d0039fa401a0c70a50348}
+      \strng{authorfullhash}{3b8d8037632d0039fa401a0c70a50348}
+      \field{labelalpha}{Sim11}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Category theory provides a general conceptual framework that has proved fruitful in subjects as diverse as geometry, topology, theoretical computer science and foundational mathematics. Here is a friendly, easy-to-read textbook that explains the fundamentals at a level suitable for newcomers to the subject. Beginning postgraduate mathematicians will find this book an excellent introduction to all of the basics of category theory. It gives the basic definitions; goes through the various associated gadgetry, such as functors, natural transformations, limits and colimits; and then explains adjunctions. The material is slowly developed using many examples and illustrations to illuminate the concepts explained. Over 200 exercises, with solutions available online, help the reader to access the subject and make the book ideal for self-study. It can also be used as a recommended text for a taught introductory course.}
+      \field{isbn}{0521283043}
+      \field{title}{An Introduction to Category Theory}
+      \field{year}{2011}
+    \endentry
+    \entry{sipser-2013}{book}{}
+      \name{author}{1}{}{%
+        {{hash=13b9c16a9de2bb891eb8aa2a768eb2a8}{%
+           family={Sipser},
+           familyi={S\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Boston, MA}%
+      }
+      \list{publisher}{1}{%
+        {Course Technology}%
+      }
+      \strng{namehash}{13b9c16a9de2bb891eb8aa2a768eb2a8}
+      \strng{fullhash}{13b9c16a9de2bb891eb8aa2a768eb2a8}
+      \strng{bibnamehash}{13b9c16a9de2bb891eb8aa2a768eb2a8}
+      \strng{authorbibnamehash}{13b9c16a9de2bb891eb8aa2a768eb2a8}
+      \strng{authornamehash}{13b9c16a9de2bb891eb8aa2a768eb2a8}
+      \strng{authorfullhash}{13b9c16a9de2bb891eb8aa2a768eb2a8}
+      \field{labelalpha}{Sip13}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{Third}
+      \field{isbn}{113318779X}
+      \field{title}{Introduction to the Theory of Computation}
+      \field{year}{2013}
+      \keyw{automata complexity computation hamiltonian np-hardness sipser textbook}
+    \endentry
+    \entry{sadeghi-steinerr-2002}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=1ef0c377dd3d4449f949ff3fedd1a7f6}{%
+           family={Sadeghi},
+           familyi={S\bibinitperiod},
+           given={Ahmad-Reza},
+           giveni={A\bibinithyphendelim R\bibinitperiod}}}%
+        {{hash=44fbd4ca80a1669571e386d3877c9600}{%
+           family={Steiner},
+           familyi={S\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{2598932d0394bce0592084eb56030527}
+      \strng{fullhash}{2598932d0394bce0592084eb56030527}
+      \strng{bibnamehash}{2598932d0394bce0592084eb56030527}
+      \strng{authorbibnamehash}{2598932d0394bce0592084eb56030527}
+      \strng{authornamehash}{2598932d0394bce0592084eb56030527}
+      \strng{authorfullhash}{2598932d0394bce0592084eb56030527}
+      \field{labelalpha}{SS02}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Paper 2002/126}
+      \field{note}{\url{https://eprint.iacr.org/2002/126}}
+      \field{title}{Assumptions Related to Discrete Logarithms: Why Subtleties Make a Real Difference}
+      \field{year}{2002}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2002/126
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2002/126
+      \endverb
+    \endentry
+    \entry{stay-vicary-2013}{article}{}
+      \name{author}{2}{}{%
+        {{hash=d439c144d16a324489e1f517a0dbe668}{%
+           family={Stay},
+           familyi={S\bibinitperiod},
+           given={Mike},
+           giveni={M\bibinitperiod}}}%
+        {{hash=ccff9cb0ea86d9f63e3984a5b7d2f23a}{%
+           family={Vicary},
+           familyi={V\bibinitperiod},
+           given={Jamie},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{e007e2d5c683fccd0a03c1f40e6f1cbf}
+      \strng{fullhash}{e007e2d5c683fccd0a03c1f40e6f1cbf}
+      \strng{bibnamehash}{e007e2d5c683fccd0a03c1f40e6f1cbf}
+      \strng{authorbibnamehash}{e007e2d5c683fccd0a03c1f40e6f1cbf}
+      \strng{authornamehash}{e007e2d5c683fccd0a03c1f40e6f1cbf}
+      \strng{authorfullhash}{e007e2d5c683fccd0a03c1f40e6f1cbf}
+      \field{labelalpha}{SV13}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We present a topological bicategorical syntax for the interaction between public and private information in classical information theory. This allows high-level graphical definitions of encrypted communication and secret sharing, including a characterization of their security properties, which are automatically satisfied with no extra axioms required. This analysis shows that these protocols have an identical abstract form to the quantum teleportation and dense coding procedures, giving a concrete mathematical analogy between quantum and classical computing. Specific implementations of these protocols as nondeterministic classical procedures are recovered by applying our formalism in a symmetric monoidal bicategory of matrices of relations. http://www.elsevier.nl/locate/entcs.}
+      \field{issn}{1571-0661}
+      \field{journaltitle}{Electronic Notes in Theoretical Computer Science}
+      \field{note}{Proceedings of the Twenty-ninth Conference on the Mathematical Foundations of Programming Semantics, MFPS XXIX}
+      \field{title}{Bicategorical Semantics for Nondeterministic Computation}
+      \field{volume}{298}
+      \field{year}{2013}
+      \field{pages}{367\bibrangedash 382}
+      \range{pages}{16}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.entcs.2013.09.022
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S1571066113000686
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S1571066113000686
+      \endverb
+      \keyw{Categories,security,geometry}
+    \endentry
+    \entry{trevisan-2009}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=ca5f7e86f967df27e3f4153922fe0035}{%
+           family={Trevisan},
+           familyi={T\bibinitperiod},
+           given={Luca},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{ca5f7e86f967df27e3f4153922fe0035}
+      \strng{fullhash}{ca5f7e86f967df27e3f4153922fe0035}
+      \strng{bibnamehash}{ca5f7e86f967df27e3f4153922fe0035}
+      \strng{authorbibnamehash}{ca5f7e86f967df27e3f4153922fe0035}
+      \strng{authornamehash}{ca5f7e86f967df27e3f4153922fe0035}
+      \strng{authorfullhash}{ca5f7e86f967df27e3f4153922fe0035}
+      \field{labelalpha}{Tre09}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{4}
+      \field{title}{Notes for Lecture 27}
+      \field{year}{2009}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://theory.stanford.edu/~trevisan/cs276/lecture27.pdf
+      \endverb
+      \verb{url}
+      \verb https://theory.stanford.edu/~trevisan/cs276/lecture27.pdf
+      \endverb
+    \endentry
+    \entry{unruh-2010}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=8a56d1103628eb2468b4302fe42b4baa}{%
+           family={Unruh},
+           familyi={U\bibinitperiod},
+           given={Dominique},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {French Riviera, France}%
+      }
+      \list{publisher}{1}{%
+        {Springer-Verlag}%
+      }
+      \strng{namehash}{8a56d1103628eb2468b4302fe42b4baa}
+      \strng{fullhash}{8a56d1103628eb2468b4302fe42b4baa}
+      \strng{bibnamehash}{8a56d1103628eb2468b4302fe42b4baa}
+      \strng{authorbibnamehash}{8a56d1103628eb2468b4302fe42b4baa}
+      \strng{authornamehash}{8a56d1103628eb2468b4302fe42b4baa}
+      \strng{authorfullhash}{8a56d1103628eb2468b4302fe42b4baa}
+      \field{labelalpha}{Unr10}
+      \field{sortinit}{U}
+      \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The Universal Composability model (UC) by Canetti (FOCS 2001) allows for secure composition of arbitrary protocols. We present a quantum version of the UC model which enjoys the same compositionality guarantees. We prove that in this model statistically secure oblivious transfer protocols can be constructed from commitments. Furthermore, we show that every statistically classically UC secure protocol is also statistically quantum UC secure. Such implications are not known for other quantum security definitions. As a corollary, we get that quantum UC secure protocols for general multi-party computation can be constructed from commitments.}
+      \field{booktitle}{Proceedings of the 29th Annual International Conference on Theory and Applications of Cryptographic Techniques}
+      \field{isbn}{3642131891}
+      \field{series}{EUROCRYPT'10}
+      \field{title}{Universally Composable Quantum Multi-Party Computation}
+      \field{year}{2010}
+      \true{nocite}
+      \field{pages}{486\bibrangedash 505}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1007/978-3-642-13190-5_25
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-642-13190-5_25
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-642-13190-5_25
+      \endverb
+    \endentry
+    \entry{wadler-1989}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=b4d861345944ddeeaf658a11c2f0f6a7}{%
+           family={Wadler},
+           familyi={W\bibinitperiod},
+           given={Philip},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Imperial College, London, United Kingdom}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{b4d861345944ddeeaf658a11c2f0f6a7}
+      \strng{fullhash}{b4d861345944ddeeaf658a11c2f0f6a7}
+      \strng{bibnamehash}{b4d861345944ddeeaf658a11c2f0f6a7}
+      \strng{authorbibnamehash}{b4d861345944ddeeaf658a11c2f0f6a7}
+      \strng{authornamehash}{b4d861345944ddeeaf658a11c2f0f6a7}
+      \strng{authorfullhash}{b4d861345944ddeeaf658a11c2f0f6a7}
+      \field{labelalpha}{Wad89}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the Fourth International Conference on Functional Programming Languages and Computer Architecture}
+      \field{isbn}{0897913280}
+      \field{series}{FPCA '89}
+      \field{title}{Theorems for free!}
+      \field{year}{1989}
+      \field{pages}{347\bibrangedash 359}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1145/99370.99404
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/99370.99404
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/99370.99404
+      \endverb
+    \endentry
+    \entry{wadler-thiemann-2003}{article}{}
+      \name{author}{2}{}{%
+        {{hash=b4d861345944ddeeaf658a11c2f0f6a7}{%
+           family={Wadler},
+           familyi={W\bibinitperiod},
+           given={Philip},
+           giveni={P\bibinitperiod}}}%
+        {{hash=dbe21d48d51f0b3b676649d287dc1372}{%
+           family={Thiemann},
+           familyi={T\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{6c71a3e633dcaba3417f56d30b88d987}
+      \strng{fullhash}{6c71a3e633dcaba3417f56d30b88d987}
+      \strng{bibnamehash}{6c71a3e633dcaba3417f56d30b88d987}
+      \strng{authorbibnamehash}{6c71a3e633dcaba3417f56d30b88d987}
+      \strng{authornamehash}{6c71a3e633dcaba3417f56d30b88d987}
+      \strng{authorfullhash}{6c71a3e633dcaba3417f56d30b88d987}
+      \field{labelalpha}{WT03}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Gifford and others proposed an effect typing discipline to delimit the scope of computational effects within a program, while Moggi and others proposed monads for much the same purpose. Here we marry effects to monads, uniting two previously separate lines of research. In particular, we show that the type, region, and effect system of Talpin and Jouvelot carries over directly to an analogous system for monads, including a type and effect reconstruction algorithm. The same technique should allow one to transpose any effect system into a corresponding monad system.}
+      \field{issn}{1529-3785}
+      \field{journaltitle}{ACM Trans. Comput. Logic}
+      \field{month}{1}
+      \field{number}{1}
+      \field{title}{The marriage of effects and monads}
+      \field{volume}{4}
+      \field{year}{2003}
+      \field{pages}{1\bibrangedash 32}
+      \range{pages}{32}
+      \verb{doi}
+      \verb 10.1145/601775.601776
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/601775.601776
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/601775.601776
+      \endverb
+      \keyw{Monad,effect,region,type,type reconstruction}
+    \endentry
+    \entry{yao-1982}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=6b7d2c4497d319bdcd66f90d014ccdec}{%
+           family={Yao},
+           familyi={Y\bibinitperiod},
+           given={Andrew\bibnamedelima C.},
+           giveni={A\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{6b7d2c4497d319bdcd66f90d014ccdec}
+      \strng{fullhash}{6b7d2c4497d319bdcd66f90d014ccdec}
+      \strng{bibnamehash}{6b7d2c4497d319bdcd66f90d014ccdec}
+      \strng{authorbibnamehash}{6b7d2c4497d319bdcd66f90d014ccdec}
+      \strng{authornamehash}{6b7d2c4497d319bdcd66f90d014ccdec}
+      \strng{authorfullhash}{6b7d2c4497d319bdcd66f90d014ccdec}
+      \field{labelalpha}{Yao82}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{23rd Annual Symposium on Foundations of Computer Science (sfcs 1982)}
+      \field{title}{Theory and application of trapdoor functions}
+      \field{year}{1982}
+      \true{nocite}
+      \field{pages}{80\bibrangedash 91}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1109/SFCS.1982.45
+      \endverb
+    \endentry
+    \entry{yau-2016}{book}{}
+      \name{author}{1}{}{%
+        {{hash=3c4e0b13d8b1f6d126ebd9c30a17ea56}{%
+           family={Yau},
+           familyi={Y\bibinitperiod},
+           given={Donald\bibnamedelima Ying},
+           giveni={D\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Mathematical Society}%
+      }
+      \strng{namehash}{3c4e0b13d8b1f6d126ebd9c30a17ea56}
+      \strng{fullhash}{3c4e0b13d8b1f6d126ebd9c30a17ea56}
+      \strng{bibnamehash}{3c4e0b13d8b1f6d126ebd9c30a17ea56}
+      \strng{authorbibnamehash}{3c4e0b13d8b1f6d126ebd9c30a17ea56}
+      \strng{authornamehash}{3c4e0b13d8b1f6d126ebd9c30a17ea56}
+      \strng{authorfullhash}{3c4e0b13d8b1f6d126ebd9c30a17ea56}
+      \field{labelalpha}{Yau16}
+      \field{sortinit}{Y}
+      \field{sortinithash}{fd67ad5a9ef0f7456bdd9aab10fe1495}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Colored operads}
+      \field{year}{2016}
+      \true{nocite}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
