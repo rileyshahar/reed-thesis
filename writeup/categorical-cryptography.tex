@@ -1,0 +1,116 @@
+A theory of cryptography should define at least four things: computation,
+interaction, adversarial behavior, and security. [todo: lots more intro,
+cite \cite{broadbent-karvonen-2022};
+categorical crypto theories~\cite{hines-2020,pavlovic-2012,pavlovic-2014,stay-vicary-2013},
+caterogies for specific crypto protocols~\cite{bkm-2019, bmr-2019}; categorical
+qm
+\cite{abramsky-coecke-2004,coecke-perdrix-2012,heunen-vicary-2014,coecke-kissinger-2017,chitambar-gour-2019}]
+
+\section{Computation}
+
+The categorical theory of computation is well-developed, going back at least to
+the work of Jim Lambeck and several contemporaries around the
+1970s~\cite{lambeck-1974,lambeck-1980,lawvere-1969,seely-1984}. The essential
+idea generalizes~\Cref{ex:functional
+programming}: objects are types
+and morphisms are typed computations. The most disciplined approach is to
+consider the categorical structure needed to model certain forms of computation, so that
+for instance models of simply typed computation are \emph{cartesian closed
+categories}~\cite{lambeck-1974}, of linear computation are \emph{star-autonomous
+categories}~\cite{seely-1989}, and of quantum computation are \emph{compact-closed
+categories}~\cite{abramsky-coecke-2004}. This approach is explored in detail
+by~\cite{crole-1994}; we will not review it here. Instead, our focus will be on
+constructing specific categorical models of forms computations of interest to
+cryptographers.
+
+\subsection{Deterministic Computation}
+
+We would like a category of deterministic computations to have computable functions
+as morphisms. However, the natural choice, taking objects as sets and morphisms
+as computable functions, is actually not yet precise. The first issue is that
+there are several distinct notions of computability on uncountable sets. Each
+such notion forms a category, but formal definitions are outside our scope, as
+cryptographers tend not to care about uncountable sets anyway\footnote{These
+  issues are studied in the field of \emph{computable analysis}; see for
+instance the PhD thesis of Andre Bauer~\cite{bauer-2000}.}.
+
+We can resolve this issue simply, by limiting ourselves to finite sets, in which
+case every function is computable (simply by a lookup table):
+
+\begin{dfn}[category of finite sets]
+  The \emph{category of finite sets}, $\scat{FinSet}$, has finite sets as
+  objects and functions as morphisms.
+\end{dfn}
+
+However, we often want to work with larger input spaces. The natural guess is to
+take countable sets and computable functions. The issue here is one of encoding:
+there is a canonical notion of computability on the set of finite binary
+strings, but elements of arbitrary sets do not generally have canonical
+encodings as binary strings. We could solve this issue by limiting
+ourselves to working only with binary strings:
+\begin{dfn}[category of computable binary functions]
+  The \emph{category of computable binary functions} \scat{BinComp} has sets of binary strings
+  $A\subseteq\bin^*$ as objects and computable functions as morphisms.
+\end{dfn}
+
+In practice, however, we like to think of computations as working over arbitrary
+sets, which in particular may have more algebraic structure than sets of binary
+strings. Our strategy, partially following~\cite{pavlovic-2014}, will be to work
+over sets with fixed binary encodings.
+\begin{dfn}[binary-encoded set]
+  A \emph{binary-encoded set} is a set $X$ together with an injection
+  $\denote{-}_X: X\to\bin^*$, called the \emph{encoding}.
+\end{dfn}
+
+Note that every binary-encoded set is finite or countable; as such, we avoid the
+issues with uncountable sets mentioned above.
+
+\begin{ntn}
+  When the context is clear, we will generally drop the subscript of
+  $\denote{-}$. We write $\denote{X}$ for the image of $\denote{-}_X$, i.e.
+  $\denote{X} = \{s\in\bin^*: s = \denote{x}\text{ for some }x\in X\}$.
+\end{ntn}
+
+Given a function $f: X\to Y$ of binary-encoded sets, we can define a function
+  \begin{align*}
+    \denote{f} \colon \denote{X} &\to \denote{Y}\\
+    \denote{x} &\mapsto \denote{f(x)}.
+  \end{align*}
+This is well-defined exactly because $\denote{-}_X$ is injective.
+
+\begin{dfn}[category of computable functions]
+  A function $f: X\to Y$ of binary-encoded sets is \emph{computable} if
+  $\denote{f}$ is computable. The \emph{category of computable functions},
+  \scat{Comp}, has binary-encoded sets as objects and computable functions as
+  morphisms.
+\end{dfn}
+
+It needs to be shown that this is a category. First, the identities
+$1_X$ are computable, as $\denote{1_X} = 1_{\denote{X}}$ is computable. Second,
+the composite of computable functions is computable, as the composition of
+computable binary functions is computable, and composition is preserved by
+$\denote{-}$\footnote{
+  As this paragraph suggests, there is a functor $\denote{-}:
+  \scat{Comp}\to\scat{BinComp}$; in fact this functor is an \emph{equivalence of
+  categories}. Nevertheless, the expanded perspective provided by $\scat{Comp}$ will be
+  convenient.
+}.
+
+% \subsection{Probabilistic Computation}
+
+% Again, there is some subtelty with probabilistic computation. Even in the case
+% of finite sets, not every stochastic function is computable by algorithms with
+% access to fair coin flips. However, we can proceed much as before, defining:
+% \begin{dfn}
+%   A stochastic function $f:X\to Y $ is \emph{computable} if 
+% \end{dfn}
+% \begin{dfn}
+%   The category \scat{BinCompStoch} has sets of finite binary strings as objects and computable 
+%   stochastic functions as morphisms. The cateogry \scat{CompStoch} has
+%   binary-encoded sets as objects and computable stochastic functions as morphisms.
+% \end{dfn}
+
+% \section{Paths Not Taken}
+
+% - functoriality
+% - internalization of owf/indistinguishability/etc
