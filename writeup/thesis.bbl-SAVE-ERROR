@@ -797,7 +797,6 @@
       \field{title}{A mathematical theory of resources}
       \field{volume}{250}
       \field{year}{2016}
-      \true{nocite}
       \field{pages}{59\bibrangedash 86}
       \range{pages}{28}
       \verb{doi}
@@ -1153,13 +1152,18 @@
       \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{abstract}{Randomized protocols for signing contracts, certified mail, and flipping a coin are presented. The protocols use a 1-out-of-2 oblivious transfer subprotocol which is axiomatically defined.The 1-out-of-2 oblivious transfer allows one party to transfer exactly one secret, out of two recognizable secrets, to his counterpart. The first (second) secret is received with probability one half, while the sender is ignorant of which secret has been received.An implementation of the 1-out-of-2 oblivious transfer, using any public key cryptosystem, is presented.}
       \field{issn}{0001-0782}
+      \field{journaltitle}{Commun. ACM}
+      \field{month}{6}
       \field{number}{6}
       \field{title}{A randomized protocol for signing contracts}
       \field{volume}{28}
       \field{year}{1985}
+      \field{pages}{637\bibrangedash 647}
+      \range{pages}{11}
       \verb{doi}
-      \verb 10. author = {Even, Shimon and Goldreich, Oded and Lempel, Abraham}, title = {A randomized protocol for signing contracts}, year = {1985}, issue_date = {June 1985}, publisher = {Association for Computing Machinery}, address = {New York, NY, USA}, volume = {28}, number = {6}, issn = {0001-0782}, url = {https://doi.org/10.1145/3812.3818}, doi = { 10.1145/3812.3818}, abstract = {Randomized protocols for signing contracts, certified mail, and flipping a coin are presented. The protocols use a 1-out-of-2 oblivious transfer subprotocol which is axiomatically defined.The 1-out-of-2 oblivious transfer allows one party to transfer exactly one secret, out of two recognizable secrets, to his counterpart. The first (second) secret is received with probability one half, while the sender is ignorant of which secret has been received.An implementation of the 1-out-of-2 oblivious transfer, using any public key cryptosystem, is presented.}, journal = {Commun. ACM}, month = {jun} , pages = {637–647}, numpages = {11}
+      \verb 10.1145/3812.3818
       \endverb
       \verb{urlraw}
       \verb https://doi.org/10.1145/3812.3818
@@ -2759,6 +2763,34 @@
       \verb https://www.sciencedirect.com/science/article/pii/S1571066113000686
       \endverb
       \keyw{Categories,security,geometry}
+    \endentry
+    \entry{shahar-zdancewic-2024}{unpublished}{}
+      \name{author}{2}{}{%
+        {{hash=7abd7ee94fd6e15d0590a4d5856e455d}{%
+           family={Shahar},
+           familyi={S\bibinitperiod},
+           given={Riley},
+           giveni={R\bibinitperiod}}}%
+        {{hash=86f46b6c1c6a571f63e61bfc35519f72}{%
+           family={Zdancewic},
+           familyi={Z\bibinitperiod},
+           given={Steve},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{33ce193f88d9bbf70b875604216b39f2}
+      \strng{fullhash}{33ce193f88d9bbf70b875604216b39f2}
+      \strng{bibnamehash}{33ce193f88d9bbf70b875604216b39f2}
+      \strng{authorbibnamehash}{33ce193f88d9bbf70b875604216b39f2}
+      \strng{authornamehash}{33ce193f88d9bbf70b875604216b39f2}
+      \strng{authorfullhash}{33ce193f88d9bbf70b875604216b39f2}
+      \field{labelalpha}{SZ24}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Forthcoming}
+      \field{title}{Categorical Phase Semantics for Linear Logic}
+      \field{year}{2024}
     \endentry
     \entry{trevisan-2009}{misc}{}
       \name{author}{1}{}{%

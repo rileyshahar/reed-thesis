@@ -1,5 +1,12 @@
 A theory of cryptography should define at least four things: computation,
-interaction, adversarial behavior, and security. [todo: lots more intro,
+protocols, adversarial behavior, and security. A major advantage of categorical
+models of cryptography is that they conveniently separate these issues. In
+particular, we have some underlying category of computations, while we represent
+categories of protocols with functorial constructions on categories; as such,
+our notions of interaction and security are completely independent of the
+underlying model of computation.
+
+[todo: lots more intro,
 cite \cite{broadbent-karvonen-2022};
 categorical crypto theories~\cite{hines-2020,pavlovic-2012,pavlovic-2014,stay-vicary-2013},
 caterogies for specific crypto protocols~\cite{bkm-2019, bmr-2019}; categorical
@@ -11,8 +18,7 @@ qm
 The categorical theory of computation is well-developed, going back at least to
 the work of Jim Lambeck and several contemporaries around the
 1970s~\cite{lambeck-1974,lambeck-1980,lawvere-1969,seely-1984}. The essential
-idea generalizes~\Cref{ex:functional
-programming}: objects are types
+idea generalizes~\Cref{ex:functional programming}: objects are types
 and morphisms are typed computations. The most disciplined approach is to
 consider the categorical structure needed to model certain forms of computation, so that
 for instance models of simply typed computation are \emph{bicartesian closed
@@ -96,10 +102,27 @@ convenient.
 
 % [TODO: SMC structure]
 
-% It is somewhat subtle to define a symmetric monoidal structure on \scat{Comp}.
-% In particular, for two binary-encoded sets $X$ and $Y$, we would like to define
-% the product $X\otimes Y$ as the set $X\times Y$, but it is unclear what
-% $\denote{-}_{X\times Y}$ should be.
+Finally, we now define a symmetric monoidal structure on \scat{Comp}.
+In particular, for two binary-encoded sets $X$ and $Y$, we would like to define
+the product $X\otimes Y$ as the set $X\times Y$, but it is unclear what
+$\denote{-}_{X\times Y}$ should be. We first fix an injective pairing map
+$\<-,-\>: \bin^*\times\bin^*\to \bin$ which is efficiently computable\footnote{%
+  One such map is computed as follows: given inputs $(m,n)$, start by encoding the
+  length of $m$ in $2\log\log m$ bits: first write a bit of the length, then
+  write a $1$ if the length continues and a $0$ if it doesn't. Now knowing the
+  length of $m$, we can append the binary representation of $m$ and then $n$,
+  which takes $O(\log m + \log n) = O(\log (mn))$ bits. Since $\log\log m =
+  O(\log m)$, in total this algorithm takes $O(\log(mn))$ bits, and just writes
+  across the tape, hence is computable in linear time.
+}. We can then define $\denote{(x, y)} = \<\denote{x}, \denote{y}\>$; it is a
+standard check that this defines a symmetric monoidal structure inherited from
+$\scat{Set}$\footnote{
+  Here is a more abstract way to see this. A suitable pairing function $\<-,-\>$
+  turns $\{0,1\}$ into an internal commutative monoid in $\scat{Set}$. In other
+  work, we show that the category of subobjects of any internal monoid is a
+  monoidal category~\cite{shahar-zdancewic-2024}. The construction here is
+  approximately an application of that general theorem.
+}.
 
 \subsection{Probabilistic Computation}
 
@@ -126,7 +149,8 @@ of binary strings, so we can proceed much as before, defining:
 Again, it needs to be shown that this is a category. The identities are
 computable (and stochastic, since every determinstic function is stochastic),
 and composition commutes with $\denote{-}$, so the composite of computable
-functions is computable.
+functions is computable. Furthermore, this category is symmetric monoidal, with
+pairing of encodings as in \scat{Comp}.
 
 We give a more abstract characterization of this category. There
 are only countably many computable probability distributions on $\bin^*$, since
@@ -194,7 +218,8 @@ consisting of morphisms $f$ such that $\denote{f}$ is in \scat{EffBin}, i.e. the
 preimage of \scat{EffBin} under $\denote{-}$. Finally, let $T$ be any monad on
 \scat{Enc} which restricts to a monad on \scat{Eff}. Then the \emph{category of
 efficient $T$-computations} is the Kleisi category of the restriction of $T$ to
-\scat{Eff}.
+\scat{Eff}. When $T$ is symmetric lax monoidal, this category is symmetric
+monoidal.
 
 \begin{ex}
   Each example in the previous three sections is a special case of this
@@ -207,15 +232,9 @@ efficient $T$-computations} is the Kleisi category of the restriction of $T$ to
     \item When $\scat{EffBin}$ consists of poly-time computable functions and $T$
       is the identity monad, we recover \scat{P}.
     \item When $\scat{EffBin}$ consists of poly-time computable functions and $T$
-      is the \emph{poly-time computable Giry monad}, which sends a set $X$ to
-      the set of poly-time computable probability distributions on $X$, we
-      recover \scat{PPT}\footnote{
-        Some work needs to be done in this case to check this this is genuinely
-        a monad on $\scat{P}$---in particular, it is not immediately clear that
-        the sum in \Cref{eqn:giry-sum} should be poly-time
-        computable, even though all the probability distributions involved
-        certainly are.
-      }.
+      is the \emph{poly-time Giry monad}, which sends a set $X$ to the set of
+      poly-time computable probability distributions on $X$, we recover
+      \scat{PPT}.
   \end{itemize}
 \end{ex}
 
@@ -255,18 +274,11 @@ has amplitude \[
   I\xto{a}X\xto{b^\dag} I,
 \]where $(-)^\dag$ denotes the adjoint; the corresponding element of $\CC$ is
 the inner product $\<b,a\>$. Now the \emph{Born rule} of quantum mechanics
-asserts that the probability of measuring the outcome $b$ is $|\<b, a\>|^2$.
-Categorically:
-
-\begin{dfn}[measurement]
-  If $I\xto{a,b} X$ are states, then the \emph{probability of measuring $b$
-  from the state $a$} is the scalar \[
+asserts that the probability of measuring the outcome $b$ from the state $a$ is
+$|\<b, a\>|^2$. Categorically, if $I\xto{a,b} X$ are states, then the
+\emph{probability of measuring $b$ from the state $a$} is the scalar \[
     I\xto{a}X\xto{b^\dag} I\xto{b} X\xto{a^\dag} I.
   \]
-\end{dfn}
-In this event, the state $a$ \emph{collapses} to the state $b$, which we
-represent as the map $X\xto{b^\dag} I$. As such, maps $X\to I$ are also called
-\emph{outcomes}.
 
 This is just a brief sketch of a very rich theory; see especially the work of
 Bob Coecke such
@@ -275,7 +287,76 @@ book by Heunen and Vicary~\cite{heunen-vicary-2014}. The key point is that any
 fully categorical treatment of cryptography should obtain quantum cryptography as
 a special case.
 
+\section{Protocols}
 
+The categorical semantics of interactive computation---in particular, of
+protocols---originates from the study of quantum cryptography, especially of
+so-called \emph{resource theories}~\cite{coecke-2016}. The idea is to start with
+some underlying SMC $\cat{C}$ of computations---fixed throughout this
+section---and to functorially construct a category of ``protocols built from
+computations in $\cat{C}$.'' Exactly which functor we choose depends on what we
+want our protocols to look like.
+
+In all these categories, the basic idea is that we will think of objects as
+resources and morphisms as protocols, which convert some resources into others.
+For instance, in the category $\ncomb \cat{C}$, morphisms will be ``protocols with
+holes''---when instantiated with specific implementations of the resources they
+are waiting for, they provide some new resource.
+
+\subsection{States}
+
+In the symmetric monoidal category \scat{Set}, the morphisms $\{*\}\to X$
+are in natural correspondence with the elements of $X$, by the bijection \[
+  (*\mapsto x) \mapsto x.
+\]
+Similarly, in the symmetric monoidal category $\scat{Vect}_\kk$, the morphisms
+$\kk\to V$ are in natural correspondence with vectors in $V$, since such maps
+are determined by their action on the vector $1\in\kk$. This pattern holds more
+generally, motivating the following definition.
+
+\begin{dfn}[state]
+  A \emph{state} or \emph{generalized element} of $\cat{C}$ is a morphism $I\to
+  X$ for some object $X$.
+\end{dfn}
+
+As we know, it is easier to recognize state string-diagramatically: they are
+downward-pointing triangles.
+
+\begin{dfn}[resoruce theory of states]
+  The \emph{resource theory of states} $S\cat{C}$ is the category whose objects
+  are states in $\cat{C}$ and whose morphisms $(I\xto{s}X)\to (I\xto{t}Y)$ are
+  maps $X\xto{f} Y$ such that $fs = y$\footnote{
+    With a little more machinery: $S\cat{C}$ is the \emph{category of elements}
+    of the functor $\hom(I, -)$.
+  }.
+\end{dfn}
+
+The resource theory of states has a canonical symmetric monoidal structure
+induced by that of $\cat{C}$: the tensor product of states $I\xto{s} X$ and
+$I\xto{t} Y$ is just the state $I \to X\otimes Y$ given by\footnote{
+  It may worry the careful reader that there are two seemingly distinct, albeit
+  canonically naturally isomorphic, morphisms this diagram could represent: \[
+    I\xto{\lambda_I^{-1}} I\otimes I\xto{s\otimes t}X\otimes Y\quad\text{and}\quad 
+    I\xto{\rho_I^{-1}} I\otimes I\xto{s\otimes t}X\otimes Y.
+  \]
+  Fortunately, it is a non-obvious but standard result of Kelly that $\lambda_I
+  = \rho_I$ in any SMC~\cite{kelly-1964}, so these morphisms agree.
+}
+\[
+        \begin{pic}
+          \node[state,scale=.75] (f) at (0,0) {$s$};
+          \draw (f.north) to ++(0,.6) node[left] {$X$};
+          \node[state,scale=.75] (g) at (.7,0) {$t$};
+          \draw (g.north) to ++(0,.6) node[right] {$Y$};
+        \end{pic},
+\]while the tensor product of morphisms is just their tensor in $X$. The unit is
+the state $1_I$, while the associator and unitor are inherited from $\cat{C}$.
+
+% It will be useful to be a little more general. Let $F: \cat{D}\to\cat{C}$ be a
+% functor. Then an $F$-state is a map $I\to FX$ in $\cat{C}$ for some object
+% $X\in\cat{D}$. The \emph{resource theory of $F$-states} is the category whose
+% objects are $F$-states and whose morphisms $(I\xto{s} FX)\to (I\xto{t} FY)$ are
+% maps $X\xto{f}Y$ in $\cat{D}$ such that $(Ff)s = t$.
 
 % \section{Paths Not Taken}
 
