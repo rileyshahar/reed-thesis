@@ -73,6 +73,11 @@
 
 % cross-reference format
 \creflabelformat{equation}{#2#1#3}
+\newlist{questions}{enumerate}{1}
+\setlist[questions]{label = \arabic*., ref=\arabic*}
+
+\crefname{questionsi}{question}{questions}
+\Crefname{questionsi}{Question}{Questions}
 
 % quality of life
 \renewcommand{\emptyset}{\varnothing}
@@ -90,6 +95,8 @@
 \DeclareMathOperator{\view}{view}
 \DeclareMathOperator{\ideal}{ideal}
 \DeclareMathOperator{\ncomb}{n-comb}
+\let\state\relax
+\newcommand{\state}[1]{\text{st}(#1)}
 
 % theorems
 \theoremstyle{plain}
@@ -97,6 +104,7 @@
 \newtheorem{lemma}[thm]{Lemma}
 \newtheorem{prop}[thm]{Proposition}
 \newtheorem{conj}[thm]{Conjecture}
+\newtheorem{claim}[thm]{Claim}
 \newtheorem{cor}{Corollary}[thm]
 
 \theoremstyle{definition}

@@ -16,7 +16,7 @@ qm
 \section{Computation}
 
 The categorical theory of computation is well-developed, going back at least to
-the work of Jim Lambeck and several contemporaries around the
+the work of Jim Lambek and several contemporaries around the
 1970s~\cite{lambeck-1974,lambeck-1980,lawvere-1969,seely-1984}. The essential
 idea generalizes~\Cref{ex:functional programming}: objects are types
 and morphisms are typed computations. The most disciplined approach is to
@@ -268,16 +268,16 @@ quantum measurement; we follow~\cite{heunen-vicary-2014}.
 Let $I$ be the one-dimensional Hilbert space. Note that the maps $I\to I$
 correspond to choices of scalars $\lambda\in\CC$; as such, we say that a
 \emph{scalar} is a map $I\to I$. Given a Hilbert space $V$, a \emph{state} is a
-map $I\to X$, so that the a state is determined by a choice of vector in $V$. If
-$I\xto{a} X$ and $I\xto{b} X$ are states, then the projection of $a$ onto $b$
+map $I\to V$, so that a state is determined by a choice of vector in $V$. If
+$I\xto{a} V$ and $I\xto{b} V$ are states, then the projection of $a$ onto $b$
 has amplitude \[
-  I\xto{a}X\xto{b^\dag} I,
+  I\xto{a}V\xto{b^\dag} I,
 \]where $(-)^\dag$ denotes the adjoint; the corresponding element of $\CC$ is
 the inner product $\<b,a\>$. Now the \emph{Born rule} of quantum mechanics
 asserts that the probability of measuring the outcome $b$ from the state $a$ is
-$|\<b, a\>|^2$. Categorically, if $I\xto{a,b} X$ are states, then the
+$|\<b, a\>|^2$. Categorically, if $I\xto{a,b} V$ are states, then the
 \emph{probability of measuring $b$ from the state $a$} is the scalar \[
-    I\xto{a}X\xto{b^\dag} I\xto{b} X\xto{a^\dag} I.
+    I\xto{a}V\xto{b^\dag} I\xto{b} V\xto{a^\dag} I.
   \]
 
 This is just a brief sketch of a very rich theory; see especially the work of
@@ -293,15 +293,32 @@ The categorical semantics of interactive computation---in particular, of
 protocols---originates from the study of quantum cryptography, especially of
 so-called \emph{resource theories}~\cite{coecke-2016}. The idea is to start with
 some underlying SMC $\cat{C}$ of computations---fixed throughout this
-section---and to functorially construct a category of ``protocols built from
-computations in $\cat{C}$.'' Exactly which functor we choose depends on what we
-want our protocols to look like.
+section---and to construct a category of ``protocols built from computations in
+$\cat{C}$.'' Exactly which functor we choose depends on what we want our
+protocols to look like.
 
 In all these categories, the basic idea is that we will think of objects as
 resources and morphisms as protocols, which convert some resources into others.
 For instance, in the category $\ncomb \cat{C}$, morphisms will be ``protocols with
 holes''---when instantiated with specific implementations of the resources they
 are waiting for, they provide some new resource.
+
+\subsection{Products}
+
+While the product category is used implicitly in the definition of monoidal
+categories, it is worth exploring it explicitly. Given two categories $\cat{C}$
+and $\cat{D}$, the \emph{product category} $\cat{C}\times\cat{D}$ has:
+\begin{itemize}
+  \item as objects, pairs $(X,Y)$ of objects in $\cat{C}$ and $\cat{D}$;
+  \item as morphisms $(X,Y)\to (X',Y')$, pairs $(f,g)$ of morphisms so that $f:
+    X\to X'$ and $g: Y\to Y'$;
+  \item composition and identities defined componentwise.
+\end{itemize}
+
+When $\cat{C}$ and $\cat{D}$ are categories of computations, we think of
+$\cat{C}\times\cat{D}$ as a category of non-interfering parallel computations: a
+computation in $\cat{C}\times\cat{D}$ is a computation in $\cat{C}$ and a
+computation in $\cat{D}$, but they cannot interact.
 
 \subsection{States}
 
@@ -319,23 +336,25 @@ generally, motivating the following definition.
   X$ for some object $X$.
 \end{dfn}
 
-As we know, it is easier to recognize state string-diagramatically: they are
+As we know, it is easy to recognize states string-diagramatically: they are
 downward-pointing triangles.
 
-\begin{dfn}[resoruce theory of states]
-  The \emph{resource theory of states} $S\cat{C}$ is the category whose objects
+\begin{dfn}[resource theory of states]
+  The \emph{resource theory of states} $\state{\cat{C}}$ is the category whose objects
   are states in $\cat{C}$ and whose morphisms $(I\xto{s}X)\to (I\xto{t}Y)$ are
-  maps $X\xto{f} Y$ such that $fs = y$\footnote{
-    With a little more machinery: $S\cat{C}$ is the \emph{category of elements}
-    of the functor $\hom(I, -)$.
-  }.
+  maps $X\xto{f} Y$ such that $fs = y$. Composition is as in $\cat{C}$.
 \end{dfn}
+
+When $\cat{C}$ is interpreted a category of types of resources and conversions
+between them, we can think of $\state{\cat{C}}$ states as a category
+of specific resources and of conversions between them, forgetting the type
+information.
 
 The resource theory of states has a canonical symmetric monoidal structure
 induced by that of $\cat{C}$: the tensor product of states $I\xto{s} X$ and
 $I\xto{t} Y$ is just the state $I \to X\otimes Y$ given by\footnote{
   It may worry the careful reader that there are two seemingly distinct, albeit
-  canonically naturally isomorphic, morphisms this diagram could represent: \[
+  coherently naturally isomorphic, morphisms this diagram could represent: \[
     I\xto{\lambda_I^{-1}} I\otimes I\xto{s\otimes t}X\otimes Y\quad\text{and}\quad 
     I\xto{\rho_I^{-1}} I\otimes I\xto{s\otimes t}X\otimes Y.
   \]
@@ -352,13 +371,37 @@ $I\xto{t} Y$ is just the state $I \to X\otimes Y$ given by\footnote{
 \]while the tensor product of morphisms is just their tensor in $X$. The unit is
 the state $1_I$, while the associator and unitor are inherited from $\cat{C}$.
 
-% It will be useful to be a little more general. Let $F: \cat{D}\to\cat{C}$ be a
-% functor. Then an $F$-state is a map $I\to FX$ in $\cat{C}$ for some object
-% $X\in\cat{D}$. The \emph{resource theory of $F$-states} is the category whose
-% objects are $F$-states and whose morphisms $(I\xto{s} FX)\to (I\xto{t} FY)$ are
-% maps $X\xto{f}Y$ in $\cat{D}$ such that $(Ff)s = t$.
+It will be useful to be a little more general. Let $F: \cat{D}\to\cat{C}$ be a
+lax monoidal functor. Then an \emph{$F$-state} is a map $I\to FX$ in $\cat{C}$ for some object
+$X\in\cat{D}$. The \emph{resource theory of $F$-states} $\state{F}$ is the category whose
+objects are $F$-states and whose morphisms $(I\xto{s} FX)\to (I\xto{t} FY)$ are
+maps $X\xto{f}Y$ in $\cat{D}$ such that $(Ff)s = t$\footnote{
+  With a little more machinery: $\state{F}$ is the \emph{category of elements}
+    of the functor $\cat{D}\xto{F}\cat{C}\xto{\hom(I, -)}\scat{Set}$. The
+    category of elements of any lax monoidal functor has a canonical monoidal
+    structure on it induced by that of the codomain; this is the monoidal
+    structure with which we endow $\state{F}$.
+  }. Note what then $\cat{C} = \cat{D}$ and $F = 1_\cat{C}$, we recover
+  $\state{\cat{C}}$.
+
+We are especially interested in the category
+$\state{\cat{C}^2\xto{\otimes}\cat{C}}$. Objects in this category are morphisms
+$I\to X\otimes Y$ in $\cat{C}$, which we can think of as \emph{joint states}.
+When $\cat{C} = \scat{Set}$, every joint state is \emph{independent}, in that it
+splits into the tensor of two morphisms $I\to X$ and $I\to Y$, but in more
+complicated categories like \scat{PPT} or \scat{Hilb} this may fail, representing a
+kind of \emph{entanglement}. In this way, we can express the idea that two
+parties $A$ and $B$ have a shared uniform random key by the map $I\to X\otimes
+X$ in \scat{PPT} that sends $*$ to a uniform random choice of pairs $(k, k)$ for
+$k\in X$. This map does not split into a pair of stochastic maps $I\to X$ and $I\to X$.
+
+More generally, we would like to model computations on $n$-party states via the
+category $\state{\cat{C}^n\xto{\otimes^{n-1}}\cat{C}}$, where the $i$th copy of
+$\cat{C}$ represents computations taken by the $i$th party in the computation.
+There is a choice of associativity to be made, but any choice yields an
+isomorphic category, so we will not worry about it here.
 
 % \section{Paths Not Taken}
 
-% - functoriality
+% - functorality
 % - internalization of owf/indistinguishability/etc

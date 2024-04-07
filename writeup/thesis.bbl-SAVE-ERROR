@@ -277,6 +277,79 @@
       \field{type}{phdthesis}
       \field{year}{2000}
     \endentry
+    \entry{ben-or-et-al-1990}{inproceedings}{}
+      \name{author}{7}{}{%
+        {{hash=41eb128ae71f8745a6089159ac4aaf4e}{%
+           family={Ben-Or},
+           familyi={B\bibinithyphendelim O\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=66aba379c7d3adb8af5b662a65c4c140}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={Oded},
+           giveni={O\bibinitperiod}}}%
+        {{hash=39e4a0690915f1d991133196a545b37b}{%
+           family={Goldwasser},
+           familyi={G\bibinitperiod},
+           given={Shafi},
+           giveni={S\bibinitperiod}}}%
+        {{hash=804cd45ec4be77b4cc5e4d994ba18af0}{%
+           family={H{å}\bibnamedelima stad},
+           familyi={H\bibinitperiod\bibinitdelim s\bibinitperiod},
+           given={Johan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=4591268c67f1c3a2dddd96c8b3457967}{%
+           family={Kilian},
+           familyi={K\bibinitperiod},
+           given={Joe},
+           giveni={J\bibinitperiod}}}%
+        {{hash=fb54c363f1b0d126e883c84df49e4790}{%
+           family={Micali},
+           familyi={M\bibinitperiod},
+           given={Silvio},
+           giveni={S\bibinitperiod}}}%
+        {{hash=2198941c13b8201b0e0d2127034bb263}{%
+           family={Rogaway},
+           familyi={R\bibinitperiod},
+           given={Phillip},
+           giveni={P\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=39e4a0690915f1d991133196a545b37b}{%
+           family={Goldwasser},
+           familyi={G\bibinitperiod},
+           given={Shafi},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY}%
+      }
+      \list{publisher}{1}{%
+        {Springer New York}%
+      }
+      \strng{namehash}{a84513a48d434b0cabb366b1217ab697}
+      \strng{fullhash}{c4d5827a30a2e7c339f7d52debc06c98}
+      \strng{bibnamehash}{a84513a48d434b0cabb366b1217ab697}
+      \strng{authorbibnamehash}{a84513a48d434b0cabb366b1217ab697}
+      \strng{authornamehash}{a84513a48d434b0cabb366b1217ab697}
+      \strng{authorfullhash}{c4d5827a30a2e7c339f7d52debc06c98}
+      \strng{editorbibnamehash}{39e4a0690915f1d991133196a545b37b}
+      \strng{editornamehash}{39e4a0690915f1d991133196a545b37b}
+      \strng{editorfullhash}{39e4a0690915f1d991133196a545b37b}
+      \field{labelalpha}{Ben+90}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Assuming the existence of a secure probabilistic encryption scheme , we show that every language that admits an interactive proof admits a (computational) zero-knowledge interactive proof. This result extends the result of Goldreich, Micali and Wigderson, that, under the same assumption, all of NP admits zero-knowledge interactive proofs. Assuming envelopes for bit commitment, we show tht every language that admits an interactive proof admits a perfect zero-knowledge interactive proof.}
+      \field{booktitle}{Advances in Cryptology --- CRYPTO' 88}
+      \field{isbn}{978-0-387-34799-8}
+      \field{title}{Everything Provable is Provable in Zero-Knowledge}
+      \field{year}{1990}
+      \field{pages}{37\bibrangedash 56}
+      \range{pages}{20}
+    \endentry
     \entry{broadbent-karvonen-2022}{incollection}{}
       \name{author}{2}{}{%
         {{hash=9ea2a45d7ab1a2ec555771051f412c9b}{%
@@ -568,6 +641,54 @@
       \verb{url}
       \verb http://dx.doi.org/10.4204/EPTCS.372.13
       \endverb
+    \endentry
+    \entry{bv-2010}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=77042d9bb7925bba89859ce6a1c37e74}{%
+           family={Birrell},
+           familyi={B\bibinitperiod},
+           given={Eleanor},
+           giveni={E\bibinitperiod}}}%
+        {{hash=c915d3380da8c4288e9634bbee5ba983}{%
+           family={Vadhan},
+           familyi={V\bibinitperiod},
+           given={Salil},
+           giveni={S\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=b3211adf5dbe7a65b2b1f58cab4f6a0c}{%
+           family={Micciancio},
+           familyi={M\bibinitperiod},
+           given={Daniele},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{d88f2eb68d151bcd754a47fbbd406caf}
+      \strng{fullhash}{d88f2eb68d151bcd754a47fbbd406caf}
+      \strng{bibnamehash}{d88f2eb68d151bcd754a47fbbd406caf}
+      \strng{authorbibnamehash}{d88f2eb68d151bcd754a47fbbd406caf}
+      \strng{authornamehash}{d88f2eb68d151bcd754a47fbbd406caf}
+      \strng{authorfullhash}{d88f2eb68d151bcd754a47fbbd406caf}
+      \strng{editorbibnamehash}{b3211adf5dbe7a65b2b1f58cab4f6a0c}
+      \strng{editornamehash}{b3211adf5dbe7a65b2b1f58cab4f6a0c}
+      \strng{editorfullhash}{b3211adf5dbe7a65b2b1f58cab4f6a0c}
+      \field{labelalpha}{BV10}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We revisit the composability of different forms of zero- knowledge proofs when the honest prover strategy is restricted to be polynomial time (given an appropriate auxiliary input). Our results are:}
+      \field{booktitle}{Theory of Cryptography}
+      \field{isbn}{978-3-642-11799-2}
+      \field{title}{Composition of Zero-Knowledge Proofs with Efficient Provers}
+      \field{year}{2010}
+      \field{pages}{572\bibrangedash 587}
+      \range{pages}{16}
     \endentry
     \entry{barr-wells-1990}{book}{}
       \name{author}{2}{}{%
@@ -1283,7 +1404,6 @@
       \field{title}{On the Composition of Zero-Knowledge Proof Systems}
       \field{volume}{25}
       \field{year}{1996}
-      \true{nocite}
       \field{pages}{169\bibrangedash 192}
       \range{pages}{24}
       \verb{doi}
@@ -1394,6 +1514,96 @@
       \verb{url}
       \verb https://doi.org/10.1145/800070.802212
       \endverb
+    \endentry
+    \entry{gmw-1991}{article}{}
+      \name{author}{3}{}{%
+        {{hash=66aba379c7d3adb8af5b662a65c4c140}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={Oded},
+           giveni={O\bibinitperiod}}}%
+        {{hash=fb54c363f1b0d126e883c84df49e4790}{%
+           family={Micali},
+           familyi={M\bibinitperiod},
+           given={Silvio},
+           giveni={S\bibinitperiod}}}%
+        {{hash=94bdc407739d530448ac88956c6c98a5}{%
+           family={Wigderson},
+           familyi={W\bibinitperiod},
+           given={Avi},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{5a9fcc707bce192056e824a8880d37a2}
+      \strng{fullhash}{5a9fcc707bce192056e824a8880d37a2}
+      \strng{bibnamehash}{5a9fcc707bce192056e824a8880d37a2}
+      \strng{authorbibnamehash}{5a9fcc707bce192056e824a8880d37a2}
+      \strng{authornamehash}{5a9fcc707bce192056e824a8880d37a2}
+      \strng{authorfullhash}{5a9fcc707bce192056e824a8880d37a2}
+      \field{labelalpha}{GMW91}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0004-5411}
+      \field{journaltitle}{J. ACM}
+      \field{month}{7}
+      \field{number}{3}
+      \field{title}{Proofs that yield nothing but their validity or all languages in NP have zero-knowledge proof systems}
+      \field{volume}{38}
+      \field{year}{1991}
+      \field{pages}{690\bibrangedash 728}
+      \range{pages}{39}
+      \verb{doi}
+      \verb 10.1145/116825.116852
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/116825.116852
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/116825.116852
+      \endverb
+      \keyw{NP,cryptographic protocols,fault tolerant distributed computing,graph isomorphism,interactive proofs,methodological design of protocols,one-way functions,proof systems,zero-knowledge}
+    \endentry
+    \entry{goldreich-1994}{article}{}
+      \name{author}{2}{}{%
+        {{hash=66aba379c7d3adb8af5b662a65c4c140}{%
+           family={Goldreich},
+           familyi={G\bibinitperiod},
+           given={Oded},
+           giveni={O\bibinitperiod}}}%
+        {{hash=2442911fc5d46da2b80042d81e04bb12}{%
+           family={Oren},
+           familyi={O\bibinitperiod},
+           given={Yair},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{1b0f8f2ab4819d139a97a08d7c031d14}
+      \strng{fullhash}{1b0f8f2ab4819d139a97a08d7c031d14}
+      \strng{bibnamehash}{1b0f8f2ab4819d139a97a08d7c031d14}
+      \strng{authorbibnamehash}{1b0f8f2ab4819d139a97a08d7c031d14}
+      \strng{authornamehash}{1b0f8f2ab4819d139a97a08d7c031d14}
+      \strng{authorfullhash}{1b0f8f2ab4819d139a97a08d7c031d14}
+      \field{labelalpha}{GO94}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Cryptology}
+      \field{number}{1}
+      \field{title}{Definitions and properties of zero-knowledge proof systems}
+      \field{volume}{7}
+      \field{year}{1994}
+      \field{pages}{1\bibrangedash 32}
+      \range{pages}{32}
     \endentry
     \entry{goguen-et-al-1973}{report}{}
       \name{author}{4}{}{%
@@ -1752,6 +1962,43 @@
       \verb https://www.sciencedirect.com/science/article/pii/000187089190003P
       \endverb
     \endentry
+    \entry{kelly-1964}{article}{}
+      \name{author}{1}{}{%
+        {{hash=fac02deffedd4dbcbb6d46f097ca9c7d}{%
+           family={Kelly},
+           familyi={K\bibinitperiod},
+           given={G.M},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{fac02deffedd4dbcbb6d46f097ca9c7d}
+      \strng{fullhash}{fac02deffedd4dbcbb6d46f097ca9c7d}
+      \strng{bibnamehash}{fac02deffedd4dbcbb6d46f097ca9c7d}
+      \strng{authorbibnamehash}{fac02deffedd4dbcbb6d46f097ca9c7d}
+      \strng{authornamehash}{fac02deffedd4dbcbb6d46f097ca9c7d}
+      \strng{authorfullhash}{fac02deffedd4dbcbb6d46f097ca9c7d}
+      \field{labelalpha}{Kel64}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0021-8693}
+      \field{journaltitle}{Journal of Algebra}
+      \field{number}{4}
+      \field{title}{On MacLane's conditions for coherence of natural associativities, commutativities, etc.}
+      \field{volume}{1}
+      \field{year}{1964}
+      \field{pages}{397\bibrangedash 402}
+      \range{pages}{6}
+      \verb{doi}
+      \verb https://doi.org/10.1016/0021-8693(64)90018-3
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/0021869364900183
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/0021869364900183
+      \endverb
+    \endentry
     \entry{katz-lindell-2014}{book}{}
       \name{author}{2}{}{%
         {{hash=85053e14c4a72772970b91a572b9b9c1}{%
@@ -1902,7 +2149,6 @@
       \field{isbn}{9783319570488}
       \field{title}{How to Simulate It---A Tutorial on the Simulation Proof Technique}
       \field{year}{2017}
-      \true{nocite}
       \field{pages}{277\bibrangedash 346}
       \range{pages}{70}
       \verb{doi}
@@ -2865,6 +3111,49 @@
       \verb{url}
       \verb https://doi.org/10.1007/978-3-642-13190-5_25
       \endverb
+    \endentry
+    \entry{vadhan-2007}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=c915d3380da8c4288e9634bbee5ba983}{%
+           family={Vadhan},
+           familyi={V\bibinitperiod},
+           given={Salil},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New Delhi, India}%
+      }
+      \list{publisher}{1}{%
+        {Springer-Verlag}%
+      }
+      \strng{namehash}{c915d3380da8c4288e9634bbee5ba983}
+      \strng{fullhash}{c915d3380da8c4288e9634bbee5ba983}
+      \strng{bibnamehash}{c915d3380da8c4288e9634bbee5ba983}
+      \strng{authorbibnamehash}{c915d3380da8c4288e9634bbee5ba983}
+      \strng{authornamehash}{c915d3380da8c4288e9634bbee5ba983}
+      \strng{authorfullhash}{c915d3380da8c4288e9634bbee5ba983}
+      \field{labelalpha}{Vad07}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We give an informal introduction to zero-knowledge proofs, and survey their role both in the interface between complexity theory and cryptography and as objects of complexity-theoretic study in their own right.}
+      \field{booktitle}{FSTTCS 2007: Foundations of Software Technology and Theoretical Computer Science: 27th International Conference, New Delhi, India, December 12-14, 2007. Proceedings}
+      \field{isbn}{978-3-540-77049-7}
+      \field{title}{The Complexity of Zero Knowledge}
+      \field{year}{2007}
+      \field{pages}{52\bibrangedash 70}
+      \range{pages}{19}
+      \verb{doi}
+      \verb 10.1007/978-3-540-77050-3_5
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-540-77050-3_5
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-540-77050-3_5
+      \endverb
+      \keyw{Proof System,Commitment Scheme,Interactive Proof,Probabilistic Polynomial Time,Interactive Proof System}
     \endentry
     \entry{wadler-1989}{inproceedings}{}
       \name{author}{1}{}{%

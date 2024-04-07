@@ -272,7 +272,7 @@ ends of the sequence are computationally indistinguishable. In cryptography, we
 sometimes want to consider the more general case of a countable sequence of
 probability ensembles. We can do slightly better than the previous result:
 
-\begin{prop}
+\begin{prop}\label{thm:polynomial-indistinguishability}
   Let $\{X^k\}$ be a sequence of probability ensembles, so
   that each $X^k = \{X^k_n\}$ is itself a sequence of probability distributions.
   Let $\{X^i\}\cind\{X^{i+1}\}$ for each $i$. Let $\{Y_n = X^{K(n)}_n\}$ for
@@ -477,7 +477,7 @@ produced distribution is \emph{identical} to the view. We call this notion
 
 \begin{ex}\label{ex:non-zero-knowledge}
   Consider the following protocol: $\cA$ gets input $x\in\ZZ_2^n$, which it
-  then sends to $\cB$. To show this is not zero knowledge for $\cB$, we must
+  then sends to $\cB$. To show this is not zero-knowledge for $\cB$, we must
   show that for any simulator $\cS$, there exists a choice of input $x$ and a
   distinguisher $\cD$ which distinguishes $\cS(1^n)$ from $\view_\cB(1^n, x) =
   \{1^n, x\}$ with non-negligible probability.
@@ -754,8 +754,9 @@ they are intended to output.
   via a protocol originally due to~\cite{even-et-al-1985}.
 \end{ex}
 
-The situation with malicious adversaries is much more complicated. [TODO:
-malicious adversaries.]
+The situation with malicious adversaries is much more complicated, but we will
+not need all the details here; they can be found in, for instance,~\cite[Section
+4]{lindell-2017}.
 
 % \begin{dfn}
 %   Let $f$ be an $N$-party function. The \emph{ideal protocol for computing $f$}
@@ -792,7 +793,7 @@ verifier should except with high probability. It should also be \emph{complete},
 which informally means that no adversarial machine should be able to convince
 the verifier to accept an input not in $\cL$ except with low probability.
 Formally:
-\begin{dfn}[interactive proof system]
+\begin{dfn}[interactive proof system]\label{def:interactive-proof-system}
   Let $\cL$ be a fixed language. An \emph{interactive proof system for $\cL$}
   consists of an algorithm $\cP$ and a PPT algorithm $\cV$, such that:
   \begin{itemize}
@@ -808,7 +809,8 @@ Once we achieve any probability of success greater than $\frac{1}{2}$, we can
 repeat the protocol to achieve any constant probability of success. It is
 standard to choose $\frac{2}{3}$ as the desired bound for such cases.
 
-\begin{ex}[graph non-isomorphism~{\cite[Section 4.2.2]{goldreich-2001}}]
+\begin{ex}[graph non-isomorphism~{\cite[Section
+  4.2.2]{goldreich-2001}}]\label{ex:graph-non-iso}
   We give an interactive proof system for the problem of \emph{graph
   non-isomorphism}\footnote{
     Since we do not know whether graph non-isomorphism is in NP, the reader may
@@ -860,7 +862,340 @@ standard to choose $\frac{2}{3}$ as the desired bound for such cases.
 
 In cryptography, we are especially concerned with \emph{zero-knowledge proofs},
 which are meant to reveal no information other than the truth of the statement
-under proof.
+under proof. We will need something slightly stronger than for multi-party
+computation: because this protocol involves the prover giving information in
+response to queries from the verifier (such as the query graph $G'_\sigma$ in
+\Cref{ex:graph-non-iso}),
+we will need to ensure that no verifier can learn anything extra from the
+prover, even if they give different queries than the protocol prescribes.
 
+\begin{dfn}[zero-knowledge proof]\label{def:zkp}
+  An interactive proof system $(\cP, \cV)$ is \emph{honest-verifier
+  zero-knowledge} it is zero-knowledge for $\cV$. It is
+  \emph{semi-honest-verifier zero-knowledge}, or just \emph{zero-knowledge}, if
+  for each non-uniform PPT $\cV'$, the protocol $\<\cP, \cV'\>$ is
+  zero-knowledge for $\cV'$. It is \emph{black-box zero-knowledge} if the
+  simulator can query $\cV'$ but must be defined independently of
+  it\footnote{There appear to be several distinct choices in the literature for
+    naming conventions, for the computational strength of the prover, and for
+  the level of honesty of the verifier. Our naming convention
+follows~\cite{vadhan-2007}; a good survey of various definitions
+is~\cite[Section 3]{goldreich-1994}.}.
+\end{dfn}
 
-% \section{Composition}
+If one-way functions exist, then every problem in NP has a
+zero-knowledge proof~\cite{gmw-1991}. In fact, rather remarkably, under the
+same assumption \emph{any} language that admits an interactive proof admits a
+zero-knowledge proof~\cite{ben-or-et-al-1990}.
+
+\begin{ex}
+  The protocol of \Cref{ex:graph-non-iso}
+  is an honest-verifier zero-knowledge proof.
+\end{ex}
+
+\section{Composition}
+
+\subsection{The Issues at Hand}
+
+We now wish to consider whether our security definitions are closed under composition
+of protocols. There are many different issues to consider in stating such a
+composition theorem, including:
+
+\begin{questions}
+  \item What kinds of protocols are being composed? Our security definitions do not
+    capture security of arbitrary interactive processes, so either we will
+    need a substantially more general definition or we will need to limit
+    our composition theorem to a specific class of protocols.
+  \item What does it mean to compose these protocols? It is not immediately
+    clear how to compose arbitary interactive algorithms.
+  \item What kind of composition is allowed? In particular, we can
+    consider \emph{sequential composition}, in which only one protocol is
+    ``running'' simultaneously, or \emph{parallel composition}, in which many
+    protocols may be running simultaneously. To formally state a parallel
+    composition theorem, we need to either specify a \emph{scheduling model} and
+    deal with low-level issues like atomicity, or find some way to abstract over
+    these details.
+  \item What kind of security is being preserved? Given a security definition
+    for the component protocols, we need some say to derive the security
+    definition for the composite protocol.
+  \item What kinds of adversaries does the theorem handle? Composition theorems
+    may look very different for security against uniform and non-uniform
+    adversaries, for instance---these subtle issues can lead to very different
+    results.
+  \item What protocols are we allowed to compose with? We could be allowed to
+    compose with arbitrary protocols, which might not even be secure, or only
+    with other protocols we already know are secure.\label{item:compose-with}
+  \item How many times we can compose---for instance, must it be constant in the
+    security parameter?\label{item:count-compositions}
+\end{questions}
+
+As these questions demonstrate, composition theorems are really quite difficult
+to state. However, even without a formal theorem in mind, we can make a few
+concrete observations.
+
+In regards to~\Cref{item:compose-with}, we need to have some kind of
+idea of ``independence of state'' between two protocols before we can compose
+them. For instance, we certainly should not be allowed to compose the one-time
+pad with a protocol that publicly broadcasts the key.
+
+In regards to~\Cref{item:count-compositions}, we should at best expect
+to be able to compose polynomially many protocols in the security parameter.
+This is in part for complexity reasons---a polytime turing machine cannot
+simulate super-polynomially many protocols---but there is also a security
+explanation: as a consequence of
+\Cref{thm:polynomial-indistinguishability}, we should only
+expect to be able to compose polynomially many computationally indistinguishable
+distributions before losing the indistinguishability.
+
+We do not make attempt to give a comprehensive review of the composition
+theorems or counterexamples in the literature. Instead, our goal is to chart a
+motivating path towards the theory of \emph{universal composability}, and then give a
+sufficiently detailed overview of that theory to equip the reader to compare it
+to the cryptographic models we will study
+in~\Cref{chap:categorical-cryptography}.
+
+\subsection{Composing Interactive Function Computations}
+
+Possibly the easiest non-trivial composition theorem to state is for sequential
+composition of interactive function computations, but already in this case we
+will run into several fundamental issues.
+
+Suppose we have two $N$-party protocols $\<\cA_1,\dots,\cA_N\>$ and
+$\<\cB_1,\dots,\cB_N\>$ which securely compute the $N$-party functions $f:
+X_1\times\dots\times X_N\to Y_1\times\dots\times Y_N$ and $g:
+Y_1\times\dots\times Y_N\to Z_1\times\dots\times Z_N$ in the presence of
+semi-honest adversries. We wish to use this data to construct a composite
+protocol for the composite function $g\circ f$. The natural choice is to have
+the parties first run the protocol for $f$, then run the protocol for $g$. Thus,
+we can state the following claim:
+
+\begin{claim}
+  Suppose $\{f^i: X^i_1\times\dots\times X^i_N\to X^{i+1}_1\times\dots\times
+  X^{i+1}_N, 1\leq i \leq K\}$ is a finite sequence of functions which are securely
+  computable in the presence of semi-honest adversaries. Then the composite $f =
+  f^K\circ\dots\circ f^1$ is securely computable in the presence of semi-honest
+  adversaries.
+\end{claim}
+
+\begin{proof}[Proof attempt]
+  For each $i$, let $\Pi_i = \<\cA^i_1,\dots,\cA^i_N\>$ be a protocol which
+  securely computes $f^i$ in the presence of semi-honest adversaries. Form a new
+  protocol $\Pi$ which performs each of the $\Pi_i$ in sequence. Correctness is
+  immediate, since the correctness of each $\Pi_i$ implies that $\Pi$ computes
+  each step of the composite in turn.
+
+  The proof of security is by reduction to the security of the $\Pi_i$. By
+  induction, it suffices to consider the case $K = 2$. Suppose that the
+  composite $\Pi$ does not securely compute $f^2\circ f^1$. Without loss of
+  generality, suppose that the composite is not zero-knowledge for party $1$.
+  Then for any $\cS$, there exists some non-uniform PPT $\cD$ which
+  distinguishes, for any choice of inputs $x_i\in X^1_i$,
+  \begin{equation}\label{eqn:failed-proof-1}
+    \cS(x_1, f^2_1(f^1(x_1,\dots,x_N)))\quad\quad\text{ and }\quad\quad\view_1^{\Pi}(x_1,\dots,x_2).
+  \end{equation}
+
+  All this works, but we run into issues when we attempt to construct a
+  simulator which contradicts this assumption. Let $\cS^1_i$ and $\cS^2_i$ be
+  the simulators which witness security of $\Pi_1$ and $\Pi_2$ with respect to
+  party $i$. We would like to construct a simulator $\cS$, which combines the
+  simulated views of party $i$ in both parts of the computation. The issue is
+  that, in order to fit the form of \eqref{eqn:failed-proof-1},
+  $\cS$ should get only $(x_1, f^2_1(f^1(x_1, \dots, x_N)))$ as input. However,
+  to be able to run $\cS^1_1$, it needs $f^1_1(x_1, \dots, x_N)$, which we have
+  no way to obtain.
+  \renewcommand{\qedsymbol}{}
+\end{proof}
+
+I am not aware of a direct way to repair this proof. Instead, to avoid the
+issue, we need the structure of the composite protocol to mirror the structure
+of the reduction: there should be some ``outermost'' protocol which handles
+calls to the sub-protocols, just as we need to make an outermost simulator which
+calls the sub-simulators. The right tool for the job is the \emph{oracle
+algorithm}.
+
+\begin{dfn}[oracle algorithms; oracle protocols]
+  An \emph{oracle algorithm} is an algorithm $\cA$ equipped with a ``slot'' for
+  an \emph{oracle} $\cO$, to which it can make \emph{queries} $x$ and receive
+  \emph{responses} $\cO(x)$. We write $\cA^\cO$ to refer to the
+  oracle-algorithm $\cA$ equipped with the specific oracle $\cO$.
+
+  An \emph{oracle protocol} is a protocol $\<\cA_1,\dots,\cA_N\>$ with a slot
+  for an oracle $\cO$, where each $\cA_i$ may write queries $x_i$, and if each
+  machine does so, they each receive outputs $\cO(x_1,\dots, x_N)_i$. We write
+  $\<\cA_1,\dots,\cA_N\>^\cO$.
+
+  Let $f: X_1\times\dots\times X_N\to Y_1\times\dots\times Y_N$ be a function.
+  An \emph{$f$-oracle} is an oracle which, when queried with $x_1,\dots,x_n$,
+  responds with $f(x_1,\dots,x_N)$. We overloadingly write $f$ to refer to an
+  $f$-oracle.
+\end{dfn}
+
+The idea is to make an oracle protocol $\Pi$ which, when instantiated with an
+$f$-oracle, securely computes $g$. Then if we have a protocol for securely
+computing $f$, we will show that we can substitute it for the oracle in $\Pi$.
+In particular, while we will not be precise about what secure oracle computation
+means, it is important that the view of an oracle algorithm includes its queries and responses.
+
+\begin{dfn}[oracle reduction]
+  Let $f$ and $g$ be functions. Then $g$ \emph{securely oracle-reduces to $f$ in the presence of semi-honest
+  adversaries} if there exists an oracle protocol $\<\cA_1,\dots,\cA_N\>$ such
+  that $\<\cA_1,\dots,\cA_N\>^f$ securely computes $g$ in the presence of
+  semi-honest
+  adversaries.
+\end{dfn}
+
+\begin{thm}[{\cite[Theorem 7.3.3]{goldreich-2001}}]
+  Suppose $g$ securely reduces to $f$ in the presence of semi-honest
+  adversaries, and $f$ is securely computable in the presence of semi-honest
+  adversaries. Then $g$ is securely computable in the presence of semi-honest
+  adversaries.
+\end{thm}
+
+\begin{proof}[Proof sketch]
+  Let $\Pi_g = \<\cA_1,\dots,\cA_N\>$ be an oracle protocol such that
+  $\<\cA_1,\dots,\cA_N\>^f$ securely computes $g$ in the presence of semi-honest
+  adversaries, and let $\Pi_f = \<\cB_1,\dots,\cB_N\>$ be a protocol which securely
+  computes $f$ in the presence of semi-honest adversaries. We construct a new
+  protocol $\Pi$ which runs $\Pi_g$, but whenever the oracle is queried, it
+  instead replaces the oracle with a complete run of $\Pi_f$. Correctness of
+  $\Pi$ is immediate from its construction; we show security by a reduction.
+
+  Let $\cS^g_i$ simulate the view of party $i$ in $\Pi_g^f$, and let $\cS^f_i$
+  simulate the view of party $i$ in $\Pi_f$. We construct a simulator $\cS_i$
+  for the view of party $i$ in $\Pi$. Since the inputs to $\Pi_g^f$ are the same
+  as to $\Pi$, we can immediately run $\cS^g_i$ to obtain the view of party $i$
+  in the computation $\Pi_g^f$, which in particular includes the queries and
+  responses of the oracle. We can then pass these queries and responses to
+  $\Pi_f$, obtaining a view of each of the invocations of the sub-protocol.
+
+  To show the this simulator achieves the necessary indistinguishability result,
+  we work in two steps. First, the output of $\cS_i$ is indistinguishable from
+  the view of party $i$ in $\Pi$ with the sub-protocol invocations are
+  replaced with the simulated views; we prove this by the security of $\Pi_f$,
+  since otherwise appending the view from $\Pi_g^f$ would distinguish the view
+  from $\Pi_f$ with its simulated counterpart. Similarly, this latter distribution
+  is indistinguishable from the view of party $i$ in $\Pi$ without any such
+  replacement, this time by security of $\Pi_g^f$. Filling in these details
+  completes the proof.
+\end{proof}
+
+A few remarks on this proof are warranted. First, it fundamentally relies on the
+semi-honesty of the adversaries, since it means that the execution of the
+sub-protocols is completely independent from anything other than their inputs.
+If the adversaries could behave maliciously, and thus use information learned in
+the larger protocol to affect run the sub-protocols, then the main simulator would be
+unable to properly invoke the simulator for the sub-protocols.
+
+Second, these techniques seem completely unable to handle parallel composition.
+The issue is that oracle queries are in some sense immediate---the assumption is
+that everything else pauses while the oracle does its work. It is much more
+difficult to handle parallelism, or even more strongly, to handle concurrency,
+which may in particular be asynchronous.
+
+The goal of universal composability is to resolve these issues, but first we
+will explicitly give an example wherein parallel composition fails.
+
+\subsection{A Counterexample to Parallel Composition}
+
+Before giving the counterexample, we first briefly discuss sequential
+composition of zero-knowledge proofs, which is quite subtle. When
+the definitions are as given
+in~\Cref{def:zkp}, black-box zero
+knowledge proofs do compose in sequence~\cite{goldreich-1994}. On the other
+hand, if we change the definitions so that both the simulator of
+~\Cref{def:zero-knowledge} and the
+adversarial verifier of~\Cref{def:zkp}
+are required to be \emph{uniform} PPT,
+then computational zero-knowledge does not
+compose~\cite{goldreich-krawczyk-1996}. However, if under the same definition we
+require that the prover is in NP, then uniform computational zero-knowledge
+proofs do compose in sequence up to a constant number of times;
+but if the distinguishers in the definition of computational
+indistinguishability are required to be uniform, then sequential composition
+again fails~\cite{bv-2010}. There are a huge number of variations to consider and I believe
+there are many definitions for which the question of sequential composition is still open.
+
+For parallel composition, the situation is much simpler: we give an argument due
+to~\cite{goldreich-krawczyk-1996} that zero-knowledge proofs do not compose in
+parallel. The idea of the counterexample is as follows. In proof A, the prover
+poses a randomly chosen computationally intractable challenge to the verifier,
+and then gives the verifier knowledge if and only if the verifier can solve the
+challenge. This proof is zero-knowledge because PPT verifiers can solve the
+challenge only negligibly often. In proof B, the verifier poses a challenge to
+the prover, which the prover answers. The trick is to choose a class of
+challenges whose answers are pseudorandom, so that the answer to the challenge
+on its own does not carry knowledge. However, when proof A and proof B are run
+together in parallel, the verifier can take the challenge it gets in proof A,
+get an answer in proof B, and that use that to get knowledge from the prover in
+proof A.
+
+The difficulty in formalizing this is to find a class of challenges which are
+computationally intractable, in that PPT algorithms solve them with negligible
+probability; zero-knowledge, in that answers look pseudorandom; and decidable, in
+that unbounded algorithms can answer challenges and check answers. Our
+challenges will be phrased as sets: for each security parameter $n$, we will
+agree to some set of sets $S^n_1, \dots, S^n_{2^n}\subseteq \bin^{Q(n)}$, where
+$Q$ is a polynomial. A challenge looks like a value $i\in 1, \dots, Q(n)$, and a
+solution is a value $x\in S^n_i$. We now formalize our desiderata as follows.
+
+\begin{dfn}
+  A \emph{non-uniform ensemble} is a sequence $\{S^n\}$, where for each $n$,
+  $S^n = \{S^n_1, \dots, S^n_{2^n}\}$ is a set of $2^n$ sets. A non-uniform
+  ensemble is:
+  \begin{itemize}
+    \item \emph{polynomially-sized} if there exists a polynomial $Q$ such that
+      for each $n$ and $i$, $S^n_i\subseteq \bin^{Q(n)}$;
+    \item \emph{pseudorandom} if for each $n$ and $i$, $S^n_i$ is pseudorandom
+      (in the sense of \Cref{ex:pseudorandomness});
+    \item \emph{decidable} if there exists an algorithm which, on input $(n,
+      i)$, outputs the elements of $S^n_i$ and then halts.
+    \item \emph{evasive} if for any non-uniform PPT algorithm $\cA$, \[
+        \Pr_{i\in\{1,\dots,2^n\}}[\cA(i)\in S^n_i] = \negl.
+      \]
+  \end{itemize}
+\end{dfn}
+
+\begin{thm}[{\cite[Theorem
+  3.2]{goldreich-krawczyk-1996}}]\label{thm:evasive-sets}
+  There exists a polynomially-sized, pseudorandom, decidable, evasive
+  non-uniform ensemble.
+\end{thm}
+
+Now the actual construction is relatively straightforward. Let $S$ be the
+ensemble from \Cref{thm:evasive-sets}
+and $Q$ the
+size polynomial. Let $K$ be a computable predicate which is known not to be in
+BPP; such things exist by the time hierarchy theorem from complexity theory. We
+will give two zero-knowledge proofs for the language $\bin^*$.
+
+Proof A goes as follows: on input $x\in\bin^n$, $\cP_A$ chooses $i\in\{1,\dots,2^n\}$ uniformly
+at random, which it sends to $\cV_A$. Next, $\cV_A$ chooses $s\in\bin^{Q(n)}$
+uniformly at random, which it sends to $\cP_A$. If $s\in S^n_i$, $\cP_A$ sends
+$K(x)$ to $\cV_A$. Then $\cV_A$ outputs $1$. Informally, this proof is
+zero-knowledge because the probability that any cheating $\cV'_A$ sends an $s\in
+S^n_i$ is negligible, so the probability it learns $K(x)$ is negligible.
+
+Proof B goes as follows: on input $x\in\bin^n$, $\cV_B$ chooses
+$i\in\{1,\dots,2^n\}$ uniformly at random, which it sends to $\cP_B$. Next,
+$\cP_B$ sends $s\in S^n_i$ to $\cV_B$. Then $\cV_B$ outputs $1$. 
+This proof is zero-knowledge because $S^n_i$ is pseudorandom, so the simulator can
+just output a uniform random value and by definition of pseudorandomness no
+distinguisher can tell whether it is seeing that random value or the value from
+$S^n_i$.
+
+However, in the parallel composition, the verifier can wait to send $i$ until it
+receives the $i$ from $\cP_A$. Then, when it gets back $s\in S^n_i$ from
+$\cP_B$, it can send $s$ to $\cP_A$ and get back $K(x)$, and hence it learns
+$K(x)$ with probability $1$.
+
+Under computational hardness assumptions, \Cref{thm:evasive-sets}
+can be extended to,
+for instance, evasive ensembles which are decidable in NP, and hence under such
+assumptions zero-knowledge proofs with NP provers also do not compose in
+parallel.
+
+As a consequence of this construction, it is clear that we need more technology
+to handle parallel composition in any reasonable way. By far the most popular
+attempt to do so is the theory of universal composability.
+
+\subsection{Universal Composability}
