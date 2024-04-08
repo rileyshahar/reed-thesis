@@ -748,7 +748,6 @@
       \field{note}{\url{https://eprint.iacr.org/2000/067}}
       \field{title}{Universally Composable Security: A New Paradigm for Cryptographic Protocols}
       \field{year}{2000}
-      \true{nocite}
       \verb{urlraw}
       \verb https://eprint.iacr.org/2000/067
       \endverb
@@ -821,7 +820,6 @@
       \field{title}{Universally Composable Security}
       \field{volume}{67}
       \field{year}{2020}
-      \true{nocite}
       \verb{doi}
       \verb 10.1145/3402457
       \endverb

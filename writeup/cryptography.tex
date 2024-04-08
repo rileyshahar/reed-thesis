@@ -955,6 +955,7 @@ to the cryptographic models we will study
 in~\Cref{chap:categorical-cryptography}.
 
 \subsection{Composing Interactive Function Computations}
+\label{sec:function-composition}
 
 Possibly the easiest non-trivial composition theorem to state is for sequential
 composition of interactive function computations, but already in this case we
@@ -1044,7 +1045,7 @@ means, it is important that the view of an oracle algorithm includes its queries
   adversaries.
 \end{dfn}
 
-\begin{thm}[{\cite[Theorem 7.3.3]{goldreich-2001}}]
+\begin{thm}[{\cite[Theorem 7.3.3]{goldreich-2001}}]\label{thm:oracle-sequential-composition}
   Suppose $g$ securely reduces to $f$ in the presence of semi-honest
   adversaries, and $f$ is securely computable in the presence of semi-honest
   adversaries. Then $g$ is securely computable in the presence of semi-honest
@@ -1092,14 +1093,17 @@ that everything else pauses while the oracle does its work. It is much more
 difficult to handle parallelism, or even more strongly, to handle concurrency,
 which may in particular be asynchronous.
 
+Third, if we want to handle protocols other than function computations, we will
+need a more robust notion of composition of ideal functionalities---this proof
+is tied to the easy-to-understand structure of function computation.
+
 The goal of universal composability is to resolve these issues, but first we
 will explicitly give an example wherein parallel composition fails.
 
 \subsection{A Counterexample to Parallel Composition}
 
-Before giving the counterexample, we first briefly discuss sequential
-composition of zero-knowledge proofs, which is quite subtle. When
-the definitions are as given
+Before giving the counterexample, we briefly discuss sequential composition of
+zero-knowledge proofs, which is quite subtle. When the definitions are as given
 in~\Cref{def:zkp}, black-box zero
 knowledge proofs do compose in sequence~\cite{goldreich-1994}. On the other
 hand, if we change the definitions so that both the simulator of
@@ -1109,11 +1113,11 @@ are required to be \emph{uniform} PPT,
 then computational zero-knowledge does not
 compose~\cite{goldreich-krawczyk-1996}. However, if under the same definition we
 require that the prover is in NP, then uniform computational zero-knowledge
-proofs do compose in sequence up to a constant number of times;
-but if the distinguishers in the definition of computational
-indistinguishability are required to be uniform, then sequential composition
-again fails~\cite{bv-2010}. There are a huge number of variations to consider and I believe
-there are many definitions for which the question of sequential composition is still open.
+proofs do compose in sequence up to a constant number of times; but if the
+distinguishers in the definition of computational indistinguishability are
+required to be uniform, then sequential composition again fails~\cite{bv-2010}.
+There are a huge number of variations to consider and I believe there are many
+definitions for which the question of sequential composition is still open.
 
 For parallel composition, the situation is much simpler: we give an argument due
 to~\cite{goldreich-krawczyk-1996} that zero-knowledge proofs do not compose in
@@ -1171,9 +1175,9 @@ will give two zero-knowledge proofs for the language $\bin^*$.
 Proof A goes as follows: on input $x\in\bin^n$, $\cP_A$ chooses $i\in\{1,\dots,2^n\}$ uniformly
 at random, which it sends to $\cV_A$. Next, $\cV_A$ chooses $s\in\bin^{Q(n)}$
 uniformly at random, which it sends to $\cP_A$. If $s\in S^n_i$, $\cP_A$ sends
-$K(x)$ to $\cV_A$. Then $\cV_A$ outputs $1$. Informally, this proof is
-zero-knowledge because the probability that any cheating $\cV'_A$ sends an $s\in
-S^n_i$ is negligible, so the probability it learns $K(x)$ is negligible.
+$K(x)$ to $\cV_A$. Then $\cV_A$ outputs $1$. This proof is zero-knowledge
+because the probability that any cheating $\cV'_A$ sends an $s\in S^n_i$ is
+negligible, so the probability it learns $K(x)$ is negligible.
 
 Proof B goes as follows: on input $x\in\bin^n$, $\cV_B$ chooses
 $i\in\{1,\dots,2^n\}$ uniformly at random, which it sends to $\cP_B$. Next,
@@ -1196,6 +1200,97 @@ parallel.
 
 As a consequence of this construction, it is clear that we need more technology
 to handle parallel composition in any reasonable way. By far the most popular
-attempt to do so is the theory of universal composability.
+attempt to do so is universal composability.
 
 \subsection{Universal Composability}
+
+In
+\Cref{sec:function-composition},
+we identified three critical issues with generalizing the proof of
+\Cref{thm:oracle-sequential-composition}:
+we need to handle malicious adversaries which can forward their views to each
+other; we need to handle parallel composition during which other protocols can
+run; and we need a very general way to describe composition and security of a
+large class of computational protocols. Universal composability (UC), due to Ran
+Canetti~\cite{canetti-2000,canetti-2020}, resolves all of these.
+
+The single big idea of UC is to strengthen the notion of emulation required in
+the real-ideal paradigm. Whereas our formulations of simulation security require
+only that \emph{by the end of the computation} the real protocol produces an output
+indistinguishable from the ideal protocol, in UC, this indistinguishability must
+hold \emph{throughout} the computation. Intuitively, we should expect this to be
+strong enough to allow us to prove a parallel composition theorem, because
+in particular the other computation we are composing with will be unable to
+distinguish our protocol from the ideal. In this section, we will sketch some of
+the key tools used to make this formal, without attempting to be fully formal
+ourselves.
+
+In a UC proof, an algorithm called the \emph{environment} represents all the
+other computational processes happening along with the protocol under study. The
+environment is also responsible for giving inputs to parties in a protocol.
+Ultimately, the environment is also the distinguisher, responsible for
+attempting to determine between the real or ideal protocol. If it cannot do so,
+then no other protocol is able to do so, so in particular the security
+guarantees will hold no matter what else is going on. In this way, environments
+abstract over a lot of the complexity in ordinary cryptographic definitions.
+
+Adversarial behavior is somewhat complicated in UC. In addition to the
+environment, there is an algorithm called the \emph{adversary} which may write
+to the \emph{backdoor tapes} of all the parties involved in the protocol. The
+protocol is responsible for specifying how the parties should behave in respnose
+to messages writen on their backdoor tapes---in this way, UC conveniently avoids
+dealing in the formalism with different models of adversaries, since they may be
+specified on a protocol-by-protocol basis. For instance, a protocol meant to be
+secure against semi-honest adversaries may just allow backdoor messages which
+ask the corrupted party to forwards its state to the environment, while a
+protocol meant to be secure against malicious adversaries may allow a party to
+be completely piloted over via instructions sent to its backdoor tape.
+
+When $\pi$ is a protocol and $\cA$ and $\cE$ are algorithms, we write
+$\exec_{\pi,\cA,\cE}$ for the output of $\cE$ after an interactive computation
+with all the algorithms in $\pi$ and with the adversary $\cA$. A protocol $\pi$
+\emph{UC-emulates} another protocol $\phi$ if for any adversary $\cA$ there
+exists a simulator $\cS$ such that, for any environment $\cE$, \[
+  \exec_{\pi,\cA,\cE}\cind \exec_{\phi,\cS,\cE}.
+\]
+The idea is that $\cE$ is trying to output a guess of whether it is interacting
+with $\pi$ or $\phi$; it should be able to do so only negligibly often.
+
+We need a way to express ideal protocols for general cryptographic resources; UC
+calls these \emph{ideal functionalities}. An ideal protocol for a functionality
+essentially consists of an algorithm $\cF$, which receives its inputs from some
+``dummy parties'' and then sends them the correct outputs back. In order to work
+with more than just function computation, $\cF$ is also constantly talking to
+the adversary, and so can simulate functionalities like public commitments that
+do not show up in a function signature. A protocol \emph{UC-realizes} the
+functionality $\cF$ if it UC-simulates the ideal protocol for $\cF$.
+
+The next issue is a formal notion of composition. This should look like the
+``oracle substitution'' construction from the proof
+of~\Cref{thm:oracle-sequential-composition},
+but handle more general forms of composition than the sequential composition
+implied by the oracle reductions. Pick a protocol $\pi$ and a subset $\rho$ of
+the parties involved in $\pi$. Pick another protocol $\phi$ such that there is
+an bijective map from the parties in $\rho$ to those in $\phi$. Then the
+protocol $\pi^{\rho\to\phi}$ replaces the algorithms in $\rho$ with the
+corresponding algorithms from $\phi$. This is called the \emph{universal composition
+operation.} It takes rather a lot of work to make this substitution operation
+precise---for instance, there is a very technical compatibility condition which
+essentially asks that the interfaces of $\phi$ and $\rho$ are ``functional'', in
+the sense that they only interact with the rest of the protocol via their
+inputs and outputs (and the adversary). In~\cite{canetti-2020}, such protocols
+are called \emph{subroutine respecting}.
+
+\begin{thm}[the univeral composition theorem]
+  Under technical assumptions, if $\rho$ is a subroutine of $\pi$ and $\phi$
+  UC-emulates $\rho$, then $\pi^{\rho\to\phi}$ UC-emulates $\pi$.
+\end{thm}
+
+All this is just a sketch; there are of course many technical details to work
+out. For instance, there is an entire low-level model of distributed computation
+which to me seems inextricable from the formalization of the security
+definitions. The underlying machine model is a specific kind of
+\emph{interactive Turing machine}, which has seven different tapes with
+differing semantics and read/write permissions, and the network is mediated by a
+\emph{control function}, which can modify or block messages between machines
+involved in a computation.
