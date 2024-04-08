@@ -1104,6 +1104,7 @@ The goal of universal composability is to resolve these issues, but first we
 will explicitly give an example wherein parallel composition fails.
 
 \subsection{A Counterexample to Parallel Composition}
+\label{sec:no-parallel-zk}
 
 Before giving the counterexample, we briefly discuss sequential composition of
 zero-knowledge proofs, which is quite subtle. When the definitions are as given
@@ -1155,7 +1156,7 @@ solution is a value $x\in S^n_i$. We now formalize our desiderata as follows.
     \item \emph{pseudorandom} if for each $n$ and $i$, $S^n_i$ is pseudorandom
       (in the sense of \Cref{ex:pseudorandomness});
     \item \emph{decidable} if there exists an algorithm which, on input $(n,
-      i)$, outputs the elements of $S^n_i$ and then halts.
+      i)$, outputs the elements of $S^n_i$ and then halts;
     \item \emph{evasive} if for any non-uniform PPT algorithm $\cA$, \[
         \Pr_{i\in\{1,\dots,2^n\}}[\cA(i)\in S^n_i] = \negl.
       \]
@@ -1241,13 +1242,7 @@ Adversarial behavior is somewhat complicated in UC. In addition to the
 environment, there is an algorithm called the \emph{adversary} which may write
 to the \emph{backdoor tapes} of all the parties involved in the protocol. The
 protocol is responsible for specifying how the parties should behave in respnose
-to messages writen on their backdoor tapes---in this way, UC conveniently avoids
-dealing in the formalism with different models of adversaries, since they may be
-specified on a protocol-by-protocol basis. For instance, a protocol meant to be
-secure against semi-honest adversaries may just allow backdoor messages which
-ask the corrupted party to forwards its state to the environment, while a
-protocol meant to be secure against malicious adversaries may allow a party to
-be completely piloted over via instructions sent to its backdoor tape.
+to messages writen on their backdoor tapes.
 
 When $\pi$ is a protocol and $\cA$ and $\cE$ are algorithms, we write
 $\exec_{\pi,\cA,\cE}$ for the output of $\cE$ after an interactive computation
@@ -1257,7 +1252,8 @@ exists a simulator $\cS$ such that, for any environment $\cE$, \[
   \exec_{\pi,\cA,\cE}\cind \exec_{\phi,\cS,\cE}.
 \]
 The idea is that $\cE$ is trying to output a guess of whether it is interacting
-with $\pi$ or $\phi$; it should be able to do so only negligibly often.
+with $\pi$ or $\phi$; it should be able to guess right only negligibly better
+than half of the time.
 
 We need a way to express ideal protocols for general cryptographic resources; UC
 calls these \emph{ideal functionalities}. An ideal protocol for a functionality
@@ -1294,9 +1290,8 @@ In~\cite{canetti-2020}, such protocols are called \emph{subroutine respecting}.
 \end{thm}
 
 All this is just a sketch; there are of course many technical details to work
-out. For instance, there is an entire low-level model of distributed computation
-which to me seems inextricable from the formalization of the security
-definitions. The underlying machine model is a specific kind of
+out. For instance, UC comes with its own entire low-level model of distributed
+computation. The underlying machine model is a specific kind of
 \emph{interactive Turing machine}, which has seven different tapes with
 differing semantics and read/write permissions, and the network is mediated by a
 \emph{control function}, which can modify or block messages between machines
@@ -1314,15 +1309,15 @@ according a highly specific execution model. On one hand, Turing machines are a
 standard and well-understood model of classical computation, and the flexibility
 of the notion of environment allows for encoding a wide variety of security
 properties. On the other hand, the technical specificity of the interaction
-model makes it difficult to formally apply the model; in practice no papers work
-with the precise model, and it is not clear to me that the model is sufficiently
-well-understood to justify the common level of hand-waving. Furthermore, this
-machine model makes it difficult to apply UC to other models of computation. For
-instance, to deal with quantum cryptography, we need to use a mathematically
-separate framework based on quantum which redoes much of the work of the UC
-paper---in fact, there are at least three competing frameworks for doing
-so~\cite{unruh-2004,benor-2004,unruh-2010}, each with their own ad-hoc notion of
-``quantum machine.''
+model makes it difficult to formally apply the model; in practice papers tend
+not to work with the precise model, and it is not clear to me that the model is
+sufficiently well-understood to justify the common level of hand-waving.
+Furthermore, this machine model makes it difficult to apply UC to other models
+of computation. For instance, to deal with quantum cryptography, we need to use
+a mathematically separate framework based on quantum which redoes much of the
+work of the UC paper---in fact, there are at least three competing frameworks
+for doing so~\cite{unruh-2004,benor-2004,unruh-2010}, each with their own ad-hoc
+notion of ``quantum machine.''
 
 In \Cref{q:composition-meaning,q:allowed-composition}, we
 asked about the definition and scope of composition. The subroutine substitution
@@ -1345,33 +1340,49 @@ proof burden which makes many UC proofs intractable, as even aside from the
 low-level details of the machine model, constructing a simulator that is
 in constant conversation with the environment is quite burdensome. The high
 proof burden also leads to impossibility results that can require somewhat ad-hoc
-setup assumptions to overcome~\cite{canetti-fischlin-2001,kidron-lindell-2007,jost-2020}.
+setup assumptions to
+overcome~\cite{canetti-fischlin-2001,barak-et-al-2004,kidron-lindell-2007,jost-2020}.
 
 In \Cref{q:adversarial-model}, we asked which kinds of adversaries the
 system accommodates. UC is again quite flexible in this regard. Adversarial
 behavior is built into the protocol via backdoor tapes and corruption messages,
-and then a separate party called the adversary activates (in a controlled,
-stateful way, so that they cannot for instance just corrupt all the parties)
-corruption messages during the protcol. In~\cite[Section 7.1.1]{canetti-2000},
-Canetti gives examples of a wide variety of adversarial models which can be
-incorporated in this way. Furthermore, this approach allows UC proofs to compose
-protocols which are secure against different forms of adversary.
+and then a separate party called the adversary activates (potentially in a
+controlled, stateful way, so that they cannot for instance just corrupt all the
+parties) corruption messages during the protcol. In this way, UC conveniently
+avoids dealing in the formalism with different models of adversaries, since they
+may be specified on a protocol-by-protocol basis. For instance, a protocol meant
+to be secure against semi-honest adversaries may just allow backdoor messages
+which ask the corrupted party to forwards its state to the environment, while a
+protocol meant to be secure against malicious adversaries may allow a party to
+be completely piloted over via instructions sent to its backdoor tape.
+In~\cite[Section 7.1.1]{canetti-2000}, Canetti gives examples of a wide variety
+of adversarial models which can be incorporated in this way. Furthermore, this
+approach allows UC proofs to compose protocols which are secure against
+different forms of adversary.
 
-In \Cref{q:compose-with}, we asked what protocols are being composed
-with. UC does not require that the protocols being composed are secure; in fact
-there are essentially no requirements on the ``outer'' protocol into which the
-substitution will occur. We also saw previously that any framework for
-composition needs some way to assert that the protocols being composed are
-``independent enough'' that one does not give away the secret key of the other;
-UC does this with the notion of ``subroutine respecting'' protocols, which are
-one of the only technical limits on composition.
+In \Cref{q:compose-with}, we asked what protocols we can securely
+compose secure protocols with. UC does not require that the protocols we compose
+with are secure; in fact there are essentially no requirements on the ``outer''
+protocol into which the substitution will occur. We also saw previously that any
+framework for composition needs some way to assert that the protocols being
+composed are ``independent enough'' that one does not give away the secret key
+of the other; UC does this with the notion of ``subroutine respecting''
+protocols, which are one of the only technical limits on composition.
 
 In \Cref{q:count-compositions}, we asked how many times we can compose
 protocols. We have not discussed nested UC-composition, but the universal
 composition theorem holds up to polynomially many nested substitutions of
 subroutines, which as discussed earlier is a tight bound.
 
-Finally, we want to give two pieces of evidence of the naturality of UC.
+% How does UC resolve the \cite{goldreich-krawczyk-1996} construction from
+% \Cref{sec:no-parallel-zk}?
+% The the adversary, which is talking to the verifier via
+% the backdoor tape, sees the ``extra'' interactions between the verifier and the
+% prover , which are not 
+% to learn $K(x)$.
+% Proof B is not 
+%
+Finally, we give two pieces of evidence of the naturality of UC.
 Technically,~\cite{lindell-2003} proved that, if a protocol for multi-party
 function computation is secure under parallel composition with even a constant
 number of (not-necessarily-secure) other protocols, then it is UC-secure.
@@ -1382,8 +1393,62 @@ comparatively new tool, this connection suggests a cross-field applicability of
 even the technical details of UC.
 
 That said, while UC has clear merits, especially in terms of its incredible
-flexibility, there are serious disadvantages to carrying around that degree
-of complexity. In particular, UC cannot handle other models of computation, its
-proves are convoluted and hard to trust, and it carries several impossibility
-results that seem somewhat artificial. We will conclude the chapter by surveying
-some alternatives.
+flexibility, there are serious disadvantages to carrying around that degree of
+complexity. In particular, UC cannot handle other models of computation, its
+proofs are often messy and hard to verify, and it carries several
+impossibility results that seem somewhat artificial. We will conclude the
+chapter by surveying some alternatives.
+
+\subsection{Alternative Approaches}
+
+Several authors attempt to simplify UC by reducing the intended scope. This
+approach is most notably taken by the ``simple UC'' approach of~\cite{ccl-2015}
+in the special case of standard multiparty computation, as well by ``simplified
+UC''\footnote{% Confusingly, not only are simple UC and simplified UC unrelated,
+  the abstract of~\cite{ccl-2015} actually refers to their framework as
+  simplified UC, whereas in the paper and the rest of the literature it is
+  called simple UC. The simple UC model of~\cite{ccl-2015} is a better-known
+framework and references to this term in the literature generally refer to this
+model.}~\cite{wikstr-2016}, which fixes the number of parties and does not handle
+adaptive adversaries. The approach of~\cite{ccl-2015} has been quite successful;
+simple UC has been widely used for composable proofs of secure multiparty computation
+in the literature~\cite{mansy-2019,hazay-2020,lindell-2022,scheffler-2023}.
+
+Another approach in the direction of UC is to use proof automation technologies
+from programming language theory to give constructive UC proofs which can be
+checked and even implemented by machine. For instance,
+IPDL~\cite{morisett-et-al-2021}, a logic for reasoning about secure
+probabilistic message-passing computations, has a weak equational theory
+generated by a UC-inspired observational equivalence relation, while symbolic
+UC~\cite{bohl-unruh-2013} and the interactive lambda
+calculus~\cite{liao-et-al-2019} build programming calculi for UC variants over
+the $\pi$-calculus. There has even been early progress, in the form of
+EasyUC~\cite{canetti-et-al-2019}, in implementing domain-specific languages for
+frameworks of this sort in proof assistants. While these approaches generally
+trade complex machine models for complex typing disciplines without reducing the
+complexity off the core framework, the hope is that these typing disciplines
+will facilitate easier proof automation, removing a lot of the complexity from
+human view.
+
+Slightly further from UC, several authors give UC-like frameworks with different
+low-level machine models. This approach is taken, for instance, by IITM-based
+UC~\cite{camenisch-et-al-2019}, which uses ``interactive inexhaustable Turing
+machines'', and GNUC~\cite{hofheinz-shoup-2011}, which uses statically-linked
+composition rather than the dynamic linking of UC. None of these alternative
+models have caught on to any significant degree; they generally seem to suffer
+either from expressiveness issues or from the same overcomplexity as UC.
+
+A more radical approach is to ignore the low-level details entirely, and
+instead give an algebraic axiomatization of the properties which a machine model
+ought to satisfy. This approach is taken by both constructive
+cryptography~\cite{maurer-et-al-2012} and abstract
+cryptography~\cite{maurer-renner-2011}.  In these closely-related models, there
+is an abstract notion of a ``resource system,'' which is a partially ordered set
+of resources and set of reductions between them satisfying some axioms. These
+algebraic theories can then be instantiated explicitly with resources and
+reducations obtaind from some specific class of cryptographic systems.
+
+As this brief survey demonstrates, the problem of cryptographic composability is
+an active and important area of research with many different ongoing approaches.
+An excellent high-level summary of the state of the field (as of 2019) is the
+report from the Dagstuhl seminar on the subject~\cite{camenisch-et-al-2019}.

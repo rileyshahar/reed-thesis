@@ -252,6 +252,50 @@
       \verb https://www.scottaaronson.com/papers/pnp.pdf
       \endverb
     \endentry
+    \entry{barak-et-al-2004}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=909bf04d3ddf4b0531fdbcfed494d4b4}{%
+           family={Barak},
+           familyi={B\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+        {{hash=cf809913bd06e535c20dc271bb132fb7}{%
+           family={Canetti},
+           familyi={C\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+        {{hash=687bc5488c928b4e6450d87ec3afef9a}{%
+           family={Nielsen},
+           familyi={N\bibinitperiod},
+           given={J.B.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=2498bdc481aae92f965b8ddf963a17b0}{%
+           family={Pass},
+           familyi={P\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{9aefc63f174f33ad110889a0d4750637}
+      \strng{fullhash}{b6cf21d0c3f777ba4cef87327b2be52a}
+      \strng{bibnamehash}{9aefc63f174f33ad110889a0d4750637}
+      \strng{authorbibnamehash}{9aefc63f174f33ad110889a0d4750637}
+      \strng{authornamehash}{9aefc63f174f33ad110889a0d4750637}
+      \strng{authorfullhash}{b6cf21d0c3f777ba4cef87327b2be52a}
+      \field{labelalpha}{Bar+04}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{45th Annual IEEE Symposium on Foundations of Computer Science}
+      \field{title}{Universally composable protocols with relaxed set-up assumptions}
+      \field{year}{2004}
+      \field{pages}{186\bibrangedash 195}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1109/FOCS.2004.71
+      \endverb
+      \keyw{Cryptographic protocols;Access protocols;Information security;Radio access networks;Public key;Isolation technology;Cryptography;Computer science}
+    \endentry
     \entry{bauer-2000}{thesis}{}
       \name{author}{1}{}{%
         {{hash=3d00839a7d4e4ff29f609b74c7a30980}{%
@@ -471,7 +515,7 @@
       \field{labeltitlesource}{title}
       \field{eprintclass}{quant-ph}
       \field{eprinttype}{arXiv}
-      \field{title}{General Security Definition and Composability for Quantum & Classical Protocols}
+      \field{title}{General Security Definition and Composability for Quantum \& Classical Protocols}
       \field{year}{2004}
       \verb{eprint}
       \verb quant-ph/0409062
@@ -787,7 +831,7 @@
       \verb https://eprint.iacr.org/2000/067
       \endverb
     \endentry
-    \entry{canetti-2008}{misc}{}
+    \entry{canetti-2006}{misc}{}
       \name{author}{1}{}{%
         {{hash=7faf0f3900af6c70795ea089d283f02e}{%
            family={Canetti},
@@ -802,6 +846,37 @@
       \strng{authornamehash}{7faf0f3900af6c70795ea089d283f02e}
       \strng{authorfullhash}{7faf0f3900af6c70795ea089d283f02e}
       \field{extraname}{2}
+      \field{labelalpha}{Can06}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Paper 2006/465}
+      \field{note}{\url{https://eprint.iacr.org/2006/465}}
+      \field{title}{Security and Composition of Cryptographic Protocols: A Tutorial}
+      \field{year}{2006}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2006/465
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2006/465
+      \endverb
+    \endentry
+    \entry{canetti-2008}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=7faf0f3900af6c70795ea089d283f02e}{%
+           family={Canetti},
+           familyi={C\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{fullhash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{bibnamehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{authorbibnamehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{authornamehash}{7faf0f3900af6c70795ea089d283f02e}
+      \strng{authorfullhash}{7faf0f3900af6c70795ea089d283f02e}
+      \field{extraname}{3}
       \field{labelalpha}{Can08}
       \field{sortinit}{C}
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
@@ -838,7 +913,7 @@
       \strng{authorbibnamehash}{7faf0f3900af6c70795ea089d283f02e}
       \strng{authornamehash}{7faf0f3900af6c70795ea089d283f02e}
       \strng{authorfullhash}{7faf0f3900af6c70795ea089d283f02e}
-      \field{extraname}{3}
+      \field{extraname}{4}
       \field{labelalpha}{Can20}
       \field{sortinit}{C}
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
@@ -862,6 +937,58 @@
       \verb https://doi.org/10.1145/3402457
       \endverb
       \keyw{security-preserving composition,modular security,universal composition,Security modeling,specification,and analysis}
+    \endentry
+    \entry{ccl-2015}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=7faf0f3900af6c70795ea089d283f02e}{%
+           family={Canetti},
+           familyi={C\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+        {{hash=3d31a0999a172e83f59366376d336b3f}{%
+           family={Cohen},
+           familyi={C\bibinitperiod},
+           given={Asaf},
+           giveni={A\bibinitperiod}}}%
+        {{hash=e20af851262c583d34b7a667a7039cb4}{%
+           family={Lindell},
+           familyi={L\bibinitperiod},
+           given={Yehuda},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer-Verlag}%
+      }
+      \strng{namehash}{c87466fb18678fef98fd8cd47ac5830f}
+      \strng{fullhash}{c87466fb18678fef98fd8cd47ac5830f}
+      \strng{bibnamehash}{c87466fb18678fef98fd8cd47ac5830f}
+      \strng{authorbibnamehash}{c87466fb18678fef98fd8cd47ac5830f}
+      \strng{authornamehash}{c87466fb18678fef98fd8cd47ac5830f}
+      \strng{authorfullhash}{c87466fb18678fef98fd8cd47ac5830f}
+      \field{labelalpha}{CCL15}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper, we present a simpler and more restricted variant of the universally composable security (UC) framework that is suitable for “standard” two-party and multiparty computation tasks. Many of the complications of the UC framework exist in order to enable more general tasks than classic secure computation. This generality may be a barrier to entry for those who are used to the stand-alone model of secure computation and wish to work with universally composable security but are overwhelmed by the differences. The variant presented here (called simplified universally composable security, or just SUC) is closer to the definition of security for multiparty computation in the stand-alone setting. The main difference is that a protocol in the SUC framework runs with a fixed set of parties, and machines cannot be added dynamically to the execution. As a result, the definitions of polynomial time and protocol composition are much simpler. In addition, the SUC framework has authenticated channels built in, as is standard in previous definitions of security, and all communication is done via the adversary in order to enable arbitrary scheduling of messages. Due to these differences, not all cryptographic tasks can be expressed in the SUC framework. Nevertheless, standard secure computation tasks (like secure function evaluation) can be expressed. Importantly, we show that for every protocol that can be represented in the SUC framework, the protocol is secure in SUC if and only if it is secure in UC. Therefore, the UC composition theorem holds and any protocol that is proven secure under SUC is secure under the general framework (with some technical changes to the functionality definition). As a result, protocols that are secure in the SUC framework are secure when an a priori unbounded number of concurrent executions of the protocols take place (relative to the same fixed set of parties).}
+      \field{booktitle}{Advances in Cryptology -- CRYPTO 2015}
+      \field{isbn}{978-3-662-47999-5}
+      \field{title}{A Simpler Variant of Universally Composable Security for Standard Multiparty Computation}
+      \field{year}{2015}
+      \field{pages}{3\bibrangedash 22}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1007/978-3-662-48000-7_1
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/978-3-662-48000-7_1
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/978-3-662-48000-7_1
+      \endverb
     \endentry
     \entry{canetti-fischlin-2001}{inproceedings}{}
       \name{author}{2}{}{%
@@ -908,7 +1035,6 @@
       \field{isbn}{978-3-540-44647-7}
       \field{title}{Universally Composable Commitments}
       \field{year}{2001}
-      \true{nocite}
       \field{pages}{19\bibrangedash 40}
       \range{pages}{22}
     \endentry
@@ -1950,6 +2076,39 @@
       \field{title}{Categorical Logic and Type Theory}
       \field{year}{1999}
     \endentry
+    \entry{jost-2020}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=cde55b67b588acd06f62c748b25021ba}{%
+           family={Jost},
+           familyi={J\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=ba8e38e6733e9f881688e10c5d7661f5}{%
+           family={Maurer},
+           familyi={M\bibinitperiod},
+           given={Ueli},
+           giveni={U\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{e3312d6ee8d9398bfff528f6dafd70ad}
+      \strng{fullhash}{e3312d6ee8d9398bfff528f6dafd70ad}
+      \strng{bibnamehash}{e3312d6ee8d9398bfff528f6dafd70ad}
+      \strng{authorbibnamehash}{e3312d6ee8d9398bfff528f6dafd70ad}
+      \strng{authornamehash}{e3312d6ee8d9398bfff528f6dafd70ad}
+      \strng{authorfullhash}{e3312d6ee8d9398bfff528f6dafd70ad}
+      \field{labelalpha}{JM20}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Cryptology--CRYPTO 2020: 40th Annual International Cryptology Conference, CRYPTO 2020, Santa Barbara, CA, USA, August 17--21, 2020, Proceedings, Part I 40}
+      \field{title}{Overcoming impossibility results in composable security using interval-wise guarantees}
+      \field{year}{2020}
+      \field{pages}{33\bibrangedash 62}
+      \range{pages}{30}
+    \endentry
     \entry{joyal-street-1991}{article}{}
       \name{author}{2}{}{%
         {{hash=879e6f70ccf8d5999602c642fcda57b3}{%
@@ -2027,6 +2186,41 @@
       \endverb
       \verb{url}
       \verb https://www.sciencedirect.com/science/article/pii/0021869364900183
+      \endverb
+    \endentry
+    \entry{kidron-lindell-2007}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=3bf3f6e6551e030da18d8898baa2529c}{%
+           family={Kidron},
+           familyi={K\bibinitperiod},
+           given={Dafna},
+           giveni={D\bibinitperiod}}}%
+        {{hash=e20af851262c583d34b7a667a7039cb4}{%
+           family={Lindell},
+           familyi={L\bibinitperiod},
+           given={Yehuda},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{85325e0b414bf2c36aa39abae1472185}
+      \strng{fullhash}{85325e0b414bf2c36aa39abae1472185}
+      \strng{bibnamehash}{85325e0b414bf2c36aa39abae1472185}
+      \strng{authorbibnamehash}{85325e0b414bf2c36aa39abae1472185}
+      \strng{authornamehash}{85325e0b414bf2c36aa39abae1472185}
+      \strng{authorfullhash}{85325e0b414bf2c36aa39abae1472185}
+      \field{labelalpha}{KL07}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Paper 2007/478}
+      \field{note}{\url{https://eprint.iacr.org/2007/478}}
+      \field{title}{Impossibility Results for Universal Composability in Public-Key Models and with Fixed Inputs}
+      \field{year}{2007}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2007/478
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2007/478
       \endverb
     \endentry
     \entry{katz-lindell-2014}{book}{}
@@ -2153,6 +2347,36 @@
       \field{pages}{134\bibrangedash 145}
       \range{pages}{12}
     \endentry
+    \entry{lindell-2003}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=c8fc0dd2e20702905ce479ed0b83787b}{%
+           family={Lindell},
+           familyi={L\bibinitperiod},
+           given={Y.},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{c8fc0dd2e20702905ce479ed0b83787b}
+      \strng{fullhash}{c8fc0dd2e20702905ce479ed0b83787b}
+      \strng{bibnamehash}{c8fc0dd2e20702905ce479ed0b83787b}
+      \strng{authorbibnamehash}{c8fc0dd2e20702905ce479ed0b83787b}
+      \strng{authornamehash}{c8fc0dd2e20702905ce479ed0b83787b}
+      \strng{authorfullhash}{c8fc0dd2e20702905ce479ed0b83787b}
+      \field{extraname}{1}
+      \field{labelalpha}{Lin03}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{44th Annual IEEE Symposium on Foundations of Computer Science, 2003. Proceedings.}
+      \field{title}{General composition and universal composability in secure multi-party computation}
+      \field{year}{2003}
+      \field{pages}{394\bibrangedash 403}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1109/SFCS.2003.1238213
+      \endverb
+      \keyw{Protocols;Computer networks;Intelligent networks;Concurrent computing;Computer security;Stress;Cryptography;Random variables;Privacy;Polynomials}
+    \endentry
     \entry{lindell-2017}{inbook}{}
       \name{author}{1}{}{%
         {{hash=e20af851262c583d34b7a667a7039cb4}{%
@@ -2170,6 +2394,7 @@
       \strng{authorbibnamehash}{e20af851262c583d34b7a667a7039cb4}
       \strng{authornamehash}{e20af851262c583d34b7a667a7039cb4}
       \strng{authorfullhash}{e20af851262c583d34b7a667a7039cb4}
+      \field{extraname}{2}
       \field{labelalpha}{Lin17}
       \field{sortinit}{L}
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
@@ -2603,6 +2828,43 @@
       \endverb
       \verb{url}
       \verb https://doi.org/10.7551/mitpress/1524.001.0001
+      \endverb
+    \endentry
+    \entry{patrignani-2022}{misc}{}
+      \name{author}{3}{}{%
+        {{hash=598c4daedc53865dd531e1cb12e29add}{%
+           family={Patrignani},
+           familyi={P\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod}}}%
+        {{hash=c968c480d4a3d5fac32c12d13879ff04}{%
+           family={Künnemann},
+           familyi={K\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+        {{hash=576bbde2acf3c9771442761f5c5591a5}{%
+           family={Wahby},
+           familyi={W\bibinitperiod},
+           given={Riad\bibnamedelima S.},
+           giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{b0cdbc3e22c9ce6958477c89860da866}
+      \strng{fullhash}{b0cdbc3e22c9ce6958477c89860da866}
+      \strng{bibnamehash}{b0cdbc3e22c9ce6958477c89860da866}
+      \strng{authorbibnamehash}{b0cdbc3e22c9ce6958477c89860da866}
+      \strng{authornamehash}{b0cdbc3e22c9ce6958477c89860da866}
+      \strng{authorfullhash}{b0cdbc3e22c9ce6958477c89860da866}
+      \field{labelalpha}{PKW22}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.PL}
+      \field{eprinttype}{arXiv}
+      \field{title}{Universal Composability is Robust Compilation}
+      \field{year}{2022}
+      \verb{eprint}
+      \verb 1910.08634
       \endverb
     \endentry
     \entry{pass-shelat-2020}{book}{}

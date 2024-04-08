@@ -1416,3 +1416,274 @@
 	year = {2020},
 	organization = {Springer},
 }
+
+@inproceedings{barak-et-al-2004,
+	author = {Barak, B. and Canetti, R. and Nielsen, J.B. and Pass, R.},
+	booktitle = {45th Annual IEEE Symposium on Foundations of Computer Science},
+	title = {Universally composable protocols with relaxed set-up assumptions},
+	year = {2004},
+	volume = {},
+	number = {},
+	pages = {186-195},
+	keywords = {Cryptographic protocols;Access protocols;Information
+	            security;Radio access networks;Public key;Isolation
+	            technology;Cryptography;Computer science},
+	doi = {10.1109/FOCS.2004.71},
+}
+
+@inproceedings{ccl-2015,
+	author = {Canetti, Ran and Cohen, Asaf and Lindell, Yehuda},
+	title = {A Simpler Variant of Universally Composable Security for Standard
+	         Multiparty Computation},
+	year = {2015},
+	isbn = {978-3-662-47999-5},
+	publisher = {Springer-Verlag},
+	address = {Berlin, Heidelberg},
+	url = {https://doi.org/10.1007/978-3-662-48000-7_1},
+	doi = {10.1007/978-3-662-48000-7_1},
+	abstract = {In this paper, we present a simpler and more restricted variant of
+	            the universally composable security (UC) framework that is suitable
+	            for “standard” two-party and multiparty computation tasks. Many of
+	            the complications of the UC framework exist in order to enable more
+	            general tasks than classic secure computation. This generality may
+	            be a barrier to entry for those who are used to the stand-alone
+	            model of secure computation and wish to work with universally
+	            composable security but are overwhelmed by the differences. The
+	            variant presented here (called simplified universally composable
+	            security, or just SUC) is closer to the definition of security for
+	            multiparty computation in the stand-alone setting. The main
+	            difference is that a protocol in the SUC framework runs with a
+	            fixed set of parties, and machines cannot be added dynamically to
+	            the execution. As a result, the definitions of polynomial time and
+	            protocol composition are much simpler. In addition, the SUC
+	            framework has authenticated channels built in, as is standard in
+	            previous definitions of security, and all communication is done via
+	            the adversary in order to enable arbitrary scheduling of messages.
+	            Due to these differences, not all cryptographic tasks can be
+	            expressed in the SUC framework. Nevertheless, standard secure
+	            computation tasks (like secure function evaluation) can be
+	            expressed. Importantly, we show that for every protocol that can be
+	            represented in the SUC framework, the protocol is secure in SUC if
+	            and only if it is secure in UC. Therefore, the UC composition
+	            theorem holds and any protocol that is proven secure under SUC is
+	            secure under the general framework (with some technical changes to
+	            the functionality definition). As a result, protocols that are
+	            secure in the SUC framework are secure when an a priori unbounded
+	            number of concurrent executions of the protocols take place
+	            (relative to the same fixed set of parties).},
+	booktitle = {Advances in Cryptology -- CRYPTO 2015},
+	pages = {3–22},
+	numpages = {20},
+}
+
+@inproceedings{wikstr-2016,
+	author = "Wikstr{\"o}m, Douglas",
+	editor = "Kushilevitz, Eyal and Malkin, Tal",
+	title = "Simplified Universal Composability Framework",
+	booktitle = "Theory of Cryptography",
+	year = "2016",
+	publisher = "Springer Berlin Heidelberg",
+	address = "Berlin, Heidelberg",
+	pages = "566--595",
+	abstract = "We introduce a simplified universally composable (UC) security
+	            framework in our thesis (2005). In this paper we present an updated
+	            more comprehensive and illustrated version. The introduction of our
+	            simplified model is motivated by the difficulty to describe and
+	            analyze concrete protocols in the full UC framework due to its
+	            generality and complexity.",
+	isbn = "978-3-662-49096-9",
+}
+
+@inproceedings{camenisch-et-al-2019,
+	author = "Camenisch, Jan and Krenn, Stephan and K{\"u}sters, Ralf and Rausch,
+	          Daniel",
+	editor = "Galbraith, Steven D. and Moriai, Shiho",
+	title = "iUC: Flexible Universal Composability Made Simple",
+	booktitle = "Advances in Cryptology -- ASIACRYPT 2019",
+	year = "2019",
+	publisher = "Springer International Publishing",
+	address = "Cham",
+	pages = "191--221",
+	abstract = "Proving the security of complex protocols is a crucial and very
+	            challenging task. A widely used approach for reasoning about such
+	            protocols in a modular way is universal composability. A perfect
+	            model for universal composability should provide a sound basis for
+	            formal proofs and be very flexible in order to allow for modeling a
+	            multitude of different protocols. It should also be easy to use,
+	            including useful design conventions for repetitive modeling aspects
+	            , such as corruption, parties, sessions, and subroutine
+	            relationships, such that protocol designers can focus on the core
+	            logic of their protocols.",
+	isbn = "978-3-030-34618-8",
+}
+
+@misc{hofheinz-shoup-2011,
+	author = {Dennis Hofheinz and Victor Shoup},
+	title = {GNUC: A New Universal Composability Framework},
+	howpublished = {Cryptology ePrint Archive, Paper 2011/303},
+	year = {2011},
+	note = {\url{https://eprint.iacr.org/2011/303}},
+	url = {https://eprint.iacr.org/2011/303},
+}
+
+@misc{morisett-et-al-2021,
+	author = {Greg Morrisett and Elaine Shi and Kristina Sojakova and Xiong Fan
+	          and Joshua Gancher},
+	title = {IPDL: A Simple Framework for Formally Verifying Distributed
+	         Cryptographic Protocols},
+	howpublished = {Cryptology ePrint Archive, Paper 2021/147},
+	year = {2021},
+	note = {\url{https://eprint.iacr.org/2021/147}},
+	url = {https://eprint.iacr.org/2021/147},
+}
+
+@inproceedings{liao-et-al-2019,
+	author = {Liao, Kevin and Hammer, Matthew A. and Miller, Andrew},
+	title = {ILC: a calculus for composable, computational cryptography},
+	year = {2019},
+	isbn = {9781450367127},
+	publisher = {Association for Computing Machinery},
+	address = {New York, NY, USA},
+	url = {https://doi.org/10.1145/3314221.3314607},
+	doi = {10.1145/3314221.3314607},
+	abstract = {The universal composability (UC) framework is the established
+	            standard for analyzing cryptographic protocols in a modular way,
+	            such that security is preserved under concurrent composition with
+	            arbitrary other protocols. However, although UC is widely used for
+	            on-paper proofs, prior attempts at systemizing it have fallen short
+	            , either by using a symbolic model (thereby ruling out
+	            computational reduction proofs), or by limiting its expressiveness.
+	            In this paper, we lay the groundwork for building a concrete,
+	            executable implementation of the UC framework. Our main
+	            contribution is a process calculus, dubbed the Interactive Lambda
+	            Calculus (ILC). ILC faithfully captures the computational model
+	            underlying UC—interactive Turing machines (ITMs)—by adapting ITMs
+	            to a subset of the π-calculus through an affine typing discipline.
+	            In other words, well-typed ILC programs are expressible as ITMs. In
+	            turn, ILC’s strong confluence property enables reasoning about
+	            cryptographic security reductions. We use ILC to develop a
+	            simplified implementation of UC called SaUCy.},
+	booktitle = {Proceedings of the 40th ACM SIGPLAN Conference on Programming
+	             Language Design and Implementation},
+	pages = {640–654},
+	numpages = {15},
+	keywords = {universal composability, type systems, process calculus, Provable
+	            security},
+	location = {Phoenix, AZ, USA},
+	series = {PLDI 2019},
+}
+
+@misc{bohl-unruh-2013,
+	author = {Florian Böhl and Dominique Unruh},
+	title = {Symbolic Universal Composability},
+	howpublished = {Cryptology ePrint Archive, Paper 2013/062},
+	year = {2013},
+	note = {\url{https://eprint.iacr.org/2013/062}},
+	url = {https://eprint.iacr.org/2013/062},
+}
+
+@misc{canetti-et-al-2019,
+	author = {Ran Canetti and Alley Stoughton and Mayank Varia},
+	title = {EasyUC: Using EasyCrypt to Mechanize Proofs of Universally Composable
+	         Security},
+	howpublished = {Cryptology ePrint Archive, Paper 2019/582},
+	year = {2019},
+	note = {\url{https://eprint.iacr.org/2019/582}},
+	url = {https://eprint.iacr.org/2019/582},
+}
+
+@inproceedings{maurer-et-al-2012,
+	author = "Maurer, Ueli",
+	editor = "M{\"o}dersheim, Sebastian and Palamidessi, Catuscia",
+	title = "Constructive Cryptography -- A New Paradigm for Security Definitions
+	         and Proofs",
+	booktitle = "Theory of Security and Applications",
+	year = "2012",
+	publisher = "Springer Berlin Heidelberg",
+	address = "Berlin, Heidelberg",
+	pages = "33--56",
+	abstract = "Constructive cryptography, an application of abstract cryptography
+	            proposed by Maurer and Renner, is a new paradigm for defining the
+	            security of cryptographic schemes such as symmetric encryption,
+	            message authentication codes, public-key encryption, key-agreement
+	            protocols, and digital signature schemes, and for proving the
+	            security of protocols making use of such schemes. Such a
+	            cryptographic scheme can be seen (and defined) as constructing a
+	            certain resource (e.g. a channel or key) with certain security
+	            properties from another (weaker) such resource. For example, a
+	            secure encryption scheme constructs a secure channel from an
+	            authenticated channel and a secret key.",
+	isbn = "978-3-642-27375-9",
+}
+
+@inproceedings{maurer-renner-2011,
+	author = {Ueli Maurer and Renato Renner},
+	title = {Abstract Cryptography},
+	editor = {Bernard Chazelle},
+	booktitle = {The Second Symposium on Innovations in Computer Science, ICS 2011
+	             },
+	pages = {1--21},
+	year = {2011},
+	month = {1},
+	publisher = {Tsinghua University Press},
+}
+
+@article{camenisch-et-al-2019,
+	author = {Camenisch, Jan and K\"{u}sters, Ralf and Lysyanskaya, Anna and
+	          Scafuro, Alessandra},
+	title = {{Practical Yet Composably Secure Cryptographic Protocols (Dagstuhl
+	         Seminar 19042)}},
+	pages = {88--103},
+	journal = {Dagstuhl Reports},
+	ISSN = {2192-5283},
+	year = {2019},
+	volume = {9},
+	number = {1},
+	editor = {Camenisch, Jan and K\"{u}sters, Ralf and Lysyanskaya, Anna and
+	          Scafuro, Alessandra},
+	publisher = {Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r Informatik},
+	address = {Dagstuhl, Germany},
+	URL = {https://drops-dev.dagstuhl.de/entities/document/10.4230/DagRep.9.1.88},
+	URN = {urn:nbn:de:0030-drops-105710},
+	doi = {10.4230/DagRep.9.1.88},
+	annote = {Keywords: applied cryptography, cryptographic protocols, practical
+	          protocols, provably secure protocols, security models, universally
+	          composability},
+}
+
+@article{hazay-2020,
+	title = {Low cost constant round MPC combining BMR and oblivious transfer},
+	author = {Hazay, Carmit and Scholl, Peter and Soria-Vazquez, Eduardo},
+	journal = {Journal of cryptology},
+	volume = {33},
+	number = {4},
+	pages = {1732--1786},
+	year = {2020},
+	publisher = {Springer},
+}
+
+@article{lindell-2022,
+	title = {Simple three-round multiparty schnorr signing with full
+	         simulatability},
+	author = {Lindell, Yehuda},
+	journal = {Cryptology ePrint Archive},
+	year = {2022},
+}
+
+@inproceedings{mansy-2019,
+	title = {Endemic oblivious transfer},
+	author = {Mansy, Daniel and Rindal, Peter},
+	booktitle = {Proceedings of the 2019 ACM SIGSAC Conference on Computer and
+	             Communications Security},
+	pages = {309--326},
+	year = {2019},
+}
+
+@inproceedings{scheffler-2023,
+	title = {Public verification for private hash matching},
+	author = {Scheffler, Sarah and Kulshrestha, Anunay and Mayer, Jonathan},
+	booktitle = {2023 IEEE Symposium on Security and Privacy (SP)},
+	pages = {253--273},
+	year = {2023},
+	organization = {IEEE},
+}
