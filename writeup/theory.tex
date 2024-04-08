@@ -17,7 +17,7 @@ their running time on large inputs. We formalize this notion as follows:
   sufficiently large inputs. We say that $f$ is \emph{big-Oh of
   $g$}, written $f=O(g)$, if there exists a constant $c>0$ such that for all $n$
   sufficiently large, \[
-    c f(n) \geq g(n).
+    f(n) \leq cg(n).
   \] In this case, we also say that $g$ is \emph{big-Omega of $f$}, written $g =
   \Omega(f)$.
 
@@ -37,7 +37,7 @@ their running time on large inputs. We formalize this notion as follows:
 
 \begin{ntn}
   By abuse of notation, we often write $f(n) = O(g(n))$ to mean that $f$ is
-  $O(n)$; for example, the statement that $n^2$ is $O(n^3)$ means that the
+  $O(g)$; for example, the statement that $n^2$ is $O(n^3)$ means that the
   function $f(n) = n^2$ is $O(g)$, where $g$ is the function $n\mapsto n^3$.
 \end{ntn}
 
@@ -67,7 +67,7 @@ O(g)$, it is common in some contexts to treat functions as identical with their
 asymptotic equivalence class.
 
 \begin{prop}\label{thm:asymptotic closure}
-  Let $f_1 = O(g_1)$ and $f_2 = O(g_2)$. Let $c$ be any nonzero constant. Then,
+  Let $f_1 = O(g_1)$ and $f_2 = O(g_2)$. Let $c$ be any positive constant. Then,
   \[
     f_1 + f_2 = O(\max\{g_1,g_2\}),\quad
     cf_1 = O(g_1),\quad\text{and}\quad
