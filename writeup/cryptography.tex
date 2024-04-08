@@ -896,6 +896,7 @@ zero-knowledge proof~\cite{ben-or-et-al-1990}.
 \section{Composition}
 
 \subsection{The Issues at Hand}
+\label{sec:composition-issues}
 
 We now wish to consider whether our security definitions are closed under composition
 of protocols. There are many different issues to consider in stating such a
@@ -905,40 +906,42 @@ composition theorem, including:
   \item What kinds of protocols are being composed? Our security definitions do not
     capture security of arbitrary interactive processes, so either we will
     need a substantially more general definition or we will need to limit
-    our composition theorem to a specific class of protocols.
+    our composition theorem to a specific class of
+    protocols.\label{q:composed-protocols}
   \item What does it mean to compose these protocols? It is not immediately
-    clear how to compose arbitary interactive algorithms.
+    clear how to compose arbitary interactive
+    algorithms.\label{q:composition-meaning}
   \item What kind of composition is allowed? In particular, we can
     consider \emph{sequential composition}, in which only one protocol is
     ``running'' simultaneously, or \emph{parallel composition}, in which many
     protocols may be running simultaneously. To formally state a parallel
     composition theorem, we need to either specify a \emph{scheduling model} and
     deal with low-level issues like atomicity, or find some way to abstract over
-    these details.
+    these details.\label{q:allowed-composition}
   \item What kind of security is being preserved? Given a security definition
     for the component protocols, we need some say to derive the security
-    definition for the composite protocol.
+    definition for the composite protocol.\label{q:preserved-security}
   \item What kinds of adversaries does the theorem handle? Composition theorems
     may look very different for security against uniform and non-uniform
     adversaries, for instance---these subtle issues can lead to very different
-    results.
+    results.\label{q:adversarial-model}
   \item What protocols are we allowed to compose with? We could be allowed to
     compose with arbitrary protocols, which might not even be secure, or only
-    with other protocols we already know are secure.\label{item:compose-with}
+    with other protocols we already know are secure.\label{q:compose-with}
   \item How many times we can compose---for instance, must it be constant in the
-    security parameter?\label{item:count-compositions}
+    security parameter?\label{q:count-compositions}
 \end{questions}
 
 As these questions demonstrate, composition theorems are really quite difficult
 to state. However, even without a formal theorem in mind, we can make a few
 concrete observations.
 
-In regards to~\Cref{item:compose-with}, we need to have some kind of
+In regards to~\Cref{q:compose-with}, we need to have some kind of
 idea of ``independence of state'' between two protocols before we can compose
 them. For instance, we certainly should not be allowed to compose the one-time
 pad with a protocol that publicly broadcasts the key.
 
-In regards to~\Cref{item:count-compositions}, we should at best expect
+In regards to~\Cref{q:count-compositions}, we should at best expect
 to be able to compose polynomially many protocols in the security parameter.
 This is in part for complexity reasons---a polytime turing machine cannot
 simulate super-polynomially many protocols---but there is also a security
@@ -1271,19 +1274,23 @@ of~\Cref{thm:oracle-sequential-composition},
 but handle more general forms of composition than the sequential composition
 implied by the oracle reductions. Pick a protocol $\pi$ and a subset $\rho$ of
 the parties involved in $\pi$. Pick another protocol $\phi$ such that there is
-an bijective map from the parties in $\rho$ to those in $\phi$. Then the
-protocol $\pi^{\rho\to\phi}$ replaces the algorithms in $\rho$ with the
-corresponding algorithms from $\phi$. This is called the \emph{universal composition
-operation.} It takes rather a lot of work to make this substitution operation
-precise---for instance, there is a very technical compatibility condition which
-essentially asks that the interfaces of $\phi$ and $\rho$ are ``functional'', in
-the sense that they only interact with the rest of the protocol via their
-inputs and outputs (and the adversary). In~\cite{canetti-2020}, such protocols
-are called \emph{subroutine respecting}.
+an injective map from the parties in $\rho$ to those in $\phi$. Then the
+protocol $\pi^{\rho\to\phi}$ replaces $\rho$ with $\phi$, wiring up the
+communication with the rest of $\pi$ according to the injection (note that
+$\phi$ may have more machines than $\rho$; these do not talk to the other
+parties in $\pi$). This is called the \emph{universal composition operation.} It
+takes rather a lot of work to make this substitution operation precise---for
+instance, there is a very technical compatibility condition which essentially
+asks that the interfaces of $\phi$ and $\rho$ are ``functional'', in the
+intuitive sense that they only interact with the rest of the protocol via their
+inputs and outputs (and maybe as a result of corruption).
+In~\cite{canetti-2020}, such protocols are called \emph{subroutine respecting}.
 
-\begin{thm}[the univeral composition theorem]
+\begin{thm}[the univeral composition theorem{~\cite[Theorem 22]{canetti-2020}}]
   Under technical assumptions, if $\rho$ is a subroutine of $\pi$ and $\phi$
-  UC-emulates $\rho$, then $\pi^{\rho\to\phi}$ UC-emulates $\pi$.
+  UC-emulates $\rho$, then $\pi^{\rho\to\phi}$ UC-emulates $\pi$. In particular,
+  if $\cF$ and $\cG$ are ideal functionalities such that $\pi$ UC-realizes
+  $\cG$ and $\phi$ UC-realizes $\cF$, then $\pi^{\cF\to\phi}$ UC-realizes $\cG$.
 \end{thm}
 
 All this is just a sketch; there are of course many technical details to work
@@ -1293,4 +1300,90 @@ definitions. The underlying machine model is a specific kind of
 \emph{interactive Turing machine}, which has seven different tapes with
 differing semantics and read/write permissions, and the network is mediated by a
 \emph{control function}, which can modify or block messages between machines
-involved in a computation.
+involved in a computation. There is no formal notion of a ``secure channel'' in
+UC, nor of other basic cryptographic resources; instead every resource is meant
+to be represented as an auxiliary machine which implements some ideal
+functionality.
+
+To summarize and begin to evaluate the framework, we now return to the questions
+from \Cref{sec:composition-issues}.
+
+In \Cref{q:composed-protocols}, we asked what kinds of protocols are
+being composed. Protocols in UC are sets of interactive Turing machines behaving
+according a highly specific execution model. On one hand, Turing machines are a
+standard and well-understood model of classical computation, and the flexibility
+of the notion of environment allows for encoding a wide variety of security
+properties. On the other hand, the technical specificity of the interaction
+model makes it difficult to formally apply the model; in practice no papers work
+with the precise model, and it is not clear to me that the model is sufficiently
+well-understood to justify the common level of hand-waving. Furthermore, this
+machine model makes it difficult to apply UC to other models of computation. For
+instance, to deal with quantum cryptography, we need to use a mathematically
+separate framework based on quantum which redoes much of the work of the UC
+paper---in fact, there are at least three competing frameworks for doing
+so~\cite{unruh-2004,benor-2004,unruh-2010}, each with their own ad-hoc notion of
+``quantum machine.''
+
+In \Cref{q:composition-meaning,q:allowed-composition}, we
+asked about the definition and scope of composition. The subroutine substitution
+operation from UC is extremely general. Canetti argues, and the last twenty
+years have demonstrated, that together with control functions which model
+adversarial network conditions, UC composition can handle sequential, parallel,
+concurrent, and asynchronous composition; that it can handle compositions with
+variable numbers of rounds and subroutine calls; with coordinated or
+uncoordinated timings; with adaptively chosen inputs and adversaries;
+composition with shared and independent state; and more. One good source of
+examples of these claims is~\cite{canetti-2006}.
+
+In \Cref{q:preserved-security}, we asked how the system derives
+security definitions for composite protocols. UC works similarly to the oracle
+model: there is one ``outermost'' protocol, and we substitute real protocols for
+idealized subroutines within the protocol. The key point is the definition of
+UC-emulation is strong enough to allow a protocol to be substituted for an ideal
+functionality virtually anywhere and any time. However, this imposes a high
+proof burden which makes many UC proofs intractable, as even aside from the
+low-level details of the machine model, constructing a simulator that is
+in constant conversation with the environment is quite burdensome. The high
+proof burden also leads to impossibility results that can require somewhat ad-hoc
+setup assumptions to overcome~\cite{canetti-fischlin-2001,kidron-lindell-2007,jost-2020}.
+
+In \Cref{q:adversarial-model}, we asked which kinds of adversaries the
+system accommodates. UC is again quite flexible in this regard. Adversarial
+behavior is built into the protocol via backdoor tapes and corruption messages,
+and then a separate party called the adversary activates (in a controlled,
+stateful way, so that they cannot for instance just corrupt all the parties)
+corruption messages during the protcol. In~\cite[Section 7.1.1]{canetti-2000},
+Canetti gives examples of a wide variety of adversarial models which can be
+incorporated in this way. Furthermore, this approach allows UC proofs to compose
+protocols which are secure against different forms of adversary.
+
+In \Cref{q:compose-with}, we asked what protocols are being composed
+with. UC does not require that the protocols being composed are secure; in fact
+there are essentially no requirements on the ``outer'' protocol into which the
+substitution will occur. We also saw previously that any framework for
+composition needs some way to assert that the protocols being composed are
+``independent enough'' that one does not give away the secret key of the other;
+UC does this with the notion of ``subroutine respecting'' protocols, which are
+one of the only technical limits on composition.
+
+In \Cref{q:count-compositions}, we asked how many times we can compose
+protocols. We have not discussed nested UC-composition, but the universal
+composition theorem holds up to polynomially many nested substitutions of
+subroutines, which as discussed earlier is a tight bound.
+
+Finally, we want to give two pieces of evidence of the naturality of UC.
+Technically,~\cite{lindell-2003} proved that, if a protocol for multi-party
+function computation is secure under parallel composition with even a constant
+number of (not-necessarily-secure) other protocols, then it is UC-secure.
+Socially, a precise connection has recently been established between UC and the
+independently-formulated \emph{robust compilation} (RC) framework from
+programming language security~\cite{patrignani-2022}; while RC is a
+comparatively new tool, this connection suggests a cross-field applicability of
+even the technical details of UC.
+
+That said, while UC has clear merits, especially in terms of its incredible
+flexibility, there are serious disadvantages to carrying around that degree
+of complexity. In particular, UC cannot handle other models of computation, its
+proves are convoluted and hard to trust, and it carries several impossibility
+results that seem somewhat artificial. We will conclude the chapter by surveying
+some alternatives.

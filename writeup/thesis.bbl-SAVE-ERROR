@@ -445,6 +445,38 @@
       \verb http://dx.doi.org/10.4204/EPTCS.287.3
       \endverb
     \endentry
+    \entry{benor-2004}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=41eb128ae71f8745a6089159ac4aaf4e}{%
+           family={Ben-Or},
+           familyi={B\bibinithyphendelim O\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=1e44109b88f1f5306f6a31e7c06d68ee}{%
+           family={Mayers},
+           familyi={M\bibinitperiod},
+           given={Dominic},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{fbed8652799e7bc23eba621f975ca6fc}
+      \strng{fullhash}{fbed8652799e7bc23eba621f975ca6fc}
+      \strng{bibnamehash}{fbed8652799e7bc23eba621f975ca6fc}
+      \strng{authorbibnamehash}{fbed8652799e7bc23eba621f975ca6fc}
+      \strng{authornamehash}{fbed8652799e7bc23eba621f975ca6fc}
+      \strng{authorfullhash}{fbed8652799e7bc23eba621f975ca6fc}
+      \field{labelalpha}{BM04}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{quant-ph}
+      \field{eprinttype}{arXiv}
+      \field{title}{General Security Definition and Composability for Quantum & Classical Protocols}
+      \field{year}{2004}
+      \verb{eprint}
+      \verb quant-ph/0409062
+      \endverb
+    \endentry
     \entry{bmr-2019}{article}{}
       \name{author}{3}{}{%
         {{hash=cfd3b9848839873cc8adc5f9f22cb03f}{%
@@ -3066,6 +3098,34 @@
       \verb https://theory.stanford.edu/~trevisan/cs276/lecture27.pdf
       \endverb
     \endentry
+    \entry{unruh-2004}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=8a56d1103628eb2468b4302fe42b4baa}{%
+           family={Unruh},
+           familyi={U\bibinitperiod},
+           given={Dominique},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{8a56d1103628eb2468b4302fe42b4baa}
+      \strng{fullhash}{8a56d1103628eb2468b4302fe42b4baa}
+      \strng{bibnamehash}{8a56d1103628eb2468b4302fe42b4baa}
+      \strng{authorbibnamehash}{8a56d1103628eb2468b4302fe42b4baa}
+      \strng{authornamehash}{8a56d1103628eb2468b4302fe42b4baa}
+      \strng{authorfullhash}{8a56d1103628eb2468b4302fe42b4baa}
+      \field{extraname}{1}
+      \field{labelalpha}{Unr04}
+      \field{sortinit}{U}
+      \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{quant-ph}
+      \field{eprinttype}{arXiv}
+      \field{title}{Simulatable security for quantum protocols}
+      \field{year}{2004}
+      \verb{eprint}
+      \verb quant-ph/0409125
+      \endverb
+    \endentry
     \entry{unruh-2010}{inproceedings}{}
       \name{author}{1}{}{%
         {{hash=8a56d1103628eb2468b4302fe42b4baa}{%
@@ -3086,6 +3146,7 @@
       \strng{authorbibnamehash}{8a56d1103628eb2468b4302fe42b4baa}
       \strng{authornamehash}{8a56d1103628eb2468b4302fe42b4baa}
       \strng{authorfullhash}{8a56d1103628eb2468b4302fe42b4baa}
+      \field{extraname}{2}
       \field{labelalpha}{Unr10}
       \field{sortinit}{U}
       \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
@@ -3097,7 +3158,6 @@
       \field{series}{EUROCRYPT'10}
       \field{title}{Universally Composable Quantum Multi-Party Computation}
       \field{year}{2010}
-      \true{nocite}
       \field{pages}{486\bibrangedash 505}
       \range{pages}{20}
       \verb{doi}
