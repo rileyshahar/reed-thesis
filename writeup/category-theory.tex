@@ -40,19 +40,18 @@ is~\cite{jacobs-1999}.
 \end{dfn}
 
 \begin{ntn}
-  In addition to those used above, many syntaxes are common for basic
-  categorical notions. \begin{itemize}
+  In addition to those used above, many syntaxes are common in the literature for basic
+  categorical notions. For convenience, we survey some here, though we will try
+  to be consistent in our notation.\begin{itemize}
     \item A morphism $f\in\cat{C}(x, y)$ is often written $f\colon x\to y$ or $x\xto{f} y$; $x$ is
       called its \emph{domain} or \emph{source} and $y$ is called it \emph{codomain}
       or \emph{target}.
     \item Morphisms may be called maps, arrows, or homomorphisms; the class of morphisms $\cat{C}(x, y)$ may also be written
       $\Hom_{\cat{C}}(x, y)$ or just $\Hom(x, y)$, and is often called a \emph{hom-set}.
-    \item Composition is written $gf$ or $g\circ f$, or sometimes in the left-to-right
-      order $fg$.
+    \item Composition is written $gf$ or $g\circ f$; in the literature it is
+      sometimes written in the left-to-right order $fg$; we will never do this.
     \item Identities are written $1_x$, $\id_x$, or just $x$ where the context
-      is clear\footnote{I agree
-      with Harold Simmons, who says that this last is ``a notation so ridiculous
-      it should be laughed at in the street''~\cite[p. 5]{simmons-2011}.}.
+      is clear; we will never do the latter.
     \end{itemize}
 \end{ntn}
 
@@ -143,9 +142,10 @@ categories look quite different.
 
 \noindent
 When working with categories, we often want to show that two complex composites
-equate. In this case, we prefer graphical notation to the more traditional
-symbolic equalities of \Cref{def:category}. A
-diagram in a category $\cat{C}$ looks something like so\footnote{
+of morphisms equate. In this case, we prefer graphical notation to the more
+traditional symbolic equalities of
+\Cref{def:category}. A diagram in a category
+$\cat{C}$ looks something like so\footnote{
   The notion of a diagram can be made precise fairly easily; see~\cite[subsection 1.6]{riehl-2017}.
 }:
 \[
@@ -204,17 +204,22 @@ For instance, if
   \end{tikzcd}
 \]
 
-This pasting property is essentially just a re-expression of the transitivity
-and substitution properties of equality, but gives an extraordinarily useful
-geometric intuition to categorical arguments.
+Note that, in order for these diagrams to be well-defined, we need composition
+to be associative: otherwise the top-right path of the previous diagram would be
+ambiguous. In some sense, the algebraic axioms are chosen exactly so that the
+diagrammatic calculus is coherent. This will be a repeated theme for us.
+
+Regardless, this pasting property is essentially just a re-expression of the
+transitivity and substitution properties of equality, but gives an
+extraordinarily useful geometric intuition to categorical arguments.
 
 \subsection{(Iso)morphisms}
 
 The philosophy of category theory is that \begin{center}
   \emph{to study an object, one should study its morphisms.}
 \end{center}
-Indeed, in virtually every natural category, morphisms give enough information
-to recover the entire data of any object.
+Indeed, in every category, morphisms give enough information
+to recover the data of an object.
 
 \begin{ex}\label{ex:recovering structure} In the following categories, we can
   reconstruct an object by ``probing'' it with morphisms from suitable choices
@@ -266,9 +271,11 @@ data'' of an object.
       $\scat{Top}$ are homeomorphisms.
     \item Let $G$ be a group with associated category $\cG$. Then since
       composition is group multiplication, every morphism in $\cG$ is an
-      isomorphism. (That motivates the following definitions: a \emph{monoid} is a
+      isomorphism. (In fact, we can take this as a definition: a \emph{monoid} is a
       category with one object, while a \emph{group} is a monoid in which every
-      morphism is an isomorphism.)
+      morphism is an isomorphism. A \emph{groupoid} is then a category in which
+      every morphism is an isomorphism; groupoids, which generalize groups, are a very interesting
+      algebraic object in their own right.)
     \item Let $P$ be a poset with associated category $\cP$. Then antisymmetry of
       a poset implies that the only isomorphisms in are the identities. (A
       \emph{preorder} is a category in which every hom-set has at most one
@@ -277,7 +284,7 @@ data'' of an object.
     \item Let $M = (Q, \delta)$ be a non-deterministic automaton over the
       alphabet $\Sigma$, so that $\delta: Q\times \Sigma\to \cP(\Sigma)$ is the
       transition function. Recall that the identities in $\cM$ are the empty
-      words. As such, an isormorphism between two states $q_1$ and $q_2$ is a
+      words. As such, an isomorphism between two states $q_1$ and $q_2$ is a
       word $w$ which takes $q_1$ to $q_2$, together with a word $w'$ which takes
       $q_2$ to $q_1$, such that the concatenate $ww'$ is the empty string. In
       other words, $w$ and $w'$ are both empty---so two states are isomorphic if
@@ -304,7 +311,7 @@ Isomorphisms satisfy the basic properties we expect.
 \end{ntn}
 
 \begin{prop}
-  Isomorphism is an equivalence relation on the class of objects in a category $\cat{C}$.
+  Being isomorphic is an equivalence relation on the class of objects in a category $\cat{C}$.
 \end{prop}
 
 \begin{proof}
@@ -339,7 +346,7 @@ the section.
   of $f_*$. Letting $h\in\cat{C}(z, x)$, we have \[ f^{-1}_*(f_*(h)) =
   f^{-1}(fh) = (f^{-1}f)h = 1_xh = h, \]and the same on the other side.
 
-  Simiarly, define a map $f^*: \cat{C}(y, z)\to\cat{C}(x, z)$ by
+  Similarly, define a map $f^*: \cat{C}(y, z)\to\cat{C}(x, z)$ by
   pre-composition, i.e. $f^*(g) = gf$. Then an identical check shows that
   $(f^{-1})^*$, defined similarly, is an inverse of $f^*$.
 \end{proof}
@@ -388,16 +395,17 @@ just a structure-preserving map between categories.
     \item There is a distinct functor $\cP_\forall: \scat{Set}\to\scat{Set}$
       which takes a set $X$ to its powerset, and a set-function $f: X\to Y$ to
       the map given by \[
-        f_\forall(A) = \{y\in Y: \forall x\in X, f(x) = Y \text{ implies } x\in A\}.
+        f_\forall(A) = \{y\in Y: \forall x\in X, f(x) = y \text{ implies } x\in A\}.
       \] As these examples show, the action of a functor on morphisms is not
       determined by its action on objects. (In fact, as usual in category
       theory, it is the action on morphisms---in particular, on the
       identities---which determines the action on objects.)
     \item There is a functor $\text{GL}_n: \scat{Ring}\to\scat{Grp}$ which takes a
       ring $R$ to the multiplicative group $\text{GL}_n(R)$ of invertible $n$-by-$n$
-      matrices with coefficients in $R$.
-    \item There is another functor $(-)^\times: \scat{Ring}\to\scat{Grp}$ which takes a
-      ring $R$ to the multiplicative group of units in $R$.
+      matrices with coefficients in $R$, with entry-wise action of homomorphisms.
+      The functor $\text{GL}_1$ has a special interpretation as the functor
+      which takes a ring $R$ to the multiplicative group of units in $R$. We
+      write $(-)^\times: \scat{Ring}\to\scat{Grp}$.
     \item There is a functor $\texttt{Maybe}: \scat{Set}\to\scat{Set}$ which takes a
       set $X$ to the set $X\sqcup \{\bot\}$, where $\bot$ is a new element, and
       a function $f$ to its extension by $f(\bot) = \bot$.
@@ -412,9 +420,10 @@ just a structure-preserving map between categories.
       its linear extension. This is also called the \emph{free vector space}.
       More generally, any free construction---such as the free group, free ring,
       etc.---forms a functor.
-    \item Let $\cat{C}$ be a concrete category, such as those of \Cref{ex:concrete categories}.
-      Then the \emph{forgetful functor} $U: \cat{C}\to\scat{Set}$ takes each object to
-      its underlying set, and each morphism to its underlying set-function,
+    \item Let $\cat{C}$ be a concrete category, such as those of
+      \Cref{ex:concrete categories}. Then
+      the \emph{forgetful functor} $U: \cat{C}\to\scat{Set}$ takes each object
+      to its underlying set, and each morphism to its underlying set-function,
       ``forgetting'' the additional structure.
     \item There is also a forgetful functor $\scat{Ring}\to\scat{Grp}$ which
       takes each ring to its underlying additive group, and each ring
@@ -427,13 +436,14 @@ just a structure-preserving map between categories.
   certain mathematical structure as a category, functors reproduce the right
   notion of structure-preserving transformation between those structures.
   \begin{itemize}
-    \item Let $P$ and $Q$ be posets with associated categories $\cP$ and $\cQ$. Let
-      $p_1\leq_P p_2$, so that there is a unique morphism $p_1\to p_2$ in $\cP$. Since
-      $F$ must take this morphism to a morphism $Fp_1\to Fp_2$, it must hold that
-      $Fp_1\leq_Q Fp_2$. Furthermore, this is the only requirement on functors, as
-      the statements about identities and composites assert equalities between
-      morphisms, but any two morphisms with the same domain and codomain are equal
-      in a poset. As such, functors between posets are exactly monotone maps.
+    \item Let $P$ and $Q$ be posets with associated categories $\cP$ and $\cQ$,
+      and let $F: \cP\to\cQ$ be a functor. Let $p_1\leq_P p_2$, so that there is
+      a unique morphism $p_1\to p_2$ in $\cP$. Since $F$ must take this morphism
+      to a morphism $Fp_1\to Fp_2$, it must hold that $Fp_1\leq_Q Fp_2$.
+      Furthermore, this is the only requirement on functors, as the statements
+      about identities and composites assert equalities between morphisms, but
+      any two morphisms with the same domain and codomain are equal in a poset.
+      As such, functors between posets are exactly monotone maps.
     \item Let $G$ and $H$ be groups with associated categories $\cG$ and
       $\cH$. A functor $F: \cG\to\cH$ assigns the single object of $\cG$ to the
       single object of $\cH$, and each morphism in $\cG$, which is an element $g\in
@@ -458,10 +468,10 @@ The following class of functors are especially important.
     \cat{C}(x, -):\cat{C}\to\scat{Set},
   \] the \emph{covariant hom-functor at $x$}, which takes an object $y$ to the
   hom-set $\cat{C}(x, y)$, and a morphism $f: y\to z$ to its action by
-  postcomposition, $f_*(g) = fg$\footnote{The analogous functor $\cat{C}(-, x)$
+  post-composition, $f_*(g) = fg$\footnote{The analogous functor $\cat{C}(-, x)$
     requires a little bit of machinery---the notions of \emph{opposite
   categories} and \emph{contravariant functors}---which are outside our scope.
-  It will be defined in any introductory text on category theory.}.
+  It is defined in any introductory text on category theory.}.
 \end{dfn}
 
 Since isomorphic objects are meant to look identical to all the machinery of
@@ -546,14 +556,13 @@ More concretely, recall that functors can be thought of as tools which, given a
 structure of one kind, produce one of another. In this sense, natural
 transformations are a mechanism for converting between such constructions. For
 each object $x\in\cat{C}$, we have two ways to construct an object of $\cat{D}$,
-i.e. $Fx$ and $Gx$. Of course, objects of $\cat{D}$ are related by morhpisms, so
+i.e. $Fx$ and $Gx$. Of course, objects of $\cat{D}$ are related by morphisms, so
 a natural transformation $\alpha: F\To G$ should identify a morphism $\alpha_x:
 Fx\to Gx$ for each $x\in\cat{C}$.
 
 This is not quite enough. We want to ensure that the morphisms $\alpha_x$ are
-somehow ``consistent'', that the natural transformation represents a procedure to
-convert between the two constructions $F$ and $G$ ``independenty of $x$''. We
-formalize that intuition now.
+somehow ``consistent'' with the morphisms of $\cat{C}$. We formalize that
+intuition now.
 
 \begin{dfn}[natural transformation]\label{def:natural transformation}
   Let $F, G: \cat{C}\to\cat{D}$ be functors. A \emph{natural transformation}
@@ -585,7 +594,7 @@ transformations are natural.
       a natural transformation $\alpha: 1_{\scat{Vect}}\To (-)^{**}$ whose
       components $\alpha_V$ take any $v\in V$ to the map $\text{ev}_v:
       \VV^*\to\kk$ given by $T\mapsto Tv$.
-    \item There is a natural transformation $\det:\text{GL}_n\To (-)^*$, where
+    \item There is a natural transformation $\det:\text{GL}_n\To (-)^\times$, where
       $R^*$ is the ring of units from \Cref{ex:functors}, which
       takes the determinant of an invertible matrix.
     \item Recall from \Cref{ex:abstract-functors} that functors between posets
@@ -672,8 +681,6 @@ already know what the notion of an isomorphism of functors has to be.
   Fx\to Gx$ are isomorphisms in $\cat{D}$.
 \end{prop}
 
-% functor category, natural isomorhpism
-
 We can now state the correct form of the converse to \Cref{thm:iso-implies-hom-iso}.
 
 \begin{thm}\label{thm:hom-iso-implies-iso}
@@ -729,20 +736,20 @@ morphisms.
 In ordinary categories, composition is sequential: if morphisms are interpreted
 as computational processes, the composite $gf$ means roughly ``first do $f$,
 then do $g$.'' In many settings, we want to consider both sequential and
-parallel composition. The categorical axiomatization of this idea is
+parallel (or concurrent) composition. The categorical axiomatization of this idea is
 \emph{monoidal categories}.
 
 \subsection{The Definition}
 \label{sec:monoidal definition}
 
-To model parallel composition, we want an binary operation $\otimes$ which
+To model parallel composition, we want a binary operation $\otimes$ which
 assigns, to each pair of processes (morphisms) $f:x\to y$ and $g:w\to z$, their
 parallel composite $f\otimes g$. If we think of objects as types, this parallel
 composite can only run given inputs of both types $x$ and $w$, to feed to $f$
 and $g$ respectively, and should produce two outputs of types $y$ and $z$. To
 represent this notion, we also need a way to pair types (objects), which means a
-binary operation also called $\otimes$ on morphisms. This dual assignment on
-both objects and morphisms suggests functoriality: we will ask that $\otimes$ is
+binary operation also called $\otimes$ on objects. This dual assignment on
+both objects and morphisms suggests functorality: we will ask that $\otimes$ is
 a functor $\cat{C}\times\cat{C}\to\cat{C}$.
 
 What axioms should this data satisfy? As in most well-behaved algebraic
@@ -750,9 +757,9 @@ structures, there should be an identity for $\otimes$ on objects, which we will
 write $I$. Computationally, we may think of $I$ as a ``trivial resource,'' which
 may freely be created and has no uses. This $I$ induces an identity, the
 morphism $1_I$, for $\otimes$ on morphisms, so we do not need to add an identity
-on morphisms as an extra axiom. We would also parallel composition to associate,
-so that we can sensibly talk about performing $n$ processes in parallel. It is
-therefore tempting to list the following axioms:
+on morphisms as an extra axiom. We would also like parallel composition to
+associate, so that we can sensibly talk about performing $n$ processes in
+parallel. It is therefore tempting to list the following axioms:
 
 \[
   I\otimes x = x = x\otimes I; \quad\quad (x\otimes y)\otimes z =
@@ -985,10 +992,9 @@ axioms of a monoidal category more concrete.
     %   by an algorithm which simply first computes the first function, and then
     %   computes the second function.
     \item Let $L$ be a strongly-typed functional programming language with
-      \emph{product types}, which means that for any types $A$ and $B$, there is
-      a type $A\times B$ whose elements are pairs $(a, b)$ of elements $a\in A$
-      and $b\in B$. Then the category $\cL$ is monoidal in the same way as
-      $\scat{Set}$.
+      \emph{product types} $A\times B$, for instance the simply-typed lambda
+      calculus. Then the category $\cL$ is monoidal with the product as the
+      tensor and the unit type as the unit.
   \end{itemize}
 \end{ex}
 
@@ -1044,6 +1050,24 @@ the domain and codomain. We can hook up two wires representing the same
 object---this is sequential composition. We can also place boxes or wires
 side-by-side---this is parallel composition. Accordingly: \[
   \begin{pic}
+    \node[morphism] (g) at (0,.75) {$g\vphantom{f}$};
+    \node[morphism] (f) at (0,0) {$f\vphantom{g}$};
+    \draw (f.south) to ++(0,-.3) node[right] {$x$};
+    \draw (g.south) to  (f.north);
+    \draw (g.north) to ++(0,.3) node[right] {$z$};
+  \end{pic}
+  \hspace{.4em}
+  =
+  \hspace{.8em}
+  \begin{pic}
+    \node[morphism] (f) {$g \circ f$};
+    \draw (f.south) to ++(0,-.5) node[left] {$x$};
+    \draw (f.north) to ++(0,.5) node[left] {$z$};
+  \end{pic}
+  \quad\quad
+  \text{and}
+  \quad\quad
+  \begin{pic}
     \node[morphism] (f) at (0,0) {$f$};
     \draw (f.south) to ++(0,-.5) node[left] {$x$};
     \draw (f.north) to ++(0,.5) node[left] {$y$};
@@ -1066,30 +1090,11 @@ side-by-side---this is parallel composition. Accordingly: \[
     \setlength\minimummorphismwidth{6mm}
     \draw ([xshift=-2.5pt]fg.south west) to ++(0,-.5) node[left] {$x$};
     \draw ([xshift=-2.5pt]fg.north west) to ++(0,.5) node[left] {$y$};
-    \draw ([xshift=2.5pt]fg.south east) to ++(0,-.5) node[right] {$w$};
+    \draw ([xshift=2.5pt]fg.south east) to ++(0,-.5) node[right] {$w$} node[right, xshift=5mm, yshift=1mm] {\normalsize,};
     \draw ([xshift=2.5pt]fg.north east) to ++(0,.5) node[right] {$z$};
   \end{pic}
-  \quad\quad
-  \text{and}
-  \hspace{.7em}
-  \quad\quad
-  \begin{pic}
-    \node[morphism] (g) at (0,.75) {$g\vphantom{f}$};
-    \node[morphism] (f) at (0,0) {$f\vphantom{g}$};
-    \draw (f.south) to ++(0,-.3) node[right] {$x$};
-    \draw (g.south) to  (f.north);
-    \draw (g.north) to ++(0,.3) node[right] {$z$};
-  \end{pic}
-  \hspace{.4em}
-  =
-  \hspace{.8em}
-  \begin{pic}
-    \node[morphism] (f) {$g \circ f$};
-    \draw (f.south) to ++(0,-.5) node[left] {$x$} node[right, xshift=5mm, yshift=1mm] {\normalsize,};
-    \draw (f.north) to ++(0,.5) node[left] {$z$};
-  \end{pic}
-\]where in the second equality we have assumed $y = w$, so that the composition
-makes sense. As the left hand side of the second equality suggests, we often
+\]where in the first equality we have assumed $y = w$, so that the composition
+makes sense. As the left hand side of the first equality suggests, we often
 suppress the label of ``intermediate'' wires, as they are implicit from the
 types of the morphisms; in fact, we may even at times suppress the labels of the
 input and output wires. Finally, if there is no box, then a wire may be read as
@@ -1135,7 +1140,8 @@ monoid as follows.
 
 \begin{dfn}[monoid object]\label{def:monoid object}
   Let $\cat{C}$ be a monoidal category. A \emph{monoid object} in $\cat{C}$ is
-  an object $m$ together with distinguished morphisms \[
+  an object $m$ together with distinguished morphisms $\mu: m\otimes m\to m$ and
+  $\eta: I\to m$, depicted as \[
     \begin{pic}
       \node[dot, fill=black] (mu) at (0,0) {};
       \draw (mu) to[out=180, in=90] ++(-.5, -.5) to ++(0, -.2) node[left] {$m$};
@@ -1150,8 +1156,7 @@ monoid as follows.
       \node[dot, fill=black] (eta) at (0,0) {} node[right, xshift=2mm, yshift=1mm] {\normalsize,};
       \draw (eta) to ++(0, .7) node[left] {$m$};
     \end{pic}
-  \] called the \emph{multiplication} and \emph{unit} respectively and
-  traditionally written $\mu$ and $\eta$. This data must make the equalities
+  \] called the \emph{multiplication} and \emph{unit}. This data must make the equalities
   \begin{equation}\label{eqn:monoid associative}
     \begin{pic}
       \node[dot, fill=black] (a) at (0,0) {};

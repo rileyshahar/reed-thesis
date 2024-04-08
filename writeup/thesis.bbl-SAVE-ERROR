@@ -718,6 +718,41 @@
       \verb http://dx.doi.org/10.4204/EPTCS.372.13
       \endverb
     \endentry
+    \entry{bohl-unruh-2013}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=0b91d6873991ed7e416c94c47ce57199}{%
+           family={Böhl},
+           familyi={B\bibinitperiod},
+           given={Florian},
+           giveni={F\bibinitperiod}}}%
+        {{hash=8a56d1103628eb2468b4302fe42b4baa}{%
+           family={Unruh},
+           familyi={U\bibinitperiod},
+           given={Dominique},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{3043069cecfb1b49a01dd3644f31e2db}
+      \strng{fullhash}{3043069cecfb1b49a01dd3644f31e2db}
+      \strng{bibnamehash}{3043069cecfb1b49a01dd3644f31e2db}
+      \strng{authorbibnamehash}{3043069cecfb1b49a01dd3644f31e2db}
+      \strng{authornamehash}{3043069cecfb1b49a01dd3644f31e2db}
+      \strng{authorfullhash}{3043069cecfb1b49a01dd3644f31e2db}
+      \field{labelalpha}{BU13}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Paper 2013/062}
+      \field{note}{\url{https://eprint.iacr.org/2013/062}}
+      \field{title}{Symbolic Universal Composability}
+      \field{year}{2013}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2013/062
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2013/062
+      \endverb
+    \endentry
     \entry{bv-2010}{inproceedings}{}
       \name{author}{2}{}{%
         {{hash=77042d9bb7925bba89859ce6a1c37e74}{%
@@ -799,6 +834,69 @@
       \field{isbn}{0131204866}
       \field{title}{Category theory for computing science}
       \field{year}{1990}
+    \endentry
+    \entry{camenisch-et-al-2019}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=7ee2bdf724d3560932a81321ec74f23f}{%
+           family={Camenisch},
+           familyi={C\bibinitperiod},
+           given={Jan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b0766f5a259152c83f2937566e2ef9ca}{%
+           family={Krenn},
+           familyi={K\bibinitperiod},
+           given={Stephan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=b7d2dedb64572e046a0efa6112d19545}{%
+           family={Küsters},
+           familyi={K\bibinitperiod},
+           given={Ralf},
+           giveni={R\bibinitperiod}}}%
+        {{hash=9668bbdea8cf076ee37f25f1a2901dd7}{%
+           family={Rausch},
+           familyi={R\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=366967fbc0e17f37dc5296895cc17997}{%
+           family={Galbraith},
+           familyi={G\bibinitperiod},
+           given={Steven\bibnamedelima D.},
+           giveni={S\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=961f7f1295dad3241e86763e0073467e}{%
+           family={Moriai},
+           familyi={M\bibinitperiod},
+           given={Shiho},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cham}%
+      }
+      \list{publisher}{1}{%
+        {Springer International Publishing}%
+      }
+      \strng{namehash}{82f14c519f5b348eb446944aad3363b2}
+      \strng{fullhash}{87f988d267b815d4eba26d37199bfc1b}
+      \strng{bibnamehash}{82f14c519f5b348eb446944aad3363b2}
+      \strng{authorbibnamehash}{82f14c519f5b348eb446944aad3363b2}
+      \strng{authornamehash}{82f14c519f5b348eb446944aad3363b2}
+      \strng{authorfullhash}{87f988d267b815d4eba26d37199bfc1b}
+      \strng{editorbibnamehash}{3ea6a32608de553d607eed6a806ec48b}
+      \strng{editornamehash}{3ea6a32608de553d607eed6a806ec48b}
+      \strng{editorfullhash}{3ea6a32608de553d607eed6a806ec48b}
+      \field{labelalpha}{Cam+19}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Proving the security of complex protocols is a crucial and very challenging task. A widely used approach for reasoning about such protocols in a modular way is universal composability. A perfect model for universal composability should provide a sound basis for formal proofs and be very flexible in order to allow for modeling a multitude of different protocols. It should also be easy to use, including useful design conventions for repetitive modeling aspects , such as corruption, parties, sessions, and subroutine relationships, such that protocol designers can focus on the core logic of their protocols.}
+      \field{booktitle}{Advances in Cryptology -- ASIACRYPT 2019}
+      \field{isbn}{978-3-030-34618-8}
+      \field{title}{iUC: Flexible Universal Composability Made Simple}
+      \field{year}{2019}
+      \field{pages}{191\bibrangedash 221}
+      \range{pages}{31}
     \endentry
     \entry{canetti-2000}{misc}{}
       \name{author}{1}{}{%
@@ -1394,6 +1492,46 @@
       \verb https://www.sciencedirect.com/science/article/pii/S0022404998001108
       \endverb
     \endentry
+    \entry{canetti-et-al-2019}{misc}{}
+      \name{author}{3}{}{%
+        {{hash=7faf0f3900af6c70795ea089d283f02e}{%
+           family={Canetti},
+           familyi={C\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+        {{hash=a4d0ec3888e88b03b126f41ce1cc087a}{%
+           family={Stoughton},
+           familyi={S\bibinitperiod},
+           given={Alley},
+           giveni={A\bibinitperiod}}}%
+        {{hash=8bf214898f17f7904260115bd09c027c}{%
+           family={Varia},
+           familyi={V\bibinitperiod},
+           given={Mayank},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{77fc65acc8830b5dbdb847d81fe57ff4}
+      \strng{fullhash}{77fc65acc8830b5dbdb847d81fe57ff4}
+      \strng{bibnamehash}{77fc65acc8830b5dbdb847d81fe57ff4}
+      \strng{authorbibnamehash}{77fc65acc8830b5dbdb847d81fe57ff4}
+      \strng{authornamehash}{77fc65acc8830b5dbdb847d81fe57ff4}
+      \strng{authorfullhash}{77fc65acc8830b5dbdb847d81fe57ff4}
+      \field{labelalpha}{CSV19}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Paper 2019/582}
+      \field{note}{\url{https://eprint.iacr.org/2019/582}}
+      \field{title}{EasyUC: Using EasyCrypt to Mechanize Proofs of Universally Composable Security}
+      \field{year}{2019}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2019/582
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2019/582
+      \endverb
+    \endentry
     \entry{even-et-al-1985}{article}{}
       \name{author}{3}{}{%
         {{hash=1df6d440bdcf5ce3d3ad82d370770f54}{%
@@ -1971,6 +2109,81 @@
       \verb https://www.quiprocone.org/Hot%20Topics%20posters/muellerquade_poster.pdf
       \endverb
     \endentry
+    \entry{hofheinz-shoup-2011}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=405c6134bda3e13e109f9c9e4c3dbc6c}{%
+           family={Hofheinz},
+           familyi={H\bibinitperiod},
+           given={Dennis},
+           giveni={D\bibinitperiod}}}%
+        {{hash=b7ce99f593e2c7899b27afe41a6c28a0}{%
+           family={Shoup},
+           familyi={S\bibinitperiod},
+           given={Victor},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{a4a9e254afdee6753b771eb06ee32ceb}
+      \strng{fullhash}{a4a9e254afdee6753b771eb06ee32ceb}
+      \strng{bibnamehash}{a4a9e254afdee6753b771eb06ee32ceb}
+      \strng{authorbibnamehash}{a4a9e254afdee6753b771eb06ee32ceb}
+      \strng{authornamehash}{a4a9e254afdee6753b771eb06ee32ceb}
+      \strng{authorfullhash}{a4a9e254afdee6753b771eb06ee32ceb}
+      \field{labelalpha}{HS11}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Paper 2011/303}
+      \field{note}{\url{https://eprint.iacr.org/2011/303}}
+      \field{title}{GNUC: A New Universal Composability Framework}
+      \field{year}{2011}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2011/303
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2011/303
+      \endverb
+    \endentry
+    \entry{hazay-2020}{article}{}
+      \name{author}{3}{}{%
+        {{hash=58f09925d8eae2b6c6e1d31c206d92c1}{%
+           family={Hazay},
+           familyi={H\bibinitperiod},
+           given={Carmit},
+           giveni={C\bibinitperiod}}}%
+        {{hash=96b26f86b3001b3838a8c672dd6d1c06}{%
+           family={Scholl},
+           familyi={S\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=182d3b1f744d1183a75971108890bdbd}{%
+           family={Soria-Vazquez},
+           familyi={S\bibinithyphendelim V\bibinitperiod},
+           given={Eduardo},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{0a6e5d3468ede93daa07f992287a6664}
+      \strng{fullhash}{0a6e5d3468ede93daa07f992287a6664}
+      \strng{bibnamehash}{0a6e5d3468ede93daa07f992287a6664}
+      \strng{authorbibnamehash}{0a6e5d3468ede93daa07f992287a6664}
+      \strng{authornamehash}{0a6e5d3468ede93daa07f992287a6664}
+      \strng{authorfullhash}{0a6e5d3468ede93daa07f992287a6664}
+      \field{labelalpha}{HSS20}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of cryptology}
+      \field{number}{4}
+      \field{title}{Low cost constant round MPC combining BMR and oblivious transfer}
+      \field{volume}{33}
+      \field{year}{2020}
+      \field{pages}{1732\bibrangedash 1786}
+      \range{pages}{55}
+    \endentry
     \entry{heunen-vicary-2014}{incollection}{}
       \name{author}{2}{}{%
         {{hash=c3024eeb0bd8a7ab10c20dc0c7d03b48}{%
@@ -2347,6 +2560,60 @@
       \field{pages}{134\bibrangedash 145}
       \range{pages}{12}
     \endentry
+    \entry{liao-et-al-2019}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=53b754d389cbce88def82ef4e9557acb}{%
+           family={Liao},
+           familyi={L\bibinitperiod},
+           given={Kevin},
+           giveni={K\bibinitperiod}}}%
+        {{hash=727239ef3a9f91f164ae92d7b52172e0}{%
+           family={Hammer},
+           familyi={H\bibinitperiod},
+           given={Matthew\bibnamedelima A.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=403caa7edb7a2770a6a678a46079869e}{%
+           family={Miller},
+           familyi={M\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Phoenix, AZ, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{3358e3ff747b4f5d349697103e3778bb}
+      \strng{fullhash}{3358e3ff747b4f5d349697103e3778bb}
+      \strng{bibnamehash}{3358e3ff747b4f5d349697103e3778bb}
+      \strng{authorbibnamehash}{3358e3ff747b4f5d349697103e3778bb}
+      \strng{authornamehash}{3358e3ff747b4f5d349697103e3778bb}
+      \strng{authorfullhash}{3358e3ff747b4f5d349697103e3778bb}
+      \field{labelalpha}{LHM19}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The universal composability (UC) framework is the established standard for analyzing cryptographic protocols in a modular way, such that security is preserved under concurrent composition with arbitrary other protocols. However, although UC is widely used for on-paper proofs, prior attempts at systemizing it have fallen short , either by using a symbolic model (thereby ruling out computational reduction proofs), or by limiting its expressiveness. In this paper, we lay the groundwork for building a concrete, executable implementation of the UC framework. Our main contribution is a process calculus, dubbed the Interactive Lambda Calculus (ILC). ILC faithfully captures the computational model underlying UC—interactive Turing machines (ITMs)—by adapting ITMs to a subset of the π-calculus through an affine typing discipline. In other words, well-typed ILC programs are expressible as ITMs. In turn, ILC’s strong confluence property enables reasoning about cryptographic security reductions. We use ILC to develop a simplified implementation of UC called SaUCy.}
+      \field{booktitle}{Proceedings of the 40th ACM SIGPLAN Conference on Programming Language Design and Implementation}
+      \field{isbn}{9781450367127}
+      \field{series}{PLDI 2019}
+      \field{title}{ILC: a calculus for composable, computational cryptography}
+      \field{year}{2019}
+      \field{pages}{640\bibrangedash 654}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1145/3314221.3314607
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/3314221.3314607
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/3314221.3314607
+      \endverb
+      \keyw{universal composability,type systems,process calculus,Provable security}
+    \endentry
     \entry{lindell-2003}{inproceedings}{}
       \name{author}{1}{}{%
         {{hash=c8fc0dd2e20702905ce479ed0b83787b}{%
@@ -2409,6 +2676,30 @@
       \verb{doi}
       \verb 10.1007/978-3-319-57048-8_6
       \endverb
+    \endentry
+    \entry{lindell-2022}{article}{}
+      \name{author}{1}{}{%
+        {{hash=e20af851262c583d34b7a667a7039cb4}{%
+           family={Lindell},
+           familyi={L\bibinitperiod},
+           given={Yehuda},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{e20af851262c583d34b7a667a7039cb4}
+      \strng{fullhash}{e20af851262c583d34b7a667a7039cb4}
+      \strng{bibnamehash}{e20af851262c583d34b7a667a7039cb4}
+      \strng{authorbibnamehash}{e20af851262c583d34b7a667a7039cb4}
+      \strng{authornamehash}{e20af851262c583d34b7a667a7039cb4}
+      \strng{authorfullhash}{e20af851262c583d34b7a667a7039cb4}
+      \field{extraname}{3}
+      \field{labelalpha}{Lin22}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Cryptology ePrint Archive}
+      \field{title}{Simple three-round multiparty schnorr signing with full simulatability}
+      \field{year}{2022}
     \endentry
     \entry{lindell-et-al-2002}{misc}{}
       \name{author}{3}{}{%
@@ -2481,6 +2772,54 @@
       \field{pages}{ix+262}
       \range{pages}{-1}
       \keyw{CategoryTheory}
+    \endentry
+    \entry{maurer-et-al-2012}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=ba8e38e6733e9f881688e10c5d7661f5}{%
+           family={Maurer},
+           familyi={M\bibinitperiod},
+           given={Ueli},
+           giveni={U\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=799e35678fe13bd4153a6f19f7f54b9c}{%
+           family={Mödersheim},
+           familyi={M\bibinitperiod},
+           given={Sebastian},
+           giveni={S\bibinitperiod}}}%
+        {{hash=1be391749a3de49eae8b6aa3838278db}{%
+           family={Palamidessi},
+           familyi={P\bibinitperiod},
+           given={Catuscia},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{ba8e38e6733e9f881688e10c5d7661f5}
+      \strng{fullhash}{ba8e38e6733e9f881688e10c5d7661f5}
+      \strng{bibnamehash}{ba8e38e6733e9f881688e10c5d7661f5}
+      \strng{authorbibnamehash}{ba8e38e6733e9f881688e10c5d7661f5}
+      \strng{authornamehash}{ba8e38e6733e9f881688e10c5d7661f5}
+      \strng{authorfullhash}{ba8e38e6733e9f881688e10c5d7661f5}
+      \strng{editorbibnamehash}{4c7e53d7dcf4bb50930a2b0811f710f6}
+      \strng{editornamehash}{4c7e53d7dcf4bb50930a2b0811f710f6}
+      \strng{editorfullhash}{4c7e53d7dcf4bb50930a2b0811f710f6}
+      \field{labelalpha}{Mau12}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Constructive cryptography, an application of abstract cryptography proposed by Maurer and Renner, is a new paradigm for defining the security of cryptographic schemes such as symmetric encryption, message authentication codes, public-key encryption, key-agreement protocols, and digital signature schemes, and for proving the security of protocols making use of such schemes. Such a cryptographic scheme can be seen (and defined) as constructing a certain resource (e.g. a channel or key) with certain security properties from another (weaker) such resource. For example, a secure encryption scheme constructs a secure channel from an authenticated channel and a secret key.}
+      \field{booktitle}{Theory of Security and Applications}
+      \field{isbn}{978-3-642-27375-9}
+      \field{title}{Constructive Cryptography -- A New Paradigm for Security Definitions and Proofs}
+      \field{year}{2012}
+      \field{pages}{33\bibrangedash 56}
+      \range{pages}{24}
     \endentry
     \entry{mellies-2006}{inproceedings}{}
       \name{author}{1}{}{%
@@ -2567,6 +2906,130 @@
       \verb{url}
       \verb https://www.sciencedirect.com/science/article/pii/0890540190900138
       \endverb
+    \endentry
+    \entry{morisett-et-al-2021}{misc}{}
+      \name{author}{5}{}{%
+        {{hash=33b4dd1b5ab1beaed368ad65da17385e}{%
+           family={Morrisett},
+           familyi={M\bibinitperiod},
+           given={Greg},
+           giveni={G\bibinitperiod}}}%
+        {{hash=edb728c71cdde40b9afd81bb8c9e733c}{%
+           family={Shi},
+           familyi={S\bibinitperiod},
+           given={Elaine},
+           giveni={E\bibinitperiod}}}%
+        {{hash=b5c0b0cfc77dbf25a3df28ad9c3ddff8}{%
+           family={Sojakova},
+           familyi={S\bibinitperiod},
+           given={Kristina},
+           giveni={K\bibinitperiod}}}%
+        {{hash=54b84d4243c78e37dadae916fdd577cb}{%
+           family={Fan},
+           familyi={F\bibinitperiod},
+           given={Xiong},
+           giveni={X\bibinitperiod}}}%
+        {{hash=425e4846778320353237335b09b674b9}{%
+           family={Gancher},
+           familyi={G\bibinitperiod},
+           given={Joshua},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{c295bb1fe073af03933a7d67bcb2e89e}
+      \strng{fullhash}{13f3a7ae5f1ee553a8683dc446f7477c}
+      \strng{bibnamehash}{c295bb1fe073af03933a7d67bcb2e89e}
+      \strng{authorbibnamehash}{c295bb1fe073af03933a7d67bcb2e89e}
+      \strng{authornamehash}{c295bb1fe073af03933a7d67bcb2e89e}
+      \strng{authorfullhash}{13f3a7ae5f1ee553a8683dc446f7477c}
+      \field{labelalpha}{Mor+21}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cryptology ePrint Archive, Paper 2021/147}
+      \field{note}{\url{https://eprint.iacr.org/2021/147}}
+      \field{title}{IPDL: A Simple Framework for Formally Verifying Distributed Cryptographic Protocols}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://eprint.iacr.org/2021/147
+      \endverb
+      \verb{url}
+      \verb https://eprint.iacr.org/2021/147
+      \endverb
+    \endentry
+    \entry{maurer-renner-2011}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=ba8e38e6733e9f881688e10c5d7661f5}{%
+           family={Maurer},
+           familyi={M\bibinitperiod},
+           given={Ueli},
+           giveni={U\bibinitperiod}}}%
+        {{hash=31ab9a997aaced32f65c72d1be34ac55}{%
+           family={Renner},
+           familyi={R\bibinitperiod},
+           given={Renato},
+           giveni={R\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=63ec4986e378110d2b859464ad942078}{%
+           family={Chazelle},
+           familyi={C\bibinitperiod},
+           given={Bernard},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Tsinghua University Press}%
+      }
+      \strng{namehash}{8e86aa9aa5112633114408b0712b5ab3}
+      \strng{fullhash}{8e86aa9aa5112633114408b0712b5ab3}
+      \strng{bibnamehash}{8e86aa9aa5112633114408b0712b5ab3}
+      \strng{authorbibnamehash}{8e86aa9aa5112633114408b0712b5ab3}
+      \strng{authornamehash}{8e86aa9aa5112633114408b0712b5ab3}
+      \strng{authorfullhash}{8e86aa9aa5112633114408b0712b5ab3}
+      \strng{editorbibnamehash}{63ec4986e378110d2b859464ad942078}
+      \strng{editornamehash}{63ec4986e378110d2b859464ad942078}
+      \strng{editorfullhash}{63ec4986e378110d2b859464ad942078}
+      \field{labelalpha}{MR11}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{The Second Symposium on Innovations in Computer Science, ICS 2011}
+      \field{month}{1}
+      \field{title}{Abstract Cryptography}
+      \field{year}{2011}
+      \field{pages}{1\bibrangedash 21}
+      \range{pages}{21}
+    \endentry
+    \entry{mansy-2019}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=ab5de218d106d1884ce7ab4972d0bdd3}{%
+           family={Mansy},
+           familyi={M\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=5522a0c78f251f7444a05d8423c09684}{%
+           family={Rindal},
+           familyi={R\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{42d923d63cecebedcf93c64ec6556e53}
+      \strng{fullhash}{42d923d63cecebedcf93c64ec6556e53}
+      \strng{bibnamehash}{42d923d63cecebedcf93c64ec6556e53}
+      \strng{authorbibnamehash}{42d923d63cecebedcf93c64ec6556e53}
+      \strng{authornamehash}{42d923d63cecebedcf93c64ec6556e53}
+      \strng{authorfullhash}{42d923d63cecebedcf93c64ec6556e53}
+      \field{labelalpha}{MR19}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 2019 ACM SIGSAC Conference on Computer and Communications Security}
+      \field{title}{Endemic oblivious transfer}
+      \field{year}{2019}
+      \field{pages}{309\bibrangedash 326}
+      \range{pages}{18}
     \endentry
     \entry{micali-rogaway-1992}{inproceedings}{}
       \name{author}{2}{}{%
@@ -3191,6 +3654,7 @@
       \field{isbn}{0521283043}
       \field{title}{An Introduction to Category Theory}
       \field{year}{2011}
+      \true{nocite}
     \endentry
     \entry{sipser-2013}{book}{}
       \name{author}{1}{}{%
@@ -3222,6 +3686,44 @@
       \field{title}{Introduction to the Theory of Computation}
       \field{year}{2013}
       \keyw{automata complexity computation hamiltonian np-hardness sipser textbook}
+    \endentry
+    \entry{scheffler-2023}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=34c6254955f23034b03e538d5c173ba9}{%
+           family={Scheffler},
+           familyi={S\bibinitperiod},
+           given={Sarah},
+           giveni={S\bibinitperiod}}}%
+        {{hash=13250f498debb1725948090e722ea7b9}{%
+           family={Kulshrestha},
+           familyi={K\bibinitperiod},
+           given={Anunay},
+           giveni={A\bibinitperiod}}}%
+        {{hash=baee7c739ac56e69ec39386e06a89be6}{%
+           family={Mayer},
+           familyi={M\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{7fcf56f2fec19756502c21ce0b753dd1}
+      \strng{fullhash}{7fcf56f2fec19756502c21ce0b753dd1}
+      \strng{bibnamehash}{7fcf56f2fec19756502c21ce0b753dd1}
+      \strng{authorbibnamehash}{7fcf56f2fec19756502c21ce0b753dd1}
+      \strng{authornamehash}{7fcf56f2fec19756502c21ce0b753dd1}
+      \strng{authorfullhash}{7fcf56f2fec19756502c21ce0b753dd1}
+      \field{labelalpha}{SKM23}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2023 IEEE Symposium on Security and Privacy (SP)}
+      \field{title}{Public verification for private hash matching}
+      \field{year}{2023}
+      \field{pages}{253\bibrangedash 273}
+      \range{pages}{21}
     \endentry
     \entry{sadeghi-steinerr-2002}{misc}{}
       \name{author}{2}{}{%
@@ -3516,6 +4018,54 @@
       \verb{url}
       \verb https://doi.org/10.1145/99370.99404
       \endverb
+    \endentry
+    \entry{wikstr-2016}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=f912c64015f9bf7b408ffc53f72126ac}{%
+           family={Wikström},
+           familyi={W\bibinitperiod},
+           given={Douglas},
+           giveni={D\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=63311d7e0af6f4f199f74b05ab7a5c52}{%
+           family={Kushilevitz},
+           familyi={K\bibinitperiod},
+           given={Eyal},
+           giveni={E\bibinitperiod}}}%
+        {{hash=d6e5aae18526c6a1569ba8a8000a84d6}{%
+           family={Malkin},
+           familyi={M\bibinitperiod},
+           given={Tal},
+           giveni={T\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{f912c64015f9bf7b408ffc53f72126ac}
+      \strng{fullhash}{f912c64015f9bf7b408ffc53f72126ac}
+      \strng{bibnamehash}{f912c64015f9bf7b408ffc53f72126ac}
+      \strng{authorbibnamehash}{f912c64015f9bf7b408ffc53f72126ac}
+      \strng{authornamehash}{f912c64015f9bf7b408ffc53f72126ac}
+      \strng{authorfullhash}{f912c64015f9bf7b408ffc53f72126ac}
+      \strng{editorbibnamehash}{98e9973fd7c17821bd7db2017579f9cd}
+      \strng{editornamehash}{98e9973fd7c17821bd7db2017579f9cd}
+      \strng{editorfullhash}{98e9973fd7c17821bd7db2017579f9cd}
+      \field{labelalpha}{Wik16}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We introduce a simplified universally composable (UC) security framework in our thesis (2005). In this paper we present an updated more comprehensive and illustrated version. The introduction of our simplified model is motivated by the difficulty to describe and analyze concrete protocols in the full UC framework due to its generality and complexity.}
+      \field{booktitle}{Theory of Cryptography}
+      \field{isbn}{978-3-662-49096-9}
+      \field{title}{Simplified Universal Composability Framework}
+      \field{year}{2016}
+      \field{pages}{566\bibrangedash 595}
+      \range{pages}{30}
     \endentry
     \entry{wadler-thiemann-2003}{article}{}
       \name{author}{2}{}{%
