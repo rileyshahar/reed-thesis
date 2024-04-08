@@ -17,7 +17,7 @@ only if they are polynomial-time; this assumption has been borne out by decades
 of practice. This motivates our definition of a ``negligible'' chance: we say
 that a function $f$ is \emph{negligible} if $f(n) = o(n^{-k})$
 for every $k$; in other words, if it is asymptotically smaller than any rational
-function. In this case, we write $f = \negl$ or just $f = \negl[]$.) The set
+function. In this case, we write $f = \negl$ or just $f = \negl[]$. The set
 of negligible functions has all the nice closure properties we expect; in
 particular, the sum of negligible functions is negligible.
 
@@ -29,7 +29,8 @@ particular, the sum of negligible functions is negligible.
 \begin{ntn}
   We will use PPT as shorthand for probabilistic polynomial-time. When we refer
   to an \emph{adversary}, \emph{distinguisher}, or \emph{simulator}, we always
-  mean a non-uniform PPT algorithm.
+  mean a non-uniform PPT algorithm\footnote{Both PPT and non-uniform PPT are defined
+  in~\Cref{chap:cs-theory}.}.
 \end{ntn}
 
 \begin{dfn}[one-way function]\label{def:one-way function}
@@ -192,7 +193,7 @@ will eventually need to switch to working with sequences of probability
 distributions.
 
 \begin{dfn}[computational advantage]\label{def:computational advantage}
-  Let $X$ and $Y$ be probability distributions. The \emph{computational
+  Let $X$ and $Y$ be probability distributions over a set $A$. The \emph{computational
   advantage} of an adversary $\cD$, called the
   \emph{distinguisher}, over $X$ and $Y$ is \[
     \ca_\cD(X, Y) = \left|\Pr_{x\from X}[\cD(x) = 1] - \Pr_{y\from Y}[\cD(y) = 1]\right|.
@@ -223,16 +224,16 @@ We now turn to the asymptotic case.
 
 \begin{dfn}[probability ensemble]\label{def:probability ensemble}
   A \emph{probability ensemble} is a sequence $\{X_n\}$ of probability
-  distributions.
+  distributions over sets $\{A_n\}$.
 \end{dfn}
 
 We say that two ensembles are computationally indistinguishable if there is no
 efficient way to tell between them. Formally:
 
 \begin{dfn}[computational indistinguishability]\label{def:computational indistinguishability}
-  Two probability ensembles $\{X_n\}$ and $\{Y_n\}$ are \emph{computationally
-  indistinguishable} if for any (non-uniform PPT) distinguisher $\cD$ and any
-  natural number $n$,
+  Two probability ensembles $\{X_n\}$ and $\{Y_n\}$ over a set $A$ are
+  \emph{computationally indistinguishable} if for any (non-uniform PPT)
+  distinguisher $\cD$ and any natural number $n$,
   \[
     \ca_\cD(X_n, Y_n) = \negl.
   \]
@@ -274,9 +275,10 @@ probability ensembles. We can do slightly better than the previous result:
 
 \begin{prop}\label{thm:polynomial-indistinguishability}
   Let $\{X^k\}$ be a sequence of probability ensembles, so
-  that each $X^k = \{X^k_n\}$ is itself a sequence of probability distributions.
-  Let $\{X^i\}\cind\{X^{i+1}\}$ for each $i$. Let $\{Y_n = X^{K(n)}_n\}$ for
-  some polynomial $K$. Then $\{X^1_n\}\cind\{Y_n\}$.
+  that each $X^k = \{X^k_n\}$ is itself a sequence of probability distributions,
+  each over the underlying same sequence of sets $\{A_n\}$. Let
+  $\{X^i\}\cind\{X^{i+1}\}$ for each $i$. Let $\{Y_n = X^{K(n)}_n\}$ for some
+  polynomial $K$. Then $\{X^1_n\}\cind\{Y_n\}$.
 \end{prop}
 
 \begin{proof}
@@ -313,8 +315,8 @@ One more closure result is valuable:
   pseudorandomness.
 
   Let $\{\cX_n\}$ be a sequence of spaces, and let $\{X_n\}$ be a sequence of
-  probability distributions. We say that $\{X_n\}$ is \emph{pseudorandom for
-  $\cX$} if there exists a polynomial $p$ such that \[
+  probability distributions over $\bigcup \cX_n$. We say that $\{X_n\}$ is
+  \emph{pseudorandom for $\cX$} if there exists a polynomial $p$ such that \[
     \{X_n\} \cind \{\cX_{p(n)}\},
   \]where the latter is equipped with the uniform distribution. In other words,
   pseudorandom ensembles look uniformly random to distinguishers.
@@ -1144,7 +1146,7 @@ that unbounded algorithms can answer challenges and check answers. Our
 challenges will be phrased as sets: for each security parameter $n$, we will
 agree to some set of sets $S^n_1, \dots, S^n_{2^n}\subseteq \bin^{Q(n)}$, where
 $Q$ is a polynomial. A challenge looks like a value $i\in 1, \dots, Q(n)$, and a
-solution is a value $x\in S^n_i$. We now formalize our desiderata as follows.
+solution is a value $s\in S^n_i$. We now formalize our desiderata as follows.
 
 \begin{dfn}
   A \emph{non-uniform ensemble} is a sequence $\{S^n\}$, where for each $n$,
@@ -1404,10 +1406,11 @@ chapter by surveying some alternatives.
 Several authors attempt to simplify UC by reducing the intended scope. This
 approach is most notably taken by the ``simple UC'' approach of~\cite{ccl-2015}
 in the special case of standard multiparty computation, as well by ``simplified
-UC''\footnote{% Confusingly, not only are simple UC and simplified UC unrelated,
-  the abstract of~\cite{ccl-2015} actually refers to their framework as
-  simplified UC, whereas in the paper and the rest of the literature it is
-  called simple UC. The simple UC model of~\cite{ccl-2015} is a better-known
+UC''\footnote{
+  Confusingly, not only are simple UC and simplified UC unrelated, the abstract
+  of~\cite{ccl-2015} actually refers to their framework as simplified UC,
+  whereas in the paper and the rest of the literature it is called simple UC.
+  The simple UC model of~\cite{ccl-2015} is a better-known
 framework and references to this term in the literature generally refer to this
 model.}~\cite{wikstr-2016}, which fixes the number of parties and does not handle
 adaptive adversaries. The approach of~\cite{ccl-2015} has been quite successful;
