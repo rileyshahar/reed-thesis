@@ -1,0 +1,2 @@
+- monoidal vs tensor
+- P(Q) in the NFA example

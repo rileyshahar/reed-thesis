@@ -4,10 +4,10 @@
 %%
 \documentclass[12pt,twoside]{reedthesis}
 
-\title{Title} % TODO: title
+\title{Categories for Cryptographic Composability} % TODO: title
 \author{Riley Shahar}
 
-\date{May 200x} % TODO: date (don't want to jinx it)
+\date{May 2024}
 \division{Mathematics and Natural Sciences}
 
 % TODO: order of advisors?
@@ -40,9 +40,43 @@
 \frontmatter
 \pagestyle{empty} % TODO: can I roman numerial number it?
 
-% \chapter*{Acknowledgements}
-% TODO: acknowledgements
-% angélica, adam, zajj (diagram help) 
+\chapter*{Acknowledgements}
+
+More people have contributed to this document than I could possibly name. I will
+have to settle for an incomplete list.
+
+This thesis would not have gotten off the ground without my fantastic advisers:
+Angélica, who started advising this thesis while on leave, who constantly
+indulged my disparate categorical tangents, and who gives better feedback on
+drafts than any other mentor I've ever had; and Adam, who advised a cryptography
+thesis with a student who hadn't taken cryptography, who was always willing to
+chat (complain) about academic politics or messy papers, and who repeatedly
+brought me down from spates of abstract nonsense by reminding me to think about
+the cryptography.
+
+I am also thankful for the time of my readers, Greg Anderson and Mark Bedau, and
+of the numerous academics who have indulged the questions of a too-ambitious
+undergrad throughout the year. I specifically want to thank Alex Moll, who was
+always willing to answer my very naive questions about probability theory and to
+listen to half-baked ideas that were only tangentially relevant to him.
+
+As an academic, I am especially indebted to Jana Comstock, without whom I would
+probably have been a physicist; to Jim Fix, who taught me to love types; to
+Angélica, who taught me to love categories; to Sierra Maciorowski, who taught me
+to love teaching; and to Charlie McGuffey, Zajj Daugherty, Adam, Angélica, and
+Steve Zdancewic, who throughout my time at Reed and especially over the last
+year have given me advice and support in spades. The mathematician I am
+today is inextricable from their influence.
+
+I would feel remiss not to mention the many authors of queer speculative
+fictions from whom I draw continual inspiration and strength; among many, I will
+mention Ann Leckie, Becky Chambers, Emily Tesh, R. F. Kuang, Rivers Solomon,
+Ryka Aoki, and Ursula Le Guin.
+
+Most of all, I would not have gotten through the last four years without the
+support of my friends and family. I love and appreciate you all so much.
+% especially Cam, Clement, Eug, Julienne, Kaia, Maddie, Sima, Tommie, Tori, and
+% Violet. 
 
 % \chapter*{Preface}
 % TODO: preface
@@ -50,30 +84,41 @@
 % \chapter*{List of Abbreviations}
 % TODO: abbreviations
 
+
 \tableofcontents
 % \listoftables
 % \listoffigures
+
+\chapter*{}
+\begin{dedication}
+  Desar's chosen field in mathematics was so esoteric that nobody in the
+  Institute or the Math Federation could really check on his progress. That was
+  precisely why he had chosen it.
+
+  --- Ursula Le Guin, \emph{The Dispossessed}
+\end{dedication}
+
 
 % \chapter*{Abstract}
 % TODO: abstract
 % TODO: is there a better abstract style we can use?
 
-% \chapter*{Dedication}
-% TODO: dedication, if I want one
-
 \mainmatter% here the regular arabic numbering starts
 \pagestyle{fancyplain} % turns page numbering back on
 
-% \chapter*{Introduction}
-% % from the template
-% \addcontentsline{toc}{chapter}{Introduction}
-% \chaptermark{Introduction}
-% \markboth{Introduction}{Introduction}
+\chapter*{Introduction}
+% from the template
+\addcontentsline{toc}{chapter}{Introduction}
+\chaptermark{Introduction}
+\markboth{Introduction}{Introduction}
+\input{introduction}
 
 \chapter{Cryptography}
+\label{chap:cryptography}
 \input{cryptography}
 
 \chapter{Category Theory}
+\label{chap:category-theory}
 \input{category-theory}
 
 \chapter{Categorical Cryptography}
