@@ -95,9 +95,10 @@
 \DeclareMathOperator{\view}{view}
 \DeclareMathOperator{\exec}{exec}
 \DeclareMathOperator{\ideal}{ideal}
-\DeclareMathOperator{\ncomb}{n-comb}
 \let\state\relax
-\newcommand{\state}[1]{\text{st}(#1)}
+\newcommand{\state}[1]{\operatorname*{st}(#1)}
+\newcommand{\onecomb}[1]{\operatorname*{1-comb}(#1)}
+\newcommand{\ncomb}[1]{\operatorname*{n-comb}(#1)}
 
 % theorems
 \theoremstyle{plain}

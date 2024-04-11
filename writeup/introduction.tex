@@ -1,13 +1,47 @@
 
 
+To first approximation, cryptography is the \emph{mathematical study of secure
+computation}. In a computation, we want to use \emph{protocols} to transform
+\emph{resources}. For a computation to be secure, it must successfully resist
+\emph{attacks} by \emph{adversaries}. This is an extremely broad scope:
+cryptography includes secure communication, private data analysis,
+password-based authentication, distributed consensus-making, fault-tolerance of
+sensor systems, and many other applications.
+
+In the modern world, computational systems do not run on their own. You may be
+securely communicating with your bank on one tab, have email open on another
+tab, and be syncing photos from your phone in the background. After that
+communication, your bank may want to analyze your data in a way that respects
+your privacy. All this happens for millions of people simultaneously. As such,
+we cannot study cryptographic protocols in a vacuum: we need to consider how
+they behave in concert with other computational systems. This is the
+\emph{problem of cryptographic composability}.
+
+As we will see, most frameworks for handling composability, including the
+popular Universal Composability~\cite{canetti-2000}, rely on precise low-level
+machine models. Proofs in these frameworks are only technically valid if their
+protocols can be encoded into the machine model---and if that encoding satisfies
+certain technical hypotheses which do not generally hold. This state of affairs
+poses significiant issues for both the feasibility of writing proofs in these
+frameworks, and---because of the general complexity of the underlying
+machine models---for the trustworthiness of those proofs.
+
+A natural way out is to give an axiomatization of the properties such a machine
+model, or a theory of cryptography generated from it, should satisfy. If a
+composition theorem can be proven for any theory satisfying these axioms, then
+proofs would not have to use complex machine models except when that complexity
+is necessary to the development of the protocol.
+
 Cryptography has a composition problem: category theory is a mathematical theory
 of composition.
 
 In some sense, this thesis has three goals: to give cryptographers the necessary
-background in category theory to evaluate categorical frameworks for themselves, to
-give category theorists the enough background in cryptography for them to
-motivate their work towards the potential applications, and to summarize the
-progress and open questions that exist. The thesis is divided along those lines.
+background in category theory to evaluate categorical frameworks for themselves,
+to give category theorists the enough background in cryptography for them to
+motivate their work towards the potential applications, and to evaluate the
+existing literature and pose some barriers and open questions to a successful
+categorical theory of cryptographic composability. The thesis is divided along
+those lines.
 
 In \Cref{chap:cryptography}, we give an introduction
 to the foundations of cryptography, focusing on definitions and examples
@@ -18,12 +52,12 @@ presents several of the central difficulties.
 
 In \Cref{chap:category-theory}, we give an
 introduction to category theory oriented towards computer scientists. There are
-many excellent books with this aim; ours distinguishes itself through its focus
-on monoidal categories, coherence axioms, and in particular string diagrams,
-which form a powerful graphical language for reasoning about computational
-objects. As in the previous chapter, the aim is to get to the necessary
-background for cryptography as quickly as possible, and so we skip several
-standard topics of substantial interest to computer scientists. Category
+many excellent books with this aim; our narrative distinguishes itself through
+its focus on monoidal categories, coherence axioms, and in particular string
+diagrams, which form a powerful graphical language for reasoning about
+computational objects. As in the previous chapter, the aim is to get to the
+necessary background for cryptography as quickly as possible, and so we skip
+several standard topics of substantial interest to computer scientists. Category
 theorists who are comfortable working with string diagrams can safely skip this
 chapter, though there are several examples of computational applications that
 may be of interest.

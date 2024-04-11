@@ -2027,6 +2027,51 @@
       \verb https://doi.org/10.1137/S0097539793244708
       \endverb
     \endentry
+    \entry{hefford-2023}{article}{}
+      \name{author}{2}{}{%
+        {{hash=956ba30578b8fc0c7ab124185cec1939}{%
+           family={Hefford},
+           familyi={H\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b9436c729e2a5cffc2296cd06bd07f61}{%
+           family={Comfort},
+           familyi={C\bibinitperiod},
+           given={Cole},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Open Publishing Association}%
+      }
+      \strng{namehash}{228e86e527974d53616864c825133882}
+      \strng{fullhash}{228e86e527974d53616864c825133882}
+      \strng{bibnamehash}{228e86e527974d53616864c825133882}
+      \strng{authorbibnamehash}{228e86e527974d53616864c825133882}
+      \strng{authornamehash}{228e86e527974d53616864c825133882}
+      \strng{authorfullhash}{228e86e527974d53616864c825133882}
+      \field{labelalpha}{HC23}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{2075-2180}
+      \field{journaltitle}{Electronic Proceedings in Theoretical Computer Science}
+      \field{month}{8}
+      \field{title}{Coend Optics for Quantum Combs}
+      \field{volume}{380}
+      \field{year}{2023}
+      \field{pages}{63\bibrangedash 76}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.4204/eptcs.380.4
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.4204/EPTCS.380.4
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.4204/EPTCS.380.4
+      \endverb
+    \endentry
     \entry{hines-2020}{inproceedings}{}
       \name{author}{1}{}{%
         {{hash=dd7f98cdadba56c6a068f964f010e460}{%
@@ -3438,6 +3483,33 @@
       \field{month}{3}
       \field{title}{Category theory in context}
       \field{year}{2017}
+    \endentry
+    \entry{riley-2018}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=1996defd263ab2379863dfbfe3ffd9c6}{%
+           family={Riley},
+           familyi={R\bibinitperiod},
+           given={Mitchell},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{1996defd263ab2379863dfbfe3ffd9c6}
+      \strng{fullhash}{1996defd263ab2379863dfbfe3ffd9c6}
+      \strng{bibnamehash}{1996defd263ab2379863dfbfe3ffd9c6}
+      \strng{authorbibnamehash}{1996defd263ab2379863dfbfe3ffd9c6}
+      \strng{authornamehash}{1996defd263ab2379863dfbfe3ffd9c6}
+      \strng{authorfullhash}{1996defd263ab2379863dfbfe3ffd9c6}
+      \field{labelalpha}{Ril18}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.CT}
+      \field{eprinttype}{arXiv}
+      \field{title}{Categories of Optics}
+      \field{year}{2018}
+      \verb{eprint}
+      \verb 1809.00738
+      \endverb
     \endentry
     \entry{rosulek-2021}{book}{}
       \name{author}{1}{}{%

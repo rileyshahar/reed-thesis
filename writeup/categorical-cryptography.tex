@@ -2,9 +2,9 @@ A theory of cryptography should define at least four things: computation,
 protocols, adversarial behavior, and security. A major advantage of categorical
 models of cryptography is that they conveniently separate these issues. In
 particular, we have some underlying category of computations, while we represent
-categories of protocols with functorial constructions on categories; as such,
-our notions of interaction and security are completely independent of the
-underlying model of computation.
+categories of protocols with certain constructions on categories; as such, our
+notions of interaction and security are completely independent of the underlying
+model of computation.
 
 [todo: lots more intro,
 cite \cite{broadbent-karvonen-2022};
@@ -294,12 +294,12 @@ protocols---originates from the study of quantum cryptography, especially of
 so-called \emph{resource theories}~\cite{coecke-2016}. The idea is to start with
 some underlying SMC $\cat{C}$ of computations---fixed throughout this
 section---and to construct a category of ``protocols built from computations in
-$\cat{C}$.'' Exactly which functor we choose depends on what we want our
-protocols to look like.
+$\cat{C}$.'' Exactly which such construction we choose depends on what we want
+our protocols to look like.
 
 In all these categories, the basic idea is that we will think of objects as
 resources and morphisms as protocols, which convert some resources into others.
-For instance, in the category $\ncomb \cat{C}$, morphisms will be ``protocols with
+For instance, in the category $\ncomb{\cat{C}}$, morphisms will be ``protocols with
 holes''---when instantiated with specific implementations of the resources they
 are waiting for, they provide some new resource.
 
@@ -386,7 +386,19 @@ maps $X\xto{f}Y$ in $\cat{D}$ such that $(Ff)s = t$\footnote{
   }. Note what then $\cat{C} = \cat{D}$ and $F = 1_\cat{C}$, we recover
   $\state{\cat{C}}$.
 
-  Following~\cite{broadbent-karvonen-2022}, are especially interested in the category
+Since $F$ is lax monoidal, there is again general recipe for taking the tensor
+in this category: given $I\xto{s} FX$ and $I\xto{t} FY$, the tensor of $s$ and
+$t$ is the state \[
+  \begin{pic}
+    \draw[functor=blue] (-.5, -.3) -- (0, -.3) -- (0, .2) -- (.5, .2) -- (.5,
+      -.3) -- (1, -.3) -- (1, .7) -- (-.5, .7) -- cycle;
+    \draw[rounded corners] (-.25, -.75) node[rounded corners=0, state, scale=.75] {$s$} -- (-.25, .45) --
+      (.75, .45) -- ++(0, -1.2) node[rounded corners=0, state, scale=.75] {$t$} node[right, xshift=4mm, yshift=5mm] {\normalsize.};
+    \draw (.25, .45) -- ++(0, 1.2) node[left] {$F(X\otimes_\cat{D} Y)$};
+  \end{pic}
+\]
+
+Following~\cite{broadbent-karvonen-2022}, we are especially interested in the category
 $\state{\cat{C}^2\xto{\otimes}\cat{C}}$. Objects in this category are morphisms
 $I\to X\otimes Y$ in $\cat{C}$, which we can think of as \emph{joint states}.
 When $\cat{C} = \scat{Set}$, every joint state is \emph{independent}, in that it
@@ -397,11 +409,246 @@ parties $A$ and $B$ have a shared uniform random key by the map $I\to X\otimes
 X$ in \scat{PPT} that sends $*$ to a uniform random choice of pairs $(k, k)$ for
 $k\in X$. This map does not split into a pair of stochastic maps $I\to X$ and $I\to X$.
 
-More generally, we would like to model computations on $n$-party states via the
-category $\state{\cat{C}^n\xto{\otimes^{n-1}}\cat{C}}$, where the $i$th copy of
-$\cat{C}$ represents computations taken by the $i$th party in the computation.
-There is a choice of associativity to be made, but any choice yields an
-isomorphic category, so we will not worry about it here.
+Morphisms $(I\xto{s} X\otimes Y)\to(I\xto{t}X'\otimes Y')$ in this category are
+maps $(f,g)$ in $\cat{C}^2$ satisfying $(f\otimes g)s = t$. The maps $f$ and $g$
+prescribe the computations undertaken by the respective parties in order to
+transform the joint state $s$ into the joint state $t$. Note that there is a
+kind of locality to morphisms in this category, since they are morphisms in the
+product category; all of the interaction between the two parties is encoded in
+the initial joint state. This separation is actually desirable: it will make it
+easier for us to reason about the security of protocols. However, it means we
+need a way to describe objects which represent more complicated forms of
+interaction; we will do so in the next two sections.
+
+It is worth remarking that more generally, we can model computations on
+$n$-party states via the category
+\[
+  \state{\cat{C}^n\xto{\otimes^{n-1}}\cat{C}},
+\] where the $i$th copy of $\cat{C}$ represents computations taken by the $i$th
+party in the computation\footnote{There is a choice of associativity to be made, but any
+choice yields a coherently isomorphic category, so we will not worry about it
+here.}.
+
+\subsection{Flat Process Conversions}
+
+Recall that we can think of morphisms in $X\xto{f} Y$ in $\cat{C}$ as processes
+converting $X$ to $Y$. Before arriving at the more general strategy
+of~\cite{broadbent-karvonen-2022}, we first treat a simpler case. We will
+construct a category $\onecomb{\cat{C}}$ of \emph{flat process conversions}, whose
+objects are ``type signatures'' of processes and whose morphisms are recipes for
+converting between processes with the appropriate signatures.
+
+By type signature, we mean a pair of objects $(X, Y)$ in $\cat{C}$. The idea is
+that the resource $(X, Y)$ should be ``inhabited'' by the morphisms $X\to Y$ in
+$\cat{C}$. To make this work out, whatever notion of morphism in $\onecomb{\cat{C}}$
+we end up with, it should be the case that $\onecomb{\cat{C}}(I, (X, Y)) \cong
+\cat{C}(X, Y)$, i.e. that the morphisms $I\to (X, Y)$ in $\onecomb{\cat{C}}$ should
+be in (natural) correspondence with the morphisms $X\to Y$ in $\cat{C}$.
+
+To make this work out, a morphism $(X, Y)\to (X', Y')$ in $\onecomb{\cat{C}}$
+consists of the following structure, called a \emph{1-comb} \[
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (xi1) at (0,0) {$\xi_1$};
+    \node[morphism] (xi2) at (0,2) {$\xi_2$};
+    \draw (xi1.south) to ++(0,-.5) node[left] {$X'$} node[right, xshift=2em,
+    yshift=1.5em]
+    {\normalsize.};
+    \draw (xi2.north) to ++(0,.5) node[left] {$Y'$};
+    \draw ([xshift=2.5pt]xi1.north east) to ([xshift=2.5pt]xi2.south east);
+    \setlength\minimummorphismwidth{0mm}
+    \node[dashedmorphism] (f) at ($(xi1.north west)!.5!(xi2.south west)$)
+    {\phantom{$f$}};
+    \draw (xi1.north west) -- (f.south) node[midway, left] {$X$};
+    \draw (xi2.south west) -- (f.north) node[midway, left] {$Y$};
+  \end{pic}
+\]
+
+Explicitly, a 1-comb consists of an object $Z$ and two morphisms $\xi_1: X'\to
+X\otimes Z$ and $\xi_2: Y\otimes Z\to Y'$. The point is that, if we ``plug in''
+a morphism $X\to Y$ for the hole, we obtain a morphism $X'\to Y'$; $Z$
+represents some auxiliary data that isn't needed by the plugged-in morphism. It
+is a theorem of~\cite{coecke-2016} that in an SMC, any morphism $X'\to Y'$
+obtainable as a string diagram which uses exactly one occurrence of a morphism
+$X\xto{f} Y$ may be obtained as a 1-comb with $f$ filled in the hole.
+
+Composition of 1-combs is defined by ``nesting'': given 1-combs
+$(Z, \xi_1, \xi_2): (X, Y)\to (X', Y')$ and $(Z', \xi_1', \xi_2'): (X', Y')\to
+(X'', Y'')$, we have a composite 1-comb $(X, Y)\to (X'', Y'')$ defined by:
+\[
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (xi1') at (0,0) {$\xi_1'$};
+    \node[morphism] (xi2') at (0,3.5) {$\xi_2'$};
+    \draw (xi1'.south) to ++(0,-.5) node[left] {$X''$} node[right, xshift=2em,
+    yshift=1.5em]
+    {\normalsize.};
+    \draw (xi2'.north) to ++(0,.5) node[left] {$Y''$};
+    \draw ([xshift=2.5pt]xi1'.north east) to ([xshift=2.5pt]xi2'.south east);
+    \setlength\minimummorphismwidth{4mm}
+    \node[morphism] (xi1) at ($(xi1'.north west)!.2!(xi2'.south west)$) {$\xi_1$};
+    \node[morphism] (xi2) at ($(xi1'.north west)!.8!(xi2'.south west)$) {$\xi_2$};
+    \draw (xi1'.north west) -- (xi1.south);
+    \draw (xi2'.south west) -- (xi2.north);
+    \draw ([xshift=2.5pt]xi1.north east) to ([xshift=2.5pt]xi2.south east);
+
+    \setlength\minimummorphismwidth{0mm}
+    \node[dashedmorphism] (f) at ($(xi1.north west)!.5!(xi2.south west)$)
+    {\phantom{$f$}};
+    \draw (xi1.north west) -- (f.south);
+    \draw (xi2.south west) -- (f.north);
+  \end{pic}
+\]
+This does indeed form a 1-comb: explicitly, the composite 1-comb is the
+tuple \[
+  ((Z\otimes Z'), (\xi_1\otimes 1_{Z'})\circ \xi_1', (1_{Z}\otimes \xi_2')\circ \xi_2).
+\]
+
+Meanwhile, the monoidal product of 1-combs is as follows:
+\[
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (xi1) at (0,0) {$\xi_1$};
+    \node[morphism] (xi2) at (0,4) {$\xi_2$};
+    \node[dashedmorphism] (f) at ($(xi1.north)!.5!(xi2.south)$) {};
+
+    \draw (xi1.south) to ++(0,-.5);
+    \draw (xi2.north) to ++(0,.5);
+    \draw (xi1.north west) -- (f.south west);
+    \draw (xi2.south west) -- (f.north west);
+    % \draw (0,0) to[out=80,in=-100] (.6,1);
+
+    \node[morphism] (xi1') at (2,0) {$\xi_1'$};
+    \node[morphism] (xi2') at (2,4) {$\xi_2'$};
+    \draw (xi1'.south) to ++(0,-.5) node[right, xshift=2em, yshift=1.5em] {\normalsize.};
+    \draw (xi2'.north) to ++(0,.5);
+
+    \draw
+      let
+        \p1=(xi1'.north west),
+        \p2=(f.south),
+        \p3=(f.north)
+      in
+      (xi1.north east) to[out=90,in=-90]
+      (\x1,\y2) --
+      (\x1,\y3) to[out=90,in=-90]
+      (xi2.south east);
+        
+    % (xi1.north east) to[out=90,in=-90] ($(xi1'.north west)!.5!(xi2'.south west)$) to[out=90, in=-90] (xi2.south east);
+    \draw (xi1'.north west) to[out=90,in=-90] (f.south east);
+    \draw (f.north east) to[out=90,in=-90] (xi2'.south west);
+    \draw (xi1'.north east) to (xi2'.south east);
+  \end{pic}
+\]Again, this forms a 1-comb.
+
+We now return to the assertion from the beginning of the section: since a map $I\to
+I$ carries no data, a 1-comb $I\to (X, Y)$ looks like \[
+  \begin{pic}
+    \node[morphism] (xi1) at (0,0) {$\xi_1$};
+    \node[morphism] (xi2) at (0,1) {$\xi_2$};
+    \draw (xi1.south) to ++(0,-.5) node[left] {$X$} node[right, xshift=1em,
+    yshift=1.5em]
+    {\normalsize;};
+    \draw (xi2.north) to ++(0,.5) node[left] {$Y$};
+    \draw (xi1.north) -- (xi2.south);
+  \end{pic}
+\]these are morphisms $X\to Y$, but not bijectively so. To resolve this, we take
+equivalence classes of 1-combs, where two 1-combs are equivalent if they
+yield the same morphism when any morphism $W\otimes X\to W\otimes Y$ is plugged
+into their hole\footnote{This is an extensional notion of equality of
+  combs. With significantly more machinery, it is also possible to define combs
+intensionally, via so-called \emph{coend optics}~\cite{riley-2018,hefford-2023}: a 1-comb
+$(X, Y)\to (X', Y')$ is precisely an element of the set $\int^{M\in \cat{C}}
+\cat{C}(X', X\otimes M)\times\cat{C}(Y\otimes M, Y')$.}
+Finally, we can formally define the category.
+
+\begin{dfn}[category of flat process conversions]
+  The \emph{category of flat process conversions} $\onecomb{\cat{C}}$ has as
+  objects pairs $(X, Y)$ of objects in $\cat{C}$ and as morphisms equivalence
+  classes of 1-combs in $\cat{C}$.
+\end{dfn}
+
+\begin{ex}
+  The construction $\state{\onecomb{\cat{C}}}$ is the \emph{category of
+  parallel-combinable processes} of~\cite{coecke-2016}.
+\end{ex}
+
+Now suppose that $F: \cat{C}\to \cat{D}$ is a strong monoidal functor; recall that this
+means there is a natural isomorphism
+$\phi_{X,Y}: FX\otimes_\cat{D} FY\to F(X\otimes_\cat{C} Y)$. Now there
+is an induced functor $\onecomb{F}:\,
+\onecomb{\cat{C}}\to\,\onecomb{\cat{D}}$ which acts on 1-combs by
+\[
+  \begin{pic}
+    \setlength\minimummorphismwidth{8mm}
+    \node[morphism] (xi1) at (0,0) {$\xi_1$};
+    \node[morphism] (xi2) at (0,2.5) {$\xi_2$};
+    \draw (xi1.south) to ++(0,-.75) node[left] {$X'$};
+    \draw (xi2.north) to ++(0,.75) node[left] {$Y'$};
+    \draw ([xshift=2.5pt]xi1.north east) to ([xshift=2.5pt]xi2.south east);
+    \setlength\minimummorphismwidth{0mm}
+    \node[dashedmorphism] (f) at ($(xi1.north west)!.5!(xi2.south west)$)
+    {\phantom{$f$}};
+    \draw (xi1.north west) -- (f.south);
+    \draw (xi2.south west) -- (f.north);
+  \end{pic}\quad\mapsto\quad\begin{pic}
+    \draw[functor=blue] (-.75,-.5) -- (.75,-.5) -- (.75, .8) -- (.15, .8) --
+    (.15, .4) -- (-.15, .4) -- (-.15, .8) -- (-.75, .8) -- cycle;
+    \draw[functor=blue] (-.75,3) -- (.75,3) -- (.75, 1.7) -- (.15, 1.7) --
+    (.15, 2.1) -- (-.15, 2.1) -- (-.15, 1.7) -- (-.75, 1.7) -- cycle;
+    \setlength\minimummorphismwidth{8mm}
+    \node[morphism] (xi1) at (0,0) {$\xi_1$};
+    \node[morphism] (xi2) at (0,2.5) {$\xi_2$};
+    \draw (xi1.south) to ++(0,-.75) node[left] {$FX'$} node[right, xshift=2em,
+    yshift=1.5em] {\normalsize.};
+    \draw (xi2.north) to ++(0,.75) node[left] {$FY'$};
+    \draw ([xshift=2.5pt]xi1.north east) to ([xshift=2.5pt]xi2.south east);
+    \setlength\minimummorphismwidth{0mm}
+    \node[dashedmorphism] (f) at ($(xi1.north west)!.5!(xi2.south west)$)
+    {\phantom{$f$}};
+    \draw (xi1.north west) -- (f.south);
+    \draw (xi2.south west) -- (f.north);
+  \end{pic}
+\]
+Symbolically, the action of $\onecomb{F}$ is \[
+  (Z, \xi_1, \xi_2)\mapsto (FZ, \phi^{-1}_{X,Z}F\xi_1, (F\xi_2)\phi_{Y,Z}).
+\] We have that $\onecomb{F}$ preserves
+identities and composition because $F$ does. Furthermore, this construction
+turns 1-comb into an endofunctor on the category of SMCs and strong monoidal
+functors.
+
+Cryptographically, we are primarily interested in the category \[
+  \state{\onecomb{\cat{C}^2}\xto{\onecomb{\otimes}}\onecomb{\cat{C}}}.
+\]
+
+Objects in this category are maps $I\to (X\otimes Y, X'\otimes Y')$ in
+$\onecomb{\cat{C}}$, hence maps $X\otimes Y\to X'\otimes Y'$ in $\cat{C}$.
+Morphisms $(X\otimes Y\xto{f} X'\otimes Y')\to(A\otimes B\xto{g} A'\otimes B')$
+are 1-combs $(X\otimes Y, X'\otimes Y')\to (A\otimes B, A'\otimes B')$, which,
+when the hole is ``filled in'' with $f$, yield the morphism $g$. The idea is
+that $f$ represents some shared cryptographic resources which the two parties
+already have access to; the one-comb is a protocol the parties can use to
+transform it into the resource $g$.
+
+We emphasize that these $1$-combs ``live in $\cat{C}^2$: the morphisms $\xi_1$
+and $\xi_2$ must be in the image of $\otimes$. As before, this means that they
+satisfy a kind of disjointness: they are really two separate computations
+running in parallel but independently. All of the interaction between the two
+parties is encapsulated in the resource $f$, which is shared between them. As
+such, it is a general rule that \emph{protocols cannot create extra
+  interactivity on their own; they need input resources enabling interaction}.
+
+Finally, we note that to model $n$-party computation we can work in the category \[
+  \state{\onecomb{\cat{C}^n}\xto{\onecomb{\otimes^{n-1}}}\onecomb{\cat{C}}}.
+\]
+
+As an example, let $\cat{C} = \scat{Set}$, and let $f$ be the map $X\times *\to
+*\times X$ given by $(x, *)\mapsto (*, x)$. Then $f$ is a \emph{one-shot channel}
+from the first party to the second party. However, we have no way to represent
+protocols which use multiple input resources: our combs only have one hole. We
+fix this by working with \emph{n-combs}.
+
+% \subsection{Process Conversions}
 
 % \section{Paths Not Taken}
 
