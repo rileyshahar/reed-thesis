@@ -282,7 +282,7 @@ data'' of an object.
       element; a \emph{poset} is a preorder in which the only isomorphisms are
       the identities.)
     \item Let $M = (Q, \delta)$ be a non-deterministic automaton over the
-      alphabet $\Sigma$, so that $\delta: Q\times \Sigma\to \cP(\Sigma)$ is the
+      alphabet $\Sigma$, so that $\delta: Q\times \Sigma\to \cP(Q)$ is the
       transition function. Recall that the identities in $\cM$ are the empty
       words. As such, an isomorphism between two states $q_1$ and $q_2$ is a
       word $w$ which takes $q_1$ to $q_2$, together with a word $w'$ which takes
@@ -774,14 +774,14 @@ isomorphic. The point is that there is interesting structure in the way that
 even isomorphic objects relate to each other; we do not want to lose it by
 forcing strict equality.
 
-However, we do not want to allow the strcture of these natural isomorphisms to
+However, we do not want to allow the structure of these natural isomorphisms to
 be too strange. For instance, one can imagine two ways to convert from $I\otimes (x\otimes y)$
 to $x\otimes y$: \[
   I\otimes(x\otimes y) \cong x\otimes y \quad\text{ and }\quad
   I\otimes(x\otimes y) \cong (I\otimes x)\otimes y \cong x\otimes y.
 \]The first directly uses unitality, while the second associates and then uses
 unitality. A \emph{coherence axiom} asserts that choices like this do not
-matter: every pair of comopsites of our canonical isomorphisms with the same
+matter: every pair of composites of our canonical isomorphisms with the same
 domain and codomain should commute.
 
 We are not quite ready; there is one remaining technical issue, though this
@@ -811,8 +811,8 @@ We are finally now ready to state the definition of a monoidal category.
   \begin{itemize}
     \item an underlying category $\cat{C}$;
     \item a functor $\otimes: \cat{C}\times\cat{C}\to\cat{C}$, called the
-      \emph{tensor product};
-    \item an object $I\in\cat{C}$, called the \emph{tensor unit};
+      \emph{monoidal product};
+    \item an object $I\in\cat{C}$, called the \emph{monoidal unit};
     \item a natural isomorphism $\alpha_{x,y,z}: (x\otimes y)\otimes z\to
       x\otimes(y\otimes z)$, called the \emph{associator};
     \item a natural isomorphism $\lambda_x: I\otimes x\to x$, called the
@@ -884,7 +884,7 @@ examples here.
 
 \begin{ex}\label{ex:set-monoidal}
   Let us very explicitly construct the required data to show that
-  \scat{Set} is a monoidal category under the Cartesian product. The tensor unit
+  \scat{Set} is a monoidal category under the Cartesian product. The monoidal unit
   is the singleton $\{*\}$. The associator is the natural isomorphism with
   components \begin{align*}
     \alpha_{X,Y,Z} \colon (X\times Y)\times Z &\to X\times(Y\times Z)\\
@@ -993,8 +993,8 @@ axioms of a monoidal category more concrete.
     %   computes the second function.
     \item Let $L$ be a strongly-typed functional programming language with
       \emph{product types} $A\times B$, for instance the simply-typed lambda
-      calculus. Then the category $\cL$ is monoidal with the product as the
-      tensor and the unit type as the unit.
+      calculus. Then the category $\cL$ is monoidal with forming product types as the
+      monoidal product and the unit type as the monoidal unit.
   \end{itemize}
 \end{ex}
 
@@ -1003,8 +1003,8 @@ axioms of a monoidal category more concrete.
   Let $L$ be a strongly-typed functional \emph{concurrent} programming language,
   by which we mean that it can run computations concurrently on different
   machine threads. Then again under reasonable assumptions, $\cL$ is monoidal,
-  with concurrent branching as the tensor product and the do-nothing program as
-  the tensor unit.
+  with concurrent branching as the monoidal product and the do-nothing program as
+  the monoidal unit.
 \end{ex}
 
 \subsection{String Diagrams}
@@ -1268,7 +1268,7 @@ statement of the coherence laws in~\cite[Chapter XI]{maclane-1971}.
 \label{sec:smcs}
 
 While monoidal categories are necessarily associative, nothing in the definition
-guarantees that the monoidal product is commutative. As usual, it is too stric
+guarantees that the monoidal product is commutative. As usual, it is too strict
 to ask for commutativity $x\otimes y = y\otimes x$ as an equational axiom. When
 we want commutativity, we instead add a natural isomorphism $\gamma_{x,y}:
 x\otimes y\to y\otimes x$, called the \emph{braiding}, to the data, so named
@@ -1280,31 +1280,16 @@ because of its string-diagrammatic representation: \[
   \end{pic}
 \]
 
-Note that there are \emph{four} possible braids we could draw involving $x$ and
-$y$, each of which is \emph{a priori} a different morphism: \[
-  \gamma_{x,y} = \begin{pic}
-    \draw (0,0) node[left] {$x$} to[out=80,in=-100] (.6,1) node[right] {$x$};
-    \draw[style=braid] (.6,0) node[right] {$y$} node[right, xshift=3mm,
-    yshift=1mm] {\normalsize,} to[out=100,in=-80] (0,1) node[left] {$y$};
-  \end{pic}\quad
-  \gamma_{x,y}^{-1} = \begin{pic}
+This notation suggests a nice graphical representation of the inverse
+$\gamma_{x,y}^{-1}: y\otimes x\to x\otimes y$:
+\[
+  \begin{pic}
     \draw (.6,0) node[right] {$x$} node[right, xshift=3mm,
-    yshift=1mm] {\normalsize,} to[out=100,in=-80] (0,1) node[left] {$x$};
+    yshift=1mm] {\normalsize.} to[out=100,in=-80] (0,1) node[left] {$x$};
     \draw[style=braid] (0,0) node[left] {$y$} to[out=80,in=-100] (.6,1) node[right] {$y$};
-  \end{pic}\quad
-  \gamma_{y,x} = \begin{pic}
-    \draw (0,0) node[left] {$y$} to[out=80,in=-100] (.6,1) node[right] {$y$};
-    \draw[style=braid] (.6,0) node[right] {$x$} node[right, xshift=3mm,
-    yshift=1mm] {\normalsize,} to[out=100,in=-80] (0,1) node[left] {$x$};
-  \end{pic}\quad
-  \gamma_{y,x}^{-1} = \begin{pic}
-    \draw (.6,0) node[right] {$y$} node[right, xshift=3mm,
-    yshift=1mm] {\normalsize.} to[out=100,in=-80] (0,1) node[left] {$y$};
-    \draw[style=braid] (0,0) node[left] {$x$} to[out=80,in=-100] (.6,1) node[right] {$x$};
   \end{pic}
 \]
-
-That $\gamma_{x,y}^{-1}$ is indeed an inverse asserts that \[
+In particular, $\gamma_{x,y}^{-1}$ is indeed an inverse asserts that \[
   \begin{pic}
     \draw (0,0) node[left] {$x$} to[out=80,in=-90] (.6,1) to[out=90,in=-80] (0,2) node[left] {$x$};
     \draw[style=braid] (.6,0) node[right] {$y$} to[out=100,in=-90] (0,1) to[out=90,in=-100] (.6,2) node[right] {$y$};
@@ -1319,6 +1304,20 @@ That $\gamma_{x,y}^{-1}$ is indeed an inverse asserts that \[
   It is, in fact, possible to formalize string diagrams geometrically, using the
   technology of knot theory; this is due to~\cite{joyal-street-1991}.
 }.
+
+Note that there are two possible braids we could draw $x\otimes y\to y\otimes x$, 
+each of which is \emph{a priori} a different morphism: \[
+  \gamma_{x,y} = \begin{pic}
+    \draw (0,0) node[left] {$x$} to[out=80,in=-100] (.6,1) node[right] {$x$};
+    \draw[style=braid] (.6,0) node[right] {$y$} node[right, xshift=3mm,
+    yshift=1mm] {\normalsize,} to[out=100,in=-80] (0,1) node[left] {$y$};
+  \end{pic}\quad
+  \gamma_{y,x}^{-1} = \begin{pic}
+    \draw (.6,0) node[right] {$y$} node[right, xshift=3mm,
+    yshift=1mm] {\normalsize.} to[out=100,in=-80] (0,1) node[left] {$y$};
+    \draw[style=braid] (0,0) node[left] {$x$} to[out=80,in=-100] (.6,1) node[right] {$x$};
+  \end{pic}
+\]
 
 What coherence axioms should this satisfy---in other words, what manipulations
 should we be allowed to make to the our diagrams? It should certainly be coherent with
@@ -1336,7 +1335,7 @@ the identity:
     \end{pic}
   \end{equation}
 
-It should also not matter if we braid twice, or braid once with a tensor, in the
+It should also not matter if we braid twice, or braid once with a product, in the
 sense that: \begin{equation}\label{eqn:braid coherence}
   \begin{pic}
     \draw (0,0) node[left] {$x$} to[out=80,in=-90] (.6,1) to[out=90,in=-90] (1.2,2) node[right]{$x$};
@@ -1365,9 +1364,9 @@ We will care primarily about the stronger case in which
     \draw[style=braid] (.6,0) to[out=100,in=-80] (0,1);
   \end{pic} = \begin{pic}
     \draw (.6,0) node[right, xshift=3mm, yshift=1mm] {\normalsize,} to[out=100,in=-80] (0,1) ;
-    \draw[style=braid] (0,0) to[out=80,in=-100] (.6,1) ;
+    \draw[style=braid] (0,0) to[out=80,in=-100] (.6,1);
   \end{pic}
-  \end{equation} which we may then unambiguously write \[
+  \end{equation} i.e. that $\gamma_{x,y} = \gamma_{y,x}^{-1}$. We may then unambiguously write \[
   \begin{pic}
     \draw (.6,0)  node[right, xshift=3mm, yshift=1mm] {\normalsize;} to[out=100,in=-80] (0,1);
     \draw (0,0) to[out=80,in=-100] (.6,1);
@@ -1391,30 +1390,33 @@ We will care primarily about the stronger case in which
 
 Let us work out what a ``monoidal functor'' between monoidal categories should be. Let
 $\cat{C}$ and $\cat{D}$ be monoidal categories, and annotate their respective
-data with subscripts, so that for instance $\otimes_\cat{C}$ is the tensor of
-$\cat{C}$. Let $F: \cat{C}\to\cat{D}$ be a functor.
+data with subscripts, so that for instance $\otimes_\cat{C}$ is the monoidal
+product of $\cat{C}$. Let $F: \cat{C}\to\cat{D}$ be a functor.
 
-A sensible choice is to ask for a natural isomorphism $\phi_{x,y}:
-Fx\otimes_{\cat{D}} Fy\to F(x\otimes_\cat{C} y)$, satisfying certain coherence
-identities. However, this is often too strong for our purposes. For instance,
-$\texttt{Maybe}$ does not satisfy this definition: while there is a map
+As usual, we do not want to ask that $Fx\otimes_{\cat{D}} Fy =
+F(x\otimes_\cat{C} y)$, because categorical axioms tend only to hold up to
+natural transformations. A sensible choice is thus to ask for a natural
+isomorphism $\phi_{x,y}: Fx\otimes_{\cat{D}} Fy\to F(x\otimes_\cat{C} y)$,
+satisfying certain coherence identities. However, even this is often too strong.
+For instance, $\texttt{Maybe}$ does not satisfy this definition: while there is
+a map
 \begin{align*}
   \texttt{Maybe}X\otimes\texttt{Maybe}Y&\to\texttt{Maybe}(X\otimes Y) \\
   (x, y)\mapsto (x, y) \quad (x, \bot&)\mapsto \bot \quad (\bot, y)\mapsto \bot,
 \end{align*}
 and so $\texttt{Maybe}$ respects the monoidal structure in some weaker sense,
 this map is not an isomorphism. Instead, we will often just ask $\phi_{x,y}$ to
-be a morrphism, which tells us how to ``convert'' tensor products in $\cat{D}$
-into tensor products in the model of $\cat{D}$\footnote{
+be a morphism, which tells us how to ``convert'' monoidal products in $\cat{D}$
+into monoidal products in the model of $\cat{D}$\footnote{
   A careful reader may wonder why the morphism goes from $\otimes_\cat{D}$ to
   $\otimes_\cat{C}$, rather than the other way. We do sometimes study the
   latter under the name \emph{colax monoidal functors}, but the former is far
   more common. One way to understand this is that the former direction says that
-  tensor in $\cat{D}$ is in some sense ``more precise'' than tensor in
+  product in $\cat{D}$ is in some sense ``more precise'' than product in
   $\cat{C}$, which tends to be why the functor is interesting in the first
   place. 
 }. We also need $F$ to be
-compatible with the tensor unit, for which we ask for an morphism $\phi:
+compatible with the monoidal unit, for which we ask for an morphism $\phi:
 I_\cat{D}\to FI_\cat{C}$.
 
 There is a graphical calculus for monoidal functors due
@@ -1439,8 +1441,8 @@ If $F$ is monoidal, we write the morphism $\phi_{x,y}$ as \[
     \draw (.25, .45) -- ++(0, 1.2) node[left] {$F(x\otimes_\cat{C} y)$};
   \end{pic}
 \] the idea being that at first the blue-shaded wires $x$ and $y$ are connected by white
-space representing the tensor $\otimes_{\cat{D}}$, and then it becomes blue space
-representing the tensor $\otimes_\cat{C}$. We often don't write the top part of this
+space representing the product $\otimes_{\cat{D}}$, and then it becomes blue space
+representing the product $\otimes_\cat{C}$. We often don't write the top part of this
 morphism, instead doing manipulation inside $\cat{C}$, which happens in the blue
 shading. For instance, coherence with the identity states that
 \begin{equation}\label{eqn:monoidal functor id}
@@ -1516,7 +1518,7 @@ compatibility with the symmetry: \begin{equation}\label{eqn:monoidal functor sym
   symmetric monoidal categories and the data satisfies
   \Cref{eqn:monoidal functor symmetry}.
   Finally, it is \emph{strong monoidal} if $\phi_{x,y}$ and $\phi$ are
-  isomorphisms. 
+  isomorphisms and \emph{strict monoidal} if they are identities. 
 \end{dfn}
 
 \begin{ex}Again, there are many familiar monoidal functors.
@@ -1541,6 +1543,10 @@ compatibility with the symmetry: \begin{equation}\label{eqn:monoidal functor sym
       one definition of the tensor of vector spaces: \[
         \text{span}_\kk X\otimes \text{span}_\kk Y = \text{span}_\kk(X\times Y).
       \]
+    \item The forgetful functor $U: \scat{Vect}_\kk\to\scat{Set}$ is monoidal,
+      with $\phi_{X,Y}: U(X)\times U(Y)\to U(X\otimes Y)$ given by the
+      universal property of the tensor product of vector spaces, or explicitly
+      by the map $(v, w)\mapsto v\otimes w$.
   \end{itemize}
 \end{ex}
 
@@ -1554,8 +1560,8 @@ required data. In this section, we give a useful tool for constructing monoidal
 categories via a related structure called a \emph{multicategory}, which is just
 a category whose morphisms may take multiple inputs.
 
-As usual, it is often easier to understand the algebric structure diagramtically
-than symbolically. A morphism in a multicategory looks like \[
+As usual, it is often easier to understand the algebraic structure
+diagramatically than symbolically. A morphism in a multicategory looks like \[
   \begin{pic}
     \multimorphism[0,0][f][$x_1$][$x_n$][$y$\normalsize.]
   \end{pic}
@@ -1664,10 +1670,10 @@ We now state the explicit definition.
 %       \]in $\cat{C}$, where $\sigma_i$ is from $g$;
 %     \item the identity on $x_1\otimes\dots\otimes x_n$ is given by the identity
 %       partition and the identities $1_{x_i}$ from $\cat{C}$;
-%     \item the tensor product of $x_1\otimes\dots\otimes x_n$ and
+%     \item the monoidal product of $x_1\otimes\dots\otimes x_n$ and
 %       $y_1\otimes\dots\otimes y_m$ is given by the concatenation
 %       $x_1\otimes\dots\otimes x_n\otimes y_1\otimes \dots\otimes y_m$;
-%     \item the tensor product of $x_1\otimes\dots\otimes x_n\xto{f} y_1\otimes\dots\otimes y_m$
+%     \item the monoidal product of $x_1\otimes\dots\otimes x_n\xto{f} y_1\otimes\dots\otimes y_m$
 %       and $z_1\otimes\dots\otimes z_p\xto{g} w_1\otimes\dots\otimes w_q$ is given
 %       by lifting the partitions to the disjoint union, so the $y_i$
 %       component is just $f_i$ while the $w_i$ component is just $g_i$.
@@ -1678,7 +1684,7 @@ We now state the explicit definition.
 % % \begin{proof}
 % %   Associativity and unitality come directly from the axioms of a multicategory.
 
-% %   Funcotriality of the tensor is 
+% %   Functorality of the monoidal product is 
 % % \end{proof}
 % % \section{Resource Theories}
 

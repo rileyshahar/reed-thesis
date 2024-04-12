@@ -351,7 +351,7 @@ of specific resources and of conversions between them, forgetting the type
 information.
 
 The resource theory of states has a canonical symmetric monoidal structure
-induced by that of $\cat{C}$: the tensor product of states $I\xto{s} X$ and
+induced by that of $\cat{C}$: the monoidal product of states $I\xto{s} X$ and
 $I\xto{t} Y$ is just the state $I \to X\otimes Y$ given by\footnote{
   It may worry the careful reader that there are two seemingly distinct, albeit
   coherently naturally isomorphic, morphisms this diagram could represent: \[
@@ -368,7 +368,7 @@ $I\xto{t} Y$ is just the state $I \to X\otimes Y$ given by\footnote{
           \node[state,scale=.75] (g) at (.7,0) {$t$};
           \draw (g.north) to ++(0,.6) node[right] {$Y$};
         \end{pic},
-\]while the tensor product of morphisms is just their tensor in $X$. The unit is
+\]while the monoidal product of morphisms is just their product in $X$. The unit is
 the state $1_I$, while the associator and unitor are inherited from $\cat{C}$.
 
 It will be useful to be a little more general. Let $F: \cat{D}\to\cat{C}$ be a
@@ -381,13 +381,13 @@ maps $X\xto{f}Y$ in $\cat{D}$ such that $(Ff)s = t$\footnote{
     category of elements of any lax monoidal functor has a canonical monoidal
     structure on it induced by that of the codomain; this is the monoidal
     structure with which we endow $\state{F}$. Observe the similarity of the
-    tensor in $\state{F}$ with the coherence map for the functor $C(I, -)$
+    monoidal product in $\state{F}$ with the coherence map for the functor $C(I, -)$
     from \Cref{ex:monoidal-functors}.
   }. Note what then $\cat{C} = \cat{D}$ and $F = 1_\cat{C}$, we recover
   $\state{\cat{C}}$.
 
-Since $F$ is lax monoidal, there is again general recipe for taking the tensor
-in this category: given $I\xto{s} FX$ and $I\xto{t} FY$, the tensor of $s$ and
+Since $F$ is lax monoidal, there is again general recipe for taking the monoidal
+product in this category: given $I\xto{s} FX$ and $I\xto{t} FY$, the product of $s$ and
 $t$ is the state \[
   \begin{pic}
     \draw[functor=blue] (-.5, -.3) -- (0, -.3) -- (0, .2) -- (.5, .2) -- (.5,
@@ -402,7 +402,7 @@ Following~\cite{broadbent-karvonen-2022}, we are especially interested in the ca
 $\state{\cat{C}^2\xto{\otimes}\cat{C}}$. Objects in this category are morphisms
 $I\to X\otimes Y$ in $\cat{C}$, which we can think of as \emph{joint states}.
 When $\cat{C} = \scat{Set}$, every joint state is \emph{independent}, in that it
-splits into the tensor of two morphisms $I\to X$ and $I\to Y$, but in more
+splits into the product of two morphisms $I\to X$ and $I\to Y$, but in more
 complicated categories like \scat{PPT} or \scat{Hilb} this may fail, representing a
 kind of \emph{entanglement}. In this way, we can express the idea that two
 parties $A$ and $B$ have a shared uniform random key by the map $I\to X\otimes
@@ -446,7 +446,7 @@ we end up with, it should be the case that $\onecomb{\cat{C}}(I, (X, Y)) \cong
 be in (natural) correspondence with the morphisms $X\to Y$ in $\cat{C}$.
 
 To make this work out, a morphism $(X, Y)\to (X', Y')$ in $\onecomb{\cat{C}}$
-consists of the following structure, called a \emph{1-comb} \[
+consists of the following structure, called a \emph{1-comb}: \[
   \begin{pic}
     \setlength\minimummorphismwidth{6mm}
     \node[morphism] (xi1) at (0,0) {$\xi_1$};
@@ -647,6 +647,117 @@ As an example, let $\cat{C} = \scat{Set}$, and let $f$ be the map $X\times *\to
 from the first party to the second party. However, we have no way to represent
 protocols which use multiple input resources: our combs only have one hole. We
 fix this by working with \emph{n-combs}.
+
+\subsection{General Process Conversions}
+
+The extension from 1-combs to the n-combs of~\cite{broadbent-karvonen-2022} is
+conceptually straightforward, but technically somewhat messy. An n-comb is just
+a stack of 1-combs; we can combine the top of one comb with the bottom of the
+next, so we may as well write\footnote{
+  As with 1-combs, there is a more abstract definition of n-combs using coend
+  optics: an n-comb $[(X_1, Y_1), \ldots, (X_n, Y_n)]\to (X', Y')$ is an
+  element of the set \[
+    \int^{M_1,\dots,M_n\in\cat{C}}\cat{C}(X', X_1\otimes
+    M_1)\times\prod_{i=1}^{n-1} \cat{C}(Y_i\otimes M_i, X_{i+1}\otimes M_{i+1})
+    \times \cat{C}(Y_n\otimes M_n, Y').
+  \]
+}
+\[
+  \begin{pic}
+    \comb[0,0][0,2][$\xi_1'$][$\xi_2'$]
+    \comb[0,3][0,5][$\xi_3'$][$\xi_4'$]
+
+    \node at (0,6.5) {\normalsize$\vdots$};
+
+    \comb[0,8][0,10][$\xi_{2n-1}'$][$\xi_{2n}'$]
+  \end{pic}\quad\quad\quad\text{as}\quad\quad\quad
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (xi1) at (0,0) {$\xi_1$};
+    \node[morphism] (xi2) at (0,2) {$\xi_2$};
+    \node[morphism] (xi3) at (0,4) {$\xi_3$};
+    \node[morphism] (xin) at (0,7) {$\xi_n$};
+    \node[morphism] (xin1) at (0,9) {$\xi_{n+1}$};
+
+    \node at (0,5.5) {\normalsize$\vdots$};
+    \draw ([xshift=2.5pt]xi3.north east) to ++(0,.2);
+    \draw ([xshift=-2.5pt]xi3.north west) to ++(0,.2);
+    \draw ([xshift=2.5pt]xin.south east) to ++(0,-.2);
+    \draw ([xshift=-2.5pt]xin.south west) to ++(0,-.2);
+
+    \setlength\minimummorphismwidth{0mm}
+    \draw ([xshift=2.5pt]xi1.north east) to ([xshift=2.5pt]xi2.south east);
+    \node[dashedmorphism] (f) at ($(xi1.north west)!.5!(xi2.south west)$)
+    {\phantom{$f$}};
+    \draw (xi1.north west) -- (f.south);
+    \draw (xi2.south west) -- (f.north);
+
+    \draw ([xshift=2.5pt]xi2.north east) to ([xshift=2.5pt]xi3.south east);
+    \node[dashedmorphism] (g) at ($(xi2.north west)!.5!(xi3.south west)$)
+    {\phantom{$f$}};
+    \draw (xi2.north west) -- (g.south);
+    \draw (xi3.south west) -- (g.north);
+
+    \draw ([xshift=2.5pt]xin.north east) to ([xshift=2.5pt]xin1.south east);
+    \node[dashedmorphism] (h) at ($(xin.north west)!.5!(xin1.south west)$)
+    {\phantom{$f$}};
+    \draw (xin.north west) -- (h.south);
+    \draw (xin1.south west) -- (h.north);
+
+    \draw (xi1.south) to ++(0,-.5);
+    \draw (xin1.north) to ++(0,.5);
+    \node at (1, .5) {\normalsize.};
+  \end{pic}
+\]
+
+Generalizing the case of 1-combs, the objects in the category of n-combs should
+be finite lists of pairs of objects: a resource of type $[(X_1, Y_1), \ldots,
+(X_n, Y_n)]$ is a list of maps $X_i\to Y_i$ in $\cat{C}$, representing several
+resources the parties have access to. We can proceed directly to defining the
+category, but we find it easier to first define a symmetric multicategory of
+n-combs. The advantage is that this requires us only to define morphisms with
+one pair in the codomain---what~\cite{broadbent-karvonen-2022} call the ``basic
+morphisms''---and then construct a full SMC via a general procedure.
+
+Objects in this multicategory are pairs of objects in $\cat{C}$. Morphisms
+$[(X_1, Y_1), \ldots, (X_n, Y_n)]\to (X', Y')$ consist of a permutation $\sigma$
+and an n-comb
+\[
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (xi1) at (0,0) {$\xi_1$};
+    \node[morphism] (xi2) at (0,2) {$\xi_2$};
+    \node[morphism] (xin) at (0,5) {$\xi_n$};
+    \node[morphism] (xin1) at (0,7) {$\xi_{n+1}$};
+
+    \node at (0,3.5) {\normalsize$\vdots$};
+    \draw ([xshift=2.5pt]xi2.north east) to ++(0,.2);
+    \draw ([xshift=-2.5pt]xi2.north west) to ++(0,.2);
+    \draw ([xshift=2.5pt]xin.south east) to ++(0,-.2);
+    \draw ([xshift=-2.5pt]xin.south west) to ++(0,-.2);
+
+    \setlength\minimummorphismwidth{0mm}
+    \draw ([xshift=2.5pt]xi1.north east) to ([xshift=2.5pt]xi2.south east);
+    \node[dashedmorphism] (f) at ($(xi1.north west)!.5!(xi2.south west)$)
+    {\phantom{$f$}};
+    \draw (xi1.north west) -- (f.south) node[left, midway] {$X_{\sigma(1)}$};
+    \draw (xi2.south west) -- (f.north) node[left, midway] {$Y_{\sigma(1)}$};
+
+    \draw ([xshift=2.5pt]xin.north east) to ([xshift=2.5pt]xin1.south east);
+    \node[dashedmorphism] (h) at ($(xin.north west)!.5!(xin1.south west)$)
+    {\phantom{$f$}};
+    \draw (xin.north west) -- (h.south) node[left, midway] {$X_{\sigma(n)}$};
+    \draw (xin1.south west) -- (h.north) node[left, midway] {$Y_{\sigma(n)}$};
+
+    \draw (xi1.south) to ++(0,-.5) node[left] {$X'$};
+    \draw (xin1.north) to ++(0,.5) node[left] {$Y'$};
+    \node at (1, .5) {\normalsize.};
+  \end{pic}
+\] The idea is that $\sigma$ encodes the order in which the protocol uses the
+input resources; we do not have to use them in the order specified by the domain
+list. Composition of general combs is as with 1-combs: given an n-comb and n combs
+ such that the types line up, we nest each of the combs into the outer n-comb.
+
 
 % \subsection{Process Conversions}
 

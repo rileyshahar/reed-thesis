@@ -263,6 +263,20 @@
   \draw ($(#1.east)+(.5,0)$) to[out=0,in=180] ($(#2.#3 west)+(-.5,0)$);
 }
 
+\def\comb[#1,#2][#3,#4][#5][#6] {
+  \setlength\minimummorphismwidth{6mm}
+  \node[morphism] (xi1) at (#1,#2) {#5};
+  \node[morphism] (xi2) at (#3,#4) {#6};
+  \setlength\minimummorphismwidth{0mm}
+  \draw ([xshift=2.5pt]xi1.north east) to ([xshift=2.5pt]xi2.south east);
+  \node[dashedmorphism] (f) at ($(xi1.north west)!.5!(xi2.south west)$)
+  {\phantom{$f$}};
+  \draw (xi1.north west) -- (f.south);
+  \draw (xi2.south west) -- (f.north);
+  \draw (xi1.south) to ++(0,-.5);
+  \draw (xi2.north) to ++(0,.5);
+}
+
 \newenvironment{dedication}
   {%\clearpage           % we want a new page          %% I commented this
    \thispagestyle{empty}% no header and footer
