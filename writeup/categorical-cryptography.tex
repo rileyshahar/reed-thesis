@@ -467,17 +467,18 @@ consists of the following structure, called a \emph{1-comb}: \[
 Explicitly, a 1-comb consists of an object $Z$ and two morphisms $\xi_1: X'\to
 X\otimes Z$ and $\xi_2: Y\otimes Z\to Y'$. The point is that, if we ``plug in''
 a morphism $X\to Y$ for the hole, we obtain a morphism $X'\to Y'$; $Z$
-represents some auxiliary data that isn't needed by the plugged-in morphism. It
-is a theorem of~\cite{coecke-2016} that in an SMC, any morphism $X'\to Y'$
-obtainable as a string diagram which uses exactly one occurrence of a morphism
-$X\xto{f} Y$ may be obtained as a 1-comb with $f$ filled in the hole.
+represents some auxiliary data that isn't needed by the plugged-in morphism.
+We often call $Z$ the \emph{residual} of the comb. It is a theorem
+of~\cite{coecke-2016} that in an SMC, any morphism $X'\to Y'$ obtainable as a
+string diagram which uses exactly one occurrence of a morphism $f: X\to Y$ may
+be obtained as a 1-comb with $f$ filled in the hole.
 
 Composition of 1-combs is defined by ``nesting'': given 1-combs
 $(Z, \xi_1, \xi_2): (X, Y)\to (X', Y')$ and $(Z', \xi_1', \xi_2'): (X', Y')\to
 (X'', Y'')$, we have a composite 1-comb $(X, Y)\to (X'', Y'')$ defined by:
 \[
   \begin{pic}
-    \setlength\minimummorphismwidth{6mm}
+    \setlength\minimummorphismwidth{10mm}
     \node[morphism] (xi1') at (0,0) {$\xi_1'$};
     \node[morphism] (xi2') at (0,3.5) {$\xi_2'$};
     \draw (xi1'.south) to ++(0,-.5) node[left] {$X''$} node[right, xshift=2em,
@@ -485,15 +486,16 @@ $(Z, \xi_1, \xi_2): (X, Y)\to (X', Y')$ and $(Z', \xi_1', \xi_2'): (X', Y')\to
     {\normalsize.};
     \draw (xi2'.north) to ++(0,.5) node[left] {$Y''$};
     \draw ([xshift=2.5pt]xi1'.north east) to ([xshift=2.5pt]xi2'.south east);
-    \setlength\minimummorphismwidth{4mm}
-    \node[morphism] (xi1) at ($(xi1'.north west)!.2!(xi2'.south west)$) {$\xi_1$};
-    \node[morphism] (xi2) at ($(xi1'.north west)!.8!(xi2'.south west)$) {$\xi_2$};
+    \node[morphism,scale=.6] (xi1) at ($(xi1'.north west)!.2!(xi2'.south west)$)
+    {\normalsize$\xi_1$};
+    \node[morphism,scale=.6] (xi2) at ($(xi1'.north west)!.8!(xi2'.south west)$)
+    {\normalsize$\xi_2$};
     \draw (xi1'.north west) -- (xi1.south);
     \draw (xi2'.south west) -- (xi2.north);
-    \draw ([xshift=2.5pt]xi1.north east) to ([xshift=2.5pt]xi2.south east);
+    \draw (xi1.north east) to (xi2.south east);
 
     \setlength\minimummorphismwidth{0mm}
-    \node[dashedmorphism] (f) at ($(xi1.north west)!.5!(xi2.south west)$)
+    \node[dashedmorphism,scale=.75] (f) at ($(xi1.north west)!.5!(xi2.south west)$)
     {\phantom{$f$}};
     \draw (xi1.north west) -- (f.south);
     \draw (xi2.south west) -- (f.north);
@@ -648,7 +650,7 @@ from the first party to the second party. However, we have no way to represent
 protocols which use multiple input resources: our combs only have one hole. We
 fix this by working with \emph{n-combs}.
 
-\subsection{General Process Conversions}
+\subsection{Linear Process Conversions}
 
 The extension from 1-combs to the n-combs of~\cite{broadbent-karvonen-2022} is
 conceptually straightforward, but technically somewhat messy. An n-comb is just
@@ -755,9 +757,75 @@ and an n-comb
   \end{pic}
 \] The idea is that $\sigma$ encodes the order in which the protocol uses the
 input resources; we do not have to use them in the order specified by the domain
-list. Composition of general combs is as with 1-combs: given an n-comb and n combs
- such that the types line up, we nest each of the combs into the outer n-comb.
+list. Composition of general combs is as with 1-combs: given an n-comb and n
+$m_k$-combs such that the types line up, we nest each of the combs into the
+outer n-comb. This indeed gives us a symmetric multicategory.
 
+We can now use the following general construction to obtain the category of
+n-combs:
+
+\begin{con}
+  Let $\cat{C}$ be a multicategory. Then there is an associated monoidal
+  category $\cat{C}^\otimes$ defined as follows:
+  \begin{itemize}
+    \item an object in $\cat{C}^\otimes$ is a finite list of objects in
+      $\cat{C}$, written $x_1\otimes\dots\otimes x_n$;
+    \item a morphism $x_1\otimes\dots\otimes x_n\xto{f} y_1\otimes \dots\otimes
+      y_m$ consists of a \emph{partition function}
+      $\alpha_f: \{1,\dots,n\}\to\{1,\dots,m\}$ and for each $i\in\{1,\dots,m\}$, a morphism \[
+        x_{k_1}, \dots, x_{k_l}\xto{f_i} y_i,
+      \] called the \emph{$y_i$ component}, where the $k_j$s range over
+      $\alpha_f^{-1}(i)$;
+    \item the composite morphism $x_1\otimes\dots\otimes
+      x_n\xto{f}y_1\otimes\dots\otimes y_m\xto{g}z_1\otimes\dots\otimes z_p$ is
+      given by the partition function $\alpha_{gf} = \alpha_g\alpha_f$ and for
+      each $z_i$, the component \[
+        g_i\circ(f_{\sigma_i(1)},\dots,f_{\sigma_i(k)})
+      \]in $\cat{C}$, where $\sigma_i$ is from $g$;
+    \item the identity on $x_1\otimes\dots\otimes x_n$ is given by the identity
+      partition and the identities $1_{x_i}$ from $\cat{C}$;
+    \item the monoidal product of $x_1\otimes\dots\otimes x_n$ and
+      $y_1\otimes\dots\otimes y_m$ is given by the concatenation
+      $x_1\otimes\dots\otimes x_n\otimes y_1\otimes \dots\otimes y_m$;
+    \item the monoidal product of $x_1\otimes\dots\otimes x_n\xto{f} y_1\otimes\dots\otimes y_m$
+      and $z_1\otimes\dots\otimes z_p\xto{g} w_1\otimes\dots\otimes w_q$ is given
+      by lifting the partitions to the disjoint union, so the $y_i$
+      component is just $f_i$ while the $w_i$ component is just $g_i$.
+  \end{itemize}
+\end{con}
+
+We can be explicit about what this construction looks like in the case of
+n-combs.
+
+\begin{dfn}
+  Objects in the category $\ncomb{\cat{C}}$ are finite lists of pairs of objects
+  in $\cat{C}$. A morphism $[(X_1, Y_1), \ldots, (X_n, Y_n)]\to [(X'_1, Y'_1),
+  \dots, (X'_m, Y'_m)]$ is a list of $m$ combs, one for each pair of objects in
+  the codomain, and each of which has holes typed by the pairs in the domain,
+  such that each pair in the domain is used in \emph{exactly one} n-comb and
+  \emph{exactly once} in that n-comb. Composition is by nesting, while the
+  monoidal product is by concatenation of lists.
+\end{dfn}
+
+In the title of the section, we called this a category of \emph{linear} process
+conversions. This is because each input resource is used exactly once in the
+list of n-combs.
+
+% % TODO: proof?
+% % \begin{proof}
+% %   Associativity and unitality come directly from the axioms of a multicategory.
+
+% %   Functorality of the monoidal product is 
+% % \end{proof}
+% % \section{Resource Theories}
+
+% The idea is that each object in $x_1\otimes\dots\otimes x_n\in\cat{C}^\otimes$
+% represents the presence of the ``resources'' represented by the objects
+% $x_1,\dots,x_n\in\cat{C}$. A morphism must consume precisely one ``copy'' of
+% each resource in that list and produce one copy of each resource in its
+% codomain. The partition $\alpha$ is an allocation of input resources to output
+% resources: $\alpha^{-1}(i)$ is exactly the input resources used to produce the
+% resource $y_i$.
 
 % \subsection{Process Conversions}
 

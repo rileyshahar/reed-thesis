@@ -1604,7 +1604,7 @@ We now state the explicit definition.
   A \emph{multicategory} consists of the following data:
   \begin{itemize}
     \item a collection of objects $\cat{C}$;
-    \item for any finite list of objects $x_1, \dots, x_n\in\cat{C}$ and any
+    \item for any (possibly empty) finite list of objects $x_1, \dots, x_n\in\cat{C}$ and any
       object $y\in\cat{C}$, a collection of morphisms $\cat{C}(x_1,\dots,x_n;y)$;
     \item for any finite list of morphisms $f_1,\dots,f_n$, and any morphism
       $g$ such that the domain of $g$ has length $n$ and the $i$th object in
@@ -1634,7 +1634,7 @@ We now state the explicit definition.
 \end{ntn}
 
 \begin{ex}
-  Any category is a multicategory, with no morphisms of arity greater
+  Any category is a multicategory, with no morphisms of arity other
   than one. Such multicategories are called \emph{unary}.
 \end{ex}
 
@@ -1643,58 +1643,75 @@ We now state the explicit definition.
   $x_1,\dots,x_n\to y$ are exactly the maps $x_1\otimes\dots\otimes x_n\to y$.
 \end{ex}
 
-% \section{Resource Theories}
+We also want to consider a kind of commutativity of domain-forming in
+multicategories. The basic idea is that we should be able to permute the domain
+of a hom-set and receive a canonically isomorphic hom-set. 
 
-% \subsection{Theories of Resource Conversions}
+\begin{dfn}
+  A \emph{symmetric multicategory} is a multicategory equipped with, for each
+  $n$, a right-action of the symmetric group $S^n$ on hom-sets of arity $n$,
+  i.e. for $\sigma\in S^n$, a map  \[
+    (-\cdot \sigma): \cat{C}(x_1,\dots,x_n; y)\to\cat{C}(x_{\sigma(1)},\dots,x_{\sigma(n)}; y)
+  \] which commutes with the multiplicative structure of $S^n$, in that \[
+    (f\cdot \sigma)\cdot \tau = f\cdot(\sigma\tau),\quad\quad f = f\cdot 1.
+  \] This action must respect composition, in that, whenever the types line up, \[
+    (g\cdot \sigma)\circ(f_{\sigma(1)}\cdot\tau_{\sigma(1)},\dots,f_{\sigma(n)}\cdot\tau_{\sigma(n)}) =
+    (g\circ(f_1,\dots,f_n))\cdot(\sigma\circ(\tau_{\sigma(1)},\dots,\tau_{\sigma(n)}).
+  \]
+\end{dfn}
 
-% Our main use for multicategories will be the following procedure.
+This last equality requires some explanation. We have a map $f$ and a
+composition-compatible list of maps $g_1,\dots,g_n$. If we permute the inputs to
+$f$ by $\sigma$, then we need to permute the $g_i$s in the same way. In the most general
+case, we could also have further permutations $\tau_i$ to the inputs of each of the
+$g_i$s; we need to permute those by $\sigma$ as well. This gives us the left
+hand side.
 
-% \begin{con}[{\cite[Definition 3.20]{coecke-2016}}]
-%   Let $\cat{C}$ be a multicategory. Then there is an associated
-%   \emph{monoidal category of linear resource conversions}
-%   $\cat{C}^\otimes$ defined as follows:
-%   \begin{itemize}
-%     \item an object in $\cat{C}^\otimes$ is a finite list of objects in
-%       $\cat{C}$, written $x_1\otimes\dots\otimes x_n$;
-%     \item a morphism $x_1\otimes\dots\otimes x_n\xto{f} y_1\otimes \dots\otimes
-%       y_m$ consists of a \emph{partition function}
-%       $\alpha_f: \{1,\dots,n\}\to\{1,\dots,m\}$ and for each $i\in\{1,\dots,m\}$,
-%       an enumeration $\{\sigma_i(1),\dots,\sigma_i(k)\}$ of $\alpha^{-1}(i)$ and a morphism \[
-%         x_{\sigma_i(1)}, \dot, x_{\sigma_i(k)}\xto{f_i} y_i,
-%       \] called the \emph{$y_i$ component};
-%     \item the composite morphism $x_1\otimes\dots\otimes
-%       x_n\xto{f}y_1\otimes\dots\otimes y_m\xto{g}z_1\otimes\dots\otimes z_p$ is
-%       given by the partition function $\alpha_{gf} = \alpha_g\alpha_f$ and for
-%       each $z_i$, the component \[
-%         g_i\circ(f_{\sigma_i(1)},\dots,f_{\sigma_i(k)})
-%       \]in $\cat{C}$, where $\sigma_i$ is from $g$;
-%     \item the identity on $x_1\otimes\dots\otimes x_n$ is given by the identity
-%       partition and the identities $1_{x_i}$ from $\cat{C}$;
-%     \item the monoidal product of $x_1\otimes\dots\otimes x_n$ and
-%       $y_1\otimes\dots\otimes y_m$ is given by the concatenation
-%       $x_1\otimes\dots\otimes x_n\otimes y_1\otimes \dots\otimes y_m$;
-%     \item the monoidal product of $x_1\otimes\dots\otimes x_n\xto{f} y_1\otimes\dots\otimes y_m$
-%       and $z_1\otimes\dots\otimes z_p\xto{g} w_1\otimes\dots\otimes w_q$ is given
-%       by lifting the partitions to the disjoint union, so the $y_i$
-%       component is just $f_i$ while the $w_i$ component is just $g_i$.
-%   \end{itemize}
-% \end{con}
+On the right hand side, we first take the composite of $f$ and the $g$s, and
+then want to use the data of $\sigma$ and the $\tau_i$s to permute the inputs to
+this composite morphisms. The point is that it's sufficient to first permute
+each bundle of inputs by $\sigma$, and then permute each input to each bundle by
+the appropriate $\tau$. In the case where all the maps have arity $2$ and all
+the permutations are the transposition $(12)$, this equality is as follows:
+\[
+  \begin{pic}
+    \twomultimorphism[0,.7][f_2][][][]
+    \twomultimorphism[2.5,0][g][][][]
+    \twomultimorphism[0,-.7][f_1][][][]
+    % \draw ($(f_1.east)+(.5,0)$) -- ($(g.north west)+(-.5,0)$);
+    \wire[f_1][g][north]
+    \wire[f_2][g][south]
 
-% % TODO: proof?
-% % \begin{proof}
-% %   Associativity and unitality come directly from the axioms of a multicategory.
+    \draw ($(f_2.north west)+(-.3,0)$) to[out=180,in=0] ($(f_2.south west)+(-1,0)$);
+    \draw ($(f_2.south west)+(-.3,0)$) to[out=180,in=0] ($(f_2.north west)+(-1,0)$);
+    \draw ($(f_1.north west)+(-.3,0)$) to[out=180,in=0] ($(f_1.south west)+(-1,0)$);
+    \draw ($(f_1.south west)+(-.3,0)$) to[out=180,in=0] ($(f_1.north west)+(-1,0)$);
+  \end{pic}=\quad
+  \begin{pic}
+    \narrowtwomultimorphism[0,.7][f_1][][][]
+    \twomultimorphism[2,0][g][][][\normalsize.]
+    \narrowtwomultimorphism[0,-.7][f_2][][][]
+    % \draw ($(f_1.east)+(.5,0)$) -- ($(g.north west)+(-.5,0)$);
+    \wire[f_1][g][north]
+    \wire[f_2][g][south]
 
-% %   Functorality of the monoidal product is 
-% % \end{proof}
-% % \section{Resource Theories}
+    \draw ($([yshift=-2mm]f_1.north west)+(-.3,0)$) to[out=180,in=0] ($(f_2.north
+    west)+(-1.5,0)$) to[out=180,in=0] ($(f_2.south west)+(-2.5,0)$);
 
-% The idea is that each object in $x_1\otimes\dots\otimes x_n\in\cat{C}^\otimes$
-% represents the presence of the ``resources'' represented by the objects
-% $x_1,\dots,x_n\in\cat{C}$. A morphism must consume precisely one ``copy'' of
-% each resource in that list and produce one copy of each resource in its
-% codomain. The partition $\alpha$ is an allocation of input resources to output
-% resources: $\alpha^{-1}(i)$ is exactly the input resources used to produce the
-% resource $y_i$.
+    \draw ($([yshift=2mm]f_1.south west)+(-.3,0)$) to[out=180,in=0] ($(f_2.south
+    west)+(-1.5,0)$) to[out=180,in=0] ($(f_2.north west)+(-2.5,0)$);
+
+    \draw ($([yshift=-2mm]f_2.north west)+(-.3,0)$) to[out=180,in=0] ($(f_1.north
+    west)+(-1.5,0)$) to[out=180,in=0] ($(f_1.south west)+(-2.5,0)$);
+
+    \draw ($([yshift=2mm]f_2.south west)+(-.3,0)$) to[out=180,in=0] ($(f_1.south
+    west)+(-1.5,0)$) to[out=180,in=0] ($(f_1.north west)+(-2.5,0)$);
+    % \draw ($(f_1.south west)+(-.5,0)$) to[out=180,in=0] ($(f_1.north west)+(-1.5,0)$);
+    % \draw ($(f_2.north west)+(-.5,0)$) to[out=180,in=0] ($(f_2.south west)+(-1.5,0)$);
+    % \draw ($(f_2.south west)+(-.5,0)$) to[out=180,in=0] ($(f_2.north west)+(-1.5,0)$);
+  \end{pic}
+\]
+
 
 \section*{Bibliographic Notes}
 
