@@ -394,6 +394,54 @@
       \field{pages}{37\bibrangedash 56}
       \range{pages}{20}
     \endentry
+    \entry{benton-1995}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=4e781e772d53ea5153ca3cb9d89f5552}{%
+           family={Benton},
+           familyi={B\bibinitperiod},
+           given={P.\bibnamedelimi N.},
+           giveni={P\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=916796e68e2a2056a587a4eab54fdc8b}{%
+           family={Pacholski},
+           familyi={P\bibinitperiod},
+           given={Leszek},
+           giveni={L\bibinitperiod}}}%
+        {{hash=f7eac5e61c1a047a1a32fdf90ef7577d}{%
+           family={Tiuryn},
+           familyi={T\bibinitperiod},
+           given={Jerzy},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{4e781e772d53ea5153ca3cb9d89f5552}
+      \strng{fullhash}{4e781e772d53ea5153ca3cb9d89f5552}
+      \strng{bibnamehash}{4e781e772d53ea5153ca3cb9d89f5552}
+      \strng{authorbibnamehash}{4e781e772d53ea5153ca3cb9d89f5552}
+      \strng{authornamehash}{4e781e772d53ea5153ca3cb9d89f5552}
+      \strng{authorfullhash}{4e781e772d53ea5153ca3cb9d89f5552}
+      \strng{editorbibnamehash}{99ce95d418aff590e3034a7476e8c8f0}
+      \strng{editornamehash}{99ce95d418aff590e3034a7476e8c8f0}
+      \strng{editorfullhash}{99ce95d418aff590e3034a7476e8c8f0}
+      \field{labelalpha}{Ben95}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Intuitionistic linear logic regains the expressive power of intuitionistic logic through the ! (`of course') modality. Benton, Bierman, Hyland and de Paiva have given a term assignment system for ILL and an associated notion of categorical model in which the ! modality is modelled by a comonad satisfying certain extra conditions. Ordinary intuitionistic logic is then modelled in a cartesian closed category which arises as a full subcategory of the category of coalgebras for the comonad.}
+      \field{booktitle}{Computer Science Logic}
+      \field{isbn}{978-3-540-49404-1}
+      \field{title}{A mixed linear and non-linear logic: Proofs, terms and models}
+      \field{year}{1995}
+      \field{pages}{121\bibrangedash 135}
+      \range{pages}{15}
+    \endentry
     \entry{broadbent-karvonen-2022}{incollection}{}
       \name{author}{2}{}{%
         {{hash=9ea2a45d7ab1a2ec555771051f412c9b}{%
@@ -1703,6 +1751,44 @@
       \field{pages}{68\bibrangedash 85}
       \range{pages}{18}
     \endentry
+    \entry{girard-1987}{article}{}
+      \name{author}{1}{}{%
+        {{hash=b2918bf11715bb95276ff254fb247d4b}{%
+           family={Girard},
+           familyi={G\bibinitperiod},
+           given={Jean-Yves},
+           giveni={J\bibinithyphendelim Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{b2918bf11715bb95276ff254fb247d4b}
+      \strng{fullhash}{b2918bf11715bb95276ff254fb247d4b}
+      \strng{bibnamehash}{b2918bf11715bb95276ff254fb247d4b}
+      \strng{authorbibnamehash}{b2918bf11715bb95276ff254fb247d4b}
+      \strng{authornamehash}{b2918bf11715bb95276ff254fb247d4b}
+      \strng{authorfullhash}{b2918bf11715bb95276ff254fb247d4b}
+      \field{labelalpha}{Gir87}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The familiar connective of negation is broken into two operations: linear negation which is the purely negative part of negation and the modality “of course” which has the meaning of a reaffirmation. Following this basic discovery, a completely new approach to the whole area between constructive logics and programmation is initiated.}
+      \field{issn}{0304-3975}
+      \field{journaltitle}{Theoretical Computer Science}
+      \field{number}{1}
+      \field{title}{Linear logic}
+      \field{volume}{50}
+      \field{year}{1987}
+      \field{pages}{1\bibrangedash 101}
+      \range{pages}{101}
+      \verb{doi}
+      \verb https://doi.org/10.1016/0304-3975(87)90045-4
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/0304397587900454
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/0304397587900454
+      \endverb
+    \endentry
     \entry{goldreich-krawczyk-1996}{article}{}
       \name{author}{2}{}{%
         {{hash=66aba379c7d3adb8af5b662a65c4c140}{%
@@ -2984,6 +3070,32 @@
       \field{pages}{1\bibrangedash 30}
       \range{pages}{30}
     \endentry
+    \entry{mellies-2009}{article}{}
+      \name{author}{1}{}{%
+        {{hash=6747ca2800dbf174018bfced5f587d71}{%
+           family={Mellies},
+           familyi={M\bibinitperiod},
+           given={Paul-André},
+           giveni={P\bibinithyphendelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{6747ca2800dbf174018bfced5f587d71}
+      \strng{fullhash}{6747ca2800dbf174018bfced5f587d71}
+      \strng{bibnamehash}{6747ca2800dbf174018bfced5f587d71}
+      \strng{authorbibnamehash}{6747ca2800dbf174018bfced5f587d71}
+      \strng{authornamehash}{6747ca2800dbf174018bfced5f587d71}
+      \strng{authorfullhash}{6747ca2800dbf174018bfced5f587d71}
+      \field{labelalpha}{Mel09}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Panoramas et syntheses}
+      \field{title}{Categorical semantics of linear logic}
+      \field{volume}{27}
+      \field{year}{2009}
+      \field{pages}{15\bibrangedash 215}
+      \range{pages}{201}
+    \endentry
     \entry{meseguer-montanari-1990}{article}{}
       \name{author}{2}{}{%
         {{hash=3db091e4a8ac487951475a5465f6c566}{%
@@ -3584,6 +3696,33 @@
       \field{year}{2018}
       \verb{eprint}
       \verb 1809.00738
+      \endverb
+    \endentry
+    \entry{roman-2020}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=d4f092c73ead809932c43d0668067f0a}{%
+           family={Román},
+           familyi={R\bibinitperiod},
+           given={Mario},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{d4f092c73ead809932c43d0668067f0a}
+      \strng{fullhash}{d4f092c73ead809932c43d0668067f0a}
+      \strng{bibnamehash}{d4f092c73ead809932c43d0668067f0a}
+      \strng{authorbibnamehash}{d4f092c73ead809932c43d0668067f0a}
+      \strng{authornamehash}{d4f092c73ead809932c43d0668067f0a}
+      \strng{authorfullhash}{d4f092c73ead809932c43d0668067f0a}
+      \field{labelalpha}{Rom20}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.LO}
+      \field{eprinttype}{arXiv}
+      \field{title}{Comb Diagrams for Discrete-Time Feedback}
+      \field{year}{2020}
+      \verb{eprint}
+      \verb 2003.06214
       \endverb
     \endentry
     \entry{rosulek-2021}{book}{}
@@ -4201,6 +4340,59 @@
       \verb https://doi.org/10.1007/978-3-540-77050-3_5
       \endverb
       \keyw{Proof System,Commitment Scheme,Interactive Proof,Probabilistic Polynomial Time,Interactive Proof System}
+    \endentry
+    \entry{valiron-zdancewic-2014}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=90a2846c2a82e1f45c18ec22fce733d3}{%
+           family={Valiron},
+           familyi={V\bibinitperiod},
+           given={Benoît},
+           giveni={B\bibinitperiod}}}%
+        {{hash=86f46b6c1c6a571f63e61bfc35519f72}{%
+           family={Zdancewic},
+           familyi={Z\bibinitperiod},
+           given={Steve},
+           giveni={S\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=97b0f71f990be4795809e4356e06fe10}{%
+           family={Ciobanu},
+           familyi={C\bibinitperiod},
+           given={Gabriel},
+           giveni={G\bibinitperiod}}}%
+        {{hash=f2faa4cbd3fa943034ab4b234722ebb8}{%
+           family={Méry},
+           familyi={M\bibinitperiod},
+           given={Dominique},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cham}%
+      }
+      \list{publisher}{1}{%
+        {Springer International Publishing}%
+      }
+      \strng{namehash}{05a1d5e18f92a0b9a2fd304dc20bd249}
+      \strng{fullhash}{05a1d5e18f92a0b9a2fd304dc20bd249}
+      \strng{bibnamehash}{05a1d5e18f92a0b9a2fd304dc20bd249}
+      \strng{authorbibnamehash}{05a1d5e18f92a0b9a2fd304dc20bd249}
+      \strng{authornamehash}{05a1d5e18f92a0b9a2fd304dc20bd249}
+      \strng{authorfullhash}{05a1d5e18f92a0b9a2fd304dc20bd249}
+      \strng{editorbibnamehash}{599659a75d71b2ef11d3f939bf66d12a}
+      \strng{editornamehash}{599659a75d71b2ef11d3f939bf66d12a}
+      \strng{editorfullhash}{599659a75d71b2ef11d3f939bf66d12a}
+      \field{labelalpha}{VZ14}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper we use finite vector spaces (finite dimension, over finite fields) as a non-standard computational model of linear logic. We first define a simple, finite PCF-like lambda-calculus with booleans, and then we discuss two finite models, one based on finite sets and the other on finite vector spaces. The first model is shown to be fully complete with respect to the operational semantics of the language. The second model is not complete, but we develop an algebraic extension of the finite lambda calculus that recovers completeness. The relationship between the two semantics is described, and several examples based on Church numerals are presented.}
+      \field{booktitle}{Theoretical Aspects of Computing -- ICTAC 2014}
+      \field{isbn}{978-3-319-10882-7}
+      \field{title}{Finite Vector Spaces as Model of Simply-Typed Lambda-Calculi}
+      \field{year}{2014}
+      \field{pages}{442\bibrangedash 459}
+      \range{pages}{18}
     \endentry
     \entry{wadler-1989}{inproceedings}{}
       \name{author}{1}{}{%

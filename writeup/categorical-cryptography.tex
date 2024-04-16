@@ -372,10 +372,11 @@ $I\xto{t} Y$ is just the state $I \to X\otimes Y$ given by\footnote{
 the state $1_I$, while the associator and unitor are inherited from $\cat{C}$.
 
 It will be useful to be a little more general. Let $F: \cat{D}\to\cat{C}$ be a
-lax monoidal functor. Then an \emph{$F$-state} is a map $I\to FX$ in $\cat{C}$ for some object
-$X\in\cat{D}$. The \emph{resource theory of $F$-states} $\state{F}$ is the category whose
-objects are $F$-states and whose morphisms $(I\xto{s} FX)\to (I\xto{t} FY)$ are
-maps $X\xto{f}Y$ in $\cat{D}$ such that $(Ff)s = t$\footnote{
+lax monoidal functor. Then an \emph{$F$-state} is a pair of $X\in\cat{D}$ and a
+map $I\to FX$ in $\cat{C}$. The \emph{resource theory of $F$-states} $\state{F}$
+is the category whose objects are $F$-states and whose morphisms $(I\xto{s}
+FX)\to (I\xto{t} FY)$ are maps $X\xto{f}Y$ in $\cat{D}$ such that $(Ff)s =
+t$\footnote{
   With a little more machinery: $\state{F}$ is the \emph{category of elements}
     of the functor $\cat{D}\xto{F}\cat{C}\xto{C(I, -)}\scat{Set}$. The
     category of elements of any lax monoidal functor has a canonical monoidal
@@ -423,11 +424,21 @@ interaction; we will do so in the next two sections.
 It is worth remarking that more generally, we can model computations on
 $n$-party states via the category
 \[
-  \state{\cat{C}^n\xto{\otimes^{n-1}}\cat{C}},
+  \state{\cat{C}^N\xto{\otimes^{N-1}}\cat{C}},
 \] where the $i$th copy of $\cat{C}$ represents computations taken by the $i$th
 party in the computation\footnote{There is a choice of associativity to be made, but any
 choice yields a coherently isomorphic category, so we will not worry about it
-here.}.
+here. A stanard assumption---justified by the \emph{strictification theorem for
+monoidal categories}, which says that every monoidal category is equivalent to
+strict one---is that the underlying cateogry $\cat{C}$ is strict.}.
+
+Finally, there is a forgetful functor $\Pi: \state{\cat{D}\xto{F}\cat{C}}\to
+\cat{D}$, which sends a state $I\xto FX$ to the object $X$ and a map to its
+underlying map in $\cat{D}$. This functor is monoidal, since the monoidal
+structure on $\state{\cat{D}\xto{F}\cat{C}}$ is induced by that of $\cat{D}$.
+This functor composes with $F$ to get a forgetful functor with codomain
+$\cat{C}$. We will use these functors to help organize information about the
+relationship between these categories.
 
 \subsection{Flat Process Conversions}
 
@@ -651,6 +662,7 @@ protocols which use multiple input resources: our combs only have one hole. We
 fix this by working with \emph{n-combs}.
 
 \subsection{Linear Process Conversions}
+\label{sec:libear-process-conversions}
 
 The extension from 1-combs to the n-combs of~\cite{broadbent-karvonen-2022} is
 conceptually straightforward, but technically somewhat messy. An n-comb is just
@@ -767,7 +779,7 @@ outer n-comb. This indeed gives us a symmetric multicategory.
 We can now use the following general construction to obtain the category of
 n-combs:
 
-\begin{dfn}
+\begin{dfn}\label{def:associated-monoidal-category}
   Let $\cat{C}$ be a (symmetric) multicategory. Then there is an associated
   (symmetric) monoidal category $\cat{C}^\otimes$ defined as follows:
   \begin{itemize}
@@ -823,7 +835,7 @@ n-combs.
   combinable processes} of~\cite{coecke-2016}.
 \end{ex}
 
-Furthermore, n-comb is functorial in the same way a 1-comb. Given a strong
+Furthermore, n-comb is functorial in the same way as 1-comb. Given a strong
 monoidal functor $F: \cat{C}\to\cat{D}$, we can define a functor $\ncomb{F}:
 \ncomb{\cat{C}}\to\ncomb{\cat{D}}$ by acting on each n-comb over $\cat{C}$ by \[
   \begin{pic}
@@ -915,7 +927,25 @@ lists of $M$ combs, so that each map $f_i$ in the domain list is allocated to
 exactly one comb, and so that plugging in all the $f_i$s into the appropriate
 combs yields exactly the list of maps in the codomain.
 
+Here is a convenient way to think about the situation, to our knowledge original
+to us. A map in $\ncomb{\cat{C}}$ is a ``schema for a protocol''. We can look
+its fiber\footnote{
+  The \emph{fiber} $F^{-1}f$ of a functor $F: \cat{C}\to\cat{D}$ over a morphism
+  $f\in\cat{D}$ is collection of morphisms $g\in\cat{C}$ such that $Fg = f$.
+} under the functor \[
+  \ncomb{\otimes^{N-1}}\Pi: \prot{N}{\cat{C}}\to\ncomb{\cat{C}}
+\] to determine what the schema does when instantiated with a specific kind of
+resource. In some cases, as in the next section, we only care about the maps in
+$\prot{n}{\cat{C}}$ with some specific domain and codomain, and are interested
+in verifying that there is an element in the fiber with that correct type: this
+is a \emph{correctness property} of a protocol. However, there are more
+complicated situations where we want to verify that the same protocol behaves in
+one way given an input of some type, and in another way given another input; in
+this case the expanded perspective provided by the forgetful functor can be
+useful for organizing the data.
+
 \subsection{The One-Time Pad}
+\label{sec:otp}
 
 As a first example, we work out in full detail the categorical description of
 the one-time pad due to~\cite{broadbent-karvonen-2022}. For now, let $\cat{C} =
@@ -981,7 +1011,7 @@ direction of normal associativity):
 \end{equation}
 deletion is the inverse of copying (\emph{counitality})\footnote{We do not
 need to axiomatize both sides of this equality when we have commutativity.}:
-\begin{equation}\label{eqn:xounital}
+\begin{equation}\label{eqn:counital}
   \begin{pic}
     \node[dot, fill=white] (a) at (0,0) {};
     \node[dot, fill=white] (b) at (.5,.5) {};
@@ -1142,7 +1172,7 @@ that
     \draw (mult) to ++(0, .5);
   \end{pic}
 \end{equation}
-and it is non-side-effecting, in the sense that \begin{equation}\label{eqn:random-non-side-effecting}
+and it is independent, in the sense that \begin{equation}\label{eqn:random-non-side-effecting}
   \begin{pic}
     \draw (0, 0) node[state, scale=.75] (rand) {\normalsize\$} to ++(0, .7) node[dot, fill=white] {};
   \end{pic}\quad\text{equals the empty diagram.}
@@ -1164,8 +1194,8 @@ Diagramatically, we can build this map as \[
     \draw (copy) to[out=0, in=-90] ++(.5, .5) to ++(0, .2) node[right] {$B$};
   \end{pic}
 \]where we now label the wires with the party in possession of the data, so that
-for instance a wire labeled $A$ is an element of $M\otimes I\otimes I$, while
-the two parallel wires labeled $A$ and $B$ denote an element of $M\otimes
+for instance a wire labeled $A$ has type $M\otimes I\otimes I$, while
+the two parallel wires labeled $A$ and $B$ have type $M\otimes
 M\otimes I$. This is a map in $\cat{C}$ which cannot be written in $\cat{C}^3$,
 because it does not factor into a product of three separate maps in $\cat{C}$.
 
@@ -1183,7 +1213,7 @@ structure defined above, as the map \[
 \]It is a good exercise in string diagram comprehension to spell out this map
 symbolically. Assuming we chose to left-associate the functor $\otimes^2$ in the
 definition of $\prot{3}{\cat{C}}$, one way to write it is as the map \[
-  (M\otimes I)\otimes I\xto{\rho^{-1}_{M\otimes I}} M\otimes I
+  (M\otimes I)\otimes I\xto{\rho_{M\otimes I}} M\otimes I
   \xto{\gamma_{M,I}} I\otimes M\xto{1_I\otimes
   \text{copy}} I\otimes (M\otimes M)\xto{\alpha^{-1}_{I,M,M}} (I\otimes
     M)\otimes M.
@@ -1291,22 +1321,281 @@ Now the schema for the one-time pad is the 2-comb \[
 This is a morphism in $\ncomb{\cat{C}}$. To check that this protocol is correct,
 we need to check that it sends the state \eqref{eqn:otp-domain} to
 the state \eqref{eqn:otp-codomain}, i.e. that it is a morphism with
-the right type in $\prot{3}{\cat{C}}$.
+the right type in $\prot{3}{\cat{C}}$. Substituting the actual resources in for
+their generic counterparts, we get the protocol \[
+  \begin{pic}
+    \node[dot, fill=black] (am) at (0,0) {};
+    \node[dot, fill=white] (copy) at (0, .6) {};
+    \node[dot, fill=white] (keydist) at (.8, -.5) {};
+    \node[dot, fill=black] (bm) at (.8, 1.1) {};
+    \draw (am) to[out=180, in=90] ++(-.5, -.5) to ++(0, -1) node[left] {$A$};
+    \draw (am) to (copy);
+    \draw (am) to[out=0, in=180] (keydist) node[left, xshift=-3mm] {$A$};
+    \draw (keydist) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (keydist) node[right, xshift=3mm] {$B$} node[right, xshift=8mm,
+    yshift=-2mm] {\normalsize.} to[out=0, in=-90] ++(.5, .5)
+    to ++(0, .3) node[dot, fill=black] {} to++(0, .3) node[above right, xshift=-.5mm] {$B$} to[out=90, in=0] (bm);
+    \draw (copy) node[above right, yshift=1mm] {$B$} to[out=0, in=180] (bm);
+    \draw (copy) to[out=180, in=-90] ++(-.5, .5) node[left] {$E$} to ++(0, .2) node[dot, fill=white] {};
+    \draw (bm) to ++(0, .6) node[left] {$B$};
+  \end{pic}
+\]
+Now we compute, using counitality, associativity, the inverse law, unitality,
+and the independence of random choice:
+\begin{align*}
+  \begin{pic}
+    \node[dot, fill=black] (am) at (0,0) {};
+    \node[dot, fill=white] (copy) at (0, .6) {};
+    \node[dot, fill=white] (keydist) at (.8, -.5) {};
+    \node[dot, fill=black] (bm) at (.8, 1.1) {};
+    \draw (am) to[out=180, in=90] ++(-.5, -.5) to ++(0, -1) node[left] {$A$};
+    \draw (am) to (copy);
+    \draw (am) to[out=0, in=180] (keydist) node[left, xshift=-3mm] {$A$};
+    \draw (keydist) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (keydist) node[right, xshift=3mm] {$B$} to[out=0, in=-90] ++(.5, .5)
+    to ++(0, .3) node[dot, fill=black] {} to++(0, .3) node[above right, xshift=-.5mm] {$B$} to[out=90, in=0] (bm);
+    \draw (copy) node[above right, yshift=1mm] {$B$} to[out=0, in=180] (bm);
+    \draw (copy) to[out=180, in=-90] ++(-.5, .5) node[left] {$E$} to ++(0, .2) node[dot, fill=white] {};
+    \draw (bm) to ++(0, .6) node[left] {$B$};
+    \end{pic}\quad&
+  \xequals{\eqref{eqn:counital}}\quad\begin{pic}
+    \node[dot, fill=black] (am) at (0,0) {};
+    \node[dot, fill=white] (keydist) at (.8, -.5) {};
+    \node[dot, fill=black] (bm) at (.8, 1.1) {};
+    \draw (am) to[out=180, in=90] ++(-.5, -.5) to ++(0, -1) node[left] {$A$};
+    \draw (am) to ++(0, .3) to[out=90, in=180] (bm);
+    \draw (am) to[out=0, in=180] (keydist);
+    \draw (keydist) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (keydist) to[out=0, in=-90] ++(.5, .5)
+    to ++(0, .3) node[dot, fill=black] {} to++(0, .3) to[out=90, in=0] (bm);
+    \draw (bm) to ++(0, .6) node[left] {$B$};
+  \end{pic}\,\\
+  &\xequals{\eqref{eqn:monoid associative}}\quad\begin{pic}
+    \node[dot, fill=white] (keydist) at (.8, -.5) {};
+    \draw (keydist) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (keydist) to[out=0, in=-90] ++(.5, .5)
+      node[dot, fill=black] {} to[out=90, in=0] ++(-.5, .5) node[dot, fill=black] (bm) {};
+      \draw (keydist) to[out=180, in=-90] ++(-.5, .5) to[out=90, in=180] (bm);
+      \draw (bm) to[out=90, in=0] ++(-.6, .8) node[dot, fill=black] (am) {};
+      \draw (am) to[out=180, in=90] ++(-.6, -.8) to ++(0, -2.2) node[left] {$A$};
+      \draw (am) to ++(0, .5) node[left] {$B$};
+    \end{pic}\\
+  &\xequals{\eqref{eqn:inverse}}\quad
+    \begin{pic}
+    \node[dot, fill=white] (keydist) at (.8, -.5) {};
+    \draw (keydist) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+    \node[dot, fill=black] (bm) at ($(keydist) + (0, 1)$) {};
+      \draw (bm) to[out=90, in=0] ++(-.6, .8) node[dot, fill=black] (am) {};
+      \draw (am) to[out=180, in=90] ++(-.6, -.8) to ++(0, -2.2) node[left] {$A$};
+      \draw (am) to ++(0, .5) node[left] {$B$};
+    \end{pic}\,\\
+  &\xequals{\eqref{eqn:monoid unital}}\quad
+  \begin{pic}
+    \node[dot, fill=white] (keydist) at (.8, -.5) {};
+    \draw (keydist) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw ($(keydist) + (-.5, -1.2)$) node[left] {$A$} to ++(0, 1.5) node[left] {$B$};
+    % \node[dot, fill=black] (bm) at ($(keydist) + (0, 1)$) {};
+    %   \draw (bm) to[out=90, in=0] ++(-.6, .8) node[dot, fill=black] (am) {};
+    %   \draw (am) to[out=180, in=90] ++(-.6, -.8) to ++(0, -2.2) node[left] {$A$};
+    %   \draw (am) to ++(0, .5) node[left] {$B$};
+  \end{pic}\,\\
+  &\xequals{\eqref{eqn:random-non-side-effecting}}\quad
+  \begin{pic}
+    \draw (0,0) node[left] {$A$} node[right, xshift=3mm, yshift=1mm]
+    {\normalsize.} to ++(0, 1.5) node[left] {$B$};
+    % \node[dot, fill=black] (bm) at ($(keydist) + (0, 1)$) {};
+    %   \draw (bm) to[out=90, in=0] ++(-.6, .8) node[dot, fill=black] (am) {};
+    %   \draw (am) to[out=180, in=90] ++(-.6, -.8) to ++(0, -2.2) node[left] {$A$};
+    %   \draw (am) to ++(0, .5) node[left] {$B$};
+  \end{pic}
+\end{align*}
+This computation proves that the one-time pad is a morphism
+$\eqref{eqn:otp-domain}\to\eqref{eqn:otp-codomain}$
+in $\prot{3}{\cat{C}}$; this is the categorical statement of the correctness of
+the one-time pad.
+
+% Notice that this computation is very similar to the proof of the correctness of
+% the one-time pad (\Cref{ex:otp}). 
+
+We reiterate that the entire preceeding discussion relies only on the existence
+of an object satisfying the axioms \eqref{eqn:coassociative} to
+\eqref{eqn:random-non-side-effecting}. The one-time pad can be
+correctly implemented in any category over any object which satisfies this.
+
+Of course, this entire discussion assumes that Eve does as the protocol
+instructs and simply deletes the message they read. If they do not, we need
+another layer of analysis, dealing with adversarial behavior. That will be the
+subject of \Cref{sec:security}.
+
+\subsection{Modifications to the Framework}
+
+There are several tools, some suggested by~\cite{broadbent-karvonen-2022} and
+some which we believe are novel, which may be used to modify the framework.
+
+\subsubsection{Unbounded-Use Resources}
+In the title of
+\Cref{sec:libear-process-conversions},
+we called $\ncomb{\cat{C}}$ a category of \emph{linear} process conversions.
+This is because each input resource is used exactly once in the list of n-combs.
+While it is often valuable to have this restriction enforced by the syntax,
+there are cases where we are fine with having unbounded-use resources. As
+suggested by~\cite{broadbent-karvonen-2022}, we can straightforwardly modify the
+construction to account for this by making two changes.
+
+First, recall that in the definition of an n-comb at the beginning of
+\Cref{sec:libear-process-conversions},
+the permutation $\sigma$ determines the order in which the input resources are
+used. For an $n$-comb with $m$ input resources, we can replace this permutation
+with a function $n\to m$ which assigns to each comb the type of the resource
+which will fill it. In this way, we can use each resource as many times
+as we want, including not at all.
+
+However, this is not enough, as in the category $\ncomb{\cat{C}}$ morphisms are
+lists of n-combs, and the current definition allocates each input resource to
+exactly one of these combs. One advantage of our choice to use the intermediate
+step of a multicategory is that we can make the required change directly to the
+construction in \Cref{def:associated-monoidal-category}. When
+defining morphisms in this category, we used a partition function $\alpha$ to
+assign input resources to outputs resources. By allowing this function to be a
+relation, we can allow each input resource to be assigned to multiple output
+resources. When $\cat{C}$ is a symmetric multicategory, we call this category
+$\cat{C}^{\otimes!}$. Combining these two modifications yields the category
+$\ncombb{\cat{C}}$ of~\cite{broadbent-karvonen-2022}.
+
+We suspect that their choice of notation $!$
+is not accidental: in many ways, this category behaves like the exponential
+modality $!$ of linear logic. In linear logic~\cite{girard-1987}, hypotheses
+must be used once and only once. The $!$ modality allows a hypothesis to be used
+any number of times; this allows controlled intuitionistic reasoning with linear
+frameworks, hence allowing linear logics to be both as expressive as intuitionistic
+logic, and to have fine-grained control over resource usage. In this case,
+unfortunately, there are two separate categories $\ncomb{\cat{C}}$ and
+$\ncombb{\cat{C}}$, and it is not immediately clear how to correctly combine
+them to allow the form of restricted reasoning common in programming languages
+based on linear type systems. We briefly discuss an obstacle, but think this is
+a useful avenue for future work.
+
+Any symmetric monoidal category $\cat{L}$ forms a model of the
+multiplicative-intuitoinistic fragment of linear logic~\cite{mellies-2009}. In such
+settings, $!$ can be modeled by a lax monoidal comonad $\denote{!}$ satisfying
+certain properties.
+% \footnote{
+%   Specifically, $\denote{!}$ should be \emph{subunital}, in that there
+%   is a natural transformation $\denote{!}x\to I$, and \emph{horizontally idempotent},
+%   in that there is a natural isomorphism $\denote{!}x\otimes\denote{!}x\cong
+%   \denote{!}x,$ subject to a coherence axiom given in \cite[Equation 72]{mellies-2009}.
+% }
+The modern perspective of~\cite{benton-1995} is to focus on resolutions of this comonad, i.e.
+monoidal adjunctions \[
+  \begin{tikzcd}
+    \cat{I}\ar[rr, bend left, "F"] & \bot & \cat{L}\ar[ll, bend left, "G"]
+  \end{tikzcd}
+\]such that $FG = \denote{!}$, and in particular on resolutions such that
+$\cat{I}$ is a category with finite products, hence a model of conjunctive
+intuitionistic logic\footnote{
+  Normally we consider such models with significantly more structure than just
+  the multiplcatives, but the situation is the same even in this case.
+}. In this way, $F$ is an
+embedding of intuitionistic terms as linear terms, while $G$ forgets the linearity of
+a term. A standard example of this structure is the free-forgetful adjunction
+between \scat{Set} and $\scat{Vect}_\kk$~\cite{valiron-zdancewic-2014}.
+
+All this machinery suggests that, to give a system which allows simultaneous
+reasoning about both single- and unbounded-use resources, we should look for
+such an adjunction. There is indeed a forgetful functor $G: \ncomb{\cat{C}}\to
+\ncombb{\cat{C}}$, which we may think of as forgetting the linearity of an
+n-comb. Furthermore, the category $\ncombb{\cat{C}}$ has is cartesian monoidal,
+meaning that the concatenation of two lists is a cartesian product; the
+projctions simply do not use the extra resource, while the universal property is
+witnessed by concatenating lists of n-combs. As such, $\ncombb{\cat{C}}$ is a
+model of conjunctive intuitionistic logic; it represents an intuitionistic,
+rather than linear, calculus of resources.
+
+However, the functor $G$ seems unlikely to be a right adjoint\footnote{
+  I would like an explicit construction of a limit which $G$ does not preserve;
+  the issue is that it seems hard for $\ncomb{\cat{C}}$ to have very many limits
+  in the first place. This is an open question.
+}. The issue is that combs between the same two objects $\ncombb{\cat{C}}$ may
+use different numbers of resources, and so ought to be sent to different objects
+in $\ncomb{\cat{C}}$, but this is impossible for any functor. To resolve this,
+we need a notion of intuionistic resource internal to $\ncomb{\cat{C}}$. A solution
+may perhaps be along the lines the $\infty$-combs of~\cite{roman-2020}, which
+are used there to model stream-like data, but these have slightly
+differently-structured domains and codomains than n-combs, so the translation is
+not obvious.
+
+A more direct solution is to extend $\ncomb{\cat{C}}$ with objects $!(A, B)$,
+representing intuitionistic resources of type $A\to B$, and which are used to build
+n-combs as in $\ncombb{\cat{C}}$. This is a standard strategy in linear logic,
+but we spell it out here. Objects in the category
+$\ncomba{\cat{C}}$ are finite multisets\footnote{
+  We use multisets instead of lists to simplify the monoidal structure; the
+  distinction is not important.
+} of pairs $(A, B)$ and/or $!(A, B)$ of objects in $\cat{C}$, called
+\emph{linear} and \emph{intuitionistic} resources respectively. Letting $i,j,k,$
+and $l$ range over finite disjoint index sets $I,J,K,$ and $L$, we want to
+describe morphisms
+ \[
+   \{!(A_i, B_i), (C_j, B_j)\}\to \{!(X_k, Y_k), (Z_l, W_l)\};
+\] the domain, for instance, should be read as a multiset of $I$ intuitionistic
+resources and $J$ linear resources. To specify such a morphism, we first give a
+relation $\alpha: K\sqcup L\to I\sqcup J$, such that each $j\in J$ relates to
+exactly one element, and such that each $k\in K$ relates only to elements in
+$I$. The point is that each linear resource must be used in exactly one comb,
+while we can only build intuitionistic resources out of intuitionistic
+resources.
+
+Now the morphism consists of a multiset of $K\sqcup L$ combs. For each $k\in K$, the
+comb is constructed just as in $\ncombb{\cat{C}}$, using a function $\sigma:
+n\to |\alpha(k)|$ which describes which resources to use in which order. The
+situation for combs building linear resources is slightly more complicated: we
+should be able to use intuitionistic resources to build them multiple times,
+while we should have to use linear resources exactly once. For each $l\in L$,
+the comb consists of a function $\sigma: n\to |\alpha(l)|$, such that for each
+$j\in J\cap\alpha(l)$, $\sigma^{-1}(j)$ is a singleton. Now we build an $n$-comb
+using the given resources in the order prescribed by $\sigma$.
+
+This category is strict symmetric monoidal with the union of multisets as the
+product and the empty set as the identity. Furthermore, there is a
+linear-non-linear adjunction \[
+  \begin{tikzcd}
+    \ncombb{\cat{C}}\ar[rr, bend left, "F"] & \bot &
+    \ncomba{\cat{C}}\punctuation{,}\ar[ll, bend left, "G"]
+  \end{tikzcd}
+\]
+where $G$ sends forgets the difference between linear and intuitionistic
+resources, and $F$ sends all resources to intuitionistic ones.
 
 
 
+% For instance, suppose
+% $\cat{C}$ has two objects, $a$ and $b$, and the following morphisms:
+% \begin{itemize}
+%   \item for each natural number $n$, a morphism $n: a\to a$;
+%   \item one morphism $f: a\to b$;
+%   \item one morphism $g: b\to a$;
+%   \item two morphisms $h,1_b: b\to b$.
+% \end{itemize}
+% Composition of morphisms $a\to a$ is by addition, while $h\circ h = 1_b$, $. Impose a strict symmetric
+% monoidal structure on this category by \begin{mathpar}
+%   a\otimes a = a, \and a\otimes b = b\otimes a = a, \and b\otimes b = b,
+%   \and n\otimes m = n+m, \and n\otimes f = f\otimes n = n, \and n\otimes g = g\otimes n =
+%   g, \and g\otimes f = f\otimes g = 0, \and 1_b\otimes 1_b = 1_b, \and 1_b\otimes f
+%   = f\otimes 1_b = 1_b\otimes g = g\otimes 1_b = 0$.
+% \end{mathpar}
+% Then the pair $(*, *)$ is 
+% $(0, 0)$ is terminal in $\ncomb{\cat{C}}$.
+
+\subsubsection{Shading Diagrams}
 While \cite{broadbent-karvonen-2022} choose to label the wires with the
 identities of the parties in possession of that data, we worry that this
 approach does not easily scale to protocols where multiple objects are relevant.
 We prefer an approach using the shaded boxes of \Cref{sec:monoidal-functors}. 
-
+%
 \section{Security}
 \label{sec:security}
 
 %
-% In the title of the section, we called this a category of \emph{linear} process
-% conversions. This is because each input resource is used exactly once in the
-% list of n-combs.
 
 % % TODO: proof?
 % % \begin{proof}
