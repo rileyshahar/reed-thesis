@@ -172,10 +172,10 @@ $P\in G_c X$, we define the probability distribution $G_c f(P)$ on $Y$ by
 The unit of $G_c$ is the function $X\to G_c X$ taking $x$ to the point
 distribution at x. The multiplication is the function $\mu_X: G_c G_c X\to G_c X$
 acting by summation: given a probability distribution $Q$ on $G_c X$, we define
-a distribution $\mu_X (Q)$ on $X$ by \begin{equation}\label{eqn:giry-sum}
+a distribution $\mu_X (Q)$ on $X$ by \begin{equation*}\label{eqn:giry-sum}
   \Pr_{x\from \mu_X(Q)}[x = x_0] = \sum_{P_0\in G_c X} \Pr_{P\from Q}[P =
   P_0]\Pr_{x\from P}[x = x_0],
-\end{equation}which converges because $Q$ is a probability distribution. The proofs of
+\end{equation*}which converges because $Q$ is a probability distribution. The proofs of
 functorality and the monad laws as exactly as for the ordinary Giry
 monad~\cite{giry-1982}, so we do not give them here. Now \scat{CompStoch} is in
 fact (isomorphic to) the Kleisi category of $G_c$.
@@ -711,11 +711,14 @@ next, so we may as well write\footnote{
     \node at (1, .5) {\normalsize.};
   \end{pic}
 \]
+Again by a theorem of~\cite{coecke-2016}, any circuit which is obtainable as a
+string diagram using exactly one occurance of each of a list of $n$ morphisms
+can also be obtained as the result of plugging those morphisms in to an
+appropriate n-comb.
 
 Generalizing the case of 1-combs, the objects in the category of n-combs should
 be finite lists of pairs of objects: a resource of type $[(X_1, Y_1), \ldots,
-(X_n, Y_n)]$ is a list of maps $X_i\to Y_i$ in $\cat{C}$, representing several
-resources the parties have access to. We can proceed directly to defining the
+(X_n, Y_n)]$ is a list of maps $X_i\to Y_i$ in $\cat{C}$. It is worth mentioning that We can proceed directly to defining the
 category, but we find it easier to first define a symmetric multicategory of
 n-combs. The advantage is that this requires us only to define morphisms with
 one pair in the codomain---what~\cite{broadbent-karvonen-2022} call the ``basic
@@ -764,9 +767,9 @@ outer n-comb. This indeed gives us a symmetric multicategory.
 We can now use the following general construction to obtain the category of
 n-combs:
 
-\begin{con}
-  Let $\cat{C}$ be a multicategory. Then there is an associated monoidal
-  category $\cat{C}^\otimes$ defined as follows:
+\begin{dfn}
+  Let $\cat{C}$ be a (symmetric) multicategory. Then there is an associated
+  (symmetric) monoidal category $\cat{C}^\otimes$ defined as follows:
   \begin{itemize}
     \item an object in $\cat{C}^\otimes$ is a finite list of objects in
       $\cat{C}$, written $x_1\otimes\dots\otimes x_n$;
@@ -792,7 +795,15 @@ n-combs:
       by lifting the partitions to the disjoint union, so the $y_i$
       component is just $f_i$ while the $w_i$ component is just $g_i$.
   \end{itemize}
-\end{con}
+\end{dfn}
+
+The idea is that each object in $x_1\otimes\dots\otimes x_n\in\cat{C}^\otimes$
+represents the presence of the ``resources'' represented by the objects
+$x_1,\dots,x_n\in\cat{C}$. A morphism must consume precisely one ``copy'' of
+each resource in that list and produce one copy of each resource in its
+codomain. The partition $\alpha$ is an allocation of input resources to output
+resources: $\alpha^{-1}(i)$ is exactly the input resources used to produce the
+resource $y_i$.
 
 We can be explicit about what this construction looks like in the case of
 n-combs.
@@ -807,9 +818,495 @@ n-combs.
   monoidal product is by concatenation of lists.
 \end{dfn}
 
-In the title of the section, we called this a category of \emph{linear} process
-conversions. This is because each input resource is used exactly once in the
-list of n-combs.
+\begin{ex}
+  The category $\state{\ncomb{\cat{C}}}$ is the \emph{category of universally
+  combinable processes} of~\cite{coecke-2016}.
+\end{ex}
+
+Furthermore, n-comb is functorial in the same way a 1-comb. Given a strong
+monoidal functor $F: \cat{C}\to\cat{D}$, we can define a functor $\ncomb{F}:
+\ncomb{\cat{C}}\to\ncomb{\cat{D}}$ by acting on each n-comb over $\cat{C}$ by \[
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (xi1) at (0,0) {$\xi_1$};
+    \node[morphism] (xi2) at (0,2.5) {$\xi_2$};
+    \node[morphism] (xin) at (0,5.5) {$\xi_n$};
+    \node[morphism] (xin1) at (0,8) {$\xi_{n+1}$};
+
+    \node at (0,4) {\normalsize$\vdots$};
+    \draw ([xshift=2.5pt]xi2.north east) to ++(0,.8);
+    \draw ([xshift=-2.5pt]xi2.north west) to ++(0,.8);
+    \draw ([xshift=2.5pt]xin.south east) to ++(0,-.8);
+    \draw ([xshift=-2.5pt]xin.south west) to ++(0,-.8);
+
+    \setlength\minimummorphismwidth{0mm}
+    \draw ([xshift=2.5pt]xi1.north east) to ([xshift=2.5pt]xi2.south east);
+    \node[dashedmorphism] (f) at ($(xi1.north west)!.5!(xi2.south west)$)
+    {\phantom{$f$}};
+    \draw (xi1.north west) -- (f.south);
+    \draw (xi2.south west) -- (f.north);
+
+    \draw ([xshift=2.5pt]xin.north east) to ([xshift=2.5pt]xin1.south east);
+    \node[dashedmorphism] (h) at ($(xin.north west)!.5!(xin1.south west)$)
+    {\phantom{$f$}};
+    \draw (xin.north west) -- (h.south);
+    \draw (xin1.south west) -- (h.north);
+
+    \draw (xi1.south) to ++(0,-.5);
+    \draw (xin1.north) to ++(0,.5);
+  \end{pic}
+  \quad\quad
+  \mapsto
+  \quad\quad
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (xi1) at (0,0) {$\xi_1$};
+    \node[morphism] (xi2) at (0,2.5) {$\xi_2$};
+    \node[morphism] (xin) at (0,5.5) {$\xi_n$};
+    \node[morphism] (xin1) at (0,8) {$\xi_{n+1}$};
+
+    \node at (0,4) {\normalsize$\vdots$};
+    \draw ([xshift=2.5pt]xi2.north east) to ++(0,.8);
+    \draw ([xshift=-2.5pt]xi2.north west) to ++(0,.8);
+    \draw ([xshift=2.5pt]xin.south east) to ++(0,-.8);
+    \draw ([xshift=-2.5pt]xin.south west) to ++(0,-.8);
+
+    \draw[functor=blue] (-.75,-.5) -- (.75,-.5) -- (.75, .8) -- (.15, .8) --
+    (.15, .4) -- (-.15, .4) -- (-.15, .8) -- (-.75, .8) -- cycle;
+    \draw[functor=blue] (-.75,3.3) -- (-.15, 3.3) -- (-.15, 2.9) -- (.15, 2.9) --
+    (.15, 3.3) -- (.75,3.3) -- (.75, 1.7) -- (.15, 1.7) --
+    (.15, 2.1) -- (-.15, 2.1) -- (-.15, 1.7) -- (-.75, 1.7) -- cycle;
+
+    \draw[functor=blue] (-.75,8.5) -- (.75,8.5) -- (.75, 7.2) -- (.15, 7.2) --
+    (.15, 7.6) -- (-.15, 7.6) -- (-.15, 7.2) -- (-.75, 7.2) -- cycle;
+    \draw[functor=blue] (-.75,4.7) -- (-.15, 4.7) -- (-.15, 5.1) -- (.15, 5.1) --
+    (.15, 4.7) -- (.75,4.7) -- (.75, 6.3) -- (.15, 6.3) --
+    (.15, 5.9) -- (-.15, 5.9) -- (-.15, 6.3) -- (-.75, 6.3) -- cycle;
+
+    \setlength\minimummorphismwidth{0mm}
+    \draw ([xshift=2.5pt]xi1.north east) to ([xshift=2.5pt]xi2.south east);
+    \node[dashedmorphism] (f) at ($(xi1.north west)!.5!(xi2.south west)$)
+    {\phantom{$f$}};
+    \draw (xi1.north west) -- (f.south);
+    \draw (xi2.south west) -- (f.north);
+
+    \draw ([xshift=2.5pt]xin.north east) to ([xshift=2.5pt]xin1.south east);
+    \node[dashedmorphism] (h) at ($(xin.north west)!.5!(xin1.south west)$)
+    {\phantom{$f$}};
+    \draw (xin.north west) -- (h.south);
+    \draw (xin1.south west) -- (h.north);
+
+    \draw (xi1.south) to ++(0,-.5);
+    \draw (xin1.north) to ++(0,.5);
+    \node at (1, .5) {\normalsize.};
+  \end{pic}
+\]
+
+Cryptographically, still following~\cite{broadbent-karvonen-2022} we are interested in
+the category \[
+  \prot{N}{\cat{C}} := \state{\ncomb{\cat{C}^N}\xto{\ncomb{\otimes^{N-1}}}\ncomb{\cat{C}}},
+\]
+which is a category of $N$-party protocols with computations from $\cat{C}$.
+Objects in this category are finite lists of maps \[
+  X^i_1\otimes\dots\otimes X^i_N\xto{f_i} Y^i_1\otimes\dots\otimes Y^i_N
+\] in $\cat{C}$, which represent shared access to the resources $\{f_i\}$,
+themselves processes for transforming joint states in $\cat{C}$. Morphisms are
+lists of $M$ combs, so that each map $f_i$ in the domain list is allocated to
+exactly one comb, and so that plugging in all the $f_i$s into the appropriate
+combs yields exactly the list of maps in the codomain.
+
+\subsection{The One-Time Pad}
+
+As a first example, we work out in full detail the categorical description of
+the one-time pad due to~\cite{broadbent-karvonen-2022}. For now, let $\cat{C} =
+\scat{CompStoch}$ and $N = 3$; we label the three parties $A$, $B$, and $E$. We
+pick a message space $M\in\cat{C}$; we could just say $M = \bin^*$, but instead
+let us figure out what ``local'' structure, by which we mean structure in
+$\cat{C}$ which is hence usable by each of the parties on their own, $M$ needs
+to have.
+
+First, we should be able to copy and delete messages from $M$; they're just
+classical information. We represent this with a pair of maps \[
+  \begin{pic}
+    \node[dot, fill=white] (mu) at (0,0) {};
+    \draw (mu) to[out=180, in=-90] ++(-.5, .5) to ++(0, .2) node[left] {$M$};
+    \draw (mu) to[out=0, in=-90] ++(.5, .5) to ++(0, .2) node[right] {$M$};
+    \draw (mu) to ++(0, -.7) node[left] {$M$};
+  \end{pic}
+  \quad\quad
+  \text{and}
+  \hspace{1em}
+  \quad\quad
+  \begin{pic}
+    \node[dot, fill=white] (eta) at (0,0) {};
+    \draw (eta) to ++(0, -.7) node[left] {$M$} node[right, xshift=2mm, yshift=1mm] {\normalsize,};
+  \end{pic}
+\]called the \emph{copy} and \emph{deletion} maps. Copying is associative
+(category theorists call this \emph{coassociativity}, because it is opposite to the
+direction of normal associativity):
+\begin{equation}\label{eqn:coassociative}
+  \begin{pic}
+    \node[dot, fill=white] (a) at (0,0) {};
+    \node[dot, fill=white] (b) at (-.5,.5) {};
+    \draw (a) to[out=180, in=-90] (b);
+    \draw (a) to[out=0, in=-90] ++(.7, .7) to ++(0, .5) node[right] {};
+    \draw (b) to[out=180, in=-90] ++(-.5, .5) to ++(0, .2) node[left] {};
+    \draw (b) to[out=0, in=-90] ++(.5, .5) to ++(0, .2) node[left] {};
+    \draw (a) to ++(0, -.7) node[left] {};
+  \end{pic}
+  =
+  \begin{pic}
+    \node[dot, fill=white] (a) at (0,0) {};
+    \node[dot, fill=white] (b) at (.5,.5) {};
+    \draw (a) to[out=0, in=-90] (b);
+    \draw (a) to[out=180, in=-90] ++(-.7, .7) to ++(0, .5) node[left] {};
+    \draw (b) to[out=0, in=-90] ++(.5, .5) to ++(0, .2) node[right] {};
+    \draw (b) to[out=180, in=-90] ++(-.5, .5) to ++(0, .2) node[right] {};
+    \draw (a) to ++(0,-.7) node[left] {};
+  \end{pic}
+\end{equation}and commutative (\emph{cocommutativity}): 
+\begin{equation}\label{eqn:cocommutativity}
+  \begin{pic}
+    \node[dot, fill=white] (mu) at (0,0) {};
+    \draw (mu) to[out=180, in=-90] ++(-.5, .5) to ++(0, .2);
+    \draw (mu) to[out=0, in=-90] ++(.5, .5) to ++(0, .2);
+    \draw (mu) to ++(0, -.7);
+  \end{pic}\quad=\quad
+  \begin{pic}
+    \node[dot, fill=white] (mu) at (0,0) {};
+    \draw (mu) to[out=180, in=-90] ++(-.5, .5) to ++(0, .2) to[out=90, in=-90] ++(1, 1);
+    \draw (mu) to[out=0, in=-90] ++(.5, .5) to ++(0, .2) to[out=90, in=-90] ++(-1, 1);
+    \draw (mu) to ++(0, -.7) node[right, xshift=2mm, yshift=1mm] {\normalsize;};
+  \end{pic}
+\end{equation}
+deletion is the inverse of copying (\emph{counitality})\footnote{We do not
+need to axiomatize both sides of this equality when we have commutativity.}:
+\begin{equation}\label{eqn:xounital}
+  \begin{pic}
+    \node[dot, fill=white] (a) at (0,0) {};
+    \node[dot, fill=white] (b) at (.5,.5) {};
+    \draw (a) to[out=0, in=-90] (b);
+    \draw (a) to ++(0, -.7) node[left] {};
+    \draw (a) to[out=180, in=-90] ++(-.5, .5) to ++(0, .4) node[left] {};
+  \end{pic}
+  \hspace{.4em}
+  =
+  \begin{pic}
+    \draw(0, 0) node[left] {} to (0, 1.5) node[left]{};
+  \end{pic}
+  \hspace{.6em}
+  =
+  \hspace{.5em}
+  \begin{pic}
+    \node[dot, fill=white] (a) at (0,0) {};
+    \node[dot, fill=white] (b) at (-.5,.5) {};
+    \draw (a) to[out=180, in=-90] (b);
+    \draw (a) to ++(0, -.7) node[right, xshift=2mm, yshift=1mm] {\normalsize.};
+    \draw (a) to[out=0, in=-90] ++(.5, .5) to ++(0, .4);
+  \end{pic}
+\end{equation}
+These three equations give $M$ the structure of a \emph{cocommutative
+comonoid} in $\cat{C}$\footnote{
+  We often want to work over categories in which \emph{every} object has such
+  copy and delete maps. We say that an SMC $\cat{C}$ \emph{supplies
+  cocommutative comonoids} if every object in $\cat{C}$ is a cocommutative
+  comonoid in such a way that the comonoidal structure on any object $X\otimes
+  Y$ is induced from that on $X$ and $Y$ by the tensor. We are now very close
+  to the definition of a \emph{Markov category}, which is the natural
+  categorical axiomatization of stochastic computation~\cite{fritz-2020}.
+}.
+
+Recall from~\Cref{ex:otp} the one-time pad
+works over an arbitrary group $G$. As such, we separately need that $M$ looks
+like a group in $\cat{C}$: it should have multiplication, unit, and inverse
+maps \[
+  \begin{pic}
+    \node[dot, fill=black] (mu) at (0,0) {};
+    \draw (mu) to[out=180, in=90] ++(-.5, -.5) to ++(0, -.2) node[left] {$M$};
+    \draw (mu) to[out=0, in=90] ++(.5, -.5) to ++(0, -.2) node[right] {$M$}
+      node[right, xshift=4mm, yshift=1mm] {\normalsize,};
+    \draw (mu) to ++(0, .7) node[left] {$M$};
+  \end{pic}
+  \quad\quad
+  \begin{pic}
+    \node[dot, fill=black] (eta) at (0,0) {} node[right, xshift=2mm, yshift=1mm] {\normalsize,};
+    \draw (eta) to ++(0, .7) node[left] {$M$};
+  \end{pic}
+  \quad\quad
+  \text{and}
+  \quad\quad
+  \begin{pic}
+    \node[dot, fill=black] (eta) at (0,0) {};
+    \draw (eta) to ++(0, .5) node[left] {$M$};
+    \draw (eta) to ++(0, -.5) node[left] {$M$} node[right, xshift=2mm, yshift=1mm] {\normalsize,};
+  \end{pic}
+\]which are associative and unital in the sense of~\Cref{def:monoid object}
+and satisfy the additional \emph{inverse law}:
+\begin{equation}\label{eqn:inverse}
+  \begin{pic}
+    \node[dot, fill=white] (copy) at (0,0) {};
+    \node[dot, fill=black] (inv) at (.5,.5) {};
+    \node[dot, fill=black] (mult) at (0,1) {};
+    \draw (copy) to[out=0, in=-90] (inv) to[out=90, in=0] (mult);
+    \draw (copy) to[out=180, in=-90] (-.5,.5) to[out=90, in=180] (mult);
+    \draw (copy) to ++(0, -.75);
+    \draw (mult) to ++(0, .75);
+  \end{pic}\quad=\quad
+  \begin{pic}
+    \node[dot, fill=white] (del) at (0,0) {};
+    \node[dot, fill=black] (id) at (0,1) {};
+    \draw (del) to ++(0, -.75);
+    \draw (id) to ++(0, .75);
+  \end{pic}\quad=\quad
+  \begin{pic}
+    \node[dot, fill=white] (copy) at (0,0) {};
+    \node[dot, fill=black] (inv) at (-.5,.5) {};
+    \node[dot, fill=black] (mult) at (0,1) {};
+    \draw (copy) to[out=180, in=-90] (inv) to[out=90, in=180] (mult);
+    \draw (copy) to[out=0, in=-90] (.5,.5) to[out=90, in=0] (mult);
+    \draw (copy) to ++(0, -.75) node[right, xshift=2mm, yshift=1mm] {\normalsize.};
+    \draw (mult) to ++(0, .75);
+  \end{pic}
+\end{equation}
+Notice that this law relies on the existence of the copy and delete maps;
+indeed, it is not possible to define a group without some way to talk about
+copying.
+
+We need one more compatibility law, which says essentially that multiplication
+is deterministic: performing the same multiplication twice is the same as
+performing it once and then copying the result:
+\begin{equation}\label{eqn:mult-deterministic}
+  \begin{pic}
+    \node[dot, fill=white] (copy1) at (-.5, 0) {};
+    \node[dot, fill=white] (copy2) at (.5, 0) {};
+    \node[dot, fill=black] (mult1) at (-.5, .8) {};
+    \node[dot, fill=black] (mult2) at (.5, .8) {};
+    \draw (copy1) to[out=170, in=190] (mult1);
+    \draw (copy2) to[out=10, in=-10] (mult2);
+    \draw (copy1) to[out=10, in=190] (mult2);
+    \draw (copy2) to[out=170, in=-10] (mult1);
+    \draw (copy1) to ++(0, -.7);
+    \draw (copy2) to ++(0, -.7);
+    \draw (mult1) to ++(0, .7);
+    \draw (mult2) to ++(0, .7);
+  \end{pic}\quad=\quad
+  \begin{pic}
+    \node[dot, fill=black] (mu) at (0,0) {};
+    \node[dot, fill=white] (copy) at (0,.8) {};
+    \draw (mu) to[out=180, in=90] ++(-.5, -.5) to ++(0, -.2);
+    \draw (mu) to[out=0, in=90] ++(.5, -.5) to ++(0, -.2) node[right, xshift=4mm, yshift=1mm] {\normalsize.};
+    \draw (mu) to ++(0, .7);
+    \draw (mu) to (copy);
+    \draw (copy) to[out=180, in=-90] ++(-.5, .5) to ++(0, .2);
+    \draw (copy) to[out=0, in=-90] ++(.5, .5) to ++(0, .2);
+  \end{pic}
+\end{equation}
+All these laws give $M$ the structure of a \emph{Hopf object} in $\cat{C}$. It
+turns out that these objects are well-known, and in particular have important
+applications in quantum computation~\cite{de-felice-2017}; for instance, a
+Hopf object in $\scat{Vect}_\kk$ is just an ordinary Hopf algebra. This is a major
+advantage of the categorical machinery: we discover unexpected connections
+between different kinds of computation and mathematics.
+
+Finally, for the one-time pad we need some way to model randomness; in
+\scat{CompStoch} this is the map $I\xto{\$} M$ which draws a uniform random
+value from $M$. Categorically, rather than the specific construction of the map,
+we care about its properties\footnote{
+  Somewhat surprisingly, elements of Hopf algebras satisfying
+  \eqref{eqn:random-invariance} and \eqref{eqn:random-non-side-effecting} 
+  have been well studied under the name
+  \emph{integrals}~\cite{sweedler-1969,lomp-2004,sullivan-1971}. As such, the
+  one-time pad can be instantiated over any Hopf algebra $H$ with an integral,
+  by replacing the uniform random choice of key with the map $\kk\to H$ which
+  sends $1$ to the chosen integral. This translation is purely syntactic;
+  everything we will say about the one-time pad applies to this construction as
+  well. We can now start doing cryptography inside a Hopf algebra, or using the
+theory of Hopf algebras to say things about cryptography.}: it is invariant
+under
+multiplication, in the sense
+that
+\begin{equation}\label{eqn:random-invariance}
+  \begin{pic}
+    \node[dot, fill=black] (mult) at (0,0) {};
+    \draw (mult) to[out=180, in=90] ++(-.5, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (mult) to[out=0, in=90] ++(.5, -.5) to ++(0, -.7);
+    \draw (mult) to ++(0, .5);
+  \end{pic}\quad=\quad
+  \begin{pic}
+    \draw (0,0) node[state, scale=.75] {\normalsize\$} to ++(0, .7);
+  \end{pic}\quad=\quad
+  \begin{pic}
+    \node[dot, fill=black] (mult) at (0,0) {};
+    \draw (mult) to[out=0, in=90] ++(.5, -.5) node[state, scale=.75] {\normalsize\$} node[right, xshift=3mm, yshift=1mm] {\normalsize,};
+    \draw (mult) to[out=180, in=90] ++(-.5, -.5) to ++(0, -.7);
+    \draw (mult) to ++(0, .5);
+  \end{pic}
+\end{equation}
+and it is non-side-effecting, in the sense that \begin{equation}\label{eqn:random-non-side-effecting}
+  \begin{pic}
+    \draw (0, 0) node[state, scale=.75] (rand) {\normalsize\$} to ++(0, .7) node[dot, fill=white] {};
+  \end{pic}\quad\text{equals the empty diagram.}
+\end{equation} We interpret \eqref{eqn:random-invariance} as
+saying that the product of any group element with a uniform random value is
+uniform random, while \eqref{eqn:random-non-side-effecting} says that
+creating and then deleting a uniform random value does nothing.
+
+All this is just the local structure. To implement the one-time pad, we need
+two shared resources. First, $A$ and $B$ should have a shared random key drawn
+from $M$. In $\scat{CompStoch}$, this is the map $I\to M\otimes M\otimes I$
+which draws uniformly at random from the set $\{(k, k, *): k\in M\}$.
+Diagramatically, we can build this map as \[
+  \begin{pic}
+    \node[state, scale=.75] (rand) at (0, 0) {\normalsize\$} node[right, xshift=8mm, yshift=1mm] {\normalsize,};
+    \node[dot, fill=white] (copy) at (0, .5) {};
+    \draw (rand) to (copy);
+    \draw (copy) to[out=180, in=-90] ++(-.5, .5) to ++(0, .2) node[left] {$A$};
+    \draw (copy) to[out=0, in=-90] ++(.5, .5) to ++(0, .2) node[right] {$B$};
+  \end{pic}
+\]where we now label the wires with the party in possession of the data, so that
+for instance a wire labeled $A$ is an element of $M\otimes I\otimes I$, while
+the two parallel wires labeled $A$ and $B$ denote an element of $M\otimes
+M\otimes I$. This is a map in $\cat{C}$ which cannot be written in $\cat{C}^3$,
+because it does not factor into a product of three separate maps in $\cat{C}$.
+
+We also need a way for $A$ to send the encoded message to $B$ and $E$. In
+\scat{CompStoch}, this is the map $M\otimes I\otimes I\to I\otimes M\otimes M$
+given by $(c, *, *)\mapsto (*, c, c)$. Again, this can be represented using the
+structure defined above, as the map \[
+  \begin{pic}
+    \node[dot, fill=white] (copy) at (0,0) {};
+    \draw (copy) to ++(0, -.7) node[left] {$A$} node[right, xshift=5mm,
+    yshift=1mm] {\normalsize.};
+    \draw (copy) to[out=180, in=-90] ++(-.5, .5) to ++(0, .2) node[left] {$E$};
+    \draw (copy) to[out=0, in=-90] ++(.5, .5) to ++(0, .2) node[right] {$B$};
+  \end{pic}
+\]It is a good exercise in string diagram comprehension to spell out this map
+symbolically. Assuming we chose to left-associate the functor $\otimes^2$ in the
+definition of $\prot{3}{\cat{C}}$, one way to write it is as the map \[
+  (M\otimes I)\otimes I\xto{\rho^{-1}_{M\otimes I}} M\otimes I
+  \xto{\gamma_{M,I}} I\otimes M\xto{1_I\otimes
+  \text{copy}} I\otimes (M\otimes M)\xto{\alpha^{-1}_{I,M,M}} (I\otimes
+    M)\otimes M.
+\]The magic of the coherence theorem is that, once we agree on a choice of
+associativity, any way of writing this map is the same, and so we can work with
+the far simpler diagrammatic notation.
+
+From all this, we learn that the domain of the one-time pad should be the object
+\begin{equation}\label{eqn:otp-domain}
+  \begin{pic}
+    \node[state] (rand) at (0, 0) {\normalsize\$};
+    \node[dot, fill=white] (copy) at (0, .5) {};
+    \draw (rand) to (copy);
+    \draw (copy) to[out=180, in=-90] ++(-.5, .5) to ++(0, .2) node[left] {$A$};
+    \draw (copy) to[out=0, in=-90] ++(.5, .5) to ++(0, .2) node[right] {$B$};
+  \end{pic}
+  \otimes
+  \begin{pic}
+    \node[dot, fill=white] (copy) at (0,0) {};
+    \draw (copy) to ++(0, -.7) node[left] {$A$};
+    \draw (copy) to[out=180, in=-90] ++(-.5, .5) to ++(0, .2) node[left] {$E$};
+    \draw (copy) to[out=0, in=-90] ++(.5, .5) to ++(0, .2) node[right] {$B$};
+  \end{pic}
+\end{equation} of $\prot{3}{\cat{C}}$. The goal of the one-time pad is to produce a channel
+from $A$ to $B$, so the codomain should be the object \begin{equation}\label{eqn:otp-codomain}
+  \begin{pic}
+    \draw (0, 0) node[left] {$A$} node[right, xshift=3mm, yshift=1mm] {\normalsize.} to ++(0, 1) node[left] {$B$};
+  \end{pic}
+\end{equation}
+The reader may now object that the one-time pad does not give the eavesdropped
+no information, as they learn that a message was sent. However, we are not yet
+attempting to deal with adversarial behavior, so any protocol can simply have
+Eve forget that information. We will discuss this issue at length in
+\Cref{sec:security}.
+
+For a second, let us not worry about preserving states, and just think in the
+category $\ncomb{\cat{C}}$. Recall that the objects in this category are finite
+lists of pairs of objects in $\cat{C}$. The domain of the one-time pad should be \[
+  [(I\otimes I\otimes I, M\otimes M\otimes I), (M\otimes I\otimes I,
+  I\otimes M\otimes M)],
+\] while the codomain should be \[
+  [(M\otimes I\otimes I, I\otimes M\otimes I)].
+\]
+A morphism between these should be a 2-comb which takes morphisms of the domain
+types and produces a morphism of the codomain type. In other words, given two
+``black box'' maps \[
+  \begin{pic}
+    \node[dashedstate] (rand) at (0, 0) {};
+    \draw (rand.north west) to ++(0, .5) node[left] {$A$};
+    \draw (rand.north east) to ++(0, .5) node[right] {$B$};
+  \end{pic}\quad\text{and}\quad
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[dashedmorphism] (send) at (0, 0) {};
+    \draw (send.north west) to ++(0, .5) node[left] {$E$};
+    \draw (send.north east) to ++(0, .5) node[right] {$B$};
+    \draw (send.south) to ++(0, -.5) node[left] {$A$};
+  \end{pic},
+\]the 2-comb must produce a map \[
+  \begin{pic}
+    \node[dashedmorphism] (send) at (0, 0) {};
+    \draw (send.south) to ++(0, -.5) node[left] {$A$} node[right, xshift=3mm,
+    yshift=1mm] {\normalsize.};
+    \draw (send.north) to ++(0, .5) node[left] {$B$};
+  \end{pic}
+\]
+The easiest such 2-comb to write, \[
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[dashedmorphism] (send) at (0, 0) {};
+    \draw (send.north west) to ++(0, .2) node[left] {$E$} to ++(0, .3) node[dot, fill=white] {};
+    \draw (send.north east) to ++(0, .7) node[right] {$B$};
+    \draw (send.south) to ++(0, -.5) node[left] {$A$};
+    \node[dashedstate] (rand) at (1.5, 0) {};
+    \draw (rand.north west) to ++(0, .2) node[left] {$A$} to ++(0, .3) node[dot, fill=white] {};
+    \draw (rand.north east) to ++(0, .2) node[right] {$B$} to ++(0, .3) node[dot, fill=white] {};
+  \end{pic},
+\]
+represents simply sending the message unencrypted, without use of the key. Note
+that the theory does require us to explicitly forget the key, as n-combs must consume
+all their input resources. We will alleviate this requirement soon.
+
+Now the schema for the one-time pad is the 2-comb \[
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    % \node[morphism] (send) at (0, 0) {};
+    % \draw (send.north west) to ++(0, .2) node[left] {$E$} to ++(0, .3) node[dot, fill=white] {};
+    % \draw (send.north east) to ++(0, .7) node[right] {$B$};
+    % \draw (send.south) to ++(0, -.5) node[left] {$A$};
+    \node[dashedstate] (rand) at (1.5, 0) {};
+    \node[dot, fill=black] (mult) at (.5, 1) {};
+    \node[dashedmorphism] (copy) at (.5, 2) {};
+    \draw (copy.north west) to ++(0, .2) node[left] {$E$} to ++(0, .3) node[dot, fill=white] {};
+    \draw (mult) to (copy.south) node[yshift=-3mm, left] {$A$};
+    \draw (-.3, -1) node[left] {$A$} to (-.3, .2) to [out=90, in=180] (mult);
+    \draw (rand.north west) to ++(0, .2) node[left] {$A$} to[out=90, in=0] (mult);
+    \draw (rand.north east) to ++(0, .2) node[right] {$B$} node[right, yshift=-3mm,
+    xshift=5mm] {\normalsize.} to ++(0, .7) node[dot,
+    fill=black] {} to ++(0, .4) node[right] {$B$} to ++(0, 1.1) to[in=0,out=90] ++(-.5, .5) node[dot, fill=black] (f) {};
+    \draw (copy.north east) to ++(0, .2) node[right] {$B$} to[out=90,in=180] (f);
+    \draw (f) to ++(0, .5) node[left] {$B$};
+  \end{pic}
+\]
+
+This is a morphism in $\ncomb{\cat{C}}$. To check that this protocol is correct,
+we need to check that it sends the state \eqref{eqn:otp-domain} to
+the state \eqref{eqn:otp-codomain}, i.e. that it is a morphism with
+the right type in $\prot{3}{\cat{C}}$.
+
+
+
+While \cite{broadbent-karvonen-2022} choose to label the wires with the
+identities of the parties in possession of that data, we worry that this
+approach does not easily scale to protocols where multiple objects are relevant.
+We prefer an approach using the shaded boxes of \Cref{sec:monoidal-functors}. 
+
+\section{Security}
+\label{sec:security}
+
+%
+% In the title of the section, we called this a category of \emph{linear} process
+% conversions. This is because each input resource is used exactly once in the
+% list of n-combs.
 
 % % TODO: proof?
 % % \begin{proof}
@@ -818,14 +1315,6 @@ list of n-combs.
 % %   Functorality of the monoidal product is 
 % % \end{proof}
 % % \section{Resource Theories}
-
-% The idea is that each object in $x_1\otimes\dots\otimes x_n\in\cat{C}^\otimes$
-% represents the presence of the ``resources'' represented by the objects
-% $x_1,\dots,x_n\in\cat{C}$. A morphism must consume precisely one ``copy'' of
-% each resource in that list and produce one copy of each resource in its
-% codomain. The partition $\alpha$ is an allocation of input resources to output
-% resources: $\alpha^{-1}(i)$ is exactly the input resources used to produce the
-% resource $y_i$.
 
 % \subsection{Process Conversions}
 

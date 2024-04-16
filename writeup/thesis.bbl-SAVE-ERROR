@@ -1587,6 +1587,40 @@
       \verb https://doi.org/10.1145/3812.3818
       \endverb
     \endentry
+    \entry{de-felice-2017}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=90a608e5aa8c815f07e4c59d5b93be62}{%
+           family={Felice},
+           familyi={F\bibinitperiod},
+           given={Giovanni},
+           giveni={G\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {University of Oxford}%
+      }
+      \strng{namehash}{90a608e5aa8c815f07e4c59d5b93be62}
+      \strng{fullhash}{90a608e5aa8c815f07e4c59d5b93be62}
+      \strng{bibnamehash}{90a608e5aa8c815f07e4c59d5b93be62}
+      \strng{authorbibnamehash}{90a608e5aa8c815f07e4c59d5b93be62}
+      \strng{authornamehash}{90a608e5aa8c815f07e4c59d5b93be62}
+      \strng{authorfullhash}{90a608e5aa8c815f07e4c59d5b93be62}
+      \field{labelalpha}{Fel17}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Hopf Algebras in Quantum Computation}
+      \field{type}{phdthesis}
+      \field{year}{2017}
+      \verb{urlraw}
+      \verb https://www.cs.ox.ac.uk/people/bob.coecke/Giovanni
+      \endverb
+      \verb{url}
+      \verb https://www.cs.ox.ac.uk/people/bob.coecke/Giovanni
+      \endverb
+    \endentry
     \entry{fritz-2020}{article}{}
       \name{author}{1}{}{%
         {{hash=485f579f829f8629fec8c85c28a33f28}{%
@@ -2786,6 +2820,47 @@
       \verb https://eprint.iacr.org/2004/181
       \endverb
     \endentry
+    \entry{lomp-2004}{article}{}
+      \name{author}{1}{}{%
+        {{hash=ae90a86e5e9e5249db8e3764e52c5951}{%
+           family={Lomp},
+           familyi={L\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Informa UK Limited}%
+      }
+      \strng{namehash}{ae90a86e5e9e5249db8e3764e52c5951}
+      \strng{fullhash}{ae90a86e5e9e5249db8e3764e52c5951}
+      \strng{bibnamehash}{ae90a86e5e9e5249db8e3764e52c5951}
+      \strng{authorbibnamehash}{ae90a86e5e9e5249db8e3764e52c5951}
+      \strng{authornamehash}{ae90a86e5e9e5249db8e3764e52c5951}
+      \strng{authorfullhash}{ae90a86e5e9e5249db8e3764e52c5951}
+      \field{labelalpha}{Lom04}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1532-4125}
+      \field{journaltitle}{Communications in Algebra}
+      \field{month}{12}
+      \field{number}{12}
+      \field{title}{Integrals in Hopf Algebras over Rings}
+      \field{volume}{32}
+      \field{year}{2004}
+      \field{pages}{4687\bibrangedash 4711}
+      \range{pages}{25}
+      \verb{doi}
+      \verb 10.1081/agb-200036837
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1081/AGB-200036837
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1081/AGB-200036837
+      \endverb
+    \endentry
     \entry{maclane-1971}{book}{}
       \name{author}{1}{}{%
         {{hash=d35756c9f39a938d9533376dfaa5ad43}{%
@@ -3832,6 +3907,43 @@
       \verb https://eprint.iacr.org/2002/126
       \endverb
     \endentry
+    \entry{sullivan-1971}{article}{}
+      \name{author}{1}{}{%
+        {{hash=8521d9704cc30a68b45a86a98570f81d}{%
+           family={Sullivan},
+           familyi={S\bibinitperiod},
+           given={John\bibnamedelima Brendan},
+           giveni={J\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \strng{namehash}{8521d9704cc30a68b45a86a98570f81d}
+      \strng{fullhash}{8521d9704cc30a68b45a86a98570f81d}
+      \strng{bibnamehash}{8521d9704cc30a68b45a86a98570f81d}
+      \strng{authorbibnamehash}{8521d9704cc30a68b45a86a98570f81d}
+      \strng{authornamehash}{8521d9704cc30a68b45a86a98570f81d}
+      \strng{authorfullhash}{8521d9704cc30a68b45a86a98570f81d}
+      \field{labelalpha}{Sul71}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0021-8693}
+      \field{journaltitle}{Journal of Algebra}
+      \field{number}{3}
+      \field{title}{The uniqueness of integrals for Hopf algebras and some existence theorems of integrals for commutative Hopf algebras}
+      \field{volume}{19}
+      \field{year}{1971}
+      \field{pages}{426\bibrangedash 440}
+      \range{pages}{15}
+      \verb{doi}
+      \verb https://doi.org/10.1016/0021-8693(71)90100-1
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/0021869371901001
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/0021869371901001
+      \endverb
+    \endentry
     \entry{stay-vicary-2013}{article}{}
       \name{author}{2}{}{%
         {{hash=d439c144d16a324489e1f517a0dbe668}{%
@@ -3875,6 +3987,47 @@
       \verb https://www.sciencedirect.com/science/article/pii/S1571066113000686
       \endverb
       \keyw{Categories,security,geometry}
+    \endentry
+    \entry{sweedler-1969}{article}{}
+      \name{author}{1}{}{%
+        {{hash=21d0ecb7479deaf6e5a662a8489f01fa}{%
+           family={Sweedler},
+           familyi={S\bibinitperiod},
+           given={Moss\bibnamedelima Eisenberg},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Annals of Mathematics}%
+      }
+      \strng{namehash}{21d0ecb7479deaf6e5a662a8489f01fa}
+      \strng{fullhash}{21d0ecb7479deaf6e5a662a8489f01fa}
+      \strng{bibnamehash}{21d0ecb7479deaf6e5a662a8489f01fa}
+      \strng{authorbibnamehash}{21d0ecb7479deaf6e5a662a8489f01fa}
+      \strng{authornamehash}{21d0ecb7479deaf6e5a662a8489f01fa}
+      \strng{authorfullhash}{21d0ecb7479deaf6e5a662a8489f01fa}
+      \field{labelalpha}{Swe69}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0003486X}
+      \field{journaltitle}{Annals of Mathematics}
+      \field{number}{2}
+      \field{title}{Integrals for Hopf Algebras}
+      \field{urlday}{15}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{volume}{89}
+      \field{year}{1969}
+      \field{urldateera}{ce}
+      \field{pages}{323\bibrangedash 335}
+      \range{pages}{13}
+      \verb{urlraw}
+      \verb http://www.jstor.org/stable/1970672
+      \endverb
+      \verb{url}
+      \verb http://www.jstor.org/stable/1970672
+      \endverb
     \endentry
     \entry{shahar-zdancewic-2024}{unpublished}{}
       \name{author}{2}{}{%
