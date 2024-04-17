@@ -305,7 +305,7 @@
            giveni={A\bibinitperiod}}}%
       }
       \list{institution}{1}{%
-        {School of Computer Science}%
+        {Carnegie Mellon University}%
       }
       \strng{namehash}{3d00839a7d4e4ff29f609b74c7a30980}
       \strng{fullhash}{3d00839a7d4e4ff29f609b74c7a30980}
@@ -1580,6 +1580,52 @@
       \verb https://eprint.iacr.org/2019/582
       \endverb
     \endentry
+    \entry{dunn-1983}{incollection}{}
+      \name{author}{2}{}{%
+        {{hash=be37618e65c2aa939f7a4088783eac42}{%
+           family={Dunn},
+           familyi={D\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=fd564d720b0a3ebac610b9c6dba9d4c9}{%
+           family={Restall},
+           familyi={R\bibinitperiod},
+           given={Greg},
+           giveni={G\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=e4c171212e77fadaec078dad6dc4d173}{%
+           family={Gabbay},
+           familyi={G\bibinitperiod},
+           given={Dov\bibnamedelima M.},
+           giveni={D\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=d84dc35c675b26ecf0650d45f0da18fc}{%
+           family={Guenthner},
+           familyi={G\bibinitperiod},
+           given={Franz},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Kluwer Academic Publishers}%
+      }
+      \strng{namehash}{678a10f760c6e7edc4bf2960a63ff4c7}
+      \strng{fullhash}{678a10f760c6e7edc4bf2960a63ff4c7}
+      \strng{bibnamehash}{678a10f760c6e7edc4bf2960a63ff4c7}
+      \strng{authorbibnamehash}{678a10f760c6e7edc4bf2960a63ff4c7}
+      \strng{authornamehash}{678a10f760c6e7edc4bf2960a63ff4c7}
+      \strng{authorfullhash}{678a10f760c6e7edc4bf2960a63ff4c7}
+      \strng{editorbibnamehash}{67b623030eac7089e1c0b7049218ae3e}
+      \strng{editornamehash}{67b623030eac7089e1c0b7049218ae3e}
+      \strng{editorfullhash}{67b623030eac7089e1c0b7049218ae3e}
+      \field{labelalpha}{DR83}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Handbook of Philosophical Logic}
+      \field{title}{Relevance Logic}
+      \field{year}{1983}
+    \endentry
     \entry{even-et-al-1985}{article}{}
       \name{author}{3}{}{%
         {{hash=1df6d440bdcf5ce3d3ad82d370770f54}{%
@@ -2091,6 +2137,54 @@
       \field{isbn}{9780521791724}
       \field{title}{Foundations of Cryptography: Volume 1, Basic Tools}
       \field{year}{2001}
+    \endentry
+    \entry{girard-1992}{article}{}
+      \name{author}{3}{}{%
+        {{hash=b2918bf11715bb95276ff254fb247d4b}{%
+           family={Girard},
+           familyi={G\bibinitperiod},
+           given={Jean-Yves},
+           giveni={J\bibinithyphendelim Y\bibinitperiod}}}%
+        {{hash=bb42161be8632e8a0f742dd07fd92d23}{%
+           family={Scedrov},
+           familyi={S\bibinitperiod},
+           given={Andre},
+           giveni={A\bibinitperiod}}}%
+        {{hash=c2de2b1910a52dd750f03dbf592643b3}{%
+           family={Scott},
+           familyi={S\bibinitperiod},
+           given={Philip\bibnamedelima J.},
+           giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{4059e4f79fd9e0b10592d1dd5481b609}
+      \strng{fullhash}{4059e4f79fd9e0b10592d1dd5481b609}
+      \strng{bibnamehash}{4059e4f79fd9e0b10592d1dd5481b609}
+      \strng{authorbibnamehash}{4059e4f79fd9e0b10592d1dd5481b609}
+      \strng{authornamehash}{4059e4f79fd9e0b10592d1dd5481b609}
+      \strng{authorfullhash}{4059e4f79fd9e0b10592d1dd5481b609}
+      \field{labelalpha}{GSS92}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Usual typed lambda-calculi yield input/output specifications; in this paper the authors show how to extend this paradigm to complexity specifications. This is achieved by means of a restricted version of linear logic in which the use of exponential connectives is bounded in advance. This bounded linear logic naturally involves polynomials in its syntax and dynamics. It is then proved that any functional term of appropriate type actually encodes a polynomial-time algorithm and that conversely any polynomial-time function can be obtained in this way.}
+      \field{issn}{0304-3975}
+      \field{journaltitle}{Theoretical Computer Science}
+      \field{number}{1}
+      \field{title}{Bounded linear logic: a modular approach to polynomial-time computability}
+      \field{volume}{97}
+      \field{year}{1992}
+      \field{pages}{1\bibrangedash 66}
+      \range{pages}{66}
+      \verb{doi}
+      \verb https://doi.org/10.1016/0304-3975(92)90386-T
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/030439759290386T
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/030439759290386T
+      \endverb
     \endentry
     \entry{hastad-1999}{article}{}
       \name{author}{4}{}{%
@@ -2633,6 +2727,105 @@
       \field{title}{Introduction to Modern Cryptography, Second Edition}
       \field{year}{2014}
     \endentry
+    \entry{krishnaswami-2015}{article}{}
+      \name{author}{3}{}{%
+        {{hash=fbe092762304cb4307a6663140b0c6b4}{%
+           family={Krishnaswami},
+           familyi={K\bibinitperiod},
+           given={Neelakantan\bibnamedelima R.},
+           giveni={N\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=66a7a3400dcc4a63d06458546ad887ae}{%
+           family={Pradic},
+           familyi={P\bibinitperiod},
+           given={Pierre},
+           giveni={P\bibinitperiod}}}%
+        {{hash=914c421c88aaf72767dd1211d17cac95}{%
+           family={Benton},
+           familyi={B\bibinitperiod},
+           given={Nick},
+           giveni={N\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{0297132de080ae754619ca6f6883cbe7}
+      \strng{fullhash}{0297132de080ae754619ca6f6883cbe7}
+      \strng{bibnamehash}{0297132de080ae754619ca6f6883cbe7}
+      \strng{authorbibnamehash}{0297132de080ae754619ca6f6883cbe7}
+      \strng{authornamehash}{0297132de080ae754619ca6f6883cbe7}
+      \strng{authorfullhash}{0297132de080ae754619ca6f6883cbe7}
+      \field{labelalpha}{KPB15}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper, we show how to integrate linear types with type dependency, by extending the linear/non-linear calculus of Benton to support type dependency. Next, we give an application of this calculus by giving a proof-theoretic account of imperative programming, which requires extending the calculus with computationally irrelevant quantification, proof irrelevance, and a monad of computations. We show the soundness of our theory by giving a realizability model in the style of Nuprl, which permits us to validate not only the beta-laws for each type, but also the eta-laws. These extensions permit us to decompose Hoare triples into a collection of simpler type-theoretic connectives, yielding a rich equational theory for dependently-typed higher-order imperative programs. Furthermore, both the type theory and its model are relatively simple, even when all of the extensions are considered.}
+      \field{issn}{0362-1340}
+      \field{journaltitle}{SIGPLAN Not.}
+      \field{month}{1}
+      \field{number}{1}
+      \field{title}{Integrating Linear and Dependent Types}
+      \field{volume}{50}
+      \field{year}{2015}
+      \field{pages}{17\bibrangedash 30}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1145/2775051.2676969
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/2775051.2676969
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/2775051.2676969
+      \endverb
+      \keyw{dependent types,hoare triples,intersection types,linear types,proof irrelevance,separation logic}
+    \endentry
+    \entry{lambek-1958}{article}{}
+      \name{author}{1}{}{%
+        {{hash=dcdaa68018161d2153831584aabf501a}{%
+           family={Lambek},
+           familyi={L\bibinitperiod},
+           given={Joachim},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Taylor \& Francis}%
+      }
+      \strng{namehash}{dcdaa68018161d2153831584aabf501a}
+      \strng{fullhash}{dcdaa68018161d2153831584aabf501a}
+      \strng{bibnamehash}{dcdaa68018161d2153831584aabf501a}
+      \strng{authorbibnamehash}{dcdaa68018161d2153831584aabf501a}
+      \strng{authornamehash}{dcdaa68018161d2153831584aabf501a}
+      \strng{authorfullhash}{dcdaa68018161d2153831584aabf501a}
+      \field{extraname}{1}
+      \field{labelalpha}{Lam58}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The American Mathematical Monthly}
+      \field{number}{3}
+      \field{title}{The Mathematics of Sentence Structure}
+      \field{volume}{65}
+      \field{year}{1958}
+      \field{pages}{154\bibrangedash 170}
+      \range{pages}{17}
+      \verb{doi}
+      \verb 10.1080/00029890.1958.11989160
+      \endverb
+      \verb{eprint}
+      \verb https://doi.org/10.1080/00029890.1958.11989160
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1080/00029890.1958.11989160
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1080/00029890.1958.11989160
+      \endverb
+    \endentry
     \entry{lambeck-1974}{article}{}
       \name{author}{1}{}{%
         {{hash=dcdaa68018161d2153831584aabf501a}{%
@@ -2650,7 +2843,7 @@
       \strng{authorbibnamehash}{dcdaa68018161d2153831584aabf501a}
       \strng{authornamehash}{dcdaa68018161d2153831584aabf501a}
       \strng{authorfullhash}{dcdaa68018161d2153831584aabf501a}
-      \field{extraname}{1}
+      \field{extraname}{2}
       \field{labelalpha}{Lam74}
       \field{sortinit}{L}
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
@@ -2681,7 +2874,7 @@
       \strng{authorbibnamehash}{dcdaa68018161d2153831584aabf501a}
       \strng{authornamehash}{dcdaa68018161d2153831584aabf501a}
       \strng{authorfullhash}{dcdaa68018161d2153831584aabf501a}
-      \field{extraname}{2}
+      \field{extraname}{3}
       \field{labelalpha}{Lam80}
       \field{sortinit}{L}
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
@@ -2906,6 +3099,50 @@
       \verb https://eprint.iacr.org/2004/181
       \endverb
     \endentry
+    \entry{lmz-2019}{article}{}
+      \name{author}{3}{}{%
+        {{hash=41041910a7c87f3f3e22177d50160c4e}{%
+           family={Lindenhovius},
+           familyi={L\bibinitperiod},
+           given={Bert},
+           giveni={B\bibinitperiod}}}%
+        {{hash=0ca3b0b6667ed1382692d76115e282a0}{%
+           family={Mislove},
+           familyi={M\bibinitperiod},
+           given={Michael\bibnamedelima W.},
+           giveni={M\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=7f78170974793da0beb51a50bc3fad0e}{%
+           family={Zamdzhiev},
+           familyi={Z\bibinitperiod},
+           given={Vladimir},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{c95a5a695b549b57d330df7cd4c596a2}
+      \strng{fullhash}{c95a5a695b549b57d330df7cd4c596a2}
+      \strng{bibnamehash}{c95a5a695b549b57d330df7cd4c596a2}
+      \strng{authorbibnamehash}{c95a5a695b549b57d330df7cd4c596a2}
+      \strng{authornamehash}{c95a5a695b549b57d330df7cd4c596a2}
+      \strng{authorfullhash}{c95a5a695b549b57d330df7cd4c596a2}
+      \field{labelalpha}{LMZ19}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{CoRR}
+      \field{title}{Mixed Linear and Non-linear Recursive Types}
+      \field{volume}{abs/1906.09503}
+      \field{year}{2019}
+      \verb{eprint}
+      \verb 1906.09503
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1906.09503
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1906.09503
+      \endverb
+    \endentry
     \entry{lomp-2004}{article}{}
       \name{author}{1}{}{%
         {{hash=ae90a86e5e9e5249db8e3764e52c5951}{%
@@ -2978,6 +3215,59 @@
       \field{pages}{ix+262}
       \range{pages}{-1}
       \keyw{CategoryTheory}
+    \endentry
+    \entry{maf-2005}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=33b4dd1b5ab1beaed368ad65da17385e}{%
+           family={Morrisett},
+           familyi={M\bibinitperiod},
+           given={Greg},
+           giveni={G\bibinitperiod}}}%
+        {{hash=94a245e2a7f48b654d74d292a96172d0}{%
+           family={Ahmed},
+           familyi={A\bibinitperiod},
+           given={Amal},
+           giveni={A\bibinitperiod}}}%
+        {{hash=7fe92450ea91e503c33879ac5f103770}{%
+           family={Fluet},
+           familyi={F\bibinitperiod},
+           given={Matthew},
+           giveni={M\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=15113eff5a74b47bdebf898a8759f0f6}{%
+           family={Urzyczyn},
+           familyi={U\bibinitperiod},
+           given={Pawe{ł}},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{a289ec312746a6d23c3bbabc3376446a}
+      \strng{fullhash}{a289ec312746a6d23c3bbabc3376446a}
+      \strng{bibnamehash}{a289ec312746a6d23c3bbabc3376446a}
+      \strng{authorbibnamehash}{a289ec312746a6d23c3bbabc3376446a}
+      \strng{authornamehash}{a289ec312746a6d23c3bbabc3376446a}
+      \strng{authorfullhash}{a289ec312746a6d23c3bbabc3376446a}
+      \strng{editorbibnamehash}{15113eff5a74b47bdebf898a8759f0f6}
+      \strng{editornamehash}{15113eff5a74b47bdebf898a8759f0f6}
+      \strng{editorfullhash}{15113eff5a74b47bdebf898a8759f0f6}
+      \field{labelalpha}{MAF05}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We explore foundational typing support for strong updates --- updating a memory cell to hold values of unrelated types at different points in time. We present a simple, but expressive type system based upon standard linear logic, one that also enjoys a simple semantic interpretation for types that is closely related to models for spatial logics. The typing interpretation is strong enough that, in spite of the fact that our core calculus supports shared, mutable references and cyclic graphs, every well-typed program terminates.}
+      \field{booktitle}{Typed Lambda Calculi and Applications}
+      \field{isbn}{978-3-540-32014-2}
+      \field{title}{L3: A Linear Language with Locations}
+      \field{year}{2005}
+      \field{pages}{293\bibrangedash 307}
+      \range{pages}{15}
     \endentry
     \entry{maurer-et-al-2012}{inproceedings}{}
       \name{author}{1}{}{%
@@ -3459,6 +3749,32 @@
       \verb https://doi.org/10.1007/978-3-642-54789-8_19
       \endverb
     \endentry
+    \entry{paykin-2018}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=52a6636b49d86da34cd228bcf59f574d}{%
+           family={Paykin},
+           familyi={P\bibinitperiod},
+           given={Jennifer},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {University of Pennsylvania}%
+      }
+      \strng{namehash}{52a6636b49d86da34cd228bcf59f574d}
+      \strng{fullhash}{52a6636b49d86da34cd228bcf59f574d}
+      \strng{bibnamehash}{52a6636b49d86da34cd228bcf59f574d}
+      \strng{authorbibnamehash}{52a6636b49d86da34cd228bcf59f574d}
+      \strng{authornamehash}{52a6636b49d86da34cd228bcf59f574d}
+      \strng{authorfullhash}{52a6636b49d86da34cd228bcf59f574d}
+      \field{labelalpha}{Pay18}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Linear/non-linear types for embedded domain-specific languages}
+      \field{type}{phdthesis}
+      \field{year}{2018}
+    \endentry
     \entry{pederson-1991}{inproceedings}{}
       \name{author}{1}{}{%
         {{hash=ee278eaf10727ef21f15ba59cdfcb51b}{%
@@ -3560,6 +3876,49 @@
       \field{year}{2022}
       \verb{eprint}
       \verb 1910.08634
+      \endverb
+    \endentry
+    \entry{pruiksma-2018}{unpublished}{}
+      \name{author}{4}{}{%
+        {{hash=92fe7cb8d09ea574890f1222eac52daa}{%
+           family={Pruiksma},
+           familyi={P\bibinitperiod},
+           given={Klaas},
+           giveni={K\bibinitperiod}}}%
+        {{hash=2e1ee792f0a13a3266ef8a67a8e0fd1f}{%
+           family={Chargin},
+           familyi={C\bibinitperiod},
+           given={William},
+           giveni={W\bibinitperiod}}}%
+        {{hash=6fa187678bcd9926269af2195cb766bb}{%
+           family={Pfenning},
+           familyi={P\bibinitperiod},
+           given={Frank},
+           giveni={F\bibinitperiod}}}%
+        {{hash=50387e02251de195f7149b890eb7249d}{%
+           family={Reed},
+           familyi={R\bibinitperiod},
+           given={Jason},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{ad29fe35343f59d81eb96ad56e0e301a}
+      \strng{fullhash}{487589d4f564d39abf8be7925ca3042c}
+      \strng{bibnamehash}{ad29fe35343f59d81eb96ad56e0e301a}
+      \strng{authorbibnamehash}{ad29fe35343f59d81eb96ad56e0e301a}
+      \strng{authornamehash}{ad29fe35343f59d81eb96ad56e0e301a}
+      \strng{authorfullhash}{487589d4f564d39abf8be7925ca3042c}
+      \field{labelalpha}{Pru+18}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Adjoint Logic}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://www.cs.cmu.edu/~fp/papers/adjoint18b.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.cs.cmu.edu/~fp/papers/adjoint18b.pdf
       \endverb
     \endentry
     \entry{pass-shelat-2020}{book}{}
@@ -4196,6 +4555,36 @@
       \field{title}{Categorical Phase Semantics for Linear Logic}
       \field{year}{2024}
     \endentry
+    \entry{tol-2021}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=1446aef43e7ab4d493bd3f78b23ec489}{%
+           family={Tol},
+           familyi={T\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{1446aef43e7ab4d493bd3f78b23ec489}
+      \strng{fullhash}{1446aef43e7ab4d493bd3f78b23ec489}
+      \strng{bibnamehash}{1446aef43e7ab4d493bd3f78b23ec489}
+      \strng{authorbibnamehash}{1446aef43e7ab4d493bd3f78b23ec489}
+      \strng{authornamehash}{1446aef43e7ab4d493bd3f78b23ec489}
+      \strng{authorfullhash}{1446aef43e7ab4d493bd3f78b23ec489}
+      \field{labelalpha}{Tol21}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Paul Tol’s Notes}
+      \field{month}{8}
+      \field{title}{Introduction to Colour Schemes}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://personal.sron.nl/~pault/
+      \endverb
+      \verb{url}
+      \verb https://personal.sron.nl/~pault/
+      \endverb
+    \endentry
     \entry{trevisan-2009}{misc}{}
       \name{author}{1}{}{%
         {{hash=ca5f7e86f967df27e3f4153922fe0035}{%
@@ -4225,6 +4614,32 @@
       \verb{url}
       \verb https://theory.stanford.edu/~trevisan/cs276/lecture27.pdf
       \endverb
+    \endentry
+    \entry{troelstra-1992}{book}{}
+      \name{author}{1}{}{%
+        {{hash=21bc2dc4cee97cc8be60b7948cce6a89}{%
+           family={Troelstra},
+           familyi={T\bibinitperiod},
+           given={Anne\bibnamedelima Sjerp},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \list{publisher}{2}{%
+        {Center for the Study of Language}%
+        {Information Publications}%
+      }
+      \strng{namehash}{21bc2dc4cee97cc8be60b7948cce6a89}
+      \strng{fullhash}{21bc2dc4cee97cc8be60b7948cce6a89}
+      \strng{bibnamehash}{21bc2dc4cee97cc8be60b7948cce6a89}
+      \strng{authorbibnamehash}{21bc2dc4cee97cc8be60b7948cce6a89}
+      \strng{authornamehash}{21bc2dc4cee97cc8be60b7948cce6a89}
+      \strng{authorfullhash}{21bc2dc4cee97cc8be60b7948cce6a89}
+      \field{labelalpha}{Tro92}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Lectures on Linear Logic}
+      \field{year}{1992}
     \endentry
     \entry{unruh-2004}{misc}{}
       \name{author}{1}{}{%

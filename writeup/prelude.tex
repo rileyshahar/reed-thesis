@@ -13,6 +13,10 @@
 \usepackage{bbm}
 \usepackage{graphicx}
 
+\definecolor{cyan}{RGB}{102,204,238}
+\definecolor{red}{RGB}{238,102,119}
+\definecolor{green}{RGB}{34,136,51}
+
 % links/refs
 \usepackage[
 	unicode=true,
@@ -103,6 +107,12 @@
 \newcommand{\ncomba}[1]{\operatorname*{n-comb}^*(#1)}
 \let\prot\relax
 \newcommand{\prot}[2]{\operatorname{prot}_{#1}(#2)}
+\newcommand{\prota}[2]{\operatorname{prot}^*_{#1}(#2)}
+\newcommand{\protb}[2]{\operatorname{prot}!_{#1}(#2)}
+\newcommand{\pred}[1]{\operatorname{pred}(#1)}
+\newcommand{\oprot}[2]{\overline{\operatorname{prot}}_{#1}(#2)}
+\newcommand{\oprota}[2]{\overline{\operatorname{prot}}^*_{#1}(#2)}
+\newcommand{\oprotb}[2]{\overline{\operatorname{prot}}!_{#1}(#2)}
 
 % theorems
 \theoremstyle{plain}
@@ -138,6 +148,7 @@
 \def\To{\Rightarrow}
 \def\From{\Leftarrow}
 \newcommand{\xto}[1]{\xrightarrow{#1}}
+\newcommand{\xinto}[1]{\xhookrightarrow{#1}}
 
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\Hom}{Hom}
@@ -208,6 +219,7 @@
 \def\ZZ{\mathbb{Z}}
 
 \def\kk{\Bbbk}
+\def\ind{\mathbbm{1}}
 
 % itemize spacing
 % https://tex.stackexchange.com/a/650378
@@ -238,7 +250,7 @@
 
 \tikzset{
   functor/.style args={#1}{
-    rounded corners,fill=#1,fill opacity=.2
+    rounded corners,fill=#1,fill opacity=.5,draw opacity=.5
   }
 }
 \tikzset{

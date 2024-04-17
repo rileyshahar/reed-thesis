@@ -14,6 +14,7 @@ qm
 \cite{abramsky-coecke-2004,coecke-perdrix-2012,heunen-vicary-2014,coecke-kissinger-2017,chitambar-gour-2019}]
 
 \section{Computation}
+\label{sec:computation}
 
 The categorical theory of computation is well-developed, going back at least to
 the work of Jim Lambek and several contemporaries around the
@@ -376,28 +377,30 @@ lax monoidal functor. Then an \emph{$F$-state} is a pair of $X\in\cat{D}$ and a
 map $I\to FX$ in $\cat{C}$. The \emph{resource theory of $F$-states} $\state{F}$
 is the category whose objects are $F$-states and whose morphisms $(I\xto{s}
 FX)\to (I\xto{t} FY)$ are maps $X\xto{f}Y$ in $\cat{D}$ such that $(Ff)s =
-t$\footnote{
-  With a little more machinery: $\state{F}$ is the \emph{category of elements}
-    of the functor $\cat{D}\xto{F}\cat{C}\xto{C(I, -)}\scat{Set}$. The
-    category of elements of any lax monoidal functor has a canonical monoidal
-    structure on it induced by that of the codomain; this is the monoidal
-    structure with which we endow $\state{F}$. Observe the similarity of the
-    monoidal product in $\state{F}$ with the coherence map for the functor $C(I, -)$
-    from \Cref{ex:monoidal-functors}.
-  }. Note what then $\cat{C} = \cat{D}$ and $F = 1_\cat{C}$, we recover
+t$. Note what then $\cat{C} = \cat{D}$ and $F = 1_\cat{C}$, we recover
   $\state{\cat{C}}$.
 
 Since $F$ is lax monoidal, there is again general recipe for taking the monoidal
 product in this category: given $I\xto{s} FX$ and $I\xto{t} FY$, the product of $s$ and
 $t$ is the state \[
   \begin{pic}
-    \draw[functor=blue] (-.5, -.3) -- (0, -.3) -- (0, .2) -- (.5, .2) -- (.5,
+    \draw[functor=cyan] (-.5, -.3) -- (0, -.3) -- (0, .2) -- (.5, .2) -- (.5,
       -.3) -- (1, -.3) -- (1, .7) -- (-.5, .7) -- cycle;
     \draw[rounded corners] (-.25, -.75) node[rounded corners=0, state, scale=.75] {$s$} -- (-.25, .45) --
       (.75, .45) -- ++(0, -1.2) node[rounded corners=0, state, scale=.75] {$t$} node[right, xshift=4mm, yshift=5mm] {\normalsize.};
     \draw (.25, .45) -- ++(0, 1.2) node[left] {$F(X\otimes_\cat{D} Y)$};
   \end{pic}
 \]
+
+With a little more machinery: $\state{F}$ is the \emph{category of elements}
+of the functor $\cat{D}\xto{F}\cat{C}\xto{C(I, -)}\scat{Set}$. In general, the
+category of elements of a functor $F: \cat{C}\to\scat{Set}$ has as objects pairs
+$(c, x)$ where $c\in Fx$, and as morphisms $(c, x)\to (c', x')$, maps $f: c\to
+c'$ such that $Ff(x) = x'$. The category of elements of any lax monoidal functor
+has a canonical monoidal structure on it induced by that of the codomain; this
+is the monoidal structure with which we endow $\state{F}$. Observe the
+similarity of the monoidal product in $\state{F}$ with the coherence map for the
+functor $C(I, -)$ from \Cref{ex:monoidal-functors}. 
 
 Following~\cite{broadbent-karvonen-2022}, we are especially interested in the category
 $\state{\cat{C}^2\xto{\otimes}\cat{C}}$. Objects in this category are morphisms
@@ -605,9 +608,9 @@ is an induced functor $\onecomb{F}:\,
     \draw (xi1.north west) -- (f.south);
     \draw (xi2.south west) -- (f.north);
   \end{pic}\quad\mapsto\quad\begin{pic}
-    \draw[functor=blue] (-.75,-.5) -- (.75,-.5) -- (.75, .8) -- (.15, .8) --
+    \draw[functor=cyan] (-.75,-.5) -- (.75,-.5) -- (.75, .8) -- (.15, .8) --
     (.15, .4) -- (-.15, .4) -- (-.15, .8) -- (-.75, .8) -- cycle;
-    \draw[functor=blue] (-.75,3) -- (.75,3) -- (.75, 1.7) -- (.15, 1.7) --
+    \draw[functor=cyan] (-.75,3) -- (.75,3) -- (.75, 1.7) -- (.15, 1.7) --
     (.15, 2.1) -- (-.15, 2.1) -- (-.15, 1.7) -- (-.75, 1.7) -- cycle;
     \setlength\minimummorphismwidth{8mm}
     \node[morphism] (xi1) at (0,0) {$\xi_1$};
@@ -883,15 +886,15 @@ monoidal functor $F: \cat{C}\to\cat{D}$, we can define a functor $\ncomb{F}:
     \draw ([xshift=2.5pt]xin.south east) to ++(0,-.8);
     \draw ([xshift=-2.5pt]xin.south west) to ++(0,-.8);
 
-    \draw[functor=blue] (-.75,-.5) -- (.75,-.5) -- (.75, .8) -- (.15, .8) --
+    \draw[functor=cyan] (-.75,-.5) -- (.75,-.5) -- (.75, .8) -- (.15, .8) --
     (.15, .4) -- (-.15, .4) -- (-.15, .8) -- (-.75, .8) -- cycle;
-    \draw[functor=blue] (-.75,3.3) -- (-.15, 3.3) -- (-.15, 2.9) -- (.15, 2.9) --
+    \draw[functor=cyan] (-.75,3.3) -- (-.15, 3.3) -- (-.15, 2.9) -- (.15, 2.9) --
     (.15, 3.3) -- (.75,3.3) -- (.75, 1.7) -- (.15, 1.7) --
     (.15, 2.1) -- (-.15, 2.1) -- (-.15, 1.7) -- (-.75, 1.7) -- cycle;
 
-    \draw[functor=blue] (-.75,8.5) -- (.75,8.5) -- (.75, 7.2) -- (.15, 7.2) --
+    \draw[functor=cyan] (-.75,8.5) -- (.75,8.5) -- (.75, 7.2) -- (.15, 7.2) --
     (.15, 7.6) -- (-.15, 7.6) -- (-.15, 7.2) -- (-.75, 7.2) -- cycle;
-    \draw[functor=blue] (-.75,4.7) -- (-.15, 4.7) -- (-.15, 5.1) -- (.15, 5.1) --
+    \draw[functor=cyan] (-.75,4.7) -- (-.15, 4.7) -- (-.15, 5.1) -- (.15, 5.1) --
     (.15, 4.7) -- (.75,4.7) -- (.75, 6.3) -- (.15, 6.3) --
     (.15, 5.9) -- (-.15, 5.9) -- (-.15, 6.3) -- (-.75, 6.3) -- cycle;
 
@@ -1036,15 +1039,15 @@ need to axiomatize both sides of this equality when we have commutativity.}:
   \end{pic}
 \end{equation}
 These three equations give $M$ the structure of a \emph{cocommutative
-comonoid} in $\cat{C}$\footnote{
-  We often want to work over categories in which \emph{every} object has such
-  copy and delete maps. We say that an SMC $\cat{C}$ \emph{supplies
-  cocommutative comonoids} if every object in $\cat{C}$ is a cocommutative
-  comonoid in such a way that the comonoidal structure on any object $X\otimes
-  Y$ is induced from that on $X$ and $Y$ by the tensor. We are now very close
-  to the definition of a \emph{Markov category}, which is the natural
-  categorical axiomatization of stochastic computation~\cite{fritz-2020}.
-}.
+comonoid} in $\cat{C}$.
+
+We often want to work over categories in which \emph{every} object has such copy
+and delete maps. We say that an SMC $\cat{C}$ \emph{supplies cocommutative
+comonoids} if every object in $\cat{C}$ is a cocommutative comonoid in such a
+way that the comonoidal structure on any object $X\otimes Y$ is induced from
+that on $X$ and $Y$ by the tensor. We are now very close to the definition of a
+\emph{Markov category}, which is a natural categorical axiomatization of
+stochastic computation~\cite{fritz-2020}.
 
 Recall from~\Cref{ex:otp} the one-time pad
 works over an arbitrary group $G$. As such, we separately need that $M$ looks
@@ -1131,17 +1134,20 @@ performing it once and then copying the result:
     \draw (copy) to[out=0, in=-90] ++(.5, .5) to ++(0, .2);
   \end{pic}
 \end{equation}
-All these laws give $M$ the structure of a \emph{Hopf object} in $\cat{C}$. It
-turns out that these objects are well-known, and in particular have important
-applications in quantum computation~\cite{de-felice-2017}; for instance, a
-Hopf object in $\scat{Vect}_\kk$ is just an ordinary Hopf algebra. This is a major
-advantage of the categorical machinery: we discover unexpected connections
-between different kinds of computation and mathematics.
 
 Finally, for the one-time pad we need some way to model randomness; in
 \scat{CompStoch} this is the map $I\xto{\$} M$ which draws a uniform random
 value from $M$. Categorically, rather than the specific construction of the map,
 we care about its properties\footnote{
+  The laws \eqref{eqn:coassociative} to
+  \eqref{eqn:mult-deterministic} give $M$ the structure of a
+  \emph{Hopf object} in $\cat{C}$. It turns out that these objects are
+  well-known, and in particular have important applications in quantum
+  computation~\cite{de-felice-2017}; for instance, a Hopf object in
+  $\scat{Vect}_\kk$ is just an ordinary Hopf algebra. This is a major advantage
+  of the categorical machinery: we discover unexpected connections between
+  different kinds of computation and mathematics.
+
   Somewhat surprisingly, elements of Hopf algebras satisfying
   \eqref{eqn:random-invariance} and \eqref{eqn:random-non-side-effecting} 
   have been well studied under the name
@@ -1420,26 +1426,23 @@ the one-time pad.
 We reiterate that the entire preceeding discussion relies only on the existence
 of an object satisfying the axioms \eqref{eqn:coassociative} to
 \eqref{eqn:random-non-side-effecting}. The one-time pad can be
-correctly implemented in any category over any object which satisfies this.
+correctly implemented in any category over any object with this structure.
 
 Of course, this entire discussion assumes that Eve does as the protocol
 instructs and simply deletes the message they read. If they do not, we need
 another layer of analysis, dealing with adversarial behavior. That will be the
 subject of \Cref{sec:security}.
 
-\subsection{Modifications to the Framework}
+\subsection{Extensions to the Framework}
 
-There are several tools, some suggested by~\cite{broadbent-karvonen-2022} and
-some which we believe are novel, which may be used to modify the framework.
-
-\subsubsection{Unbounded-Use Resources}
+\subsubsection{Reusable Resources}
 In the title of
 \Cref{sec:libear-process-conversions},
 we called $\ncomb{\cat{C}}$ a category of \emph{linear} process conversions.
 This is because each input resource is used exactly once in the list of n-combs.
 While it is often valuable to have this restriction enforced by the syntax,
-there are cases where we are fine with having unbounded-use resources. As
-suggested by~\cite{broadbent-karvonen-2022}, we can straightforwardly modify the
+there are cases where we want to model reusable resources. As suggested
+by~\cite{broadbent-karvonen-2022}, we can straightforwardly modify the
 construction to account for this by making two changes.
 
 First, recall that in the definition of an n-comb at the beginning of
@@ -1468,43 +1471,47 @@ modality $!$ of linear logic. In linear logic~\cite{girard-1987}, hypotheses
 must be used once and only once. The $!$ modality allows a hypothesis to be used
 any number of times; this allows controlled intuitionistic reasoning with linear
 frameworks, hence allowing linear logics to be both as expressive as intuitionistic
-logic, and to have fine-grained control over resource usage. In this case,
-unfortunately, there are two separate categories $\ncomb{\cat{C}}$ and
-$\ncombb{\cat{C}}$, and it is not immediately clear how to correctly combine
-them to allow the form of restricted reasoning common in programming languages
-based on linear type systems. We briefly discuss an obstacle, but think this is
-a useful avenue for future work.
+logic, and to have fine-grained control over resource usage. In the case of
+n-combs, however, we currently have two separate categories $\ncomb{\cat{C}}$
+and $\ncombb{\cat{C}}$, so if we want to model cryptosystems that have some
+multi-use resources and some single-use resources, we need some way to relate
+them. We give a solution in \Cref{def:ncomba}, but first we
+digress to discuss the categorical semantics of linear logic, which motivate our
+construction. This explanation uses some categorical terminology we have not
+introduced, but the reader may safely skip directly to the definition.
 
 Any symmetric monoidal category $\cat{L}$ forms a model of the
 multiplicative-intuitoinistic fragment of linear logic~\cite{mellies-2009}. In such
-settings, $!$ can be modeled by a lax monoidal comonad $\denote{!}$ satisfying
-certain properties.
-% \footnote{
-%   Specifically, $\denote{!}$ should be \emph{subunital}, in that there
-%   is a natural transformation $\denote{!}x\to I$, and \emph{horizontally idempotent},
-%   in that there is a natural isomorphism $\denote{!}x\otimes\denote{!}x\cong
-%   \denote{!}x,$ subject to a coherence axiom given in \cite[Equation 72]{mellies-2009}.
-% }
-The modern perspective of~\cite{benton-1995} is to focus on resolutions of this comonad, i.e.
-monoidal adjunctions \[
+settings, $!$ can be modeled by a lax monoidal comonad $\denote{!}$ together
+with natural transformations $\denote{!}x\to I$, and
+$\denote{!}x\to\denote{!}x\otimes\denote{!}x$. This data is subject to a
+coherence axiom given in \cite[Equation 72]{mellies-2009}.
+
+The modern perspective, motivated by~\cite{benton-1995}, is to focus on
+resolutions of this comonad, i.e. monoidal adjunctions \[
   \begin{tikzcd}
     \cat{I}\ar[rr, bend left, "F"] & \bot & \cat{L}\ar[ll, bend left, "G"]
   \end{tikzcd}
-\]such that $FG = \denote{!}$, and in particular on resolutions such that
-$\cat{I}$ is a category with finite products, hence a model of conjunctive
+\]such that $FG = \denote{!}$, and in particular on resolutions such that the
+monoidal structure on $\cat{I}$ is cartesian, hence a model of conjunctive
 intuitionistic logic\footnote{
-  Normally we consider such models with significantly more structure than just
+  Normally we consider such situations with significantly more structure than just
   the multiplcatives, but the situation is the same even in this case.
-}. In this way, $F$ is an
-embedding of intuitionistic terms as linear terms, while $G$ forgets the linearity of
-a term. A standard example of this structure is the free-forgetful adjunction
-between \scat{Set} and $\scat{Vect}_\kk$~\cite{valiron-zdancewic-2014}.
+}. It turns out that any monoidal adjunction between categories with this
+structure gives the necessary structure on the comonad $GF$; as a consequence,
+such adjunctions are called \emph{linear-non-linear}. In this way, $F$ is an
+embedding of intuitionistic terms as linear terms, while $G$ forgets the
+linearity of a term. A standard example of this structure is the free-forgetful
+adjunction between \scat{Set} and
+$\scat{Vect}_\kk$~\cite{valiron-zdancewic-2014}. Linear-non-linear adjunctions
+have been widely used for designing resource-aware programming
+languages~\cite{maf-2005,krishnaswami-2015,paykin-2018,lmz-2019}.
 
 All this machinery suggests that, to give a system which allows simultaneous
-reasoning about both single- and unbounded-use resources, we should look for
+reasoning about both single- and multi-use resources, we should look for
 such an adjunction. There is indeed a forgetful functor $G: \ncomb{\cat{C}}\to
 \ncombb{\cat{C}}$, which we may think of as forgetting the linearity of an
-n-comb. Furthermore, the category $\ncombb{\cat{C}}$ has is cartesian monoidal,
+n-comb. Furthermore, the category $\ncombb{\cat{C}}$ is cartesian monoidal,
 meaning that the concatenation of two lists is a cartesian product; the
 projctions simply do not use the extra resource, while the universal property is
 witnessed by concatenating lists of n-combs. As such, $\ncombb{\cat{C}}$ is a
@@ -1512,62 +1519,108 @@ model of conjunctive intuitionistic logic; it represents an intuitionistic,
 rather than linear, calculus of resources.
 
 However, the functor $G$ seems unlikely to be a right adjoint\footnote{
-  I would like an explicit construction of a limit which $G$ does not preserve;
-  the issue is that it seems hard for $\ncomb{\cat{C}}$ to have very many limits
-  in the first place. This is an open question.
+  I would like, but do not have, an explicit construction of a limit which $G$
+  does not preserve; the issue is that it seems hard for $\ncomb{\cat{C}}$ to
+  have very many limits in the first place.
 }. The issue is that combs between the same two objects $\ncombb{\cat{C}}$ may
 use different numbers of resources, and so ought to be sent to different objects
 in $\ncomb{\cat{C}}$, but this is impossible for any functor. To resolve this,
-we need a notion of intuionistic resource internal to $\ncomb{\cat{C}}$. A solution
-may perhaps be along the lines the $\infty$-combs of~\cite{roman-2020}, which
+we need a notion of intuitionistic resource internal to $\ncomb{\cat{C}}$. A solution
+may perhaps be along the lines of the $\infty$-combs of~\cite{roman-2020}, which
 are used there to model stream-like data, but these have slightly
 differently-structured domains and codomains than n-combs, so the translation is
 not obvious.
 
 A more direct solution is to extend $\ncomb{\cat{C}}$ with objects $!(A, B)$,
-representing intuitionistic resources of type $A\to B$, and which are used to build
-n-combs as in $\ncombb{\cat{C}}$. This is a standard strategy in linear logic,
-but we spell it out here. Objects in the category
+representing reusable resources of type $A\to B$, and which are used to build
+n-combs as in $\ncombb{\cat{C}}$.
+
+\begin{dfn}\label{def:ncomba}
+Objects in the category
 $\ncomba{\cat{C}}$ are finite multisets\footnote{
-  We use multisets instead of lists to simplify the monoidal structure; the
-  distinction is not important.
+  We use multisets instead of lists to simplify the monoidal structure; since
+  all our categories and multicategories are symmetric, the distinction is not
+  important.
 } of pairs $(A, B)$ and/or $!(A, B)$ of objects in $\cat{C}$, called
-\emph{linear} and \emph{intuitionistic} resources respectively. Letting $i,j,k,$
-and $l$ range over finite disjoint index sets $I,J,K,$ and $L$, we want to
-describe morphisms
+\emph{linear} and \emph{reusable} resources respectively. Given four
+finite disjoint index sets $I,J,K,$ and $L$, we now describe morphisms
  \[
-   \{!(A_i, B_i), (C_j, B_j)\}\to \{!(X_k, Y_k), (Z_l, W_l)\};
-\] the domain, for instance, should be read as a multiset of $I$ intuitionistic
-resources and $J$ linear resources. To specify such a morphism, we first give a
-relation $\alpha: K\sqcup L\to I\sqcup J$, such that each $j\in J$ relates to
-exactly one element, and such that each $k\in K$ relates only to elements in
-$I$. The point is that each linear resource must be used in exactly one comb,
-while we can only build intuitionistic resources out of intuitionistic
-resources.
+   \{!(A_i, B_i), (C_j, B_j): i\in I, j\in J\}\to \{!(X_k, Y_k), (Z_l, W_l):
+   k\in K, l\in L\}.
+\] To construct such a morphism, we first give a relation $\alpha: K\sqcup L\to I\sqcup J$ such
+that:
+\begin{enumerate}
+  \item each $j\in J$ $\alpha$-relates to exactly one element;
+  \item each $k\in K$ $\alpha$-relates only to elements in $I$.
+\end{enumerate}
+Next, for each $k\in K$, we give morphism from $\ncombb{\cat{C}}$, whose domain
+is the multiset $\{(A_i, B_i): i\in \alpha(k)\}$ and whose codomain is $(X_k,
+Y_k)$. Finally, for each $l\in L$, we first give for some $n$ a function
+$\sigma: n\to \alpha(l)$, such that for each $j\in J\cap\alpha(l)$,
+$\sigma^{-1}(j)$ is a singleton. We then give an n-comb which uses the resources in
+$\alpha(j)$ according to the order assigned to them by $\sigma$.
+\end{dfn}
+The definition is justified as follows. The first condition on $\alpha$ ensures
+that each linear resource must be used in exactly one comb, while the second
+ensures that we can only build reusable resources out of reusable resources.
+We build reusable resources as in $\ncombb{\cat{C}}$, which was constructed
+specifically for that purpose. To build linear resources, we can use
+reusable resources as many times as we want, but must use linear resources
+exactly once, hence the condition on $\sigma$.
 
-Now the morphism consists of a multiset of $K\sqcup L$ combs. For each $k\in K$, the
-comb is constructed just as in $\ncombb{\cat{C}}$, using a function $\sigma:
-n\to |\alpha(k)|$ which describes which resources to use in which order. The
-situation for combs building linear resources is slightly more complicated: we
-should be able to use intuitionistic resources to build them multiple times,
-while we should have to use linear resources exactly once. For each $l\in L$,
-the comb consists of a function $\sigma: n\to |\alpha(l)|$, such that for each
-$j\in J\cap\alpha(l)$, $\sigma^{-1}(j)$ is a singleton. Now we build an $n$-comb
-using the given resources in the order prescribed by $\sigma$.
 
-This category is strict symmetric monoidal with the union of multisets as the
-product and the empty set as the identity. Furthermore, there is a
-linear-non-linear adjunction \[
+% situation for combs building linear resources is slightly more complicated: we
+% should be able to use intuitionistic resources to build them multiple times,
+% while we should have to use linear resources exactly once. For each $l\in L$,
+% the comb consists of a function $\sigma: n\to |\alpha(l)|$, such that for each
+% $j\in J\cap\alpha(l)$, $\sigma^{-1}(j)$ is a singleton. Now we build an $n$-comb
+% using the given resources in the order prescribed by $\sigma$.
+
+
+Another semantic digression: this category is strict symmetric monoidal with the
+union of multisets as the product and the empty set as the identity.
+Furthermore, there is a linear-non-linear adjunction \[
   \begin{tikzcd}
     \ncombb{\cat{C}}\ar[rr, bend left, "F"] & \bot &
     \ncomba{\cat{C}}\punctuation{,}\ar[ll, bend left, "G"]
   \end{tikzcd}
 \]
-where $G$ sends forgets the difference between linear and intuitionistic
-resources, and $F$ sends all resources to intuitionistic ones.
+where $G$ forgets the difference between linear and reusable resources,
+and $F$ sends all resources to reusable ones. To show this is an
+adjunction, observe that all the restrictions on the construction of the combs
+are on the use of linear resources in the domain. As such, when all the
+resources in the domain are reusable, a morphism in $\ncomba{\cat{C}}$ is
+exactly a morphism in $\ncombb{\cat{C}}$; thus the identities give a natural
+isomorphism between adjoint hom-sets.
 
+This may seem like abstract nonsense, but the point is that the theory guided us
+in constructing a category which models protocols relying on both linear and
+multi-use resources; this is likely of independent interest to other uses of
+n-combs. We conjecture that this style of construction extends to graded linear
+logic (in which resources can have a bounded number possible
+uses)~\cite{girard-1992}, affine logic (in which resources must be used at most
+once)~\cite{troelstra-1992}, relevance logic (in which resources must be used at
+least once)~\cite{dunn-1983}, ordered logic (in which resources must be used in
+a specific order)~\cite{lambek-1958}, and to other such substructural resource
+logics. The general paradigm of adjoint logic~\cite{pruiksma-2018} provides
+categorical semantics for embedding many of these logics in each other; giving
+``comb-like'' constructions of such categorical structures would allow reasoning
+about resource-bounded protocols with fairly sophisticated resource-usage
+constraints.
 
+As a final notational point, we modify $\prot{N}{\cat{C}}$ as
+$\protb{N}{\cat{C}}$ and $\prota{N}{\cat{C}}$ by replacing all the invocations
+of n-comb with n-comb$!$ and n-comb$^*$, respectively. In particular, these
+constructions are both functorial in the same way as n-comb.
 
+% To explicitly construct the 
+% define $\denote{!} = FG$, which promotes all the resources in the domain to be
+% reusable. Then the map $\denote{!}x\to I$ is the empty comb, and the map
+% $\denote{!}x\to \denote{!}x\otimes \denote{!}x$ is the comb which uses each
+% input resource twice to produce the output resoures.
+%
+%
+%
 % For instance, suppose
 % $\cat{C}$ has two objects, $a$ and $b$, and the following morphisms:
 % \begin{itemize}
@@ -1590,22 +1643,250 @@ resources, and $F$ sends all resources to intuitionistic ones.
 While \cite{broadbent-karvonen-2022} choose to label the wires with the
 identities of the parties in possession of that data, we worry that this
 approach does not easily scale to protocols where multiple objects are relevant.
-We prefer an approach using the shaded boxes of \Cref{sec:monoidal-functors}. 
-%
+We now give an alternative approach using the shaded boxes of
+\Cref{sec:monoidal-functors}. In addition
+to being less cluttered, this approach has a fairly pleasant abstract
+justification, though we emphasize that it is merely a syntactic distinction.
+
+We begin by noting that, in addition to the tensor \[
+  \cat{C}^N\xto{\otimes^{N-1}}\cat{C},
+\]there are also strong monoidal projection functors \[
+  \cat{C}^N\xto{\pi_i}\cat{C}.
+\]
+Instead of labelling each wire with the party, we can shade the wires according
+to the projection functors that they live in the image of. For instance, if Alice
+is blue, Bob is green, and Eve is red, then the one-time pad can be depicted
+as \[
+  \begin{pic}
+    \node[dot, fill=black] (am) at (0,0) {};
+    \node[dot, fill=white] (copy) at (0, .6) {};
+    \node[dot, fill=white] (keydist) at (.8, -.5) {};
+    \node[dot, fill=black] (bm) at (.8, 1.1) {};
+    \draw (am) to[out=180, in=90] ++(-.5, -.5) to ++(0, -1);
+    \draw (am) to (copy);
+    \draw (am) to[out=0, in=180] (keydist);
+    \draw (keydist) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (keydist) node[right, xshift=8mm,
+    yshift=-2mm] {\normalsize.} to[out=0, in=-90] ++(.5, .5)
+    to ++(0, .3) node[dot, fill=black] {} to++(0, .3) to[out=90, in=0] (bm);
+    \draw (copy) to[out=0, in=180] (bm);
+    \draw (copy) to[out=180, in=-90] ++(-.5, .5) to ++(0, .2) node[dot, fill=white] {};
+    \draw (bm) to ++(0, .6);
+    \draw[functor=cyan] (-.7, .2) -- (.5, .2) -- (.5, -.6) to[out=180, in=90]
+    (-.3, -1.8) -- (-.7, -1.8) node[left, opacity=1] {$A$} -- cycle;
+    \draw[functor=green] (1.1,-.6) to[out=0, in=-90] (1.5, 0) node[right, opacity=1] {$B$} to[out=90, in=0]
+    (.8, 2) to [out=180, in=90] (.2, .9) -- cycle;
+    \draw[functor=red] (-.3, .9) -- (-.7, .9) -- (-.7, 1.6) node[left, opacity=1] {$E$} -- (-.3, 1.6) --
+    cycle;
+  \end{pic}
+\]%
+
+We like the visual clarity provided by this approach; it emphasizes the flow of
+information and control between the parties in the protocol. As mentioned, it
+also has a nice justification in terms of the functorial boxes studied
+previously; unifying analogous notations is always valuable. However, we see two
+potential issues. First, as usual with color in diagrams, there are
+accessibility concerns; while we attempt to ameliorate these by labelling the
+regions and using an accessible colorscheme due to~\cite{tol-2021}, such
+measures can only go so far. Second, this approach is hard to scale to settings
+with many parties, as there are only so many visually distinct colors. As such,
+we think that both approaches have their place.
+
+\subsubsection{Parties With Differing Capabilities}
+
+It is quite common in cryptography to consider settings where different parties
+have different capabilities. For instance, we may want to analyze classical
+protocols which are secure against quantum attackers or zero-knowledge proofs
+with polynomial verifiers and unbounded provers. While the attack models
+of~\cite{broadbent-karvonen-2022}, to be studied in
+\Cref{sec:attack-models}, allow treating
+adversaries with different capabilities from the honest parties, the paper does
+not directly address honest parties with different capabilities. This can be
+done within their framework using the categories we constructed
+in~\Cref{sec:computation}.
+
+As an example, we construct the category of protocols with one unbounded but
+deterministic party and one PPT party. Recall that unbounded deterministic
+computation is modeled in the category \scat{Comp}, while PPT computation is
+modeled in the category \scat{PPT}. Both of these include as subcategories into
+$\cat{C} = \scat{CompStoch}$; call these inclusion functors $i$ and $j$. As such, we can
+construct the category \[
+  \state{\ncomb{\scat{Comp}\times\scat{PPT}}\xto{\ncomb{i\times
+    j}}\ncomb{\cat{C}^2}\xto{\ncomb{\otimes}}\ncomb{\cat{C}}}.
+\]
+
+In general, assuming there is a clear ambient category $\cat{C}$ of
+into which all the relevant categories include, we write \[
+  \prot{N}{\cat{C}_1,\dots,\cat{C}_N} := \state{\ncomb{\prod_{i=1}^N
+  \cat{C}_i}\into\ncomb{\cat{C}^N}\xto{\ncomb{\otimes^{N-1}}}\ncomb{\cat{C}}}.
+\]
+We define $\protb{N}{\cat{C}_1,\dots,\cat{C}_N}$ and
+$\prota{N}{\cat{C}_1,\dots,\cat{C}_N}$ similarly.
+
+\subsubsection{Joint Input}
+
+While the objects in the category $\prot{N}{\cat{C}}$ are morphisms representing
+joint computations in $\cat{C}$, the domains and codomains of these computations
+are $N$-fold tensor products of objects in $\cat{C}$, and so cannot themselves be
+entangled. However, it is extremely common in cryptography to want to represent
+joint or otherwise correlated input. For instance, if $\cat{C} =
+\scat{Set}$, we may only care about inputs from a subset $\{(x, x)\}\subseteq
+X\times X$. In the framework as described, it is impossible to restrict inputs
+in such a way that does not decompose into a product.
+
+There are various ad-hoc low-tech solutions to this problem, such as giving
+the parties an oracle which rejects bad inputs, but we can also modify the
+construction of our categories to allow for this kind of entangled input to
+resources. Our goal will be to define a \emph{category of refinements on joint
+states} which will allow us to refine the domains of our resources.
+
+What is the categorical notion of subset? Every subset $A\subseteq X$ comes with
+an \emph{inclusion function} $i: A\into X$, which is always an injection. As
+usual, the categorical approach is to forefront the role of the morphism, in
+this case the injection. It turns out there is a categorical generalization of
+injections which makes no reference to objects having elements: a morphism $f:
+x\to y$ is a \emph{monomorphism} if for all objects $z$ and maps $g, h: z\to x$,
+if $fg = fh$, then $g = h$. In the category of sets, monomorphisms are exactly
+injections. Given two monomorphisms $i: y\into x$ and $j: z\into x$, we say that
+$i\leq j$ if there is a (necessarily unique) morphism $k: y\into z$ such that \[
+  \begin{tikzcd}
+    y\ar[hook, r, "i"]\ar[hook, dr, "k"'] & x\\
+    & z\ar[hook, u, "j"']
+  \end{tikzcd}
+\]commutes. A \emph{subobject} of $x$ is an equivalence class of monomorphisms
+into $x$ under the relation $i\sim j$ if $i\leq j$ and $j\leq i$.
+
+To make a category of subobjects, we need a way to talk about morphisms between
+subobjects of different objects. It turns out that in many categories there is a
+way to talk about images of subobjects under morphisms, though we have not given
+the background to go into detail here\footnote{For the categorically inclined:
+  we have in mind a factorization system whose right class is the monomorphisms.
+The direct image of a subobject $i: z\into x$ under a map $f: x\to y$ is the
+monic part of the factorization of $fi$.}. We write $f_*i$ for the image of $i$
+under the morphism $f$; in all our examples, this is the familiar image of a
+subset.
+
+Now we define the category $\pred{\cat{C}}$ of predicates on objects in
+$\cat{C}$. Objects in this category are pairs $(x, i)$ where $x\in\cat{C}$ and
+$i$ is a subobject of $x$. Morphisms $(x, i)\to (y, j)$ are maps $f: x\to y$ in
+$\cat{C}$ such that $f_*i\leq j$, i.e. so that the image of $i$ under $f$ is
+contained in $j$. Composition and identities are as in $\cat{C}$.
+
+More generally, as with state we define $\pred{\cat{C}\xto{F}\cat{D}}$ for any
+functor. Objects are pairs $(x, i)$ where $x\in\cat{C}$ and $i$ is a subobject
+of $Fx$, while morphisms are maps $f: x\to y$ in $\cat{C}$ such that
+$(Ff)_*i\leq j$.
+
+If $F$ is strong monoidal and $\otimes_{\cat{D}}$ preserves monomorphisms (as it does in all
+our categories of interest), then this category is also monoidal, with the
+structure induced by the respective monoidal structures: \[
+  (x, i)\otimes (y, j) = (x\otimes_{\cat{C}} y, (i\otimes_{\cat{D}} j)\phi^{-1}_{x,y}).
+\]
+
+Given a (strong monoidal) functor $F: \cat{C}\to\cat{D}$, there is a (strong
+monoidal) functor $\pred{F}\to\pred{\cat{D}}$, which due to the notational
+ambiguity\footnote{ Observe that pred is not functorial. Given a functor $F:
+  \cat{C}\to\cat{D}$, the natural thing is to define a functor
+  $\pred{\cat{C}}\to\pred{\cat{D}}$ which sends $(x, i)$ to $(Fx, Fi)$, but $Fi$
+is not necessarily a monomorphism. } we call $\overline{F}$. This functor sends
+a predicate $(x, i)$ to the predicate $(Fx, i)$, and a map $f$ to the map $Ff$.
+
+Given an SMC $\cat{C}$, consider the category \[
+  \oprot{N}{\cat{C}} := \state{\ncomb{\pred{\otimes^{N-1}}}\xto{\ncomb{\overline{\otimes^{N-1}}}}\ncomb{\pred{\cat{C}}}}.
+\]
+Basic objects in this category consists of a subobject $i$ of $X_1\otimes \dots\otimes
+X_N$, a subobject $j$ of $Y_1\otimes \dots\otimes Y_N$, and a morphism
+$f: X_1\otimes\dots\otimes X_N\to Y_1\otimes\dots\otimes Y_N$ in $\cat{C}$ such
+that $f_*i\leq j$. The domain and codomain of this map are refinements of a
+product state, which specify the allowable input and output states; the map must
+send allowable inputs to allowable outputs.
+
+Finally, objects are finite lists of basic objects. Morphisms are lists of
+n-combs in $\cat{C}^N$ whose domains and codomains may be augmented with
+predicates, and whose maps must respect those predicates. We define
+$\overline{\operatorname{prot}}!$ and $\overline{\operatorname{prot}}^*$
+similarly.
+
+We expect that most readers are somewhat overwhelmed by the proliferation of
+constructions on categories. However, once this initial conceptual barrier is
+overcome, this proliferation of constructions is actually very helpful; they
+allow us to fine-tune our base category for any specific use-case.
+
+\subsection{Interactive Proof}
+
+We now give an original representation of interactive proofs within the
+framework. Recall from \Cref{sec:zkp}
+that an \emph{interactive proof} for a
+language $\cL$ consists of a prover and a verifier, both given an input $x$,
+such that the verifier accepts if $x\in\cL$ and does not if $x\not\in\cL$, even
+if the prover is behaving maliciously. While we do not yet know how to model
+malicious behavior, we are already able to model the honest case. Fix a universe
+of strings $A$ and a decidable\footnote{
+  Note that $\cL$ needs to be decidable so that its characteristic function is
+  in $\scat{CompStoch}$, which allows us to represent it as a resource. This
+  restriction can technically be relaxed if we choose a bigger ambient category
+  of computations, even while still requiring our prover to be computable.
+} language $\cL$. This can be made significantly more
+general, but for simplicitly we will work over the category $\scat{CompStoch}$,
+and let the verifier be bounded in $\scat{PPT}$. We will work in the category
+$\oprota{2}{\scat{CompStoch}, \scat{PPT}}$.
+
+We need to know what the input and output resources of an interactive proof
+should be. Certainly we need a two-way channel between the prover and verifier.
+Since our proofs are interactive, this needs to be multi-use, so it should be
+the resource\footnote{
+  The reader may wonder which type this channel carries; this is a good
+  question. Since all our computations are binary-encoded, we can let this be a
+  channel over the object $\bin^*$, but this requires forgetting type
+  information that may be useful. With more categorical machinery, we could
+  instead make this a \emph{polymorphic} channel. Again, we would need to adapt
+  the standard categorical semantics of the polymorphic lambda
+  calculus~\cite{seely-1987} to the comb framework. As the type theories
+  involved get increasingly sophisticated, so too do the categorical
+  requirements: we would need to give a kind of indexed carestian closed
+  category called a \emph{hyperdoctrine} satisfying a fairly intricate
+  equational theory (the key difficulty turns out to be demonstrating the
+  Beck-Chevalley condition for this hypothetical category of polymorphic combs,
+  in case anyone is keeping score at home).
+} \[
+  !\begin{pic}
+    \draw (0,0) node[left] {$P$} -- ++(0, 1) node[left] {$V$};
+  \end{pic}\quad\otimes\quad !\begin{pic}
+  \draw (0,0) node[left] {$V$} node[right, xshift=3mm, yshift=1mm] {\normalsize.} -- ++(0, 1) node[left] {$P$};
+  \end{pic}
+\]
+As output, the protocol should give a resource such that, on an input $(x, x):
+x\in A$, the verifier outputs $\ind_\cL(x)$. Thanks to our work in the
+previous section, we know how to encode this: the input to this resource should
+be the subset $\{(x, x)\}\subseteq A\otimes A$. It should output a value of
+$*\times \{0, 1\}$; the prover has no output, while the verifier outputs either
+to accept or reject. The actual resource we want to produce is the map \[
+  \begin{pic}
+    \draw[functor=cyan] (-1.3, -.8) -- (-.7, -.8) -- (-.7, .5) -- (-1.3, .5) node[left, opacity=1] {$P$} -- cycle;
+    \draw[functor=green] (-.5, -.8) -- (.65, -.8) node[right, opacity=1]
+    {$V$\normalsize,} -- (.65, .8) -- (-.5, .8) -- cycle;
+    \draw (-1, -.6) node[left,xshift=.4mm] {$A$} -- ++(0, .7) node[dot, fill=white] {};
+    \node[morphism] (i) at (0,0) {$\ind_\cL$};
+    \draw (i) to ++(0, -.6) node[left] (a) {$A$};
+    \draw (i) to ++(0, .6) node[right, xshift=-1mm] (b) {$\{0, 1\}$};
+  \end{pic}
+\]where the prover is blue and the verifier is green. The point is that a
+correct interactive proof should amount to the prover doing nothing with its
+input, while the verifier outputs the characteristic function of the language
+under proof.
+
 \section{Security}
 \label{sec:security}
 
-%
+[I am rewriting this (again), using 2-categories as a middle
+ground between bicategories and Eqn-categories. This will be the last attempt
+even if I'm not satisfied with it.]
 
-% % TODO: proof?
-% % \begin{proof}
-% %   Associativity and unitality come directly from the axioms of a multicategory.
+\subsection{Attack Models}
+\label{sec:attack-models}
 
-% %   Functorality of the monoidal product is 
-% % \end{proof}
-% % \section{Resource Theories}
+[left in to make the references not broken]
 
-% \subsection{Process Conversions}
 
 % \section{Paths Not Taken}
 
