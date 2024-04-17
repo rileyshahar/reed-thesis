@@ -9,7 +9,7 @@ model of computation.
 [todo: lots more intro,
 cite \cite{broadbent-karvonen-2022};
 categorical crypto theories~\cite{hines-2020,pavlovic-2012,pavlovic-2014,stay-vicary-2013},
-caterogies for specific crypto protocols~\cite{bkm-2019, bmr-2019}; categorical
+categories for specific crypto protocols~\cite{bkm-2019, bmr-2019}; categorical
 qm
 \cite{abramsky-coecke-2004,coecke-perdrix-2012,heunen-vicary-2014,coecke-kissinger-2017,chitambar-gour-2019}]
 
@@ -127,7 +127,7 @@ $\scat{Set}$\footnote{
 
 \subsection{Probabilistic Computation}
 
-Again, there is some subtelty with probabilistic computation. Even in the case
+Again, there is some subtlety with probabilistic computation. Even in the case
 of finite sets, not every stochastic function is computable by algorithms with
 access to fair coin flips\footnote{
   We believe this is a slight conceptual problem with the strategy
@@ -148,7 +148,7 @@ of binary strings, so we can proceed much as before, defining:
 \end{dfn}
 
 Again, it needs to be shown that this is a category. The identities are
-computable (and stochastic, since every determinstic function is stochastic),
+computable (and stochastic, since every deterministic function is stochastic),
 and composition commutes with $\denote{-}$, so the composite of computable
 functions is computable. Furthermore, this category is symmetric monoidal, with
 pairing of encodings as in \scat{Comp}.
@@ -197,7 +197,7 @@ this is the \emph{preimage} of $\scat{EffBin}$ under the functor $\denote{-}$.
 
 Similarly, suppose that we are give some wide subcategory of
 \scat{BinCompStoch}, for instance that of poly-time computable stochastic maps.
-We can similarly define the cateogry \scat{EffCompStoch}.
+We can similarly define the category \scat{EffCompStoch}.
 
 \begin{dfn}
   The category \scat{PPT} of poly-time computable stochastic maps is the wide is
@@ -431,9 +431,9 @@ $n$-party states via the category
 \] where the $i$th copy of $\cat{C}$ represents computations taken by the $i$th
 party in the computation\footnote{There is a choice of associativity to be made, but any
 choice yields a coherently isomorphic category, so we will not worry about it
-here. A stanard assumption---justified by the \emph{strictification theorem for
+here. A standard assumption---justified by the \emph{strictification theorem for
 monoidal categories}, which says that every monoidal category is equivalent to
-strict one---is that the underlying cateogry $\cat{C}$ is strict.}.
+strict one---is that the underlying category $\cat{C}$ is strict.}.
 
 Finally, there is a forgetful functor $\Pi: \state{\cat{D}\xto{F}\cat{C}}\to
 \cat{D}$, which sends a state $I\xto FX$ to the object $X$ and a map to its
@@ -733,10 +733,11 @@ appropriate n-comb.
 
 Generalizing the case of 1-combs, the objects in the category of n-combs should
 be finite lists of pairs of objects: a resource of type $[(X_1, Y_1), \ldots,
-(X_n, Y_n)]$ is a list of maps $X_i\to Y_i$ in $\cat{C}$. It is worth mentioning that We can proceed directly to defining the
-category, but we find it easier to first define a symmetric multicategory of
-n-combs. The advantage is that this requires us only to define morphisms with
-one pair in the codomain---what~\cite{broadbent-karvonen-2022} call the ``basic
+(X_n, Y_n)]$ is a list of maps $X_i\to Y_i$ in $\cat{C}$. We can proceed
+directly to defining the category, but we find it easier to first define a
+symmetric multicategory of n-combs. The advantage is that this requires us only
+to define morphisms with one pair in the
+codomain---what~\cite{broadbent-karvonen-2022} call the ``basic
 morphisms''---and then construct a full SMC via a general procedure.
 
 Objects in this multicategory are pairs of objects in $\cat{C}$. Morphisms
@@ -1423,7 +1424,7 @@ the one-time pad.
 % Notice that this computation is very similar to the proof of the correctness of
 % the one-time pad (\Cref{ex:otp}). 
 
-We reiterate that the entire preceeding discussion relies only on the existence
+We reiterate that the entire preceding discussion relies only on the existence
 of an object satisfying the axioms \eqref{eqn:coassociative} to
 \eqref{eqn:random-non-side-effecting}. The one-time pad can be
 correctly implemented in any category over any object with this structure.
@@ -1481,7 +1482,7 @@ construction. This explanation uses some categorical terminology we have not
 introduced, but the reader may safely skip directly to the definition.
 
 Any symmetric monoidal category $\cat{L}$ forms a model of the
-multiplicative-intuitoinistic fragment of linear logic~\cite{mellies-2009}. In such
+multiplicative-intuitionistic fragment of linear logic~\cite{mellies-2009}. In such
 settings, $!$ can be modeled by a lax monoidal comonad $\denote{!}$ together
 with natural transformations $\denote{!}x\to I$, and
 $\denote{!}x\to\denote{!}x\otimes\denote{!}x$. This data is subject to a
@@ -1496,7 +1497,7 @@ resolutions of this comonad, i.e. monoidal adjunctions \[
 monoidal structure on $\cat{I}$ is cartesian, hence a model of conjunctive
 intuitionistic logic\footnote{
   Normally we consider such situations with significantly more structure than just
-  the multiplcatives, but the situation is the same even in this case.
+  the multiplicatives, but the situation is the same even in this case.
 }. It turns out that any monoidal adjunction between categories with this
 structure gives the necessary structure on the comonad $GF$; as a consequence,
 such adjunctions are called \emph{linear-non-linear}. In this way, $F$ is an
@@ -1513,7 +1514,7 @@ such an adjunction. There is indeed a forgetful functor $G: \ncomb{\cat{C}}\to
 \ncombb{\cat{C}}$, which we may think of as forgetting the linearity of an
 n-comb. Furthermore, the category $\ncombb{\cat{C}}$ is cartesian monoidal,
 meaning that the concatenation of two lists is a cartesian product; the
-projctions simply do not use the extra resource, while the universal property is
+projections simply do not use the extra resource, while the universal property is
 witnessed by concatenating lists of n-combs. As such, $\ncombb{\cat{C}}$ is a
 model of conjunctive intuitionistic logic; it represents an intuitionistic,
 rather than linear, calculus of resources.
@@ -1799,18 +1800,17 @@ X_N$, a subobject $j$ of $Y_1\otimes \dots\otimes Y_N$, and a morphism
 $f: X_1\otimes\dots\otimes X_N\to Y_1\otimes\dots\otimes Y_N$ in $\cat{C}$ such
 that $f_*i\leq j$. The domain and codomain of this map are refinements of a
 product state, which specify the allowable input and output states; the map must
-send allowable inputs to allowable outputs.
+send allowable inputs to allowable outputs. Objects in this category are finite
+lists of basic objects. Morphisms are lists of n-combs in $\cat{C}^N$ whose
+domains and codomains may be augmented with predicates, and whose maps must
+respect those predicates. We define $\overline{\operatorname{prot}}!$ and
+$\overline{\operatorname{prot}}^*$ similarly.
 
-Finally, objects are finite lists of basic objects. Morphisms are lists of
-n-combs in $\cat{C}^N$ whose domains and codomains may be augmented with
-predicates, and whose maps must respect those predicates. We define
-$\overline{\operatorname{prot}}!$ and $\overline{\operatorname{prot}}^*$
-similarly.
-
-We expect that most readers are somewhat overwhelmed by the proliferation of
-constructions on categories. However, once this initial conceptual barrier is
-overcome, this proliferation of constructions is actually very helpful; they
-allow us to fine-tune our base category for any specific use-case.
+We expect that most readers are somewhat overwhelmed by the
+proliferation of constructions on categories; this is quite understandable.
+However, once this initial conceptual barrier is overcome, this proliferation of
+constructions is actually very helpful; they allow us to fine-tune our base
+category for any specific use-case.
 
 \subsection{Interactive Proof}
 
@@ -1827,53 +1827,126 @@ of strings $A$ and a decidable\footnote{
   restriction can technically be relaxed if we choose a bigger ambient category
   of computations, even while still requiring our prover to be computable.
 } language $\cL$. This can be made significantly more
-general, but for simplicitly we will work over the category $\scat{CompStoch}$,
+general, but for simplicity we will work over the category $\scat{CompStoch}$,
 and let the verifier be bounded in $\scat{PPT}$. We will work in the category
 $\oprota{2}{\scat{CompStoch}, \scat{PPT}}$.
 
 We need to know what the input and output resources of an interactive proof
 should be. Certainly we need a two-way channel between the prover and verifier.
 Since our proofs are interactive, this needs to be multi-use, so it should be
-the resource\footnote{
-  The reader may wonder which type this channel carries; this is a good
-  question. Since all our computations are binary-encoded, we can let this be a
-  channel over the object $\bin^*$, but this requires forgetting type
-  information that may be useful. With more categorical machinery, we could
-  instead make this a \emph{polymorphic} channel. Again, we would need to adapt
-  the standard categorical semantics of the polymorphic lambda
-  calculus~\cite{seely-1987} to the comb framework. As the type theories
-  involved get increasingly sophisticated, so too do the categorical
-  requirements: we would need to give a kind of indexed carestian closed
-  category called a \emph{hyperdoctrine} satisfying a fairly intricate
-  equational theory (the key difficulty turns out to be demonstrating the
-  Beck-Chevalley condition for this hypothetical category of polymorphic combs,
-  in case anyone is keeping score at home).
-} \[
+the resource \[
   !\begin{pic}
     \draw (0,0) node[left] {$P$} -- ++(0, 1) node[left] {$V$};
   \end{pic}\quad\otimes\quad !\begin{pic}
   \draw (0,0) node[left] {$V$} node[right, xshift=3mm, yshift=1mm] {\normalsize.} -- ++(0, 1) node[left] {$P$};
   \end{pic}
 \]
+
 As output, the protocol should give a resource such that, on an input $(x, x):
 x\in A$, the verifier outputs $\ind_\cL(x)$. Thanks to our work in the
 previous section, we know how to encode this: the input to this resource should
-be the subset $\{(x, x)\}\subseteq A\otimes A$. It should output a value of
-$*\times \{0, 1\}$; the prover has no output, while the verifier outputs either
-to accept or reject. The actual resource we want to produce is the map \[
+be the subset $\{(x, x)\}\subseteq A\otimes A$. To describe this input
+constraint pictorially, we want a box \[
   \begin{pic}
-    \draw[functor=cyan] (-1.3, -.8) -- (-.7, -.8) -- (-.7, .5) -- (-1.3, .5) node[left, opacity=1] {$P$} -- cycle;
-    \draw[functor=green] (-.5, -.8) -- (.65, -.8) node[right, opacity=1]
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (i) at (0,0) {\textsc{Input}};
+    \draw (i.north west) to ++(0, .3) node[left] {$A$};
+    \draw (i.north east) to ++(0, .3) node[right] {$A$};
+    \draw (i.south) to ++(0, -.3) node[left] {$A$};
+  \end{pic}
+\]such that doing some separate computations on each of the outputs, and then swapping
+the results, is the same as doing the same computations on the other side, i.e.
+for all $f: A\to X$ and $g: A\to Y$,
+\begin{equation}\label{eqn:ip shared input}
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (i) at (0,0) {\textsc{Input}};
+    \setlength\minimummorphismwidth{0mm}
+    \draw ([xshift=-1mm] i.north west) to ++(0, .5) node[morphism] (f) {$f$};
+    \draw ([xshift=1mm] i.north east) to ++(0, .5) node[morphism] (g) {$g$};
+    \draw (i.south) to ++(0, -.3) node[left] {$A$};
+    \draw (f.north) to[out=90, in=-90] ($(g.north)+(0, .8)$) node[right] {$X$};
+    \draw (g.north) to[out=90, in=-90] ($(f.north)+(0, .8)$) node[left] {$Y$};
+  \end{pic}\quad=\quad
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (i) at (0,0) {\textsc{Input}};
+    \setlength\minimummorphismwidth{0mm}
+    \draw ([xshift=-1mm] i.north west) to ++(0, .5) node[morphism] (g) {$g$};
+    \draw ([xshift=1mm] i.north east) to ++(0, .5) node[morphism] (f) {$f$};
+    \draw (i.south) to ++(0, -.3) node[left] {$A$} node[right, xshift=5mm, yshift=3mm] {\normalsize.};
+    \draw (g.north) to ++(0, .4) node[left] {$Y$};
+    \draw (f.north) to ++(0, .4) node[right] {$X$};
+  \end{pic}
+\end{equation}
+
+ Given such correlated inputs, our interactive proof should output a value of
+$*\times \{0, 1\}$; the prover has no output, while the verifier outputs either
+to accept or reject. In other words, the n-comb should have codomain
+$(\textsc{Input}, 1_{*\times \{0, 1\}})$; these are both monomorphisms into
+products, hence objects in $\pred{\otimes}$. The actual resource we want to
+produce is the map \[
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (i) at (-.5,-1.3) {\textsc{Input}};
+    \setlength\minimummorphismwidth{0mm}
+    \draw[functor=cyan] (-1.3, -.6) -- (-.7, -.6) -- (-.7, .2) -- (-1.3, .2) node[left, opacity=1] {$P$} -- cycle;
+    \draw[functor=green] (-.5, -.6) -- (.65, -.6) node[right, opacity=1]
     {$V$\normalsize,} -- (.65, .8) -- (-.5, .8) -- cycle;
-    \draw (-1, -.6) node[left,xshift=.4mm] {$A$} -- ++(0, .7) node[dot, fill=white] {};
-    \node[morphism] (i) at (0,0) {$\ind_\cL$};
-    \draw (i) to ++(0, -.6) node[left] (a) {$A$};
-    \draw (i) to ++(0, .6) node[right, xshift=-1mm] (b) {$\{0, 1\}$};
+    \draw (i.north west) to[out=90, in=-90] (-1, -.2) node[dot, fill=white] {};
+    \node[morphism] (c) at (0,0) {$\ind_\cL$};
+    \draw (c.south) to[out=-90, in=90] (i.north east);
+    \draw (c) to ++(0, .6) node[right, xshift=-1mm] (b) {$\{0, 1\}$};
+    \draw (i.south) to ++(0, -.3) node[left] {$A$};
   \end{pic}
 \]where the prover is blue and the verifier is green. The point is that a
 correct interactive proof should amount to the prover doing nothing with its
 input, while the verifier outputs the characteristic function of the language
 under proof.
+
+We emphasize that this definition has no security properties; it is not even
+complete. For instance,
+directly from \eqref{eqn:ip shared input} we can see that
+\[
+  \begin{pic}
+    \draw[functor=cyan] (-1.5, -.6) -- (-.5, -.6) -- (-.5, .5) -- (-1.5, .5) node[left, opacity=1] {$P$} -- cycle;
+    \draw[functor=green] (-.3, -.6) -- (.3, -.6) node[right, opacity=1]
+    {$V$\normalsize,} -- (.3, .2) -- (-.3, .2) -- cycle;
+    \draw[functor=green] (-.4, 1.2) -- (-.4, 1.8) node[left, midway, opacity=1]
+    {$V$} -- (.8, 1.8) -- (.8, 1.2) -- cycle;
+    \node[morphism] (i) at (-1, 0) {$\ind_\cL$};
+
+    \draw (i.north) to[out=90, in=-90] (0, 1.5) node[right] {$\{0, 1\}$};
+
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (in) at (-.5,-1.3) {\textsc{Input}};
+    \draw (i.south) to[out=-90, in=90] (in.north west);
+    \draw (in.north east) to[out=90, in=-90] (0, -.2) node[dot, fill=white] {};
+    \draw (in.south) to ++(0, -.3) node[left] {$A$};
+  \end{pic}
+\]
+the protocol where the prover just sends the answer to the verifier, is correct.
+
+The reader may wonder which type the channels carry; this is a good question,
+and we have actually been imprecise about it. If we wanted to model any specific
+interactive proof, we could simply let it carry the type of messages that that
+proof needs to communicate. For instance, in the previous protocol, we just need
+a single-use channel which carries a message of type $\{0, 1\}$.
+However, to reason about the existence or non-existence of interactive proofs,
+we would need a way to model more general channels which can carry any data; we
+do not currently have a way to do so\footnote{
+  Since all our computations are binary-encoded, one option is to let this be a
+  channel over the object $\bin^*$, but this requires forgetting type information
+  that may be useful. With more categorical machinery, we could instead make this
+  a \emph{polymorphic} channel. Again, we would need to adapt the standard
+  categorical semantics of the polymorphic lambda calculus~\cite{seely-1987} to
+  the comb framework. As the type theories involved get increasingly
+  sophisticated, so too do the categorical requirements: we would need to give a
+  kind of indexed cartesian closed category called a \emph{hyperdoctrine}
+  satisfying a fairly intricate equational theory.
+}.
+
+
 
 \section{Security}
 \label{sec:security}
@@ -1887,6 +1960,11 @@ even if I'm not satisfied with it.]
 
 [left in to make the references not broken]
 
+\section{Conclusion}
+\subsection{Evaluation}
+\
+
+\subsection{Paths Not Taken}
 
 % \section{Paths Not Taken}
 

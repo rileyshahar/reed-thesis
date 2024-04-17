@@ -4143,6 +4143,49 @@
       \verb 10.1017/S0305004100061284
       \endverb
     \endentry
+    \entry{seely-1987}{article}{}
+      \name{author}{1}{}{%
+        {{hash=b3a03d72c59e95a75556eecf49509dda}{%
+           family={Seely},
+           familyi={S\bibinitperiod},
+           given={R.\bibnamedelimi A.\bibnamedelimi G.},
+           giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {[Association for Symbolic Logic, Cambridge University Press]}%
+      }
+      \strng{namehash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{fullhash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{bibnamehash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{authorbibnamehash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{authornamehash}{b3a03d72c59e95a75556eecf49509dda}
+      \strng{authorfullhash}{b3a03d72c59e95a75556eecf49509dda}
+      \field{extraname}{2}
+      \field{labelalpha}{See87}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{A categorical structure suitable for interpreting polymorphic lambda calculus (PLC) is defined, providing an algebraic semantics for PLC which is sound and complete. In fact, there is an equivalence between the theories and the categories. Also presented is a definitional extension of PLC including "subtypes", for example, equality subtypes, together with a construction providing models of the extended language, and a context for Girard's extension of the Dialectica interpretation.}
+      \field{issn}{00224812}
+      \field{journaltitle}{The Journal of Symbolic Logic}
+      \field{number}{4}
+      \field{title}{Categorical Semantics for Higher Order Polymorphic Lambda Calculus}
+      \field{urlday}{17}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{volume}{52}
+      \field{year}{1987}
+      \field{urldateera}{ce}
+      \field{pages}{969\bibrangedash 989}
+      \range{pages}{21}
+      \verb{urlraw}
+      \verb http://www.jstor.org/stable/2273831
+      \endverb
+      \verb{url}
+      \verb http://www.jstor.org/stable/2273831
+      \endverb
+    \endentry
     \entry{seely-1989}{article}{}
       \name{author}{1}{}{%
         {{hash=b3a03d72c59e95a75556eecf49509dda}{%
@@ -4157,7 +4200,7 @@
       \strng{authorbibnamehash}{b3a03d72c59e95a75556eecf49509dda}
       \strng{authornamehash}{b3a03d72c59e95a75556eecf49509dda}
       \strng{authorfullhash}{b3a03d72c59e95a75556eecf49509dda}
-      \field{extraname}{2}
+      \field{extraname}{3}
       \field{labelalpha}{See89}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
