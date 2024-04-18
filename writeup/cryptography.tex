@@ -1173,8 +1173,8 @@ solution is a value $s\in S^n_i$. We now formalize our desiderata as follows.
   non-uniform ensemble.
 \end{thm}
 
-Now the actual construction is relatively straightforward. Let $S$ be the
-ensemble from \Cref{thm:evasive-sets}
+Now the actual construction of the counterexample is relatively straightforward.
+Let $S$ be the ensemble from \Cref{thm:evasive-sets}
 and $Q$ the
 size polynomial. Let $K$ be a computable predicate which is known not to be in
 BPP; such things exist by the time hierarchy theorem from complexity theory. We
@@ -1211,6 +1211,7 @@ to handle parallel composition in any reasonable way. By far the most popular
 attempt to do so is universal composability.
 
 \subsection{Universal Composability}
+\label{sec:uc}
 
 In
 \Cref{sec:function-composition},
@@ -1266,7 +1267,7 @@ essentially consists of an algorithm $\cF$, which receives its inputs from some
 with more than just function computation, $\cF$ is also constantly talking to
 the adversary, and so can simulate functionalities like public commitments that
 do not show up in a function signature. A protocol \emph{UC-realizes} the
-functionality $\cF$ if it UC-simulates the ideal protocol for $\cF$.
+functionality $\cF$ if it UC-emulates the ideal protocol for $\cF$.
 
 The next issue is a formal notion of composition. This should look like the
 ``oracle substitution'' construction from the proof
@@ -1314,14 +1315,14 @@ standard and well-understood model of classical computation, and the flexibility
 of the notion of environment allows for encoding a wide variety of security
 properties. On the other hand, the technical specificity of the interaction
 model makes it difficult to formally apply the model; in practice papers tend
-not to work with the precise model, and it is not clear to me that the model is
-sufficiently well-understood to justify the common level of hand-waving.
-Furthermore, this machine model makes it difficult to apply UC to other models
-of computation. For instance, to deal with quantum cryptography, we need to use
-a mathematically separate framework based on quantum which redoes much of the
-work of the UC paper---in fact, there are at least three competing frameworks
-for doing so~\cite{unruh-2004,benor-2004,unruh-2010}, each with their own ad-hoc
-notion of ``quantum machine.''
+not to work with the precise model, and it is not clear to the author that the
+model is sufficiently well-understood to justify the common level of
+hand-waving. Furthermore, this machine model makes it difficult to apply UC to
+other models of computation. For instance, to deal with quantum cryptography, we
+need to use a mathematically separate framework based on quantum which redoes
+much of the work of the UC paper---in fact, there are at least three competing
+frameworks for doing so~\cite{unruh-2004,benor-2004,unruh-2010}, each with their
+own ad-hoc notion of ``quantum machine.''
 
 In \Cref{q:composition-meaning,q:allowed-composition}, we
 asked about the definition and scope of composition. The subroutine substitution
@@ -1337,13 +1338,13 @@ examples of these claims is~\cite{canetti-2006}.
 In \Cref{q:preserved-security}, we asked how the system derives
 security definitions for composite protocols. UC works similarly to the oracle
 model: there is one ``outermost'' protocol, and we substitute real protocols for
-idealized subroutines within the protocol. The key point is the definition of
-UC-emulation is strong enough to allow a protocol to be substituted for an ideal
-functionality virtually anywhere and any time. However, this imposes a high
-proof burden which makes many UC proofs intractable, as even aside from the
-low-level details of the machine model, constructing a simulator that is
-in constant conversation with the environment is quite burdensome. The high
-proof burden also leads to impossibility results that can require somewhat ad-hoc
+idealized subroutines within the protocol. The key point is that the definition
+of UC-emulation is strong enough to allow a protocol to be substituted for an
+ideal functionality virtually anywhere and any time. However, this imposes a
+high proof burden which makes many UC proofs intractable, as even aside from the
+low-level details of the machine model, constructing a simulator that is in
+constant conversation with the environment is quite burdensome. The high proof
+burden also leads to impossibility results that can require somewhat ad-hoc
 setup assumptions to
 overcome~\cite{canetti-fischlin-2001,barak-et-al-2004,kidron-lindell-2007,jost-2020}.
 
@@ -1356,7 +1357,7 @@ parties) corruption messages during the protcol. In this way, UC conveniently
 avoids dealing in the formalism with different models of adversaries, since they
 may be specified on a protocol-by-protocol basis. For instance, a protocol meant
 to be secure against semi-honest adversaries may just allow backdoor messages
-which ask the corrupted party to forwards its state to the environment, while a
+which ask the corrupted party to forward its state to the environment, while a
 protocol meant to be secure against malicious adversaries may allow a party to
 be completely piloted over via instructions sent to its backdoor tape.
 In~\cite[Section 7.1.1]{canetti-2000}, Canetti gives examples of a wide variety
@@ -1451,7 +1452,7 @@ cryptography~\cite{maurer-renner-2011}.  In these closely-related models, there
 is an abstract notion of a ``resource system,'' which is a partially ordered set
 of resources and set of reductions between them satisfying some axioms. These
 algebraic theories can then be instantiated explicitly with resources and
-reducations obtaind from some specific class of cryptographic systems.
+reductions obtained from some specific class of cryptographic systems.
 
 As this brief survey demonstrates, the problem of cryptographic composability is
 an active and important area of research with many different ongoing approaches.

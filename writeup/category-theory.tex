@@ -1640,8 +1640,9 @@ We now state the explicit definition.
 \end{ex}
 
 \begin{ex}
-  Any monoidal category has an \emph{underlying multicategory}, where the maps
-  $x_1,\dots,x_n\to y$ are exactly the maps $x_1\otimes\dots\otimes x_n\to y$.
+  Any strict monoidal category has an \emph{underlying multicategory}, where the
+  maps $x_1,\dots,x_n\to y$ are exactly the maps $x_1\otimes\dots\otimes x_n\to
+  y$.
 \end{ex}
 
 We also want to consider a kind of commutativity of domain-forming in
@@ -1653,7 +1654,7 @@ of a hom-set and receive a canonically isomorphic hom-set.
   $n$, a right-action of the symmetric group $S^n$ on hom-sets of arity $n$,
   i.e. for $\sigma\in S^n$, a map  \[
     (-\cdot \sigma): \cat{C}(x_1,\dots,x_n; y)\to\cat{C}(x_{\sigma(1)},\dots,x_{\sigma(n)}; y)
-  \] which commutes with the multiplicative structure of $S^n$, in that \[
+  \] which commutes with the group structure of $S^n$, in that \[
     (f\cdot \sigma)\cdot \tau = f\cdot(\sigma\tau),\quad\quad f = f\cdot 1.
   \] This action must respect composition, in that, whenever the types line up, \[
     (g\cdot \sigma)\circ(f_{\sigma(1)}\cdot\tau_{\sigma(1)},\dots,f_{\sigma(n)}\cdot\tau_{\sigma(n)}) =
@@ -1661,14 +1662,14 @@ of a hom-set and receive a canonically isomorphic hom-set.
   \]
 \end{dfn}
 
-This last equality requires some explanation. We have a map $f$ and a
-composition-compatible list of maps $g_1,\dots,g_n$. If we permute the inputs to
-$f$ by $\sigma$, then we need to permute the $g_i$s in the same way. In the most general
+This last equality requires some explanation. We have a map $g$ and a
+composition-compatible list of maps $f_1,\dots,f_n$. If we permute the inputs to
+$g$ by $\sigma$, then we need to permute the $f_i$s in the same way. In the most general
 case, we could also have further permutations $\tau_i$ to the inputs of each of the
-$g_i$s; we need to permute those by $\sigma$ as well. This gives us the left
+$f_i$s; we need to permute those by $\sigma$ as well. This gives us the left
 hand side.
 
-On the right hand side, we first take the composite of $f$ and the $g$s, and
+Of the right hand side, we first take the composite of $g$ and the $f$s, and
 then want to use the data of $\sigma$ and the $\tau_i$s to permute the inputs to
 this composite morphisms. The point is that it's sufficient to first permute
 each bundle of inputs by $\sigma$, and then permute each input to each bundle by

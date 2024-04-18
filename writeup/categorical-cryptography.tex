@@ -1881,9 +1881,9 @@ for all $f: A\to X$ and $g: A\to Y$,
 \end{equation}
 
  Given such correlated inputs, our interactive proof should output a value of
-$*\times \{0, 1\}$; the prover has no output, while the verifier outputs either
+$*\otimes \{0, 1\}$; the prover has no output, while the verifier outputs either
 to accept or reject. In other words, the n-comb should have codomain
-$(\textsc{Input}, 1_{*\times \{0, 1\}})$; these are both monomorphisms into
+$(\textsc{Input}, 1_{*\otimes \{0, 1\}})$; these are both monomorphisms into
 products, hence objects in $\pred{\otimes}$. The actual resource we want to
 produce is the map \[
   \begin{pic}
@@ -1904,8 +1904,8 @@ correct interactive proof should amount to the prover doing nothing with its
 input, while the verifier outputs the characteristic function of the language
 under proof.
 
-We emphasize that this definition has no security properties; it is not even
-complete. For instance,
+We emphasize that this definition has no security properties; it does not even
+guarantee completeness. For instance,
 directly from \eqref{eqn:ip shared input} we can see that
 \[
   \begin{pic}
@@ -1946,27 +1946,85 @@ do not currently have a way to do so\footnote{
   satisfying a fairly intricate equational theory.
 }.
 
-
-
 \section{Security}
 \label{sec:security}
 
-[I am rewriting this (again), using 2-categories as a middle
-ground between bicategories and Eqn-categories. This will be the last attempt
-even if I'm not satisfied with it.]
+We set aside all these proliferating functors and return to a familiar setting.
+Let $F: \cat{C}\to\cat{D}$ be a strong monoidal functor, which as in the
+previous section we interpret as including a class of free or local processes
+into a broader class of processes. We are interested in the category
+$\state{F}$; we want to know when a morphism in this category is secure. All of
+the constructions in the previous section fit this paradigm.
+
+The main issue with defining security in the categorical setting is modelling
+adversarial behavior. Recall from~\Cref{sec:uc}
+that Universal Composability avoids
+dealing with this issue by having the behavior of corrupted parties baked into
+protocols via backdoor tapes. As this issue relies on a fairly low-level
+understanding of the machine model, it is hard to adapt to the categorical
+setting. Furthermore, cryptographic approaches to computation in some sense
+fundamentally rely on the computations respecting some kind of type
+system---this is how we interpret the objects in the category.
+
+For expository purposes, in this section we will quite closely follow the
+technical approach of~\cite{broadbent-karvonen-2022}. However, the machinery
+they develop can be made significantly more general.
 
 \subsection{Attack Models}
 \label{sec:attack-models}
 
-[left in to make the references not broken]
+The primary tool of~\cite{broadbent-karvonen-2022} is the notion of \emph{attack
+model}, which constrains the possible behavior of the adversary. The definition
+is chosen specifically so that we can prove a composition theorem.
+
+\begin{dfn}
+  An \emph{attack model} $\AA$ on a category $\cat{C}$ consists of, for each morphism
+  $f$ in $\cat{C}$, a collection of morphisms $\AA f$ such that:
+  \begin{enumerate}
+    \item \label{item:am-id} $f\in \AA f$;
+    \item \label{item:am-seq-comp} if $f'\in\AA f$ and $g'\in\AA g$ so that $f$ and $g$ compose and $f'$
+      and $g'$ compose, then $g'f'\in\AA (gf)$;
+    \item \label{item:am-con-comp} if $f'\in\AA f$ and $g'\in\AA g$, then $f'\otimes g'\in\AA (f\otimes
+      g)$;
+    \item \label{item:am-seq-fact} if $h\in\AA (gf)$, then there is some $g'\in\AA g$ and $f'\in\AA f$ such
+      that $h = g'f'$;
+    \item \label{item:am-con-fact} if $h\in\AA (f\otimes g)$, then there is some $h'\in\AA 1_{\cod
+      f\otimes\cod g}$, $f'\in\AA f$, and $g'\in\AA g$ such that $h = h'\circ
+      (f'\otimes g')$.
+  \end{enumerate}
+\end{dfn}
+
+The definition is motivated as follows. The collection $\AA f$ represents all
+the possible actions that the adversary could force to occur, if the protocol
+specifies that the morphism $f$ is supposed to occur. The first condition says
+that any adversary is allowed to act as an honest party. The second and third
+say that, if the adversary has a pair of attacks on two separate computations,
+then they can compose those attacks to get an attack on the composite
+computation. These all seem very natural in any threat model.
+
+The fourth axiom says that any attack on a sequential composite protocol $gf$
+factors into attacks on each of its subprotocols. This point is somewhat
+subtler; it seems at first that this should rule out attacks where the adversary
+against the first protocol forwards its view to the adversary against the second,
+hence allowing the adversary against the second to do something it cannot do on
+its own. Such attacks are extremely common, and so certainly need to be
+included. However, the point of the definition is that the morphisms in $\AA f$
+do not have to have the same domain as $f$. As such, the composite attack can
+model the forwarded view by representing the adversary on the second protocol
+with an attack whose codomain includes that extra input.
+
+The fifth axiom says something similar, but about attacks on parallel processes.
+It is a little less clear to me that we should believe this axiom.
+
 
 \section{Conclusion}
 \subsection{Evaluation}
-\
+
 
 \subsection{Paths Not Taken}
 
 % \section{Paths Not Taken}
 
-% - functorality
+% - along the lines of the pi calculus
+% - functorality of attack models
 % - internalization of owf/indistinguishability/etc
