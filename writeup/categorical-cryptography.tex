@@ -1,4 +1,4 @@
-A theory of cryptography should define at least four things: computation,
+i theory of cryptography should define at least four things: computation,
 protocols, adversarial behavior, and security. A major advantage of categorical
 models of cryptography is that they conveniently separate these issues. In
 particular, we have some underlying category of computations, while we represent
@@ -343,7 +343,7 @@ downward-pointing triangles.
 \begin{dfn}[resource theory of states]
   The \emph{resource theory of states} $\state{\cat{C}}$ is the category whose objects
   are states in $\cat{C}$ and whose morphisms $(I\xto{s}X)\to (I\xto{t}Y)$ are
-  maps $X\xto{f} Y$ such that $fs = y$. Composition is as in $\cat{C}$.
+  maps $X\xto{f} Y$ such that $fs = t$. Composition is as in $\cat{C}$.
 \end{dfn}
 
 When $\cat{C}$ is interpreted a category of types of resources and conversions
@@ -442,6 +442,17 @@ structure on $\state{\cat{D}\xto{F}\cat{C}}$ is induced by that of $\cat{D}$.
 This functor composes with $F$ to get a forgetful functor with codomain
 $\cat{C}$. We will use these functors to help organize information about the
 relationship between these categories.
+
+\begin{prop}\label{thm:cat-elements-reflects-isos}
+  Let $f: (x, s)\to (y, t)$ be an isomorphism in $\st{\cat{C}\xto{F}\cat{D}}$. Then
+  the map $f$ in $\cat{C}$ is an isomorphism in $\cat{C}$.
+\end{prop}
+
+\begin{proof}
+  The result follows from construction of the forgetful functor
+  and the fact that by~\Cref{thm:functors-preserve-iso},
+  functors preserve isomorphism.
+\end{proof}
 
 \subsection{Flat Process Conversions}
 
@@ -1046,9 +1057,9 @@ We often want to work over categories in which \emph{every} object has such copy
 and delete maps. We say that an SMC $\cat{C}$ \emph{supplies cocommutative
 comonoids} if every object in $\cat{C}$ is a cocommutative comonoid in such a
 way that the comonoidal structure on any object $X\otimes Y$ is induced from
-that on $X$ and $Y$ by the tensor. We are now very close to the definition of a
-\emph{Markov category}, which is a natural categorical axiomatization of
-stochastic computation~\cite{fritz-2020}.
+that on $X$ and $Y$ by the monoidal product. We are now very close to the
+definition of a \emph{Markov category}, which is a natural categorical
+axiomatization of stochastic computation~\cite{fritz-2020}.
 
 Recall from~\Cref{ex:otp} the one-time pad
 works over an arbitrary group $G$. As such, we separately need that $M$ looks
@@ -1649,7 +1660,7 @@ We now give an alternative approach using the shaded boxes of
 to being less cluttered, this approach has a fairly pleasant abstract
 justification, though we emphasize that it is merely a syntactic distinction.
 
-We begin by noting that, in addition to the tensor \[
+We begin by noting that, in addition to the monoidal product \[
   \cat{C}^N\xto{\otimes^{N-1}}\cat{C},
 \]there are also strong monoidal projection functors \[
   \cat{C}^N\xto{\pi_i}\cat{C}.
@@ -1728,7 +1739,7 @@ $\prota{N}{\cat{C}_1,\dots,\cat{C}_N}$ similarly.
 
 While the objects in the category $\prot{N}{\cat{C}}$ are morphisms representing
 joint computations in $\cat{C}$, the domains and codomains of these computations
-are $N$-fold tensor products of objects in $\cat{C}$, and so cannot themselves be
+are $N$-fold monoidal products of objects in $\cat{C}$, and so cannot themselves be
 entangled. However, it is extremely common in cryptography to want to represent
 joint or otherwise correlated input. For instance, if $\cat{C} =
 \scat{Set}$, we may only care about inputs from a subset $\{(x, x)\}\subseteq
@@ -1950,11 +1961,11 @@ do not currently have a way to do so\footnote{
 \label{sec:security}
 
 We set aside all these proliferating functors and return to a familiar setting.
-Let $F: \cat{C}\to\cat{D}$ be a strong monoidal functor, which as in the
-previous section we interpret as including a class of free or local processes
-into a broader class of processes. We are interested in the category
-$\state{F}$; we want to know when a morphism in this category is secure. All of
-the constructions in the previous section fit this paradigm.
+Consider a string $\cat{C}\xto{F}\cat{D}\xto{G}\cat{E}$ of symmetric monoidal
+functors, which as in the previous section we interpret as including a class of
+free or local processes into a broader class of processes. We are interested in
+the category $\state{GF}$; we want to know when a morphism in this category is
+secure. All of the constructions in the previous section fit this paradigm.
 
 The main issue with defining security in the categorical setting is modelling
 adversarial behavior. Recall from~\Cref{sec:uc}
@@ -1978,8 +1989,9 @@ model}, which constrains the possible behavior of the adversary. The definition
 is chosen specifically so that we can prove a composition theorem.
 
 \begin{dfn}
-  An \emph{attack model} $\AA$ on a category $\cat{C}$ consists of, for each morphism
-  $f$ in $\cat{C}$, a collection of morphisms $\AA f$ such that:
+  An \emph{attack model} $\AA$ on a symmetric monoidal category $\cat{C}$
+  consists of, for each morphism $f$ in $\cat{C}$, a collection of morphisms
+  $\AA f$ such that:
   \begin{enumerate}
     \item \label{item:am-id} $f\in \AA f$;
     \item \label{item:am-seq-comp} if $f'\in\AA f$ and $g'\in\AA g$ so that $f$ and $g$ compose and $f'$
@@ -1987,7 +1999,21 @@ is chosen specifically so that we can prove a composition theorem.
     \item \label{item:am-con-comp} if $f'\in\AA f$ and $g'\in\AA g$, then $f'\otimes g'\in\AA (f\otimes
       g)$;
     \item \label{item:am-seq-fact} if $h\in\AA (gf)$, then there is some $g'\in\AA g$ and $f'\in\AA f$ such
-      that $h = g'f'$;
+      that $h = g'f'$ \emph{up to structure isomorphism}\footnote{
+        The requirement that this equation only holds up to coherence
+        isomorphism is new to us; this is a small technical error
+        in~\cite{broadbent-karvonen-2022}. The issue is that, if the domain $x$
+        of $h$ does not factor into a monoidal product, then it is impossible to
+        find such a horizontal factorization of $h$. Our suggested fix
+        functionally allows the domain of this factorization to be $x\otimes I$.
+
+        As an example of the issue, even the maximal attack model defined
+        in~\Cref{ex:trivial-attacks} does not satisfy the original
+        version of the axiom. Consider the free strict symmetric monoidal
+        category on one generator $x$ and let $f = g = 1_x.$ Then $1_I$ is an
+        attack on $f\otimes g$, but it is impossible to factor $1_I$ as the
+        unrepaired axiom requires.
+      };
     \item \label{item:am-con-fact} if $h\in\AA (f\otimes g)$, then there is some $h'\in\AA 1_{\cod
       f\otimes\cod g}$, $f'\in\AA f$, and $g'\in\AA g$ such that $h = h'\circ
       (f'\otimes g')$.
@@ -2014,11 +2040,344 @@ model the forwarded view by representing the adversary on the second protocol
 with an attack whose codomain includes that extra input.
 
 The fifth axiom says something similar, but about attacks on parallel processes.
-It is a little less clear to me that we should believe this axiom.
+The complication here is that the two separate attacks may need some way to
+combine their data at the end; this is represented by an extra attack on the
+identity, which is semantically identified with the do-nothing computation; such
+attacks thus generally consist of adversaries manipulating their own state.
+% TODO: However, the author remains uncertain about the correctness of this axiom. In
+% particular, it may be that there is no attack against 
 
+\begin{ex}\label{ex:trivial-attacks}
+  On any symmetric monoidal $\cat{C}$, the \emph{honest}\footnote{Called
+  \emph{minimal} in~\cite{broadbent-karvonen-2022}.} attack model is given
+  by $\AA f = \{f\}$, while the \emph{maximal} attack model is given by $\AA f =
+  \sqcup_{x,y\in\cat{C}}\cat{C}(x, y)$, i.e. in the maximal attack model any
+  morphism is an attack on any morphism. In particular, attacks in the maximal
+  attack model factor via identities: if $h'\in\AA (f\otimes g)$, then up to
+  structure isomorphism $h' = h'\otimes 1_I$.
+\end{ex}
+
+\begin{dfn}
+  Let $\cat{C}_1,\dots,\cat{C_N}$ be symmetric monoidal categories with attack
+  models $\AA_1,\dots,\AA_N$. Then the \emph{product attack model}
+  $\prod_{i=1}^N \AA_i$ on $\prod_{i=1}^N \cat{C}_i$ is given by \[
+    (\prod_{i=1}^N \AA_i)(f_1,\dots, f_N) = \prod_{i=1}^N \AA_i f_i.
+  \]
+\end{dfn}
+
+We can use the previous two results to modify malicious behavior in $N$-party
+computation. For instance, by placing the maximal attack model on some subset of
+the categories and the honest attack model on the others, the product attack
+model represents some parties acting independently, but maliciously, while the
+others act honestly. If we want the adversaries to be able to communicate, then
+we can consider the functor \[
+  \cat{C}^N\xto{1_\cat{C}^{N-k}\times\otimes^{k-2}}\cat{C}^{N-k}\times\cat{C}\xto{\otimes^{N-k}}\cat{C},
+\]and place the maximal attack model on the final copy of $\cat{C}$ in the
+middle step. This means that the $k$ parties on the right can behave
+arbitrarily, including coordinating securely amongst themselves, while the other
+parties behave honestly.
+
+\subsection{The Security Definition}
+
+Recall that objects in $\state{GF}$ are
+pairs $(x, s)$, where $s\in\cat{E}(I, GFx)$, while morphisms $f: (x, s)\to (y,
+t)$ are maps $f: x\to y$ in $\cat{C}$ such that $fs = t$.
+
+\begin{dfn}
+  Let $\cat{C}\xto{F}\cat{D}\xto{G}\cat{E}$ be a string of
+  symmetric monoidal functors so that $F$ is strong monoidal. Let $f: (x,
+  s)\to (y, t)$ be a map in $\state{GF}$ and let $a$ be a map in $\cat{D}$ with
+  $\dom a = Fx$. Then $f$ is \emph{secure against the attack $a$} if
+  there is an attack $a'\in\AA (1_{Fy})$ such that $\dom a' = Fx$, $\cod a =
+  \cod a'$, and the following diagram commutes in $\cat{E}$:\[
+    \begin{tikzcd}
+      I\ar[r, "s"]\ar[d, "t"'] & GFx\ar[d, "Ga"]\\
+      GFy\ar[r, "Ga'"'] & G\cod a\punctuation{.}
+    \end{tikzcd}
+  \]
+\end{dfn}
+
+\begin{dfn}
+  Let $\cat{C}\xto{F}\cat{D}\xto{G}\cat{E}$ be a string of
+  symmetric monoidal functors so that $F$ is strong monoidal. Let $\AA$ be an
+  attack model on $\cat{D}$. A map $f: (x, s)\to (y, t)$ in $\state{GF}$ is
+  $\AA$-\emph{secure} if it is secure against all attacks in $\AA Ff$.
+\end{dfn}
+
+The idea is that, for every attack $a$ on the real protocol, there should be an
+attack $a'$ on the ideal protocol which produces the same final state. The
+restriction on the domains says that the adversaries must start from the same
+state as in the actual protocol. This notion is fundamentally not black-box: the
+ideal adversary $a'$ is introduced after, and so may depend on, the real
+adversary $a$. Moreover, because of the untyped nature of adversaries in this
+paradigm, it seems quite difficult to encode black-box simulation within the
+model.
+
+The definition immediately seems somewhat relaxed in comparison to the well-known
+approach of UC: the ideal adversary is required to produce the same state only
+at the end of the protocol, rather than constantly simulating the real adversary
+to the environment throughout the protocol execution. As we will see, this is
+already enough to prove a composition theorem; however, it is unclear to the
+author whether this is enough to entail all the security properties we want in
+the most general settings.
+
+We now aim to prove the following composition theorem\footnote{
+  Note that~\cite{broadbent-karvonen-2022} prove this theorem under the
+  assumption that $\cat{D} = \cat{E}$ and $\cat{G} = 1_\cat{D}$, but allow more
+  flexibility in the definition of the category of states, such that the
+  theorems are equivalent. We choose the presentation here because it
+  generalizes more directly, and reflects all of the examples studied so far.
+  The proof given here is substantively identical to theirs, except that our
+  security definition lives in $\cat{G}$ rather than $\scat{Set}$.
+}.
+
+\begin{thm}\label{ccc:composition}
+  Let $\cat{C}\xto{F}\cat{D}\xto{G}\cat{E}$ be a string of symmetric monoidal
+  functors so that $F$ is strong monoidal. Let $\AA$ be an attack model on
+  $\cat{D}$. Then the class of $\AA$-secure maps forms a wide symmetric monoidal
+  subcategory of $\state{GF}$.
+\end{thm}
+
+As parallel composition theorems go, this is a fairly weak result. In
+particular, it does not give us any security guarantee when composing with any
+processes which are not secure, and it requires that we can construct our
+composition operation as a monoidal product: it is not clear that this can
+capture the same generality as the universal composition operation. We will have
+more to say about this in \Cref{sec:evaluation}.
+
+To demonstrate the claim, we need to show that this class is closed under
+composition and monoidal product, that it contains all the identities, and that
+it contains the coherence isomorphisms. We will show the latter two claims
+first, since they will be used for the others. It suffices to show the following
+more general lemma.
+
+\begin{lemma}
+  All isomorphisms in $\state{GF}$ are $\AA$-secure.
+\end{lemma}
+
+\begin{proof}
+  Let $f: (x, s)\to (y, t)$ be an isomorphism, and recall
+  from~\Cref{thm:cat-elements-reflects-isos} that the underlying
+  map $f$ in $\cat{C}$ is also an isomorphism. Let $a\in\AA (Ff)$ be an attack such
+  that $\dom a = Fx$. Then since $Ff^{-1}\in\AA Ff^{-1}$, by compatibility
+  with composition we have \[aFf^{-1}\in \AA F(ff^{-1}) = \AA 1_{Fy}.\] Now
+  since $(GFf)s = t$ by definition of the category of states, \[
+    \begin{tikzcd}
+      & I\ar[dl, "s"']\ar[rd, "t"] \\
+      GFx && GFy\ar[ll, "GFf^{-1}"]
+    \end{tikzcd}
+    % (Ga)s = (Ga)(GFf^{-1})(GFf)s = G(a(Ff^{-1}))t.
+  \] commutes in $\cat{E}$. Pasting $Ga$ onto the bottom-left of this diagram yields the
+  commutative diagram
+  \[
+    \begin{tikzcd}
+      I\ar[rr, "s"]\ar[d, "t"'] && GFx\ar[d, "Ga"]\\
+      GFy\ar[r, "GFf^{-1}"'] & GFx\ar[r, "Ga"'] & G\cod a\punctuation{,}
+    \end{tikzcd}
+  \]which is the desired result.
+\end{proof}
+
+Next, we show that the class of secure maps is closed under composition.
+
+\begin{lemma}
+  Let $f: (x, s)\to (y, t)$ and $g: (y, t)\to (z, u)$ be $\AA$-secure maps.
+  Then $gf$ is $\AA$-secure.
+\end{lemma}
+
+\begin{proof}
+  Let $a\in\AA F(gf)$ be an attack such that $\dom a = Fx$. Let
+  $a_f\in\AA Ff$ and $a_g\in\AA Fg$ be attacks such that $a_ga_f = a$, as is
+  guaranteed by~\Cref{item:am-seq-fact} in the definition of an attack
+  model. Since $f$ is $\AA$-secure, there is an attack
+  $a_f'\in\AA 1_{Fy}$ with $\dom a_f' = Fx$ and $\cod a_f'
+  = \cod a_f$ such that the following diagram commutes in $\cat{E}$: \[
+    \begin{tikzcd}
+      I\ar[r, "s"]\ar[d, "t"'] & GFx\ar[d, "Ga_f"]\\
+      GFy\ar[r, "Ga_f'"'] & G\cod a_f\punctuation{.}
+    \end{tikzcd}
+  \]
+  Now since $a'_f\in\AA 1_{Fy}$ and $a_g\in\AA Fg$, since attacks are
+  compatible with composition we have that $a_ga_f'\in\AA Fg$, so there is
+  $a_g'\in \AA 1_{Fz}$ such that the following diagram commutes: \[
+    \begin{tikzcd}
+      I\ar[rr, "t"]\ar[dd, "u"'] && GFy\ar[d, "Ga_f'"]\\
+                                && G\cod a_f\ar[d, "Ga_g"] \\
+      GFz\ar[rr, "Ga_g'"'] && G\cod a_g\punctuation{.}
+    \end{tikzcd}
+  \] By pasting the previous two diagrams along the edge $I\xto{t}
+  GFy\xto{Ga'_f} G\cod a_f$, we finally see that \[
+    \begin{tikzcd}
+      I\ar[rr, "s"]\ar[dd, "u"'] && GFx\ar[d, "Ga_f"]\\
+                                && G\cod a_f\ar[d, "Ga_g"] \\
+      GFz\ar[rr, "Ga_g'"'] && G\cod a_g
+    \end{tikzcd}
+  \]commutes; this is the desired result.
+\end{proof}
+
+The pattern of this argument has cryptographic meaning. The attack $a'_f$ on
+$1_{Fy}$ is the ideal adversary for the attack against the real protocol $f$.
+The composite adversary $a_ga'_f$ is first the ideal adversary for $f$ and then
+the real adversary for $g$. By this point in the proof, the point is that the
+attack on $g$ can do no better than using the output state of the attack on
+$f$, hence can be simulated by a simulator $a'_g$ against this composite.
+
+Finally, we prove that the class of secure maps is closed under monoidal
+product.
+
+\begin{lemma}
+  Let $f: (x, s)\to (y, t)$ and $g: (z, u)\to (w, v)$ be $\AA$-secure maps.
+  Then $f\otimes g$ is $\AA$-secure.
+\end{lemma}
+
+\begin{proof}
+  Let $\psi_{x,y}: Fx\otimes_{\cat{D}} Fy\to F(x\otimes_{\cat{C}} y)$ and
+  $\phi_{x,y}: Gx\otimes_{\cat{E}}\to G(x\otimes_{\cat{D}} y)$ be the structure
+  maps of $F$ and $G$, respectively, so that $\psi$ is an isomorphism since $F$
+  is strong monoidal.
+
+  We first prove the claim when $\cat{C} = \cat{D}$ and $F = 1_\cat{D}$.
+  Let $a\in \AA (f\otimes g)$ be an attack such that $\dom a = x\otimes z$.
+  Let $a_f\in\AA f$, $a_g\in \AA g$, and $a_1\in \AA 1_{y\otimes w}$ be
+  attacks such that $a = a_1(a_f\otimes a_g)$, as guaranteed
+  by~\Cref{item:am-con-fact} in the definition of an attack model. Since
+  $f$ and $g$ are $\AA$-secure, there are attacks $a_f'\in\AA 1_y$ and
+  $a_g'\in\AA 1_w$ such that \[
+    \begin{tikzcd}
+      I\ar[r, "s"]\ar[d, "t"'] & Gx\ar[d, "Ga_f"]\\
+      Gy\ar[r, "Ga_f'"'] & G\cod a_f
+    \end{tikzcd}
+    \quad\text{and}\quad
+    \begin{tikzcd}
+      I\ar[r, "u"]\ar[d, "v"'] & Gz\ar[d, "Ga_g"]\\
+      Gw\ar[r, "Ga_g'"'] & G\cod a_g
+    \end{tikzcd}
+  \] commute.
+  Let $o = \cod a_f$ and $p = \cod a_g$. Letting $\phi$ be the structure
+  map which witnesses monoidality of $G$, we claim that \[
+    \begin{tikzcd}
+      I\ar[r, "s\otimes_{\cat{E}} u"]\ar[d, "t\otimes_{\cat{E}} v"'] &
+        Gx\otimes_{\cat{E}} Gz\ar[d, "Ga_f\otimes_{\cat{E}} Ga_g"']\ar[r, "\phi_{x, z}"] &
+        G(x\otimes_{\cat{D}} z)\ar[d, "G(a_f\otimes_{\cat{D}} a_g)"']\ar[dr, "Ga"]
+      \\
+      Gy\otimes_{\cat{E}} Gw\ar[r, "Ga_f'\otimes_{\cat{E}} Ga_g'"']\ar[dr, "\phi_{y, w}"'] &
+        Go\otimes_{\cat{E}} Gp\ar[r, "\phi_{o,p}"'] &
+        G(o\otimes_{\cat{D}} p)\ar[r, "Ga_1"'] &
+        G\cod a
+      \\ &
+      G(y\otimes_{\cat{D}} w)\ar[ur, "G(a'_f\otimes_{\cat{D}} a'_g)"']
+    \end{tikzcd}
+  \] commutes. Indeed, the top-left square is the product of the two previous diagrams,
+  the middle square is naturality of $\phi$, the right triangle is the definition
+  of $a_f$, $a_g$, and $a_1$, and the bottom square is naturality of $\phi$ again.
+
+  Now notice that the top path along this diagram is exactly the definition of
+  the product $s\otimes u$ in $\state{G}$, while the left path is the definition
+  of $t\otimes v$. As such, the top-right path is the top-right path of the
+  square we need to commute to show security of $f\otimes g$. It just sufficies
+  to show that $a_1\circ (a'_f\otimes_{\cat{D}} a'_g)$ is an attack on the ideal
+  model to complete the proof, but this follows because of the composition
+  properties of attack models.
+
+  Now we prove the claim for arbitrary $F$. Notice that a map $f: (x, s)\to
+  (y, t)$ is secure in $\state{GF}$ if and only if $Ff: (Fx, s)\to (Fy, t)$ is
+  secure in $\state{F}$: the commutative squares witnessing security are
+  exactly the same. Since $f$ and $g$ are secure, now $Ff$ and $Fg$ are secure,
+  so by the previous special case $Ff\otimes_\cat{D} Fg$ is secure. Furthermore,
+  $\psi$ is an isomorphism, so secure. Finally, since
+  \[
+    F(f\otimes_\cat{C} g) = \psi_{y,w}(Ff\otimes_\cat{D} Fg)\psi^{-1}_{x,z}
+  \] is the composite of secure maps, it is secure, and so $f\otimes_\cat{C} g$
+  is secure.
+  %
+  % Let $a\in \AA F(f\otimes g)$ be an attack such that $\dom a = F(x\otimes z)$.
+  % Let $a_f\in\AA Ff$, $a_g\in \AA Fg$, and $a_1\in \AA 1_{F(y\otimes w)}$ be
+  % attacks such that $a = a_1(a_f\otimes a_g)$, as guaranteed
+  % by~\Cref{item:am-con-fact} in the definition of an attack model. Since
+  % $f$ and $g$ are $\AA$-secure, there are attacks $a_f'\in\AA 1_{Fy}$ and
+  % $a_g'\in\AA 1_{Fw}$ such that \[
+  %   \begin{tikzcd}
+  %     I\ar[r, "s"]\ar[d, "t"'] & GFx\ar[d, "Ga_f"]\\
+  %     GFy\ar[r, "Ga_f'"'] & G\cod a_f
+  %   \end{tikzcd}
+  %   \quad\text{and}\quad
+  %   \begin{tikzcd}
+  %     I\ar[r, "u"]\ar[d, "v"'] & GFz\ar[d, "Ga_g"]\\
+  %     GFw\ar[r, "Ga_g'"'] & G\cod a_g
+  %   \end{tikzcd}
+  % \] commute.
+  % Let $o = \cod a_f$ and $p = \cod a_g$. Letting $\phi$ be the structure
+  % map which witnesses monoidality of $G$, we claim that \[
+  %   \begin{tikzcd}
+  %     I\ar[r, "s\otimes_{\cat{E}} u"]\ar[d, "t\otimes_{\cat{E}} v"'] &
+  %       GFx\otimes_{\cat{E}} GFz\ar[d, "Ga_f\otimes_{\cat{E}} Ga_g"']\ar[r, "\phi_{Fx, Fz}"] &
+  %       G(Fx\otimes_{\cat{D}} Fz)\ar[d, "G(a_f\otimes_{\cat{D}} a_g)"']\ar[dr, "Ga"]
+  %     \\
+  %     GFy\otimes_{\cat{E}} GFw\ar[r, "Ga_f'\otimes_{\cat{E}} Ga_g'"']\ar[dr, "\phi_{Fy, Fw}"'] &
+  %       Go\otimes_{\cat{E}} Gp\ar[r, "\phi_{o,p}"'] &
+  %       G(o\otimes_{\cat{D}} p)\ar[r, "Ga_1"'] &
+  %       G\cod a
+  %     \\ &
+  %     G(Fy\otimes_{\cat{D}} Fw)\ar[ur, "G(a'_f\otimes_{\cat{D}} a'_g)"']
+  %   \end{tikzcd}
+  % \] commutes. Indeed, the top-left square is the tensor of the two previous diagrams,
+  % the middle square is naturality of $\phi$, the right triangle is the definition
+  % of $a_f$, $a_g$, and $a_1$, and the bottom shape is naturality of $\phi$ again.
+\end{proof}
+
+Putting it all together:
+
+\begin{proof}[Proof of~\Cref{ccc:composition}]
+  We have shown that the class of secure maps is closed under composition and
+  monoidal product, and contains all the identities and coherence isomorphisms.
+  This is the desired result.
+\end{proof}
+
+In universal composability, there is a theorem called the \emph{completeness of the
+dummy adversary}, which says that a protocol is UC-secure if and only if it is
+UC-secure against the ``trivial adversary''\footnote{Called the ``dummy
+  adversary'' in the literature.}, which just forwards all its messages
+to the environment~\cite[Claim 11]{canetti-2020}. There is a similar notion in
+the categorical model, which \cite{broadbent-karvonen-2022} call an \emph{initial
+class of attacks}.
+
+\begin{dfn}
+  Let $\cat{C}$ be a symmetric monoidal category with attack model $\AA$. Let
+  $f: x\to y$ be a morphism in $\cat{C}$. A sub-collection $X$ of $\AA f$ is \emph{initial} if for any
+  $a\in\AA f$ with $\dom a = x$, there exists some $a_x\in X$ and $a_1\in\AA
+  1_y$ such that $a = a_1a_x$.
+\end{dfn}
+
+\begin{ex}
+  When $\AA$ is the maximal attack model, any map $f: x\to y$ has an initial
+  attack given by just $1_x$. This corresponds to the dummy adversary in UC.
+\end{ex}
+
+\begin{thm}
+  Let $\cat{C}\xto{F} \cat{D}\xto{G}\cat{E}$ be a string of monoidal functors so
+  that $F$ is strong monoidal. Let $f: (x, s)\to (y, t)$ be a morphism in
+  $\state{GF}$. Let $\AA$ be an attack model on $\cat{D}$ and let $X$ be an
+  initial sub-collection of $\AA f$. Then $f$ is $\AA$-secure if and only if it
+  is secure against all attacks in $X$.
+\end{thm}
+
+\begin{proof}
+  The forwards direction is immediate because $X\subseteq \AA f$. For the
+  backwards direction, let $a\in \AA Ff$ be an attack such that $\dom a = Fx$.
+  By the definition of an initial subcollection, let $a = a_1a_x$ with $a_x\in
+  X$ and $a_1\in \AA 1_{Fy}$. Since $f$ is secure against $a_x$, there is an
+  $a_x'\in \AA 1_{Fy}$ witnessing the security condition. Now $a_1a_x'\in\AA
+  1_{Fy}$, and further \[
+    \begin{tikzcd}
+      I\ar[r, "s"]\ar[d, "t"'] & GFx\ar[d, "Ga_x"']\ar[dr, "Ga"]\\
+      GFy\ar[r, "Ga_x'"'] & G\cod a_x\ar[r, "Ga_1"'] & G\cod a \\
+    \end{tikzcd}
+  \] commutes: the square by the security condition for $a_x$, and the triangle
+  by definition of $a_x$ and $a_1$. This is the desired result.
+\end{proof}
 
 \section{Conclusion}
 \subsection{Evaluation}
+\label{sec:evaluation}
 
 
 \subsection{Paths Not Taken}

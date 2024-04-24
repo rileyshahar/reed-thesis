@@ -1091,8 +1091,8 @@ A few remarks on this proof are warranted. First, it fundamentally relies on the
 semi-honesty of the adversaries, since it means that the execution of the
 sub-protocols is completely independent from anything other than their inputs.
 If the adversaries could behave maliciously, and thus use information learned in
-the larger protocol to affect run the sub-protocols, then the main simulator would be
-unable to properly invoke the simulator for the sub-protocols.
+the larger protocol to affect runs of the sub-protocols, then the main simulator
+would be unable to properly invoke the simulator for the sub-protocols.
 
 Second, these techniques seem completely unable to handle parallel composition.
 The issue is that oracle queries are in some sense immediate---the assumption is
