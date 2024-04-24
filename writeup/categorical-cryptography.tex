@@ -2753,6 +2753,96 @@ to make the proofs work, but we have preferred the strict approach here for its
 easy relation to the 1-categorical case.
 
 \section{Conclusion}
+\subsection{Paths Not Taken}
+
+We spent significant time over the year in directions which did not ultimately
+pan out. We discuss some major avenues here.
+
+\subsubsection{Categorical Semantics of Cryptographic Logics}
+
+As mentioned in \Cref{sec:alternatives},
+there are several frameworks which attempt to give type theories or
+probabilistic logics for reasoning about cryptographic protocols. The deep,
+well-established connection between types and categories suggests that there may
+be value in giving a categorical semantics to some of these frameworks; this is
+thus a logical place to search for categorical approaches to cryptography.
+Because this is an extremely active line of research, it is infeasible to
+consider all of these frameworks, but they are generally all based on some kind
+of asynchronous message-passing calculus, so the first issue is giving
+categorical semantics to any such calculus. Unfortunately, while there has been
+some progress, this is well-known to be a difficult
+problem~\cite{leifer-2000,stay-2015,sakayori-2021}. The issue is that these
+calculi are asynchronous so that message delivery is not fixed; this causes
+associativity and unitality to fail.
+
+The solutions either introduce significant complexity to the $\pi$-calculus or
+already use higher categorical machinery for the semantics, so while it seems
+possible that these strategies could be used for the sophisticated logics
+of~\cite{morisett-et-al-2021} or~\cite{liao-et-al-2019}, the resulting semantics
+would likely be so complex as to be of no advantage in comparison to UC. The
+author would love to be proven wrong about this, and regardless such a semantics
+would likely be of independent interest.
+
+One possible approach for future work is to use combs to handle issues around
+message-passing, and then use the cryptographic logics as syntaxes from which to
+build higher categories of combs. Working with specific ground categories dodges
+the general issues with these semantics by building the interaction into the
+morphisms, rather than as part of the categorical structure. This is the
+approach we took in defining the category $\operatorname*{n-comb}^*$.
+
+\subsubsection{Functorality of Attack Models}
+
+The definition of an attack model in \Cref{sec:attack-models}
+at first seems somewhat unnatural from a categorical perspective. However,
+as~\cite{broadbent-karvonen-2022} point out, on closer examination it looks
+somewhat like a functor. We consider two possible approaches to defining attack
+models functorially.
+
+First, attack models can be thought of as relations on categories: an attack
+model on $\cat{C}$ is a wide symmetric monoidal subcategory $\AA$ of $\cat{C}^2$ which contains the
+diagonal subcategory. The idea is that a pair $(f, g)$ is in $\AA$ if $g$ is an
+attack on $f$. That this is a category gives the closure properties of attack
+models. However, it is somewhat unnatural to ask for the factorization property.
+The sequential factorization property says that, if $(gf, h)$ in in $\AA$, then
+$h = g'f'$ such that $(g, g')$ and $(f, f')$ are in $\AA$. One interesting thing
+about this definition is that we can define a category of attacks on a map $f$:
+it is the bottom row of the diagram \[
+  \begin{tikzcd}
+    2\ar[r, "f"] & \cat{C} \\
+    \AA f\ar[u]\ar[r]\ar[ur, phantom, "\urcorner", very near start] & \AA\ar[u,
+    "\pi_1"']\ar[r, "\pi_2"] & \cat{C},
+  \end{tikzcd}
+\]where $2$ is the category $\bullet\to\bullet$. This all works, but
+it does not seem to be an improvement on the naturality of the current
+definition.'
+
+A second approach is to think of attack models as a kind of fibration. The idea
+is that an attack model is a functor $F: \AA\to\cat{C}$ such that the fiber of a
+morphism $f$ is exactly the attacks on $f$. Again, the closure properties are
+expressed by functorality, but in this case even the sequential factorization
+property is similar to notions that have been studied: we will not go into
+details, but it expresses that the functor $F$ is a kind of weak \emph{Conduché
+fibtration}. However, the issue with this approach is that any attack is only an
+attack on one morphism, and further that the type information of $\AA$ seems
+somewhat meaningless to our notions of adversary.
+
+In general, the problem with modelling adversarial behavior is that adversaries get to
+break the type system. This reduces the value much of the work of the categorical
+semantics of programming languages, which is based on the objects-as-types
+correpspondence. We think there may be a natural categorical expression of this
+notion, but we have not found it.
+
+\subsubsection{Internalizing Indistinguishability}
+
+Another line of our work was an attempt to internalize the notion of
+computational indistinguishability into suitable categories, for instance Markov
+categories. The issue is that it is hard to model approximate and asymptotic
+equivalence relations without higher categorical machinery. We think the
+2-categorical generalization we present is a better strategy than trying to give
+such an internalization, because it is not clear what categorical structure is
+needed to discuss asymptotics. Further work on this question could potentially
+start from categorical notions of complexity theory~\cite{basu-2020}.
+
 \subsection{Evaluation}
 \label{sec:evaluation}
 
@@ -2799,7 +2889,7 @@ In~\Cref{q:adversarial-model}, we asked about the model of adversarial
 behavior. The categorical framework is based around the notion of an
 \emph{attack model}, which seems to be fairly general. However, the author is
 uncertain about the correctness of~\Cref{item:am-con-fact} of the
-definition. In particular, it may be that the two attacks need to commmunicate
+definition. In particular, it may be that the two attacks need to communicate
 with each other \emph{during the run of the protocol}, rather than combining
 their states together at the end. This is not \emph{a priori} impossible with
 this definition, but it seems to require a more sophisticated monoidal structure
@@ -2829,38 +2919,6 @@ comparative complexity advantage of the categorical model. However, the
 categorical framework does admit elegant diagrammatic descriptions of protocols
 and security proofs, which are likely very valuable for describing complex
 cryptographic protocols.
-
-% \begin{questions}
-%   \item What kinds of protocols are being composed? Our security definitions do not
-%     capture security of arbitrary interactive processes, so either we will
-%     need a substantially more general definition or we will need to limit
-%     our composition theorem to a specific class of
-%     protocols.\label{q:composed-protocols}
-%   \item What does it mean to compose these protocols? It is not immediately
-%     clear how to compose arbitary interactive
-%     algorithms.\label{q:composition-meaning}
-%   \item What kind of composition is allowed? In particular, we can
-%     consider \emph{sequential composition}, in which only one protocol is
-%     ``running'' simultaneously, or \emph{parallel composition}, in which many
-%     protocols may be running simultaneously. To formally state a parallel
-%     composition theorem, we need to either specify a \emph{scheduling model} and
-%     deal with low-level issues like atomicity, or find some way to abstract over
-%     these details.\label{q:allowed-composition}
-%   \item What kind of security is being preserved? Given a security definition
-%     for the component protocols, we need some say to derive the security
-%     definition for the composite protocol.\label{q:preserved-security}
-%   \item What kinds of adversaries does the theorem handle? Composition theorems
-%     may look very different for security against uniform and non-uniform
-%     adversaries, for instance---these subtle issues can lead to very different
-%     results.\label{q:adversarial-model}
-%   \item What protocols are we allowed to compose with? We could be allowed to
-%     compose with arbitrary protocols, which might not even be secure, or only
-%     with other protocols we already know are secure.\label{q:compose-with}
-%   \item How many times we can compose---for instance, must it be constant in the
-%     security parameter?\label{q:count-compositions}
-% \end{questions}
-
-\subsection{Paths Not Taken}
 
 % \section{Paths Not Taken}
 
