@@ -311,6 +311,9 @@
   \draw (xi2.north) to ++(0,.5);
 }
 
+% https://tex.stackexchange.com/a/362746
+\tikzset{shorten <>/.style={shorten >=#1,shorten <=#1}}
+
 \newenvironment{dedication}
   {%\clearpage           % we want a new page          %% I commented this
    \thispagestyle{empty}% no header and footer

@@ -849,6 +849,34 @@
       \field{pages}{572\bibrangedash 587}
       \range{pages}{16}
     \endentry
+    \entry{baez-2019}{article}{}
+      \name{author}{2}{}{%
+        {{hash=77c130b1ed4688a565b29481eee08ae3}{%
+           family={Baez},
+           familyi={B\bibinitperiod},
+           given={John\bibnamedelima C},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=7059f79fbd205edf4315d8871714e749}{%
+           family={Williams},
+           familyi={W\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{1468f947ec07460e88060f1390b184fd}
+      \strng{fullhash}{1468f947ec07460e88060f1390b184fd}
+      \strng{bibnamehash}{1468f947ec07460e88060f1390b184fd}
+      \strng{authorbibnamehash}{1468f947ec07460e88060f1390b184fd}
+      \strng{authornamehash}{1468f947ec07460e88060f1390b184fd}
+      \strng{authorfullhash}{1468f947ec07460e88060f1390b184fd}
+      \field{labelalpha}{BW19}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:1905.05636}
+      \field{title}{Enriched lawvere theories for operational semantics}
+      \field{year}{2019}
+    \endentry
     \entry{barr-wells-1990}{book}{}
       \name{author}{2}{}{%
         {{hash=1f590f436d602e75c03b0fa9947edc3c}{%
@@ -2637,6 +2665,7 @@
       \strng{authorbibnamehash}{fac02deffedd4dbcbb6d46f097ca9c7d}
       \strng{authornamehash}{fac02deffedd4dbcbb6d46f097ca9c7d}
       \strng{authorfullhash}{fac02deffedd4dbcbb6d46f097ca9c7d}
+      \field{extraname}{1}
       \field{labelalpha}{Kel64}
       \field{sortinit}{K}
       \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
@@ -2659,6 +2688,32 @@
       \verb{url}
       \verb https://www.sciencedirect.com/science/article/pii/0021869364900183
       \endverb
+    \endentry
+    \entry{kelly-1981}{book}{}
+      \name{author}{1}{}{%
+        {{hash=78e43f3e940bcc02882c596b5f8eecf1}{%
+           family={Kelly},
+           familyi={K\bibinitperiod},
+           given={Gregory\bibnamedelima Max},
+           giveni={G\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Fernuniversität}%
+      }
+      \strng{namehash}{78e43f3e940bcc02882c596b5f8eecf1}
+      \strng{fullhash}{78e43f3e940bcc02882c596b5f8eecf1}
+      \strng{bibnamehash}{78e43f3e940bcc02882c596b5f8eecf1}
+      \strng{authorbibnamehash}{78e43f3e940bcc02882c596b5f8eecf1}
+      \strng{authornamehash}{78e43f3e940bcc02882c596b5f8eecf1}
+      \strng{authorfullhash}{78e43f3e940bcc02882c596b5f8eecf1}
+      \field{extraname}{2}
+      \field{labelalpha}{Kel81}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The basic concepts of enriched category theory}
+      \field{year}{1981}
     \endentry
     \entry{kidron-lindell-2007}{misc}{}
       \name{author}{2}{}{%
@@ -4164,6 +4219,7 @@
       \field{labelalpha}{See87}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extraalpha}{1}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{A categorical structure suitable for interpreting polymorphic lambda calculus (PLC) is defined, providing an algebraic semantics for PLC which is sound and complete. In fact, there is an equivalence between the theories and the categories. Also presented is a definitional extension of PLC including "subtypes", for example, equality subtypes, together with a construction providing models of the extended language, and a context for Girard's extension of the Dialectica interpretation.}
@@ -4186,6 +4242,37 @@
       \verb http://www.jstor.org/stable/2273831
       \endverb
     \endentry
+    \entry{seely-1987b}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=d5e8e0d6eca39b1d2993d2452b2dfaca}{%
+           family={Seely},
+           familyi={S\bibinitperiod},
+           given={Robert\bibnamedelimb A.\bibnamedelimi G.},
+           giveni={R\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{d5e8e0d6eca39b1d2993d2452b2dfaca}
+      \strng{fullhash}{d5e8e0d6eca39b1d2993d2452b2dfaca}
+      \strng{bibnamehash}{d5e8e0d6eca39b1d2993d2452b2dfaca}
+      \strng{authorbibnamehash}{d5e8e0d6eca39b1d2993d2452b2dfaca}
+      \strng{authornamehash}{d5e8e0d6eca39b1d2993d2452b2dfaca}
+      \strng{authorfullhash}{d5e8e0d6eca39b1d2993d2452b2dfaca}
+      \field{extraname}{3}
+      \field{labelalpha}{See87}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Logic in Computer Science}
+      \field{title}{Modelling Computations: A 2-Categorical Framework}
+      \field{year}{1987}
+      \verb{urlraw}
+      \verb https://api.semanticscholar.org/CorpusID:3718688
+      \endverb
+      \verb{url}
+      \verb https://api.semanticscholar.org/CorpusID:3718688
+      \endverb
+    \endentry
     \entry{seely-1989}{article}{}
       \name{author}{1}{}{%
         {{hash=b3a03d72c59e95a75556eecf49509dda}{%
@@ -4200,7 +4287,7 @@
       \strng{authorbibnamehash}{b3a03d72c59e95a75556eecf49509dda}
       \strng{authornamehash}{b3a03d72c59e95a75556eecf49509dda}
       \strng{authorfullhash}{b3a03d72c59e95a75556eecf49509dda}
-      \field{extraname}{3}
+      \field{extraname}{4}
       \field{labelalpha}{See89}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}

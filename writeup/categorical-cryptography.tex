@@ -289,6 +289,7 @@ fully categorical treatment of cryptography should obtain quantum cryptography a
 a special case.
 
 \section{Protocols}
+\label{sec:protocols}
 
 The categorical semantics of interactive computation---in particular, of
 protocols---originates from the study of quantum cryptography, especially of
@@ -532,7 +533,7 @@ tuple \[
 \]
 
 Meanwhile, the monoidal product of 1-combs is as follows:
-\[
+\begin{equation}\label{eqn:product-1-comb}
   \begin{pic}
     \setlength\minimummorphismwidth{6mm}
     \node[morphism] (xi1) at (0,0) {$\xi_1$};
@@ -566,7 +567,7 @@ Meanwhile, the monoidal product of 1-combs is as follows:
     \draw (f.north east) to[out=90,in=-90] (xi2'.south west);
     \draw (xi1'.north east) to (xi2'.south east);
   \end{pic}
-\]Again, this forms a 1-comb.
+\end{equation}Again, this forms a 1-comb.
 
 We now return to the assertion from the beginning of the section: since a map $I\to
 I$ carries no data, a 1-comb $I\to (X, Y)$ looks like \[
@@ -1824,6 +1825,7 @@ constructions is actually very helpful; they allow us to fine-tune our base
 category for any specific use-case.
 
 \subsection{Interactive Proof}
+\label{sec:interactive proof}
 
 We now give an original representation of interactive proofs within the
 framework. Recall from \Cref{sec:zkp}
@@ -1979,7 +1981,8 @@ system---this is how we interpret the objects in the category.
 
 For expository purposes, in this section we will quite closely follow the
 technical approach of~\cite{broadbent-karvonen-2022}. However, the machinery
-they develop can be made significantly more general.
+they develop can be made significantly more general. We will see an example of
+this in \Cref{sec:2-cat}
 
 \subsection{Attack Models}
 \label{sec:attack-models}
@@ -2044,8 +2047,6 @@ The complication here is that the two separate attacks may need some way to
 combine their data at the end; this is represented by an extra attack on the
 identity, which is semantically identified with the do-nothing computation; such
 attacks thus generally consist of adversaries manipulating their own state.
-% TODO: However, the author remains uncertain about the correctness of this axiom. In
-% particular, it may be that there is no attack against 
 
 \begin{ex}\label{ex:trivial-attacks}
   On any symmetric monoidal $\cat{C}$, the \emph{honest}\footnote{Called
@@ -2077,13 +2078,73 @@ middle step. This means that the $k$ parties on the right can behave
 arbitrarily, including coordinating securely amongst themselves, while the other
 parties behave honestly.
 
+It is also possible to extend attack models to the various constructions of
+\Cref{sec:protocols}.
+In~\cite{broadbent-karvonen-2022}, they place an attack model on
+$\ncomb{\cat{C}}$ representing a single malicious party; we give a slight
+generalization which allows extending arbitrary attack models to this setting.
+Recall that a comb $[(X_1, Y_1), \dots, (X_n, Y_n)[\to (X', Y')$ in
+$\ncomb{\cat{C}}$ is formally a permutation $\sigma$ and a list $[\xi_1, \dots,
+\xi_{n+1}]$ of morphisms in $\cat{C}$ with appropriate types. Any attack model
+defined on such combs extends to an attack model on all morphisms, since
+morphisms are just lists of combs.
+
+\begin{dfn}\label{def:n-comb-attack}
+  Let $\cat{C}$ be a symmetric monoidal category and $\AA$ an attack model. Then
+  there is an induced attack model on $\ncomb{\cat{C}}$ defined as follows: an
+  attack on the comb $(\sigma, [\xi_1, \dots, \xi_{n+1}])$ is a pair
+  $(\sigma, [a_1, \dots, a_{n+1}])$ such that $a_i\in\AA \xi_i$ for all
+  $i$; note that the permutations $\sigma$ must agree.
+\end{dfn}
+
+\begin{prop}
+  \Cref{def:n-comb-attack} defines an attack model on
+  $\ncomb{\cat{C}}$.
+\end{prop}
+
+\begin{proof}
+  Each morphism is an attack on itself by the same property for $\AA$. Since the
+  attack model on monoidal products is defined as the concatenation of attacks
+  on the components, the attack model is compatible with and factors with
+  respect to the monoidal product.
+
+  Recall that the (sequential) composition of combs is defined by nesting.
+  Because the attacks are defined locally, fixing the permutation and specifying
+  attack morphisms for each piece of the comb, we can consider each piece of the
+  comb on its own. When not working ``at the ends'' of one of the inner combs,
+  there is no local composition happening, so the result follows immediately.
+  The difficultly is at this boundary, where the situation looks like \[
+  \begin{pic}
+    \setlength\minimummorphismwidth{10mm}
+    \node[morphism] (xi1') at (0,0) {$\xi$};
+    \draw ([xshift=2.5pt]xi1'.north east) to ++(0, 1.15) node[right] {$z'$};
+    \node[morphism,scale=.6] (xi1) at ($(xi1'.north west)+(0, .5)$)
+    {\normalsize$g$};
+    \draw (xi1.north) to ++(0, .5);
+    \draw (xi1'.north west) -- (xi1.south);
+    \draw ([xshift=2.5pt]xi1'.south east) to ++(0, -1.15) node[right, xshift=2em,
+    yshift=1.5em] {\normalsize.} node[right] {$z$};
+    \node[morphism,scale=.6] (xin) at ($(xi1'.south west)+(0, -.5)$)
+    {\normalsize$f$};
+    \draw (xi1'.south west) -- (xin.north);
+    \draw (xin.south) to ++(0, -.5);
+  \end{pic}
+\]
+Given attacks on $f$, $\xi$, and $g$, we see directly by the compatibility
+properties of $\AA$ that these yield an attack on this composite.
+Given an attack on this composite, i.e. a morphism \[
+  a\in\AA((g\otimes 1_{z'})\xi(f\otimes 1_z)),
+\] factor $a$ into attacks as guaranteed by the definition of $\AA$. Combining
+these factorizations yields the desired factorization of the global attack.
+\end{proof}
+
 \subsection{The Security Definition}
 
 Recall that objects in $\state{GF}$ are
 pairs $(x, s)$, where $s\in\cat{E}(I, GFx)$, while morphisms $f: (x, s)\to (y,
 t)$ are maps $f: x\to y$ in $\cat{C}$ such that $fs = t$.
 
-\begin{dfn}
+\begin{dfn}\label{def:sec-condition}
   Let $\cat{C}\xto{F}\cat{D}\xto{G}\cat{E}$ be a string of
   symmetric monoidal functors so that $F$ is strong monoidal. Let $f: (x,
   s)\to (y, t)$ be a map in $\state{GF}$ and let $a$ be a map in $\cat{D}$ with
@@ -2125,10 +2186,15 @@ We now aim to prove the following composition theorem\footnote{
   Note that~\cite{broadbent-karvonen-2022} prove this theorem under the
   assumption that $\cat{D} = \cat{E}$ and $\cat{G} = 1_\cat{D}$, but allow more
   flexibility in the definition of the category of states, such that the
-  theorems are equivalent. We choose the presentation here because it
+  theorems are equivalence. We choose the presentation here because it
   generalizes more directly, and reflects all of the examples studied so far.
   The proof given here is substantively identical to theirs, except that our
-  security definition lives in $\cat{G}$ rather than $\scat{Set}$.
+  security condition is based on commutativity in $\cat{E}$ rather than
+  $\scat{Set}$.
+
+  To see the equivalence between the theorems, to go from theirs to ours take
+  $\cat{E} = \scat{Set}$ and $G = R$ (and use the fact that $*$ represents
+  $1_\scat{Set}$), while to go from ours to theirs take $R = \hom(I, -)G$.
 }.
 
 \begin{thm}\label{ccc:composition}
@@ -2224,7 +2290,7 @@ $f$, hence can be simulated by a simulator $a'_g$ against this composite.
 Finally, we prove that the class of secure maps is closed under monoidal
 product.
 
-\begin{lemma}
+\begin{lemma}\label{thm:closed-under-monoidal}
   Let $f: (x, s)\to (y, t)$ and $g: (z, u)\to (w, v)$ be $\AA$-secure maps.
   Then $f\otimes g$ is $\AA$-secure.
 \end{lemma}
@@ -2273,7 +2339,7 @@ product.
   Now notice that the top path along this diagram is exactly the definition of
   the product $s\otimes u$ in $\state{G}$, while the left path is the definition
   of $t\otimes v$. As such, the top-right path is the top-right path of the
-  square we need to commute to show security of $f\otimes g$. It just sufficies
+  square we need to commute to show security of $f\otimes g$. It just suffices
   to show that $a_1\circ (a'_f\otimes_{\cat{D}} a'_g)$ is an attack on the ideal
   model to complete the proof, but this follows because of the composition
   properties of attack models.
@@ -2318,7 +2384,7 @@ product.
   %       G\cod a
   %     \\ &
   %     G(Fy\otimes_{\cat{D}} Fw)\ar[ur, "G(a'_f\otimes_{\cat{D}} a'_g)"']
-  %   \end{tikzcd}
+ %   \end{tikzcd}
   % \] commutes. Indeed, the top-left square is the tensor of the two previous diagrams,
   % the middle square is naturality of $\phi$, the right triangle is the definition
   % of $a_f$, $a_g$, and $a_1$, and the bottom shape is naturality of $\phi$ again.
@@ -2332,13 +2398,12 @@ Putting it all together:
   This is the desired result.
 \end{proof}
 
-In universal composability, there is a theorem called the \emph{completeness of the
-dummy adversary}, which says that a protocol is UC-secure if and only if it is
-UC-secure against the ``trivial adversary''\footnote{Called the ``dummy
-  adversary'' in the literature.}, which just forwards all its messages
-to the environment~\cite[Claim 11]{canetti-2020}. There is a similar notion in
-the categorical model, which \cite{broadbent-karvonen-2022} call an \emph{initial
-class of attacks}.
+In universal composability, there is a theorem which says that a protocol is
+UC-secure if and only if it is UC-secure against the ``trivial
+adversary''\footnote{Called the ``dummy adversary'' in the literature.}, which
+just forwards all its messages to the environment~\cite[Claim 11]{canetti-2020}.
+There is a similar notion in the categorical model, which
+\cite{broadbent-karvonen-2022} call an \emph{initial class of attacks}.
 
 \begin{dfn}
   Let $\cat{C}$ be a symmetric monoidal category with attack model $\AA$. Let
@@ -2349,7 +2414,7 @@ class of attacks}.
 
 \begin{ex}
   When $\AA$ is the maximal attack model, any map $f: x\to y$ has an initial
-  attack given by just $1_x$. This corresponds to the dummy adversary in UC.
+  attack given by just $1_x$. This corresponds to the trivial adversary in UC.
 \end{ex}
 
 \begin{thm}
@@ -2375,10 +2440,409 @@ class of attacks}.
   by definition of $a_x$ and $a_1$. This is the desired result.
 \end{proof}
 
+Finally, the following lemma is a helpful computational tool.
+
+\begin{prop}
+  Let $\cat{C}_1,\dots,\cat{C}_N$ be symmetric monoidal categories with attack
+  models $\AA_1,\dots,\AA_N$. Let $f_1,\dots,f_N$ be morphisms in the respective
+  categories and let $X_1,\dots,X_N$ be initial subcollections of $\AA_i f$.
+  Then $\prod_{i=1}^N X_i$ is an initial subcollection of $\prod_{i=1}^N \AA_i f_i$.
+\end{prop}
+
+\begin{proof}
+  Given an attack $(a_1,\dots,a_N)\in\prod_{i=1}^N \AA_i f_i$ with $\dom a_i =
+  \dom f_i$, factor it componentwise, and assemble the resulting attacks into an
+  attack in $\prod_{i=1}^N X_i$.
+\end{proof}
+
+% \begin{prop}
+%   Let $\cat{C}$ be a symmetric monoidal category with attack model $\AA$.
+%   Suppose that for every morphism $f\in\cat{C}$, there is an initial
+%   subcollection $X_f\subseteq\AA f$. Given a comb $(\sigma, [\xi_1, \dots,
+%   \xi_{n+1}])$, define a class $X$ of combs in $\ncomb{\cat{C}}$ consisting of
+%   exactly those combs $(\sigma, [x_1, \dots, x_{n+1}])$ such that
+%   $x_i\in X_{\xi_i}$. This is an initial subcollection of attacks on the given
+%   comb, and furthermore this result extends to lists of combs.
+% \end{prop}
+%
+% \begin{proof}
+%   We need to show that any attack factors in the desired way. Given an attack
+%   $(\sigma, [a^1, \dots, a^{n+1}])$ on the comb, factor each $a_i$ into $a_x^i$
+%   and $a_1^i$ as guaranteed by the definition of an initial subcollection.
+%   Assemble these attacks into a comb $(\sigma, [a_x^1, \dots, a_x^{n+1}])$,
+%   which is in $X$, and a comb $(\sigma, [a_1^1, \dots, a_1^{n+1}])$, which is an
+%   attack on the identity comb.
+% \end{proof}
+
+\subsection{The One-Time Pad}
+
+Still following~\cite{broadbent-karvonen-2022}, we now show security of the
+one-time pad. We equip $\cat{C}^3$ with the product attack model, where $A$ and
+$B$ have the honest attack model, and $E$ has the maximal attack model. This
+induces an attack model on $\ncomb{\cat{C}^3}$
+by~\Cref{def:n-comb-attack}.
+
+First, note that the eavesdropper has an initial attack given by computing the
+identity. To prove security, we need to give an attack on the ideal protocol \[
+  \begin{pic}
+    \draw (0,0) node[left] {$A$} node[right, xshift=3mm, yshift=1mm]
+    {\normalsize.} to ++(0, 1.5) node[left] {$B$};
+    % \node[dot, fill=black] (bm) at ($(keydist) + (0, 1)$) {};
+    %   \draw (bm) to[out=90, in=0] ++(-.6, .8) node[dot, fill=black] (am) {};
+    %   \draw (am) to[out=180, in=90] ++(-.6, -.8) to ++(0, -2.2) node[left] {$A$};
+    %   \draw (am) to ++(0, .5) node[left] {$B$};
+  \end{pic}
+\] Such an attack can have $E$ compute any map on their own, without any
+interaction with $A$ and $B$, while $A$ and $B$ must compute exactly this
+resource. We will choose the map \[
+  \begin{pic}
+    \draw (0,0) node[left] {$A$} node[right, xshift=3mm, yshift=1mm]
+    {\normalsize.} to ++(0, 1.5) node[left] {$B$};
+    \draw (-1,.5) node[state, scale=.75] {\normalsize\$} to ++(0, .8) node[left]
+    {$E$};
+  \end{pic}
+\]
+\begingroup
+  \allowdisplaybreaks
+Now we just compute: \begin{align*}
+  \begin{pic}
+    \node[dot, fill=black] (am) at (0,0) {};
+    \node[dot, fill=white] (copy) at (0, .6) {};
+    \node[dot, fill=white] (keydist) at (.8, -.5) {};
+    \node[dot, fill=black] (bm) at (.8, 1.1) {};
+    \draw (am) to[out=180, in=90] ++(-.5, -.5) to ++(0, -1) node[left] {$A$};
+    \draw (am) to (copy);
+    \draw (am) to[out=0, in=180] (keydist) node[left, xshift=-3mm] {$A$};
+    \draw (keydist) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (keydist) node[right, xshift=3mm] {$B$} to[out=0, in=-90] ++(.5, .5)
+    to ++(0, .3) node[dot, fill=black] {} to++(0, .3) node[above right, xshift=-.5mm] {$B$} to[out=90, in=0] (bm);
+    \draw (copy) node[above right, yshift=1mm] {$B$} to[out=0, in=180] (bm);
+    \draw (copy) to[out=180, in=-90] ++(-.5, .5) node[left] {$E$} to ++(0, .2);
+    \draw (bm) to ++(0, .6) node[left] {$B$};
+  \end{pic}\quad&\xequals{\eqref{eqn:mult-deterministic}}\quad
+  \begin{pic}
+    \node[dot, fill=white] (copy1) at (-.3,0) {};
+    \node[dot, fill=white] (copy2) at (.3,0) {};
+    \node[dot, fill=black] (mult1) at (-.3, .6) {};
+    \node[dot, fill=black] (mult2) at (.3, .6) {};
+    \node[dot, fill=white] (keydist) at (.8, -.5) {};
+    \node[dot, fill=black] (bm) at (.8, 1.1) {};
+    \draw (copy1) to[out=170, in=190] (mult1);
+    \draw (copy2) to[out=10, in=-10] (mult2);
+    \draw (copy1) to (mult2);
+    \draw (copy2) to (mult1);
+    \draw (copy1) -- ++(0, -1.5) node[left] {$A$};
+    \draw (copy2) to[out=-90, in=180] (keydist);
+    \draw (keydist) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (keydist) to[out=0, in=-90] ++(.5, .5)
+    to ++(0, .3) node[dot, fill=black] {} to++(0, .3) to[out=90, in=0] (bm);
+    \draw (mult2) to[out=90, in=180] (bm);
+    \draw (mult1) to ++(0, .5) node[left] {$E$};
+    \draw (bm) to ++(0, .6) node[left] {$B$};
+  \end{pic} \\
+  &\xequals{\eqref{eqn:coassociative}}\quad
+  \begin{pic}
+    \node[dot, fill=white] (copy1) at (-.3,-.7) {};
+    \node[dot, fill=white] (copy2) at (.3,-.7) {};
+    \node[dot, fill=black] (mult1) at (-.3, .45) {};
+    \node[dot, fill=black] (mult2) at (.3, .45) {};
+    \node[dot, fill=white] (keydist) at (.8, -.2) {};
+    \node[dot, fill=black] (bm) at (.8, 1.1) {};
+    \draw (copy1) to[out=170, in=190] (mult1);
+    \draw (copy2) to[out=10, in=-90] (keydist);
+    \draw (copy1) to (mult2);
+    \draw (copy2) to (mult1);
+    \draw (copy1) -- ++(0, -1) node[left] {$A$};
+    \draw (copy2) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (keydist) to[out=0, in=-90] ++(.5, .5)
+    to ++(0, .15) node[dot, fill=black] {} to++(0, .15) to[out=90, in=0] (bm);
+    \draw (keydist) to[out=180, in=-90] ++(-.5, .5) to (mult2);
+    \draw (mult2) to[out=90, in=180] (bm);
+    \draw (mult1) to ++(0, .5) node[left] {$E$};
+    \draw (bm) to ++(0, .6) node[left] {$B$};
+  \end{pic} \\
+  &\xequals{\eqref{eqn:monoid associative}}\quad
+  \begin{pic}
+    \node[dot, fill=white] (copy1) at (-.3,-.7) {};
+    \node[dot, fill=white] (copy2) at (.3,-.7) {};
+    \node[dot, fill=black] (mult1) at (-.3, 1.3) {};
+    \node[dot, fill=black] (mult2) at (.3, 1.3) {};
+    \node[dot, fill=white] (keydist) at (.8, -.2) {};
+    \node[dot, fill=black] (bm) at (.8, .8) {};
+    \draw (copy1) to[out=170, in=190] (mult1);
+    \draw (copy2) to[out=10, in=-90] (keydist);
+    \draw (copy1) to (mult2);
+    \draw (copy2) to (mult1);
+    \draw (copy1) -- ++(0, -1) node[left] {$A$};
+    \draw (copy2) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (keydist) to[out=0, in=-90] ++(.5, .5)
+     node[dot, fill=black] {} to[out=90, in=0] (bm);
+     \draw (keydist) to[out=180, in=-90] ++(-.5, .5) to[out=90, in=180] (bm);
+    \draw (mult2) to[out=0, in=90] (bm);
+    \draw (mult1) to ++(0, .5) node[left] {$E$};
+    \draw (mult2) to ++(0, .5) node[left] {$B$};
+  \end{pic} \\
+  &\xequals{\eqref{eqn:inverse}} \quad
+  \begin{pic}
+    \node[dot, fill=white] (copy1) at (-.3,-.7) {};
+    \node[dot, fill=white] (copy2) at (.3,-.7) {};
+    \node[dot, fill=black] (mult1) at (-.3, 1.3) {};
+    \node[dot, fill=black] (mult2) at (.3, 1.3) {};
+    \node[dot, fill=white] (keydist) at (.8, -.2) {};
+    \node[dot, fill=black] (bm) at (.8, .8) {};
+    \draw (copy1) to[out=170, in=190] (mult1);
+    \draw (copy2) to[out=10, in=-90] (keydist);
+    \draw (copy1) to (mult2);
+    \draw (copy2) to (mult1);
+    \draw (copy1) -- ++(0, -1) node[left] {$A$};
+    \draw (copy2) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (mult2) to[out=0, in=90] (bm);
+    \draw (mult1) to ++(0, .5) node[left] {$E$};
+    \draw (mult2) to ++(0, .5) node[left] {$B$};
+  \end{pic} \\
+  &\xequals{\eqref{eqn:counital}}\quad
+  \begin{pic}
+    \node[dot, fill=white] (copy1) at (-.3,-.7) {};
+    \node[dot, fill=black] (mult1) at (-.3, 1.3) {};
+    \node[dot, fill=black] (mult2) at (.8, .2) {};
+    \node[dot, fill=black] (bm) at (1.4, -.4) {};
+    \draw (copy1) to[out=170, in=190] (mult1);
+    \draw (copy1) to[out=10, in=190] (mult2);
+    \draw (copy1) -- ++(0, -1) node[left] {$A$};
+    \draw (mult1) to[out=-10, in=90] ++(.5, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (mult2) to[out=0, in=90] (bm);
+    \draw (mult1) to ++(0, .5) node[left] {$E$};
+    \draw (mult2) to ++(0, .5) node[right] {$B$};
+  \end{pic} \\
+  &\xequals{\eqref{eqn:monoid unital}}\quad
+  \begin{pic}
+    \node[dot, fill=white] (copy1) at (-.3,-.7) {};
+    \node[dot, fill=black] (mult1) at (-.3, 1.3) {};
+    \draw (copy1) to[out=170, in=190] (mult1);
+    \draw (copy1) to[out=10, in=-90] (.8, .2) to ++(0, .5) node[right] {$B$};
+    \draw (copy1) -- ++(0, -1) node[left] {$A$};
+    \draw (mult1) to[out=-10, in=90] ++(.5, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (mult1) to ++(0, .5) node[left] {$E$};
+  \end{pic} \\
+  &\xequals{\eqref{eqn:random-invariance}}\quad
+  \begin{pic}
+    \node[dot, fill=white] (copy1) at (-.3,-.7) {};
+    \node[state, scale=.75] (rand) at (-.3, .5) {\normalsize\$};
+    \draw (copy1) to[out=170, in=-90] ++(-.5, .5) node[dot, fill=white] {};
+    \draw (copy1) to[out=10, in=-90] (.8, .2) to ++(0, .5) node[right] {$B$};
+    \draw (copy1) -- ++(0, -1) node[left] {$A$};
+    \draw (rand) to ++(0, .5) node[left] {$E$};
+  \end{pic} \\
+  &\xequals{\eqref{eqn:counital}}\quad
+  \begin{pic}
+    \draw (0,0) node[left] {$A$} node[right, xshift=3mm, yshift=1mm]
+    {\normalsize.} to ++(0, 1.5) node[left] {$B$};
+    \draw (-1,.5) node[state, scale=.75] {\normalsize\$} to ++(0, .8) node[left]
+    {$E$};
+  \end{pic}
+\end{align*}
+\endgroup
+
+This is the entire proof.
+
+\subsection{A 2-Categorical Generalization}
+\label{sec:2-cat}
+
+In many situations in cryptography, we want to consider not
+equality of protocols, but rather some weaker notion of indistinguishability or
+even an asymmetric reducibility relation. There is a natural categorical model
+of such settings, in the form of \emph{2-categories}, in which there are not
+only morphisms between objects, but also 2-morphisms between morphisms, which we
+think of as encoding reductions. We now present an original generalization of
+the above theory to this setting.
+
+\begin{dfn}
+  A (strict) \emph{2-category} $\cat{C}$ consists of:
+  \begin{itemize}
+    \item A collection of \emph{0-cells};
+    \item For each pair of 0-cells $x,y$, a category $\cat{C}(x, y)$, whose
+      objects are called \emph{1-cells} and whose morphisms are called
+      \emph{2-cells};
+    \item For each triple of 0-cells $x,y,z$, a functor $\circ_{x,y,z}: \cat{C}(y, z)\times \cat{C}(x, y)\to \cat{C}(x, z)$;
+    \item For each 0-cell $x$, an identity 1-cell $1_x\in\cat{C}(x, x)$.
+  \end{itemize}
+  The functor $\circ$ must be unital and associative; see for instance~\cite{kelly-1981}.
+\end{dfn}
+
+Let us ``unroll'' what this definition says. We have 1-cells between 0-cells,
+and 2-cells between 1-cells. There is one way to compose 1-cells, via the
+functor $\circ$, but two ways to compose 2-cells: within their own hom-category,
+via its internal composition, or with those from other hom-categories, via
+$\circ$. The situation is identical to the vertical and horizontal composition
+of natural transformations, and thus this is the fundamental example:
+
+\begin{ex}
+  The category of categories $\scat{Cat}$ is a 2-category, where the 0-cells are
+  categories, the 1-cells are functors, and the 2-cells are natural
+  transformations.
+\end{ex}
+
+\begin{ex} There are many more examples of 2-categories.
+  \begin{itemize}
+    \item Any ordinary category is a 2-category with no non-identity 2-cells.
+    \item Suppose that $\cat{C}$ is a category endowed with equivalence
+      relations $\sim$ on each of its hom-sets, such as $\scat{PPT}$ with
+      computational indistinguishability of outputs, such that if $f\sim g$ and
+      $h\sim k$, and the composites exist, then $hf\sim kg$. Then $\cat{C}$
+      forms a 2-category with a unique 2-cell between morphisms if and only if
+      they $\sim$-relate. The horizontal composition is by the compatibility law
+      and the vertical composition is by transitivity.
+    \item Let $L$ be a functional programming language endowed with rewrite rules,
+      such as $\alpha\beta\eta$ reductions in the lambda calculus, which are
+      strongly normalizing\footnote{Logicians know this assumption as
+      \emph{cut elimination}.}. Then the associated category $\cL$ is a 2-category
+      with reductions as 2-cells~\cite{seely-1987b}. Such 2-categories have been
+      previously used for operational semantics~\cite{baez-2019}.
+  \end{itemize}
+\end{ex}
+
+The value of the generalization is in the last two examples: if our
+computations are enriched with a notion of reduction, such as the existence of a
+simulator which may produce the output of one morphism given the output of
+another, then a 2-categorical approach takes advantage of that extra structure.
+
+We have phrased the preceding sections in such a way as to make the
+generalization as painless as possible. We let $\cat{E}$ be a monoidal
+2-category (meaning one endowed with a 2-functor $\otimes$ satisfying certain
+axioms), and modify \Cref{def:sec-condition} to ask for the
+existence of a 2-cell\footnote{
+  It may seem that the 2-cell should go the other direction, but we choose this
+  direction as representing the ability to convert the output of the ideal
+  adversary into the output of the real adversary. The definitions have
+  equivalent expressive power by taking the dual of all the hom-categories.
+} \[
+  \begin{tikzcd}
+    I\ar[r, "s"]\ar[d, "t"'] & GFx\ar[d, "Ga"]\\
+    GFy\ar[r, "Ga'"']\ar[ur, shorten <>=10pt, Rightarrow] & G\cod a\punctuation{.}
+  \end{tikzcd}
+\]
+In all the proofs, we paste such squares in the same orientation, so they go
+through as is. The only issue is in the proof
+of~\Cref{thm:closed-under-monoidal}, where we need that the tensor of two
+2-cells still yields a 2-cell, but this is exactly what we mean by
+2-functorality of $\otimes$.
+
+Notice that, in this treatment, we only give $\cat{E}$ a 2-categorical
+structure. It is possible to ask that the other categories and functors are
+their 2-categorical equivalents, but this turns out to be a lot of extra work
+for little-to-no extra expressive power, because we only end up using the 2-cell
+structure on $\cat{E}$. A further generalization is possible to
+\emph{bicategories}, in which case this extra structure ends up being necessary
+to make the proofs work, but we have preferred the strict approach here for its
+easy relation to the 1-categorical case.
+
 \section{Conclusion}
 \subsection{Evaluation}
 \label{sec:evaluation}
 
+We conclude this chapter by returning once more to the questions
+from~\Cref{sec:composition-issues}. 
+
+In~\Cref{q:composed-protocols}, we asked which kinds of protocols can be
+composed. An major advantage of this kind of axiomatic algebraic approach is
+that it can model a very general class of computations; we have, for instance,
+discussed how probabilistic, quantum, and other effectful forms of computation
+can all be represented as symmetric monoidal categories. The literature on
+resource theories and on categorical representations of quantum protocols is in
+particular quite extensive. However, while we suspect that virtually any
+individual protocol can be represented via a suitable categorical construction,
+there are open questions about whether the system as a whole can be cohesively
+reasoned about; for instance, we saw in~\Cref{sec:interactive proof}
+that it is difficult to represent polymorphic channels using the current tools
+in the literature. Representing this kind of more complicated resources likely
+requires increasingly sophisticated categorical constructions, removing some of
+the comparative complexity advantages of the framework.
+
+In~\Cref{q:composition-meaning}, we asked how we compose protocols. The
+composition operation must satisfy the axioms of a symmetric monoidal category,
+which have been widely used for modelling computational composition.
+In~\Cref{q:allowed-composition}, we asked about the scope of this
+composition definition; here we see some potential limitations. It is not clear
+that the flexibility of the universal composition operation from UC can be
+matched by monoidal composition. Issues like asynchronous network conditions,
+adversarial schedulers, and dynamic subroutine calling are all covered by
+of UC, but are typically handled by more sophisticated categorical machinery out
+of the scope of the composition theorem.
+
+In~\Cref{q:preserved-security}, we asked what notion of security the
+composition theorem preserves. A major advantage of the categorical machinery is
+that protocols ``come with'' types, so that we know the ideal functionality for
+a protocol immediately by construction: it is the identity on the codomain. The
+security definition says that the ideal adversary can be used to simulate the
+real adversary, represented by the presence of a certain 2-cell. These 2-cells
+potentially allow modelling situations like the environment from UC, where two
+protocols are required to be indistinguishable throughout their execution; we
+leave this for future work.
+
+In~\Cref{q:adversarial-model}, we asked about the model of adversarial
+behavior. The categorical framework is based around the notion of an
+\emph{attack model}, which seems to be fairly general. However, the author is
+uncertain about the correctness of~\Cref{item:am-con-fact} of the
+definition. In particular, it may be that the two attacks need to commmunicate
+with each other \emph{during the run of the protocol}, rather than combining
+their states together at the end. This is not \emph{a priori} impossible with
+this definition, but it seems to require a more sophisticated monoidal structure
+along the lines of the product of 1-combs in
+\eqref{eqn:product-1-comb}, rather than the concatenations we
+have constructed here.
+
+In~\Cref{q:compose-with}, we asked which protocols the composition
+theorem lets us compose with. Crucially, the composition theorem requires that
+\emph{all} protocols being composed are secure. This is a much weaker result
+than that of UC, which guarantees that simulatability properties still hold even
+if a secure sub-protocol is substituted for an ideal functionality in an
+insecure larger protocol.
+
+Finally, in~\Cref{q:count-compositions}, we asked how many times we can
+compose. The composition theorem works only a constant number of times, and it
+is unclear how to extend it to polynomially-many compositions; this is related
+to the lack of a dynamic composition operation discussed earlier.
+
+In the end, we think that the categorical model is more expressive
+computationally, thanks to axiomatizing the properties a computational model
+ought to have, but less expressive cryptographically, lacking the flexibility of
+the universal composition operation and the breadth of the UC general
+composition theorem. It is possible that this could be resolved with more
+sophisticated underlying categorical structure, but this would remove the
+comparative complexity advantage of the categorical model. However, the
+categorical framework does admit elegant diagrammatic descriptions of protocols
+and security proofs, which are likely very valuable for describing complex
+cryptographic protocols.
+
+% \begin{questions}
+%   \item What kinds of protocols are being composed? Our security definitions do not
+%     capture security of arbitrary interactive processes, so either we will
+%     need a substantially more general definition or we will need to limit
+%     our composition theorem to a specific class of
+%     protocols.\label{q:composed-protocols}
+%   \item What does it mean to compose these protocols? It is not immediately
+%     clear how to compose arbitary interactive
+%     algorithms.\label{q:composition-meaning}
+%   \item What kind of composition is allowed? In particular, we can
+%     consider \emph{sequential composition}, in which only one protocol is
+%     ``running'' simultaneously, or \emph{parallel composition}, in which many
+%     protocols may be running simultaneously. To formally state a parallel
+%     composition theorem, we need to either specify a \emph{scheduling model} and
+%     deal with low-level issues like atomicity, or find some way to abstract over
+%     these details.\label{q:allowed-composition}
+%   \item What kind of security is being preserved? Given a security definition
+%     for the component protocols, we need some say to derive the security
+%     definition for the composite protocol.\label{q:preserved-security}
+%   \item What kinds of adversaries does the theorem handle? Composition theorems
+%     may look very different for security against uniform and non-uniform
+%     adversaries, for instance---these subtle issues can lead to very different
+%     results.\label{q:adversarial-model}
+%   \item What protocols are we allowed to compose with? We could be allowed to
+%     compose with arbitrary protocols, which might not even be secure, or only
+%     with other protocols we already know are secure.\label{q:compose-with}
+%   \item How many times we can compose---for instance, must it be constant in the
+%     security parameter?\label{q:count-compositions}
+% \end{questions}
 
 \subsection{Paths Not Taken}
 
