@@ -6,12 +6,20 @@ categories of protocols with certain constructions on categories; as such, our
 notions of interaction and security are completely independent of the underlying
 model of computation.
 
-[todo: lots more intro,
-cite \cite{broadbent-karvonen-2022};
-categorical crypto theories~\cite{hines-2020,pavlovic-2012,pavlovic-2014,stay-vicary-2013},
-categories for specific crypto protocols~\cite{bkm-2019, bmr-2019}; categorical
-qm
-\cite{abramsky-coecke-2004,coecke-perdrix-2012,heunen-vicary-2014,coecke-kissinger-2017,chitambar-gour-2019}]
+There have been several attempts to use category theory for
+cryptography~\cite{hines-2020,pavlovic-2012,pavlovic-2014,stay-vicary-2013,bkm-2019,bmr-2019},
+but all on the level of individual protocols; except
+for~\cite{broadbent-karvonen-2022}, none of them handle composition. The area of
+categorical quantum mechanics is especially active
+\cite{abramsky-coecke-2004,coecke-perdrix-2012,heunen-vicary-2014,coecke-kissinger-2017,chitambar-gour-2019},
+in which categorical structures are used to give semantics about quantum
+protocols; most of the tools we develop in~\Cref{sec:protocols}
+originated in this line of work.
+
+This section is primarily an exposition of the model of categorical cryptography
+due to \citeauthor{broadbent-karvonen-2022}~\cite{broadbent-karvonen-2022}. We
+will be clear where we believe our contributions to be original, but even there
+are hugely indebted to their work. As usual, any mistakes are our own.
 
 \section{Computation}
 \label{sec:computation}
@@ -100,8 +108,6 @@ $\denote{-}$. As this argument indicates, there is a functor $\denote{-}:
 \scat{Comp}\to\scat{BinComp}$; in fact this functor is an \emph{equivalence of
 categories}. Nevertheless, the expanded perspective provided by $\scat{Comp}$ will be
 convenient.
-
-% [TODO: SMC structure]
 
 Finally, we now define a symmetric monoidal structure on \scat{Comp}.
 In particular, for two binary-encoded sets $X$ and $Y$, we would like to define
