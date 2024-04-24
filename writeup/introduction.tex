@@ -1,5 +1,3 @@
-
-
 To first approximation, cryptography is the \emph{mathematical study of secure
 computation}. In a computation, we want to use \emph{protocols} to transform
 \emph{resources}. For a computation to be secure, it must successfully resist
@@ -30,10 +28,17 @@ A natural way out is to give an axiomatization of the properties such a machine
 model, or a theory of cryptography generated from it, should satisfy. If a
 composition theorem can be proven for any theory satisfying these axioms, then
 proofs would not have to use complex machine models except when that complexity
-is necessary to the development of the protocol.
+is necessary to the development of the protocol. We need an algebric model of
+computation for this to work: category theory is such a model.
 
-Cryptography has a composition problem: category theory is a mathematical theory
-of composition.
+Category theory was first used for cryptographic composability by
+\citeauthor{broadbent-karvonen-2022}~\cite{broadbent-karvonen-2022}. While we
+give several original contribution in
+\Cref{chap:categorical-cryptography},
+to first order, this thesis is an exposition and evaluation of their framework.
+The key idea is that category theory gives us sensible boundaries of
+abstraction: we can separately treat computation, interaction, and security, and
+evaluate each such treatment on their own.
 
 In some sense, this thesis has three goals: to give cryptographers the necessary
 background in category theory to evaluate categorical frameworks for themselves,
@@ -61,3 +66,22 @@ several standard topics of substantial interest to computer scientists. Category
 theorists who are comfortable working with string diagrams can safely skip this
 chapter, though there are several examples of computational applications that
 may be of interest.
+
+In \Cref{chap:categorical-cryptography},
+we present the model of~\cite{broadbent-karvonen-2022}. We also present several
+original contributions.
+In \Cref{sec:ef-comp}, we
+show how to combine binary-encoded sets with Kleisi categories to give
+categorical models of computationally-bounded, effectful computation. In
+\Cref{sec:extensions}, we give
+several extensions to the semantics of protocols
+of~\cite{broadbent-karvonen-2022}, including tools for simultaneously handling
+single- and multi-use resources, and for modelling protocols with correlated
+input. In \Cref{sec:interactive proof},
+we use these novel tools to give a categorical correctness definition for
+interactive proofs. In
+\Cref{sec:2-cat}, we
+generalize the model of~\cite{broadbent-karvonen-2022} to a 2-categorical
+setting. Finally, in \Cref{sec:conclusion}, we discuss
+several other lines of work, and give a heurstic comparison between the
+categorical model and Universal Composability.
