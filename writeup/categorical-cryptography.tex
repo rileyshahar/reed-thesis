@@ -1,4 +1,4 @@
-i theory of cryptography should define at least four things: computation,
+i theory of cryptography should define at least four objects: computation,
 protocols, adversarial behavior, and security. A major advantage of categorical
 models of cryptography is that they conveniently separate these issues. In
 particular, we have some underlying category of computations, while we represent
@@ -16,7 +16,7 @@ in which categorical structures are used to give semantics about quantum
 protocols; most of the tools we develop in~\Cref{sec:protocols}
 originated in this line of work.
 
-This section is primarily an exposition of the model of categorical cryptography
+This chapter is primarily an exposition of the model of categorical cryptography
 due to \citeauthor{broadbent-karvonen-2022}~\cite{broadbent-karvonen-2022}. We
 will be clear where we believe our contributions to be original, but even there
 are hugely indebted to their work. As usual, any mistakes are our own.
@@ -70,8 +70,8 @@ ourselves to working only with binary strings:
 
 In practice, however, we like to think of computations as working over arbitrary
 sets, which in particular may have more algebraic structure than sets of binary
-strings. Our strategy, following~\cite{pavlovic-2014}, will be to work over sets
-with fixed binary encodings.
+strings. Our strategy, which essentially expands on that
+of~\cite{pavlovic-2014}, will be to work over sets with fixed binary encodings.
 \begin{dfn}[binary-encoded set]
   A \emph{binary-encoded set} is a set $X$ together with an injection
   $\denote{-}_X: X\to\bin^*$, called the \emph{encoding}.
@@ -160,41 +160,44 @@ and composition commutes with $\denote{-}$, so the composite of computable
 functions is computable. Furthermore, this category is symmetric monoidal, with
 pairing of encodings as in \scat{Comp}.
 
-We give a more abstract characterization of this category. There
-are only countably many computable probability distributions on $\bin^*$, since
-there are only countably many Turing machines. Fix a choice $\varphi$ of
-bijection witnessing this fact. Note further that any probability distribution
-$P$ on a binary-encoded set $X$ induces a probability distribution
-$\denote{P}$ on $\bin^*$ by \[
-  \Pr_{s\from \denote{P}}[s = s_0] = \Pr_{x\from P}[\denote{x} = s_0].
-\]
-There is now a monad $G_c: \scat{Comp}\to\scat{Comp}$, which we call the
-\emph{computable Giry monad}, which takes any binary-encoded set $X$ to the set
-of computable probability distributions on $X$, i.e. those such that
-$\denote{P}$ is a computable probability distribution on $\bin^*$, with encoding
-given by $\denote{P}_{G_c X} = \varphi(\denote{P}_X)$. Given $f: X\to Y$ and
-$P\in G_c X$, we define the probability distribution $G_c f(P)$ on $Y$ by
-\[
-  \Pr_{y\from G_c f(P)}[y = y_0] = \Pr_{x\from P}[f(x) = y_0].
-\]
-The unit of $G_c$ is the function $X\to G_c X$ taking $x$ to the point
-distribution at x. The multiplication is the function $\mu_X: G_c G_c X\to G_c X$
-acting by summation: given a probability distribution $Q$ on $G_c X$, we define
-a distribution $\mu_X (Q)$ on $X$ by \begin{equation*}\label{eqn:giry-sum}
-  \Pr_{x\from \mu_X(Q)}[x = x_0] = \sum_{P_0\in G_c X} \Pr_{P\from Q}[P =
-  P_0]\Pr_{x\from P}[x = x_0],
-\end{equation*}which converges because $Q$ is a probability distribution. The proofs of
-functorality and the monad laws as exactly as for the ordinary Giry
-monad~\cite{giry-1982}, so we do not give them here. Now \scat{CompStoch} is in
-fact (isomorphic to) the Kleisi category of $G_c$.
+We give a more abstract characterization of this category, which to our
+knowledge is original to us, though it is an easy extension of standard ideas.
+This idea uses some machinery---\emph{monads} and their \emph{Kleisi
+categories}---we have not introduced, but it may be safely skipped.
+
+There are only countably many computable probability distributions on $\bin^*$,
+since there are only countably many Turing machines. Fix a choice $\varphi$ of
+bijection from probability distributions on $\bin^*$ to $\bin^*$. Note further
+that any probability distribution $P$ on a binary-encoded set $X$ induces a
+probability distribution $\denote{P}$ on $\bin^*$ by \[ \Pr_{s\from
+\denote{P}}[s = s_0] = \Pr_{x\from P}[\denote{x} = s_0]. \] There is now a monad
+$G_c: \scat{Comp}\to\scat{Comp}$, which we call the \emph{computable Giry
+monad}, which takes any binary-encoded set $X$ to the set of computable
+probability distributions on $X$, i.e. those such that $\denote{P}$ is a
+computable probability distribution on $\bin^*$, with encoding given by
+$\denote{P}_{G_c X} = \varphi(\denote{P}_X)$. Given $f: X\to Y$ and $P\in G_c
+X$, we define the probability distribution $G_c f(P)$ on $Y$ by \[ \Pr_{y\from
+  G_c f(P)}[y = y_0] = \Pr_{x\from P}[f(x) = y_0]. \] The unit of $G_c$ is the
+  function $X\to G_c X$ taking $x$ to the point distribution at x. The
+  multiplication is the function $\mu_X: G_c G_c X\to G_c X$ acting by
+  summation: given a probability distribution $Q$ on $G_c X$, we define a
+  distribution $\mu_X (Q)$ on $X$ by \begin{equation*}\label{eqn:giry-sum}
+  \Pr_{x\from \mu_X(Q)}[x = x_0] = \sum_{P_0\in G_c X}
+\Pr_{P\from Q}[P = P_0]\Pr_{x\from P}[x = x_0], \end{equation*}which converges
+because $Q$ is a probability distribution. The proofs of functorality and the
+monad laws are exactly as for the ordinary Giry monad~\cite{giry-1982}, so we do
+not give them here. Now \scat{CompStoch} is in fact (isomorphic to) the Kleisi
+category of $G_c$.
 
 \subsection{Efficient and Effectful Computation}
 
-Suppose that we are given some wide subcategory \scat{EffBin} of \scat{BinComp},
-for instance that of poly-time computable maps. We can define the category
-\scat{EffComp} of efficient computations as the wide subcategory of \scat{Comp}
-consisting of morphisms $f$ whose encodings $\denote{f}$ are in $\scat{EffBin}$:
-this is the \emph{preimage} of $\scat{EffBin}$ under the functor $\denote{-}$.
+Suppose that we are given some wide\footnote{A subcategory is \emph{wide} if it
+contains all the objects; equivalently, if it contains all the identities.}
+subcategory \scat{EffBin} of \scat{BinComp}, for instance that of poly-time
+computable maps. We can define the category \scat{EffComp} of efficient
+computations as the wide subcategory of \scat{Comp} consisting of morphisms $f$
+whose encodings $\denote{f}$ are in $\scat{EffBin}$: this is the \emph{preimage}
+of $\scat{EffBin}$ under the functor $\denote{-}$.
 
 \begin{dfn}
   The category \scat{P} of poly-time computable maps is the wide subcategory
@@ -215,10 +218,15 @@ We can similarly define the category \scat{EffCompStoch}.
 In general, we can perform this construction for any complexity class $C$ which
 is closed under composition.
 
-Even more generally, let \scat{Bin} be the category of sets of binary strings and
-(maybe uncomputable) set-functions between them. Let \scat{Enc} be the category
-of binary-encoded sets and (maybe uncomputable) set-functions between them. Then
-$\denote{-}$ is an equivalence of categories $\scat{Enc}\simeq \scat{Bin}$.
+Even more generally, we can combine the idea of~\cite{pavlovic-2014} to use
+binary-encoded sets with the standard use in programming language theory of the
+Kleisi category of a monad as a model of effectful computation; to our knowledge
+this combination is original, but again is a very straightforward combination of
+these two standard ideas. Let \scat{Bin} be the category of sets of binary
+strings and (maybe uncomputable) set-functions between them. Let \scat{Enc} be
+the category of binary-encoded sets and (maybe uncomputable) set-functions
+between them. Then $\denote{-}$ is an equivalence of categories
+$\scat{Enc}\simeq \scat{Bin}$.
 
 Now let \scat{EffBin} be any subcategory of \scat{Bin}. Then the \emph{category
 of efficient computations} \scat{Eff} is the subcategory of \scat{Enc}
@@ -301,7 +309,7 @@ a special case.
 The categorical semantics of interactive computation, and in particular of
 protocols, originates from the study of quantum cryptography, especially of
 so-called \emph{resource theories}~\cite{coecke-2016}. The idea is to start with
-some underlying SMC $\cat{C}$ of computations---fixed throughout this
+some underlying symmetric monoidal category $\cat{C}$ of computations---fixed throughout this
 section---and to construct a category of ``protocols built from computations in
 $\cat{C}$.'' Exactly which such construction we choose depends on what we want
 our protocols to look like.
@@ -311,23 +319,6 @@ resources and morphisms as protocols, which convert some resources into others.
 For instance, in the category $\ncomb{\cat{C}}$, morphisms will be ``protocols with
 holes''---when instantiated with specific implementations of the resources they
 are waiting for, they provide some new resource.
-
-\subsection{Products}
-
-While the product category is used implicitly in the definition of monoidal
-categories, it is worth exploring it explicitly. Given two categories $\cat{C}$
-and $\cat{D}$, the \emph{product category} $\cat{C}\times\cat{D}$ has:
-\begin{itemize}
-  \item as objects, pairs $(X,Y)$ of objects in $\cat{C}$ and $\cat{D}$;
-  \item as morphisms $(X,Y)\to (X',Y')$, pairs $(f,g)$ of morphisms so that $f:
-    X\to X'$ and $g: Y\to Y'$;
-  \item composition and identities defined componentwise.
-\end{itemize}
-
-When $\cat{C}$ and $\cat{D}$ are categories of computations, we think of
-$\cat{C}\times\cat{D}$ as a category of non-interfering parallel computations: a
-computation in $\cat{C}\times\cat{D}$ is a computation in $\cat{C}$ and a
-computation in $\cat{D}$, but they cannot interact.
 
 \subsection{States}
 
@@ -345,8 +336,14 @@ generally, motivating the following definition.
   X$ for some object $X$.
 \end{dfn}
 
-As we know, it is easy to recognize states string-diagramatically: they are
+As we know from \Cref{sec:string diagrams},
+it is easy to recognize states string-diagramatically: they are
 downward-pointing triangles.
+
+In general, we think of $\hom(I, -)$ as a functor identifying an ``underlying
+set'' of objects in a monoidal category, even when the category is not concrete.
+The following definition can be made more general to other underlying set
+functors, but we will not need to do so here.
 
 \begin{dfn}[resource theory of states]
   The \emph{resource theory of states} $\state{\cat{C}}$ is the category whose objects
@@ -368,7 +365,9 @@ $I\xto{t} Y$ is just the state $I \to X\otimes Y$ given by\footnote{
     I\xto{\rho_I^{-1}} I\otimes I\xto{s\otimes t}X\otimes Y.
   \]
   Fortunately, it is a non-obvious but standard result of Kelly that $\lambda_I
-  = \rho_I$ in any SMC~\cite{kelly-1964}, so these morphisms agree.
+  = \rho_I$ in any symmetric monoidal category~\cite{kelly-1964}, so these
+  morphisms agree. As always, it is coherence theorems that make string diagrams
+  work.
 }
 \[
         \begin{pic}
@@ -400,7 +399,9 @@ $t$ is the state \[
   \end{pic}
 \]
 
-With a little more machinery: $\state{F}$ is the \emph{category of elements}
+With a little more machinery\footnote{With even more machinery: it is the comma
+category of $I/F$. This definition is useful for higher-categorical
+generalizations.}: $\state{F}$ is the \emph{category of elements}
 of the functor $\cat{D}\xto{F}\cat{C}\xto{C(I, -)}\scat{Set}$. In general, the
 category of elements of a functor $F: \cat{C}\to\scat{Set}$ has as objects pairs
 $(c, x)$ where $c\in Fx$, and as morphisms $(c, x)\to (c', x')$, maps $f: c\to
@@ -433,7 +434,7 @@ need a way to describe objects which represent more complicated forms of
 interaction; we will do so in the next two sections.
 
 It is worth remarking that more generally, we can model computations on
-$n$-party states via the category
+$N$-party states via the category
 \[
   \state{\cat{C}^N\xto{\otimes^{N-1}}\cat{C}},
 \] where the $i$th copy of $\cat{C}$ represents computations taken by the $i$th
@@ -444,8 +445,8 @@ monoidal categories}, which says that every monoidal category is equivalent to
 strict one---is that the underlying category $\cat{C}$ is strict.}.
 
 Finally, there is a forgetful functor $\Pi: \state{\cat{D}\xto{F}\cat{C}}\to
-\cat{D}$, which sends a state $I\xto FX$ to the object $X$ and a map to its
-underlying map in $\cat{D}$. This functor is monoidal, since the monoidal
+\cat{D}$, which sends a state $I\to FX$ to the object $X$ and a map to its
+underlying map in $\cat{D}$. This functor is strict monoidal, since the monoidal
 structure on $\state{\cat{D}\xto{F}\cat{C}}$ is induced by that of $\cat{D}$.
 This functor composes with $F$ to get a forgetful functor with codomain
 $\cat{C}$. We will use these functors to help organize information about the
@@ -502,7 +503,7 @@ X\otimes Z$ and $\xi_2: Y\otimes Z\to Y'$. The point is that, if we ``plug in''
 a morphism $X\to Y$ for the hole, we obtain a morphism $X'\to Y'$; $Z$
 represents some auxiliary data that isn't needed by the plugged-in morphism.
 We often call $Z$ the \emph{residual} of the comb. It is a theorem
-of~\cite{coecke-2016} that in an SMC, any morphism $X'\to Y'$ obtainable as a
+of~\cite{coecke-2016} that in a symmetric monoidal category, any morphism $X'\to Y'$ obtainable as a
 string diagram which uses exactly one occurrence of a morphism $f: X\to Y$ may
 be obtained as a 1-comb with $f$ filled in the hole.
 
@@ -536,7 +537,7 @@ $(Z, \xi_1, \xi_2): (X, Y)\to (X', Y')$ and $(Z', \xi_1', \xi_2'): (X', Y')\to
 \]
 This does indeed form a 1-comb: explicitly, the composite 1-comb is the
 tuple \[
-  ((Z\otimes Z'), (\xi_1\otimes 1_{Z'})\circ \xi_1', (1_{Z}\otimes \xi_2')\circ \xi_2).
+  ((Z\otimes Z'), (\xi_1\otimes 1_{Z'})\circ \xi_1', (\xi_2'\otimes 1_{Z})\circ \xi_2).
 \]
 
 Meanwhile, the monoidal product of 1-combs is as follows:
@@ -574,10 +575,10 @@ Meanwhile, the monoidal product of 1-combs is as follows:
     \draw (f.north east) to[out=90,in=-90] (xi2'.south west);
     \draw (xi1'.north east) to (xi2'.south east);
   \end{pic}
-\end{equation}Again, this forms a 1-comb.
+\end{equation}Again, this forms a 1-comb. The identity is the object $(I, I)$.
 
 We now return to the assertion from the beginning of the section: since a map $I\to
-I$ carries no data, a 1-comb $I\to (X, Y)$ looks like \[
+I$ carries no data, a 1-comb $(I, I)\to (X, Y)$ looks like \[
   \begin{pic}
     \node[morphism] (xi1) at (0,0) {$\xi_1$};
     \node[morphism] (xi2) at (0,1) {$\xi_2$};
@@ -594,7 +595,7 @@ into their hole\footnote{This is an extensional notion of equality of
   combs. With significantly more machinery, it is also possible to define combs
 intensionally, via so-called \emph{coend optics}~\cite{riley-2018,hefford-2023}: a 1-comb
 $(X, Y)\to (X', Y')$ is precisely an element of the set $\int^{M\in \cat{C}}
-\cat{C}(X', X\otimes M)\times\cat{C}(Y\otimes M, Y')$.}
+\cat{C}(X', X\otimes M)\times\cat{C}(Y\otimes M, Y')$.}.
 Finally, we can formally define the category.
 
 \begin{dfn}[category of flat process conversions]
@@ -649,7 +650,7 @@ Symbolically, the action of $\onecomb{F}$ is \[
   (Z, \xi_1, \xi_2)\mapsto (FZ, \phi^{-1}_{X,Z}F\xi_1, (F\xi_2)\phi_{Y,Z}).
 \] We have that $\onecomb{F}$ preserves
 identities and composition because $F$ does. Furthermore, this construction
-turns 1-comb into an endofunctor on the category of SMCs and strong monoidal
+turns 1-comb into an endofunctor on the category of symmetric monoidal categories and strong monoidal
 functors.
 
 Cryptographically, we are primarily interested in the category \[
@@ -752,16 +753,17 @@ appropriate n-comb.
 
 Generalizing the case of 1-combs, the objects in the category of n-combs should
 be finite lists of pairs of objects: a resource of type $[(X_1, Y_1), \ldots,
-(X_n, Y_n)]$ is a list of maps $X_i\to Y_i$ in $\cat{C}$. We can proceed
+(X_n, Y_n)]$, hence a morphism from the empty list to this list, should
+correspond to a list of maps $X_i\to Y_i$ in $\cat{C}$. We can proceed
 directly to defining the category, but we find it easier to first define a
-symmetric multicategory of n-combs. The advantage is that this requires us only
+symmetric multicategory of combs. The advantage is that this requires us only
 to define morphisms with one pair in the
 codomain---what~\cite{broadbent-karvonen-2022} call the ``basic
-morphisms''---and then construct a full SMC via a general procedure.
+morphisms''---and then construct a full symmetric monoidal category via a general procedure.
 
 Objects in this multicategory are pairs of objects in $\cat{C}$. Morphisms
-\[[(X_1, Y_1), \ldots, (X_n, Y_n)]\to (X', Y')\] consist of a permutation $\sigma$
-and an n-comb
+\[[(X_1, Y_1), \ldots, (X_n, Y_n)]\to (X', Y')\] consist of a permutation
+$\sigma\in S_n$ and an n-comb
 \[
   \begin{pic}
     \setlength\minimummorphismwidth{6mm}
@@ -796,21 +798,22 @@ and an n-comb
 \] The idea is that $\sigma$ encodes the order in which the protocol uses the
 input resources; we do not have to use them in the order specified by the domain
 list. Composition of general combs is as with 1-combs: given an n-comb and n
-$m_k$-combs such that the types line up, we nest each of the combs into the
-outer n-comb. This indeed gives us a symmetric multicategory.
+combs such that the types line up, we nest each of the combs into the outer
+n-comb. This indeed gives us a symmetric multicategory.
 
 We can now use the following general construction to obtain the category of
 n-combs:
 
 \begin{dfn}\label{def:associated-monoidal-category}
   Let $\cat{C}$ be a (symmetric) multicategory. Then there is an associated
-  (symmetric) monoidal category $\cat{C}^\otimes$ defined as follows:
+  strict (symmetric) monoidal category $\cat{C}^\otimes$ defined as follows:
   \begin{itemize}
     \item an object in $\cat{C}^\otimes$ is a finite list of objects in
       $\cat{C}$, written $x_1\otimes\dots\otimes x_n$;
     \item a morphism $x_1\otimes\dots\otimes x_n\xto{f} y_1\otimes \dots\otimes
-      y_m$ consists of a \emph{partition function}
-      $\alpha_f: \{1,\dots,n\}\to\{1,\dots,m\}$ and for each $i\in\{1,\dots,m\}$, a morphism \[
+      y_m$ consists of a function
+      $\alpha_f: \{1,\dots,n\}\to\{1,\dots,m\}$, called the \emph{partition
+      function}, and for each $i\in\{1,\dots,m\}$, a morphism \[
         x_{k_1}, \dots, x_{k_l}\xto{f_i} y_i,
       \] called the \emph{$y_i$ component}, where the $k_j$s range over
       $\alpha_f^{-1}(i)$;
@@ -848,8 +851,8 @@ n-combs.
   in $\cat{C}$. A morphism $[(X_1, Y_1), \ldots, (X_n, Y_n)]\to [(X'_1, Y'_1),
   \dots, (X'_m, Y'_m)]$ is a list of $m$ combs, one for each pair of objects in
   the codomain, and each of which has holes typed by the pairs in the domain,
-  such that each pair in the domain is used in \emph{exactly one} n-comb and
-  \emph{exactly once} in that n-comb. Composition is by nesting, while the
+  such that each pair in the domain is used in \emph{exactly one} comb and
+  \emph{exactly once} in that comb. Composition is by nesting, while the
   monoidal product is by concatenation of lists.
 \end{dfn}
 
@@ -946,20 +949,20 @@ Objects in this category are finite lists of maps \[
   X^i_1\otimes\dots\otimes X^i_N\xto{f_i} Y^i_1\otimes\dots\otimes Y^i_N
 \] in $\cat{C}$, which represent shared access to the resources $\{f_i\}$,
 themselves processes for transforming joint states in $\cat{C}$. Morphisms are
-lists of $M$ combs, so that each map $f_i$ in the domain list is allocated to
+lists of combs, so that each map $f_i$ in the domain list is allocated to
 exactly one comb, and so that plugging in all the $f_i$s into the appropriate
 combs yields exactly the list of maps in the codomain.
 
 Here is a convenient way to think about the situation, to our knowledge original
 to us. A map in $\ncomb{\cat{C}}$ is a ``schema for a protocol''. We can look
-its fiber\footnote{
+at its fiber\footnote{
   The \emph{fiber} $F^{-1}f$ of a functor $F: \cat{C}\to\cat{D}$ over a morphism
   $f\in\cat{D}$ is collection of morphisms $g\in\cat{C}$ such that $Fg = f$.
 } under the functor \[
   \ncomb{\otimes^{N-1}}\Pi: \prot{N}{\cat{C}}\to\ncomb{\cat{C}}
 \] to determine what the schema does when instantiated with a specific kind of
 resource. In some cases, as in the next section, we only care about the maps in
-$\prot{n}{\cat{C}}$ with some specific domain and codomain, and are interested
+$\prot{N}{\cat{C}}$ with some specific domain and codomain, and are interested
 in verifying that there is an element in the fiber with that correct type: this
 is a \emph{correctness property} of a protocol. However, there are more
 complicated situations where we want to verify that the same protocol behaves in
@@ -1062,7 +1065,7 @@ These three equations give $M$ the structure of a \emph{cocommutative
 comonoid} in $\cat{C}$.
 
 We often want to work over categories in which \emph{every} object has such copy
-and delete maps. We say that an SMC $\cat{C}$ \emph{supplies cocommutative
+and delete maps. We say that a symmetric monoidal category $\cat{C}$ \emph{supplies cocommutative
 comonoids} if every object in $\cat{C}$ is a cocommutative comonoid in such a
 way that the comonoidal structure on any object $X\otimes Y$ is induced from
 that on $X$ and $Y$ by the monoidal product. We are now very close to the
@@ -1177,7 +1180,7 @@ we care about its properties\footnote{
   sends $1$ to the chosen integral. This translation is purely syntactic;
   everything we will say about the one-time pad applies to this construction as
   well. We can now start doing cryptography inside a Hopf algebra, or using the
-theory of Hopf algebras to say things about cryptography.}: it is invariant
+theory of Hopf algebras to learn about cryptography.}: it is invariant
 under
 multiplication, in the sense
 that
@@ -1190,6 +1193,7 @@ that
   \end{pic}\quad=\quad
   \begin{pic}
     \draw (0,0) node[state, scale=.75] {\normalsize\$} to ++(0, .7);
+    \draw (.75, -.25) to ++(0, .6) node[dot, fill=white] {};
   \end{pic}\quad=\quad
   \begin{pic}
     \node[dot, fill=black] (mult) at (0,0) {};
@@ -1198,7 +1202,8 @@ that
     \draw (mult) to ++(0, .5);
   \end{pic}
 \end{equation}
-and it is independent, in the sense that \begin{equation}\label{eqn:random-non-side-effecting}
+and it is independent, in the sense that (recalling that the empty diagram
+denotes the map $1_I$) \begin{equation}\label{eqn:random-non-side-effecting}
   \begin{pic}
     \draw (0, 0) node[state, scale=.75] (rand) {\normalsize\$} to ++(0, .7) node[dot, fill=white] {};
   \end{pic}\quad\text{equals the empty diagram.}
@@ -1479,7 +1484,7 @@ exactly one of these combs. One advantage of our choice to use the intermediate
 step of a multicategory is that we can make the required change directly to the
 construction in \Cref{def:associated-monoidal-category}. When
 defining morphisms in this category, we used a partition function $\alpha$ to
-assign input resources to outputs resources. By allowing this function to be a
+assign input resources to output resources. By allowing this function to be a
 relation, we can allow each input resource to be assigned to multiple output
 resources. When $\cat{C}$ is a symmetric multicategory, we call this category
 $\cat{C}^{\otimes!}$. Combining these two modifications yields the category
@@ -1495,10 +1500,10 @@ logic, and to have fine-grained control over resource usage. In the case of
 n-combs, however, we currently have two separate categories $\ncomb{\cat{C}}$
 and $\ncombb{\cat{C}}$, so if we want to model cryptosystems that have some
 multi-use resources and some single-use resources, we need some way to relate
-them. We give a solution in \Cref{def:ncomba}, but first we
-digress to discuss the categorical semantics of linear logic, which motivate our
-construction. This explanation uses some categorical terminology we have not
-introduced, but the reader may safely skip directly to the definition.
+them. We give an original solution in \Cref{def:ncomba}, but
+first we digress to discuss the categorical semantics of linear logic, which
+motivate our construction. This explanation uses some categorical terminology we
+have not introduced, but the reader may safely skip directly to the definition.
 
 Any symmetric monoidal category $\cat{L}$ forms a model of the
 multiplicative-intuitionistic fragment of linear logic~\cite{mellies-2009}. In such
@@ -1542,7 +1547,7 @@ However, the functor $G$ seems unlikely to be a right adjoint\footnote{
   I would like, but do not have, an explicit construction of a limit which $G$
   does not preserve; the issue is that it seems hard for $\ncomb{\cat{C}}$ to
   have very many limits in the first place.
-}. The issue is that combs between the same two objects $\ncombb{\cat{C}}$ may
+}. The issue is that combs between the same two objects in $\ncombb{\cat{C}}$ may
 use different numbers of resources, and so ought to be sent to different objects
 in $\ncomb{\cat{C}}$, but this is impossible for any functor. To resolve this,
 we need a notion of intuitionistic resource internal to $\ncomb{\cat{C}}$. A solution
@@ -1551,9 +1556,9 @@ are used there to model stream-like data, but these have slightly
 differently-structured domains and codomains than n-combs, so the translation is
 not obvious.
 
-A more direct solution is to extend $\ncomb{\cat{C}}$ with objects $!(A, B)$,
-which represent reusable resources of type $A\to B$ and are used to build
-n-combs as in $\ncombb{\cat{C}}$.
+Our technical contribution is a more direct solution, extending
+$\ncomb{\cat{C}}$ with objects $!(A, B)$, which represent reusable resources of
+type $A\to B$ and are used to build n-combs as in $\ncombb{\cat{C}}$.
 
 \begin{dfn}\label{def:ncomba}
 Objects in the category
@@ -1565,20 +1570,23 @@ $\ncomba{\cat{C}}$ are finite multisets\footnote{
 \emph{linear} and \emph{reusable} resources respectively. Given four
 finite disjoint index sets $I,J,K,$ and $L$, we now describe morphisms
  \[
-   \{!(A_i, B_i), (C_j, B_j): i\in I, j\in J\}\to \{!(X_k, Y_k), (Z_l, W_l):
+   \{!(A_i, B_i), (C_j, D_j): i\in I, j\in J\}\to \{!(X_k, Y_k), (Z_l, W_l):
    k\in K, l\in L\}.
-\] To construct such a morphism, we first give a relation $\alpha: K\sqcup L\to I\sqcup J$ such
+\] To construct such a morphism, we first give a relation $\alpha\subseteq
+(K\sqcup L)\times (I\sqcup J)$ such
 that:
 \begin{enumerate}
   \item each $j\in J$ $\alpha$-relates to exactly one element;
   \item each $k\in K$ $\alpha$-relates only to elements in $I$.
 \end{enumerate}
-Next, for each $k\in K$, we give morphism from $\ncombb{\cat{C}}$, whose domain
+Next, for each $k\in K$, we give a morphism from $\ncombb{\cat{C}}$, whose domain
 is the multiset $\{(A_i, B_i): i\in \alpha(k)\}$ and whose codomain is $(X_k,
 Y_k)$. Finally, for each $l\in L$, we first give for some $n$ a function
-$\sigma: n\to \alpha(l)$, such that for each $j\in J\cap\alpha(l)$,
-$\sigma^{-1}(j)$ is a singleton. We then give an n-comb which uses the resources in
-$\alpha(j)$ according to the order assigned to them by $\sigma$.
+$\sigma: n\to \alpha(l)$, such that for each $j\in J\cap\alpha(l)$, the set
+$\sigma^{-1}(j)$ is a singleton. We then give a comb which uses the resources in
+$\alpha(j)$ according to the order assigned to them by $\sigma$; note that this
+is not necessarily a morphism in $\ncomb{\cat{C}}$, because it can use reusable
+resources multiple times.
 \end{dfn}
 The definition is justified as follows. The first condition on $\alpha$ ensures
 that each linear resource must be used in exactly one comb, while the second
@@ -1811,10 +1819,10 @@ ambiguity\footnote{ Observe that pred is not functorial. Given a functor $F:
 is not necessarily a monomorphism. } we call $\overline{F}$. This functor sends
 a predicate $(x, i)$ to the predicate $(Fx, i)$, and a map $f$ to the map $Ff$.
 
-Given an SMC $\cat{C}$, consider the category \[
+Given a symmetric monoidal category $\cat{C}$, consider the category \[
   \oprot{N}{\cat{C}} := \state{\ncomb{\pred{\otimes^{N-1}}}\xto{\ncomb{\overline{\otimes^{N-1}}}}\ncomb{\pred{\cat{C}}}}.
 \]
-Basic objects in this category consists of a subobject $i$ of $X_1\otimes \dots\otimes
+Basic objects in this category consist of a subobject $i$ of $X_1\otimes \dots\otimes
 X_N$, a subobject $j$ of $Y_1\otimes \dots\otimes Y_N$, and a morphism
 $f: X_1\otimes\dots\otimes X_N\to Y_1\otimes\dots\otimes Y_N$ in $\cat{C}$ such
 that $f_*i\leq j$. The domain and codomain of this map are refinements of a
@@ -1853,7 +1861,7 @@ $\oprota{2}{\scat{CompStoch}, \scat{PPT}}$.
 
 We need to know what the input and output resources of an interactive proof
 should be. Certainly we need a two-way channel between the prover and verifier.
-Since our proofs are interactive, this needs to be multi-use, so it should be
+Since our proofs are interactive, this needs to be multi-use, so the domain should be
 the resource \[
   !\begin{pic}
     \draw (0,0) node[left] {$P$} -- ++(0, 1) node[left] {$V$};
@@ -2650,7 +2658,8 @@ Now we just compute: \begin{align*}
 \end{align*}
 \endgroup
 
-This is the entire proof.
+This is the entire proof\footnote{I hope the reader experiences a kind of 
+jouissance when working with these almost topological diagrammatic proofs.}!
 
 \subsection{A 2-Categorical Generalization}
 \label{sec:2-cat}

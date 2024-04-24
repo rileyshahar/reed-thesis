@@ -395,8 +395,8 @@ parties is independent.
   $\cB$. The input spaces are $\cX^\cA_n$ and $\cX^\cB_n$; there is no global
   input (which means the global input is just the security parameter $1^n$.) The
   algorithm $\cA$ takes its input $x\in\cX^\cA_n$, sends it to $\cB$, and outputs
-  the first message it recieves from $\cB$. The algorithm $\cB$ takes its input
-  $y\in\cX_n^\cB$, sends it to $\cA$, and outputs the first message it recieves
+  the first message it receives from $\cB$. The algorithm $\cB$ takes its input
+  $y\in\cX_n^\cB$, sends it to $\cA$, and outputs the first message it receives
   from $\cA$. Then we have that $
     \<\cA,\cB\>(x,y) = (y,x).
   $
@@ -428,7 +428,7 @@ $i$.
 % will always be clear about our assumptions here. 
 
 The \emph{running time} of an interactive algorithm $\cA$ is now the function
-$T_\cA: \NN\to\NN$ which, fofr any $n$, gives the maximum number of ``steps'' it
+$T_\cA: \NN\to\NN$ which, for any $n$, gives the maximum number of ``steps'' it
 takes $\cA$ to halt over any choice of:
 \begin{itemize}
   \item global input $x$ and private input $y$ of total length $n = |x| + |y|$;
@@ -520,9 +520,9 @@ called the \emph{real-ideal paradigm}.
 
 The idea is to define an \emph{ideal protocol}---also called an \emph{ideal
 functionality}---which represents the desired behavior of the cryptosystem. The
-protocol under study---the \emph{real protcol}---is then supposed to emulate the
+protocol under study---the \emph{real protocol}---is then supposed to emulate the
 ideal protocol, in the sense that its outcomes should be computationally
-indistinguishable from the outcomes of the ideal protocol. The subtelty here is
+indistinguishable from the outcomes of the ideal protocol. The subtlety here is
 our use of the term \emph{outcome}; which necessarily looks different for
 different protocols: it may just be the information learned by a party, in which
 case we recover zero-knowledge, it may be some function of the party's outputs,
@@ -602,7 +602,7 @@ algorithms $\cA$, $\cB$, and $\cE$, where:
     uniform random key as input, which is not directly possible using the machinery
     of~\Cref{sec:interactive computation}.
     One way to formalize this notion is to add a fourth machine $\cG$ (the
-    ``generator''), which can message $\cA$ and $\cB$ freely (but not recieve
+    ``generator''), which can message $\cA$ and $\cB$ freely (but not receive
     messages from them), whose job is to generate the key and send it to both
     parties. For our purposes, the important point is that while the input $m$
     is seen as a parameter of the system which can be controlled in
@@ -920,7 +920,7 @@ composition theorem, including:
     our composition theorem to a specific class of
     protocols.\label{q:composed-protocols}
   \item What does it mean to compose these protocols? It is not immediately
-    clear how to compose arbitary interactive
+    clear how to compose arbitrary interactive
     algorithms.\label{q:composition-meaning}
   \item What kind of composition is allowed? In particular, we can
     consider \emph{sequential composition}, in which only one protocol is
@@ -954,7 +954,7 @@ pad with a protocol that publicly broadcasts the key.
 
 In regards to~\Cref{q:count-compositions}, we should at best expect
 to be able to compose polynomially many protocols in the security parameter.
-This is in part for complexity reasons---a polytime turing machine cannot
+This is in part for complexity reasons---a polytime Turing machine cannot
 simulate super-polynomially many protocols---but there is also a security
 explanation: as a consequence of
 \Cref{thm:polynomial-indistinguishability}, we should only
@@ -979,7 +979,7 @@ Suppose we have two $N$-party protocols $\<\cA_1,\dots,\cA_N\>$ and
 $\<\cB_1,\dots,\cB_N\>$ which securely compute the $N$-party functions $f:
 X_1\times\dots\times X_N\to Y_1\times\dots\times Y_N$ and $g:
 Y_1\times\dots\times Y_N\to Z_1\times\dots\times Z_N$ in the presence of
-semi-honest adversries. We wish to use this data to construct a composite
+semi-honest adversaries. We wish to use this data to construct a composite
 protocol for the composite function $g\circ f$. The natural choice is to have
 the parties first run the protocol for $f$, then run the protocol for $g$. Thus,
 we can state the following claim:
@@ -1253,8 +1253,8 @@ abstract over a lot of the complexity in ordinary cryptographic definitions.
 Adversarial behavior is somewhat complicated in UC. In addition to the
 environment, there is an algorithm called the \emph{adversary} which may write
 to the \emph{backdoor tapes} of all the parties involved in the protocol. The
-protocol is responsible for specifying how the parties should behave in respnose
-to messages writen on their backdoor tapes.
+protocol is responsible for specifying how the parties should behave in response
+to messages written on their backdoor tapes.
 
 When $\pi$ is a protocol and $\cA$ and $\cE$ are algorithms, we write
 $\exec_{\pi,\cA,\cE}$ for the output of $\cE$ after an interactive computation
@@ -1360,7 +1360,7 @@ system accommodates. UC is again quite flexible in this regard. Adversarial
 behavior is built into the protocol via backdoor tapes and corruption messages,
 and then a separate party called the adversary activates (potentially in a
 controlled, stateful way, so that they cannot for instance just corrupt all the
-parties) corruption messages during the protcol. In this way, UC conveniently
+parties) corruption messages during the protocol. In this way, UC conveniently
 avoids dealing in the formalism with different models of adversaries, since they
 may be specified on a protocol-by-protocol basis. For instance, a protocol meant
 to be secure against semi-honest adversaries may just allow backdoor messages
@@ -1388,7 +1388,7 @@ subroutines, which as discussed earlier is a tight bound.
 
 % How does UC resolve the \cite{goldreich-krawczyk-1996} construction from
 % \Cref{sec:no-parallel-zk}?
-% The the adversary, which is talking to the verifier via
+% he the adversary, which is talking to the verifier via
 % the backdoor tape, sees the ``extra'' interactions between the verifier and the
 % prover , which are not 
 % to learn $K(x)$.
@@ -1445,7 +1445,7 @@ human view.
 
 Slightly further from UC, several authors give UC-like frameworks with different
 low-level machine models. This approach is taken, for instance, by IITM-based
-UC~\cite{camenisch-et-al-2019}, which uses ``interactive inexhaustable Turing
+UC~\cite{camenisch-et-al-2019}, which uses ``interactive inexhaustible Turing
 machines'', and GNUC~\cite{hofheinz-shoup-2011}, which uses statically-linked
 composition rather than the dynamic linking of UC. None of these alternative
 models have caught on to any significant degree; they generally seem to suffer

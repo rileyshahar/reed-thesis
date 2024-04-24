@@ -70,7 +70,6 @@ is~\cite{jacobs-1999}.
   spelled out rigorously.
 \end{ex}
 
-\noindent
 Categories are also widespread in mathematics, as the following examples show.
 
 \begin{ex}[concrete categories]\label{ex:concrete categories}The following are all categories:
@@ -84,7 +83,6 @@ Categories are also widespread in mathematics, as the following examples show.
 	\end{itemize}
 \end{ex}
 
-\noindent
 We call such categories, whose objects are structured sets and whose morphisms
 are structure-preserving set-functions, \emph{concrete}. On the other hand, many
 categories look quite different.
@@ -122,6 +120,24 @@ categories look quite different.
 	\end{itemize}
 \end{ex}
 
+The following construction is very important.
+
+\begin{dfn}
+  Given two categories $\cat{C}$ and $\cat{D}$, the \emph{product category}
+  $\cat{C}\times\cat{D}$ has:
+  \begin{itemize}
+    \item as objects, pairs $(X,Y)$ of objects in $\cat{C}$ and $\cat{D}$;
+    \item as morphisms $(X,Y)\to (X',Y')$, pairs $(f,g)$ of morphisms so that $f:
+      X\to X'$ and $g: Y\to Y'$;
+    \item composition and identities defined componentwise.
+  \end{itemize}
+\end{dfn}
+
+When $\cat{C}$ and $\cat{D}$ are categories of computations, we think of
+$\cat{C}\times\cat{D}$ as a category of non-interfering parallel computations: a
+computation in $\cat{C}\times\cat{D}$ is a computation in $\cat{C}$ and a
+computation in $\cat{D}$, but they cannot interact.
+
 % One more example will be critical for our purposes.
 
 % \begin{ex}[Categories of $\mathbb{A}$-computable maps]\label{ex:categories of computable maps}
@@ -138,7 +154,6 @@ categories look quite different.
 %   \end{itemize}
 % \end{ex}
 
-\noindent
 When working with categories, we often want to show that two complex composites
 of morphisms equate. In this case, we prefer graphical notation to the more
 traditional symbolic equalities of
@@ -990,6 +1005,9 @@ axioms of a monoidal category more concrete.
       \emph{product types} $A\times B$, for instance the simply-typed lambda
       calculus. Then the category $\cL$ is monoidal with forming product types as the
       monoidal product and the unit type as the monoidal unit.
+    \item When $\cat{C}$ and $\cat{D}$ are monoidal, $\cat{C}\times\cat{D}$ is
+      monoidal with the componentwise product, i.e. $(x, y)\otimes(x', y') =
+      (x\otimes_\cat{C} x', y\otimes_\cat{D} y')$.
   \end{itemize}
 \end{ex}
 
