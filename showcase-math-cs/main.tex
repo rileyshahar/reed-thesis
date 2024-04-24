@@ -1,0 +1,146 @@
+% vim:ft=tex
+\documentclass{beamer}
+\usetheme{metropolis}
+
+% macros
+\usepackage[normalem]{ulem}
+\usepackage{svg}
+\usetikzlibrary{calc,shapes}
+\def\laptop{\pgftext{\includesvg[height=2em]{images/laptop.svg}}}
+\def\bank{\pgftext{\includesvg[height=2em]{images/bank.svg}}}
+\def\padlock{\pgftext{\includesvg[height=1em]{images/padlock.svg}}}
+\def\email{\pgftext{\includesvg[height=1.5em]{images/email.svg}}}
+\def\phone{\pgftext{\includesvg[height=1.5em]{images/phone.svg}}}
+\def\router{\pgftext{\includesvg[height=1.5em]{images/router.svg}}}
+\def\internet{\pgftext{\includesvg[height=1.5em]{images/internet.svg}}}
+\def\toaster{\pgftext{\includesvg[height=2em]{images/toaster.svg}}}
+\usepackage[symbol]{footmisc}
+
+\input{prelude.tex}
+\input{diagrams.tex}
+\tikzset{
+  functor/.style args={#1}{
+    rounded corners,fill=#1,fill opacity=.5,draw opacity=.5
+  }
+}
+
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+  },
+}
+
+% metadata
+\title{Categories for Cryptographic Composability}
+\author{\textbf{Riley Shahar}\\Advised by Angélica and Adam}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{frame}[fragile]{Motivation}
+  \begin{minipage}{.55\textwidth}
+  \begin{tikzpicture}
+    \draw[thick, dotted, visible on=<1->] (0,2) node[above=1em] (bank) {\bank}
+    to (0, 1) node[right, xshift=1mm, visible on=<2-2>] {\padlock}
+    node[right, xshift=1mm, visible on=<4->] {\padlock}
+    to (0,0) node[below=1em] (laptop) {\laptop};
+    \draw[thick, dotted, visible on=<3->] ($(laptop.east)+(1em,0)$) to ++(1,0)
+    node[right=1.1em] (email) {\email};
+    \draw[thick, dotted, visible on=<3->] ($(laptop.west)+(-1em,0)$) to ++(-1,0)
+    node[left=.6em] (phone) {\phone};
+    \draw[thick, dotted, bend right, visible on=<3->]
+    ($(phone.south east)+(0,-.8em)$) to ($(email.south west)+(0,-.8em)$);
+    \draw[thick, dotted, visible on=<3->] ($(bank)+(1.4em,0em)$) to ++(1.4,0)
+    node[xshift=1.4em] (friend) {\tiny\laptop};
+    \draw[thick, dotted, visible on=<3->] ($(bank)+(1.3em,.5em)$) to ++(1.2,.4)
+    node[xshift=1.2em,yshift=.4em] {\tiny\laptop};
+    \draw[thick, dotted, visible on=<3->] ($(bank)+(1em,.9em)$) to ++(.9,.8)
+    node[xshift=1em,yshift=.9em] {\tiny\laptop};
+    \draw[thick, dotted, visible on=<3->] ($(bank)+(.6em,1.2em)$) to ++(.5,1.1)
+    node[xshift=.6em,yshift=1.2em] {\tiny\laptop};
+    \draw[thick, dotted, visible on=<3->] ($(bank)+(0em,1.4em)$) to ++(0,1.2)
+    node[yshift=1.2em] {\tiny\laptop};
+    \draw[thick, dotted, visible on=<3->] ($(bank)+(-1.4em,0em)$) to ++(-1.4,0)
+    node[xshift=-1.4em] {\tiny\laptop};
+    \draw[thick, dotted, visible on=<3->] ($(bank)+(-1.3em,.5em)$) to ++(-1.2,.4)
+    node[xshift=-1.2em,yshift=.4em] {\tiny\laptop};
+    \draw[thick, dotted, visible on=<3->] ($(bank)+(-1em,.9em)$) to ++(-.9,.8)
+    node[xshift=-1em,yshift=.9em] {\tiny\laptop};
+    \draw[thick, dotted, visible on=<3->] ($(bank)+(-.6em,1.2em)$) to ++(-.5,1.1)
+    node[xshift=-.6em,yshift=1.2em] {\tiny\laptop};
+    \draw[thick, dotted, visible on=<3->] ($(friend.south west)+(-.8em,-.8em)$)
+    to ($(laptop.north east)+(.8em,.8em)$);
+    \draw[thick, dotted, visible on=<3->] ($(laptop.north west)+(-.8em,.4em)$)
+    to ++(-1.2em,.6em) node[left=.8em,yshift=.4em] (router) {\router};
+    \draw[thick, dotted, visible on=<3->] ($(bank.south west)+(-.8em,-.4em)$)
+    to ++(-1.2em,-.6em) node[left=.8em,yshift=-.4em] (internet) {\internet};
+    \draw[thick, dotted, visible on=<3->] ($(router.north)+(0,.6em)$) to
+    ($(internet.south)+(0,-.6em)$);
+  \end{tikzpicture}
+  \end{minipage}
+  \pause
+  \pause
+  \pause
+  \pause
+  \begin{minipage}{0.4\textwidth}
+    \emph{What do we need to prove about a computation in a vacuum so
+    that it's still secure no matter what else is going on?}
+  \end{minipage}
+
+\end{frame}
+
+\begin{frame}{A Categorical Approach}
+  \begin{minipage}{0.4\textwidth}
+  \[
+    \begin{pic}
+      \node[dot, fill=black] (am) at (0,0) {};
+      \node[dot, fill=white] (copy) at (0, .6) {};
+      \node[dot, fill=white] (keydist) at (.8, -.5) {};
+      \node[dot, fill=black] (bm) at (.8, 1.1) {};
+      \draw (am) to[out=180, in=90] ++(-.5, -.5) to ++(0, -1);
+      \draw (am) to (copy);
+      \draw (am) to[out=0, in=180] (keydist);
+      \draw (keydist) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+      \draw (keydist) to[out=0, in=-90] ++(.5, .5)
+      to ++(0, .3) node[dot, fill=black] {} to++(0, .3) to[out=90, in=0] (bm);
+      \draw (copy) to[out=0, in=180] (bm);
+      \draw (copy) to[out=180, in=-90] ++(-.5, .5) to ++(0, .2) node[dot, fill=white] {};
+      \draw (bm) to ++(0, .6);
+      \draw[functor=cyan] (-.7, .2) -- (.5, .2) -- (.5, -.6) to[out=180, in=90]
+      (-.3, -1.8) -- (-.7, -1.8) node[left, opacity=1] {\normalsize$A$} -- cycle;
+      \draw[functor=green] (1.1,-.6) to[out=0, in=-90] (1.5, 0) node[right,
+      opacity=1] {\normalsize$B$} to[out=90, in=0]
+      (.8, 2) to [out=180, in=90] (.2, .9) -- cycle;
+      \draw[functor=red] (-.3, .9) -- (-.7, .9) -- (-.7, 1.6) node[left,
+      opacity=1] {\normalsize$E$} -- (-.3, 1.6) --
+      cycle;
+    \end{pic}
+  \]
+  \end{minipage}
+  \hfill
+  \visible<2->{
+  \begin{minipage}{0.5\textwidth}
+    \textbf{Our Contributions:}
+  \begin{itemize}
+    \item Generalizing to enriched bicategories for weak reductions
+    \item Coloring diagrams by party
+    \item Simultaneous reasoning about single- and multi-use resources
+    \item Correlated input
+    \item Novel security proofs
+    \item Heursitic comparison to UC
+  \end{itemize}
+  \end{minipage}
+  }
+  [Broadbent \& Karvonen 2022]
+
+\end{frame}
+
+% \begin{frame}[shrink=10,fragile]{References}
+% 	\nocite{*}
+% 	\printbibliography[heading=none,omitnumbers=true]
+% \end{frame}
+
+\end{document}
