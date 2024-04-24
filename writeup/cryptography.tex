@@ -428,7 +428,7 @@ $i$.
 % will always be clear about our assumptions here. 
 
 The \emph{running time} of an interactive algorithm $\cA$ is now the function
-$T_\cA: \NN\to\NN$ which, for any $n$, gives the maximum number of ``steps'' it
+$T_\cA: \NN\to\NN$ which, fofr any $n$, gives the maximum number of ``steps'' it
 takes $\cA$ to halt over any choice of:
 \begin{itemize}
   \item global input $x$ and private input $y$ of total length $n = |x| + |y|$;
@@ -456,10 +456,10 @@ More often, we want to consider the situation where $\cA_i$ is supposed to learn
 \emph{extra}.
 
 \begin{dfn}[zero-knowledge]\label{def:zero-knowledge}
-  Let $f$ be a function. An interactive protocol $\<\cA_1, \dots, \cA_n\>$ is
-  \emph{zero-knowledge for party $i$ relative to $f$} if there exists a
-  (non-uniform PPT) simulator $\cS$ such that for any choice of
-  inputs $(x, x_1, \dots, x_N)$, \[
+  Let $f$ be a function with appropriate domain. An interactive protocol
+  $\<\cA_1, \dots, \cA_n\>$ is \emph{zero-knowledge for party $i$ relative to
+  $f$} if there exists a (non-uniform PPT) simulator $\cS$ such that for any
+  choice of inputs $(x, x_1, \dots, x_N)$, \[
   \cS(x, x_i, f(x, x_1, \dots, x_N)) \cind \view_i^{\<\cA_1, \dots, \cA_N\>}(x, x_1, \dots, x_N).
 \]
 \end{dfn}
@@ -892,10 +892,11 @@ follows~\cite{vadhan-2007}; a good survey of various definitions
 is~\cite[Section 3]{goldreich-1994}.}.
 \end{dfn}
 
-If one-way functions exist, then every problem in NP has a
-zero-knowledge proof~\cite{gmw-1991}. In fact, rather remarkably, under the
-same assumption \emph{any} language that admits an interactive proof admits a
-zero-knowledge proof~\cite{ben-or-et-al-1990}.
+The complexity of zero-knowledge proof is well-studied. If one-way functions
+exist, then every problem in NP has a zero-knowledge proof~\cite{gmw-1991}. In
+fact, rather remarkably, under the same assumption \emph{any} language that
+admits an interactive proof admits a zero-knowledge
+proof~\cite{ben-or-et-al-1990}.
 
 \begin{ex}
   The protocol of \Cref{ex:graph-non-iso}
