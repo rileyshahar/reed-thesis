@@ -2019,26 +2019,25 @@ is chosen specifically so that we can prove a composition theorem.
     \item \label{item:am-con-comp} if $f'\in\AA f$ and $g'\in\AA g$, then $f'\otimes g'\in\AA (f\otimes
       g)$;
     \item \label{item:am-seq-fact} if $h\in\AA (gf)$, then there is some $g'\in\AA g$ and $f'\in\AA f$ such
-      that $h = g'f'$ \emph{up to structure isomorphism}\footnote{
-        The requirement that this equation only holds up to coherence
-        isomorphism is new to us; this is a small technical error
-        in~\cite{broadbent-karvonen-2022}. The issue is that, if the domain $x$
-        of $h$ does not factor into a monoidal product, then it is impossible to
-        find such a horizontal factorization of $h$. Our suggested fix
-        functionally allows the domain of this factorization to be $x\otimes I$.
-
-        As an example of the issue, even the maximal attack model defined
-        in~\Cref{ex:trivial-attacks} does not satisfy the original
-        version of the axiom. Consider the free strict symmetric monoidal
-        category on one generator $x$ and let $f = g = 1_x.$ Then $1_I$ is an
-        attack on $f\otimes g$, but it is impossible to factor $1_I$ as the
-        unrepaired axiom requires.
-      };
-    \item \label{item:am-con-fact} if $h\in\AA (f\otimes g)$, then there is some $h'\in\AA 1_{\cod
-      f\otimes\cod g}$, $f'\in\AA f$, and $g'\in\AA g$ such that $h = h'\circ
-      (f'\otimes g')$.
+      that $h = g'f'$;
+    \item \label{item:am-con-fact} if $h\in\AA (f\otimes g)$ such that
+      $\dom h = x\otimes y$ for some objects $x$ and $y$, then there is some $h'\in\AA 1_{\cod
+      f\otimes\cod g}$, $f'\in\AA f$, and $g'\in\AA g$ such that $\dom f' = x$,
+      $\dom g' = y$, and $h = h'\circ (f'\otimes g')$.
   \end{enumerate}
 \end{dfn}
+
+\begin{rmk}\label{rmk:issue}
+  The requirement of \Cref{item:am-con-fact} that $\dom h$ is a product
+  $x\otimes y$, with $\dom f' = x$ and $\dom g' = y$, is new to us. We believe this is
+  necessary for two reasons. First, if $\dom h$ is not required to be a product,
+  then it may be impossible to find such a factorization, as the product of two
+  morphisms always has a product as its domain. Second, the requirement
+  on the domains of $f'$ and $g'$ is necessary for the proof of
+  \Cref{thm:closed-under-monoidal}. In particular, this guarantees
+  in that proof that the attacks $a_f$ and $a_g$ have the same domains as $f$
+  and $g$, hence allowing us to use the security condition for $f$ and $g$.
+\end{rmk}
 
 The definition is motivated as follows. The collection $\AA f$ represents all
 the possible actions that the adversary could force to occur, if the protocol
@@ -2063,7 +2062,15 @@ The fifth axiom says something similar, but about attacks on parallel processes.
 The complication here is that the two separate attacks may need some way to
 combine their data at the end; this is represented by an extra attack on the
 identity, which is semantically identified with the do-nothing computation; such
-attacks thus generally consist of adversaries manipulating their own state.
+attacks thus generally consist of adversaries manipulating their own state. We
+will say more about this axiom in the conclusion; we are skeptical that it is
+sufficient to model attacks which play the protocols off of each other during
+their execution. However, we expect that the fix discussed in \Cref{rmk:issue}
+does not introduce any additional issues here, as the framework generally
+expects that attacks start from the same data as the protocols; the fix just
+requires that the separate adversaries share no joint state at the start of the
+protocol, but if it is possible for them to communicate during the protocol,
+then they can easily fix this.
 
 \begin{ex}\label{ex:trivial-attacks}
   On any symmetric monoidal $\cat{C}$, the \emph{honest}\footnote{Called
@@ -2071,19 +2078,19 @@ attacks thus generally consist of adversaries manipulating their own state.
   by $\AA f = \{f\}$, while the \emph{maximal} attack model is given by $\AA f =
   \sqcup_{x,y\in\cat{C}}\cat{C}(x, y)$, i.e. in the maximal attack model any
   morphism is an attack on any morphism. In particular, attacks in the maximal
-  attack model factor via identities: if $h'\in\AA (f\otimes g)$, then up to
-  structure isomorphism $h' = h'\otimes 1_I$.
+  attack model factor via identities: if $h\in\AA (f\otimes g)$ with $\dom h =
+  x\otimes y$, then $h = h\circ (1_x\otimes 1_y)$.
 \end{ex}
 
 \begin{dfn}
-  Let $\cat{C}_1,\dots,\cat{C_N}$ be symmetric monoidal categories with attack
+  Let $\cat{C}_1,\dots,\cat{C}_N$ be symmetric monoidal categories with attack
   models $\AA_1,\dots,\AA_N$. Then the \emph{product attack model}
   $\prod_{i=1}^N \AA_i$ on $\prod_{i=1}^N \cat{C}_i$ is given by \[
     (\prod_{i=1}^N \AA_i)(f_1,\dots, f_N) = \prod_{i=1}^N \AA_i f_i.
   \]
 \end{dfn}
 
-We can use the previous two results to modify malicious behavior in $N$-party
+We can use these ideas to model malicious behavior in $N$-party
 computation. For instance, by placing the maximal attack model on some subset of
 the categories and the honest attack model on the others, the product attack
 model represents some parties acting independently, but maliciously, while the
@@ -2098,9 +2105,9 @@ parties behave honestly.
 It is also possible to extend attack models to the various constructions of
 \Cref{sec:protocols}.
 In~\cite{broadbent-karvonen-2022}, they place an attack model on
-$\ncomb{\cat{C}}$ representing a single malicious party; we give a slight
+$\ncomb{\cat{C}^N}$ representing a single malicious party; we give a slight
 generalization which allows extending arbitrary attack models to this setting.
-Recall that a comb $[(X_1, Y_1), \dots, (X_n, Y_n)[\to (X', Y')$ in
+Recall that a comb $[(X_1, Y_1), \dots, (X_n, Y_n)]\to (X', Y')$ in
 $\ncomb{\cat{C}}$ is formally a permutation $\sigma$ and a list $[\xi_1, \dots,
 \xi_{n+1}]$ of morphisms in $\cat{C}$ with appropriate types. Any attack model
 defined on such combs extends to an attack model on all morphisms, since
@@ -2159,14 +2166,14 @@ these factorizations yields the desired factorization of the global attack.
 
 Recall that objects in $\state{GF}$ are
 pairs $(x, s)$, where $s\in\cat{E}(I, GFx)$, while morphisms $f: (x, s)\to (y,
-t)$ are maps $f: x\to y$ in $\cat{C}$ such that $fs = t$.
+t)$ are maps $f: x\to y$ in $\cat{C}$ such that $(GFf)s = t$.
 
 \begin{dfn}\label{def:sec-condition}
   Let $\cat{C}\xto{F}\cat{D}\xto{G}\cat{E}$ be a string of
   symmetric monoidal functors so that $F$ is strong monoidal. Let $f: (x,
   s)\to (y, t)$ be a map in $\state{GF}$ and let $a$ be a map in $\cat{D}$ with
   $\dom a = Fx$. Then $f$ is \emph{secure against the attack $a$} if
-  there is an attack $a'\in\AA (1_{Fy})$ such that $\dom a' = Fx$, $\cod a =
+  there is an attack $a'\in\AA (1_{Fy})$ such that $\dom a' = Fy$, $\cod a =
   \cod a'$, and the following diagram commutes in $\cat{E}$:\[
     \begin{tikzcd}
       I\ar[r, "s"]\ar[d, "t"'] & GFx\ar[d, "Ga"]\\
@@ -2179,7 +2186,8 @@ t)$ are maps $f: x\to y$ in $\cat{C}$ such that $fs = t$.
   Let $\cat{C}\xto{F}\cat{D}\xto{G}\cat{E}$ be a string of
   symmetric monoidal functors so that $F$ is strong monoidal. Let $\AA$ be an
   attack model on $\cat{D}$. A map $f: (x, s)\to (y, t)$ in $\state{GF}$ is
-  $\AA$-\emph{secure} if it is secure against all attacks in $\AA Ff$.
+  $\AA$-\emph{secure} if it is secure against all attacks in $\AA Ff$ with
+  domain $Fx$.
 \end{dfn}
 
 The idea is that, for every attack $a$ on the real protocol, there should be an
@@ -2203,7 +2211,7 @@ We now aim to prove the following composition theorem\footnote{
   Note that~\cite{broadbent-karvonen-2022} prove this theorem under the
   assumption that $\cat{D} = \cat{E}$ and $\cat{G} = 1_\cat{D}$, but allow more
   flexibility in the definition of the category of states, such that the
-  theorems are equivalence. We choose the presentation here because it
+  theorems are equivalent. We choose the presentation here because it
   generalizes more directly, and reflects all of the examples studied so far.
   The proof given here is substantively identical to theirs, except that our
   security condition is based on commutativity in $\cat{E}$ rather than
@@ -2272,7 +2280,7 @@ Next, we show that the class of secure maps is closed under composition.
   $a_f\in\AA Ff$ and $a_g\in\AA Fg$ be attacks such that $a_ga_f = a$, as is
   guaranteed by~\Cref{item:am-seq-fact} in the definition of an attack
   model. Since $f$ is $\AA$-secure, there is an attack
-  $a_f'\in\AA 1_{Fy}$ with $\dom a_f' = Fx$ and $\cod a_f'
+  $a_f'\in\AA 1_{Fy}$ with $\dom a_f' = Fy$ and $\cod a_f'
   = \cod a_f$ such that the following diagram commutes in $\cat{E}$: \[
     \begin{tikzcd}
       I\ar[r, "s"]\ar[d, "t"'] & GFx\ar[d, "Ga_f"]\\
@@ -2280,8 +2288,9 @@ Next, we show that the class of secure maps is closed under composition.
     \end{tikzcd}
   \]
   Now since $a'_f\in\AA 1_{Fy}$ and $a_g\in\AA Fg$, since attacks are
-  compatible with composition we have that $a_ga_f'\in\AA Fg$, so there is
-  $a_g'\in \AA 1_{Fz}$ such that the following diagram commutes: \[
+  compatible with composition we have that $a_ga_f'\in\AA Fg$, so since $g$ is
+  $\AA$-secure, there is $a_g'\in \AA 1_{Fz}$ such that the following diagram
+  commutes: \[
     \begin{tikzcd}
       I\ar[rr, "t"]\ar[dd, "u"'] && GFy\ar[d, "Ga_f'"]\\
                                 && G\cod a_f\ar[d, "Ga_g"] \\
@@ -2314,17 +2323,17 @@ product.
 
 \begin{proof}
   Let $\psi_{x,y}: Fx\otimes_{\cat{D}} Fy\to F(x\otimes_{\cat{C}} y)$ and
-  $\phi_{x,y}: Gx\otimes_{\cat{E}}\to G(x\otimes_{\cat{D}} y)$ be the structure
+  $\phi_{x,y}: Gx\otimes_{\cat{E}}Gy\to G(x\otimes_{\cat{D}} y)$ be the structure
   maps of $F$ and $G$, respectively, so that $\psi$ is an isomorphism since $F$
   is strong monoidal.
 
-  We first prove the claim when $\cat{C} = \cat{D}$ and $F = 1_\cat{D}$.
-  Let $a\in \AA (f\otimes g)$ be an attack such that $\dom a = x\otimes z$.
-  Let $a_f\in\AA f$, $a_g\in \AA g$, and $a_1\in \AA 1_{y\otimes w}$ be
-  attacks such that $a = a_1(a_f\otimes a_g)$, as guaranteed
-  by~\Cref{item:am-con-fact} in the definition of an attack model. Since
-  $f$ and $g$ are $\AA$-secure, there are attacks $a_f'\in\AA 1_y$ and
-  $a_g'\in\AA 1_w$ such that \[
+  We first prove the claim when $\cat{C} = \cat{D}$ and $F = 1_\cat{D}$. Let
+  $a\in \AA (f\otimes g)$ be an attack such that $\dom a = x\otimes z$. Let
+  $a_f\in\AA f$, $a_g\in \AA g$, and $a_1\in \AA 1_{y\otimes w}$ be attacks such
+  that $a = a_1(a_f\otimes a_g)$, with $\dom a_f = x$ and $\dom a_g = z$, as
+  guaranteed by~\Cref{item:am-con-fact} in the definition of an attack
+  model. Since $f$ and $g$ are $\AA$-secure, there are attacks $a_f'\in\AA 1_y$
+  and $a_g'\in\AA 1_w$ such that \[
     \begin{tikzcd}
       I\ar[r, "s"]\ar[d, "t"'] & Gx\ar[d, "Ga_f"]\\
       Gy\ar[r, "Ga_f'"'] & G\cod a_f
@@ -2338,7 +2347,8 @@ product.
   Let $o = \cod a_f$ and $p = \cod a_g$. Letting $\phi$ be the structure
   map which witnesses monoidality of $G$, we claim that \[
     \begin{tikzcd}
-      I\ar[r, "s\otimes_{\cat{E}} u"]\ar[d, "t\otimes_{\cat{E}} v"'] &
+      I\ar[d, "\lambda^{-1}_I"'] \\
+      I\otimes I\ar[r, "s\otimes_{\cat{E}} u"]\ar[d, "t\otimes_{\cat{E}} v"'] &
         Gx\otimes_{\cat{E}} Gz\ar[d, "Ga_f\otimes_{\cat{E}} Ga_g"']\ar[r, "\phi_{x, z}"] &
         G(x\otimes_{\cat{D}} z)\ar[d, "G(a_f\otimes_{\cat{D}} a_g)"']\ar[dr, "Ga"]
       \\
@@ -2425,8 +2435,8 @@ There is a similar notion in the categorical model, which
 \begin{dfn}
   Let $\cat{C}$ be a symmetric monoidal category with attack model $\AA$. Let
   $f: x\to y$ be a morphism in $\cat{C}$. A sub-collection $X$ of $\AA f$ is \emph{initial} if for any
-  $a\in\AA f$ with $\dom a = x$, there exists some $a_x\in X$ and $a_1\in\AA
-  1_y$ such that $a = a_1a_x$.
+  $a\in\AA f$ with $\dom a = x$, there exists some $a_X\in X$ and $a_1\in\AA
+  1_y$ such that $a = a_1a_X$.
 \end{dfn}
 
 \begin{ex}
@@ -2445,16 +2455,16 @@ There is a similar notion in the categorical model, which
 \begin{proof}
   The forwards direction is immediate because $X\subseteq \AA f$. For the
   backwards direction, let $a\in \AA Ff$ be an attack such that $\dom a = Fx$.
-  By the definition of an initial subcollection, let $a = a_1a_x$ with $a_x\in
-  X$ and $a_1\in \AA 1_{Fy}$. Since $f$ is secure against $a_x$, there is an
-  $a_x'\in \AA 1_{Fy}$ witnessing the security condition. Now $a_1a_x'\in\AA
+  By the definition of an initial subcollection, let $a = a_1a_X$ with $a_X\in
+  X$ and $a_1\in \AA 1_{Fy}$. Since $f$ is secure against $a_X$, there is an
+  $a_X'\in \AA 1_{Fy}$ witnessing the security condition. Now $a_1a_X'\in\AA
   1_{Fy}$, and further \[
     \begin{tikzcd}
-      I\ar[r, "s"]\ar[d, "t"'] & GFx\ar[d, "Ga_x"']\ar[dr, "Ga"]\\
-      GFy\ar[r, "Ga_x'"'] & G\cod a_x\ar[r, "Ga_1"'] & G\cod a \\
+      I\ar[r, "s"]\ar[d, "t"'] & GFx\ar[d, "Ga_X"']\ar[dr, "Ga"]\\
+      GFy\ar[r, "Ga_X'"'] & G\cod a_X\ar[r, "Ga_1"'] & G\cod a \\
     \end{tikzcd}
-  \] commutes: the square by the security condition for $a_x$, and the triangle
-  by definition of $a_x$ and $a_1$. This is the desired result.
+  \] commutes: the square by the security condition for $a_X$, and the triangle
+  by definition of $a_X$ and $a_1$. This is the desired result.
 \end{proof}
 
 Finally, the following lemma is a helpful computational tool.
@@ -2621,6 +2631,21 @@ Now we just compute: \begin{align*}
   \begin{pic}
     \node[dot, fill=white] (copy1) at (-.3,-.7) {};
     \node[dot, fill=black] (mult1) at (-.3, 1.3) {};
+    \node[dot, fill=black] (mult2) at (.3, 1.3) {};
+    \node[state, scale=.75] (rand) at (.5, -.8) {\normalsize\$};
+    \node[dot, fill=black] (bm) at (.8, .8) {};
+    \draw (copy1) to[out=170, in=190] (mult1);
+    \draw (rand) to[out=90, in=-75] (mult1);
+    \draw (copy1) to (mult2);
+    \draw (copy1) -- ++(0, -1) node[left] {$A$};
+    \draw (mult2) to[out=0, in=90] (bm);
+    \draw (mult1) to ++(0, .5) node[left] {$E$};
+    \draw (mult2) to ++(0, .5) node[left] {$B$};
+  \end{pic} \\
+  &\xequals{\eqref{eqn:braid id}}\quad
+  \begin{pic}
+    \node[dot, fill=white] (copy1) at (-.3,-.7) {};
+    \node[dot, fill=black] (mult1) at (-.3, 1.3) {};
     \node[dot, fill=black] (mult2) at (.8, .2) {};
     \node[dot, fill=black] (bm) at (1.4, -.4) {};
     \draw (copy1) to[out=170, in=190] (mult1);
@@ -2660,8 +2685,7 @@ Now we just compute: \begin{align*}
 \end{align*}
 \endgroup
 
-This is the entire proof\footnote{I hope the reader experiences a kind of 
-jouissance when working with these almost topological diagrammatic proofs.}!
+This is the entire proof!
 
 \subsection{A 2-Categorical Generalization}
 \label{sec:2-cat}
@@ -2825,14 +2849,14 @@ morphism $f$ is exactly the attacks on $f$. Again, the closure properties are
 expressed by functorality, but in this case even the sequential factorization
 property is similar to notions that have been studied: we will not go into
 details, but it expresses that the functor $F$ is a kind of weak \emph{Conduché
-fibtration}. However, the issue with this approach is that any attack is only an
-attack on one morphism, and further that the type information of $\AA$ seems
-somewhat meaningless to our notions of adversary.
+fibration} with no uniqueness properties. However, the issue with this approach
+is that any attack is only an attack on one morphism, and further that the type
+information of $\AA$ seems somewhat meaningless to our notions of adversary.
 
 In general, the problem with modelling adversarial behavior is that adversaries get to
-break the type system. This reduces the value much of the work of the categorical
+break the type system. This reduces the value of much of the work of the categorical
 semantics of programming languages, which is based on the objects-as-types
-correpspondence. We think there may be a natural categorical expression of this
+correspondence. We think there may be a natural categorical expression of this
 notion, but we have not found it.
 
 \subsubsection{Internalizing Indistinguishability}
@@ -2853,7 +2877,7 @@ We conclude this chapter by returning once more to the questions
 from~\Cref{sec:composition-issues}. 
 
 In~\Cref{q:composed-protocols}, we asked which kinds of protocols can be
-composed. An major advantage of this kind of axiomatic algebraic approach is
+composed. A major advantage of this kind of axiomatic algebraic approach is
 that it can model a very general class of computations; we have, for instance,
 discussed how probabilistic, quantum, and other effectful forms of computation
 can all be represented as symmetric monoidal categories. The literature on
@@ -2875,8 +2899,8 @@ composition definition; here we see some potential limitations. It is not clear
 that the flexibility of the universal composition operation from UC can be
 matched by monoidal composition. Issues like asynchronous network conditions,
 adversarial schedulers, and dynamic subroutine calling are all covered by
-of UC, but are typically handled by more sophisticated categorical machinery out
-of the scope of the composition theorem.
+UC, but are typically handled by more sophisticated categorical machinery out of
+the scope of the composition theorem.
 
 In~\Cref{q:preserved-security}, we asked what notion of security the
 composition theorem preserves. A major advantage of the categorical machinery is

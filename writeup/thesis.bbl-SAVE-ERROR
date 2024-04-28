@@ -442,6 +442,48 @@
       \field{pages}{121\bibrangedash 135}
       \range{pages}{15}
     \endentry
+    \entry{basu-2020}{article}{}
+      \name{author}{2}{}{%
+        {{hash=9a9300dfca8e61b4e48aa1ac190f3d33}{%
+           family={BASU},
+           familyi={B\bibinitperiod},
+           given={SAUGATA},
+           giveni={S\bibinitperiod}}}%
+        {{hash=8c4c05dbf692d1c313a764fa5b6e733f}{%
+           family={ISIK},
+           familyi={I\bibinitperiod},
+           given={UMUT},
+           giveni={U\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press (CUP)}%
+      }
+      \strng{namehash}{540320c2afa6270e24e3b49e5fdae7e4}
+      \strng{fullhash}{540320c2afa6270e24e3b49e5fdae7e4}
+      \strng{bibnamehash}{540320c2afa6270e24e3b49e5fdae7e4}
+      \strng{authorbibnamehash}{540320c2afa6270e24e3b49e5fdae7e4}
+      \strng{authornamehash}{540320c2afa6270e24e3b49e5fdae7e4}
+      \strng{authorfullhash}{540320c2afa6270e24e3b49e5fdae7e4}
+      \field{labelalpha}{BI20}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{2050-5094}
+      \field{journaltitle}{Forum of Mathematics, Sigma}
+      \field{title}{CATEGORICAL COMPLEXITY}
+      \field{volume}{8}
+      \field{year}{2020}
+      \verb{doi}
+      \verb 10.1017/fms.2020.26
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1017/fms.2020.26
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1017/fms.2020.26
+      \endverb
+    \endentry
     \entry{broadbent-karvonen-2022}{incollection}{}
       \name{author}{2}{}{%
         {{hash=9ea2a45d7ab1a2ec555771051f412c9b}{%

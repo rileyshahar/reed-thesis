@@ -2,10 +2,10 @@ Before considering categorical models of cryptography, we need to give some
 basic background. We aim this chapter primarily towards mathematicians, and thus
 will present the basics of cryptography starting from foundational
 complexity-theoretic notions. The reader unfamiliar with computer science theory
-should read~\Cref{chap:cs-theory}.
+should read \Cref{chap:cs-theory}.
 
 Standard introductions to cryptography include~\cite{katz-lindell-2014,
-pass-shelat-2020, rosulek-2021}; this section is especially indebted to the
+pass-shelat-2020, rosulek-2021}; this chapter is especially indebted to the
 presentation of~\cite{pass-shelat-2020}. Many of the issues we consider are also
 exposited by~\cite{lindell-2017}.
 
@@ -51,8 +51,8 @@ particular, the sum of negligible functions is negligible.
       \]
   \end{itemize}
   Note that $|x|$ here is \emph{not} the absolute value, but is instead the
-  length of $x$ as a binary string: if $x$ is a number, then by encoding in
-  binary have that $|x| = \Theta(\log_2 x)$.
+  length of $x$ as a binary string: if $x$ is a natural number, then by encoding
+  in binary have that $|x| = \Theta(\log_2 x)$.
 \end{dfn}
 
 The idea is that, given $y = f(x)$, $\cA$ attempts to find some $x'$ such that
@@ -108,10 +108,11 @@ of $\cA$ has negligible probability.}\end{quote} The basic technique for proving
 using these definitions is called \emph{proof by reduction}. The idea is to
 reduce one problem into another by starting with an arbitrary adversary
 attacking the second and constructing an adversary attacking the first,
-such that the probability of their successes is related. If we assume the first
-problem is hard, then by studying the structure of the reduction we can learn
-about the hardness of the second problem. As such, we often say that reductions
-prove \emph{relative hardness results}, so that for instance \Cref{ex:reduction}
+such that the probability of the adversaries' successes is related. If we assume
+the first problem is hard, then by studying the structure of the reduction we
+can learn about the hardness of the second problem. As such, we often say that
+reductions prove \emph{relative hardness results}, so that for instance
+\Cref{ex:reduction}
 below proves the hardness of $g$ relative to $f$.
 
 
