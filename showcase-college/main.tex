@@ -161,7 +161,7 @@
 \begin{frame}{Universal Composability}
   \pause
   \begin{multicols}{2}
-  Due to Ran Canetti (2000).
+    Due to~\cite{canetti-2000}.
 
   \visible<5->{Exactly what we want!}
 
@@ -194,9 +194,9 @@
   \begin{center}
     \emph{
       It is necessary that execution preserve security guarantees under
-      concurrent composition. We refrain from proving UC security \dots{} since
-      such an analysis will be cumbersome. Instead, we prove the security of our
-      protocols by constructing simulators and carefully arguing their security.
+      composition. We refrain from proving UC security \dots{} since such an
+      analysis will be cumbersome. Instead, we prove the security of our
+      protocols by constructing simulators.
     }
 
     --\cite{david}
@@ -286,9 +286,10 @@
       \draw[dashed,draw=object,visible on=<4-7>] (b) -- ++(-.4, -1.2) -- ++(0,-.8) node[below,text=object,font=\bf] {Secure Channel};
       \draw[dashed,draw=morphism,visible on=<5-7>] ($(a)!0.5!(b)$) -- ++(-1, .4) --
       ++(-1,0) node[left,text=morphism,font=\bf] {Encryption Protocol};
-      \draw[dashed,draw=object,visible on=<6->] (e) -- ++(-1,.7) -- ++(-1.5,0) node[left,text=object,font=\bf] {Secure Banking};
+      \draw[dashed,draw=object,visible on=<6->] (e) -- ++(-1,.7) -- ++(-1.5,0)
+      node[left,text=object,font=\bf] {Secure Banking};
       \draw[dashed,draw=morphism,visible on=<7-7>] ($(e)!0.5!(b)$) -- ++(-1, .2) --
-      ++(-1,0) node[left,text=morphism,font=\bf] {Banking Protocol};
+      ++(-1,0) node[left,text=morphism,font=\bf] {Secure Money Transfer Protocol};
 
       \draw[->, visible on=<8->, dotted] (a) -- (e);
       \draw[dashed,draw=morphism,visible on=<8->] ($(e)!0.5!(a)$) -- ++(-1, .4) --
@@ -349,43 +350,40 @@
   \pause
   Our idea is to work in \emph{monoidal categories enriched over symmetric monoidal
   bicategories}.
-
-  \pause\pause
-  There are complexity costs to this.
 \end{frame}
 
-\begin{frame}{Breaking the Type System}
-  \pause
-  \begin{figure}
-    \centering
-    \begin{tikzpicture}[
-          > = stealth, % arrow head style
-          shorten > = 4pt, % don't touch arrow head to node
-          shorten < = 4pt,
-          auto,
-          % node distance = 3cm, % distance between nodes
-          semithick % line style
-      ]
+% \begin{frame}{Breaking the Type System}
+%   \pause
+%   \begin{figure}
+%     \centering
+%     \begin{tikzpicture}[
+%           > = stealth, % arrow head style
+%           shorten > = 4pt, % don't touch arrow head to node
+%           shorten < = 4pt,
+%           auto,
+%           % node distance = 3cm, % distance between nodes
+%           semithick % line style
+%       ]
 
-      \node[circle,fill,inner sep=0pt,outer sep=0pt,minimum size=3pt,label=above:{text}] (a) at (0,0) {};
-      \node[circle,fill,inner sep=0pt,outer sep=0pt,minimum
-      size=3pt,label=above:{\alt<9->{\sout{number}}{number}}] (b) at (3,0) {};
+%       \node[circle,fill,inner sep=0pt,outer sep=0pt,minimum size=3pt,label=above:{text}] (a) at (0,0) {};
+%       \node[circle,fill,inner sep=0pt,outer sep=0pt,minimum
+%       size=3pt,label=above:{\alt<9->{\sout{number}}{number}}] (b) at (3,0) {};
 
-      \draw[->] (a) -- (b) node[midway, below, visible on=<3->,yshift=-2mm] (cc) {char count};
-      \node[below of=cc,yshift=1em,visible on=<4->] (wc) {word count};
-      \node[below of=wc,yshift=1em,visible on=<5->] (ae) {ascii encode};
-      \node[below of=ae,yshift=1em,visible on=<8->] (double) {\textcolor{morphism}{copy}};
-      \node[below of=ae,yshift=1em,visible on=<6-7>,scale=2] (dots) {\vdots};
-      \node[above of=b,yshift=-.5em,visible on=<9->] {\textcolor{morphism}{text}};
-    \end{tikzpicture}
-  \end{figure}
-  \pause\pause\pause\pause\pause
-  In a category, we \emph{have} to get a number at the end.\newline\pause\pause\pause
-  \textbf{In cryptography, this isn't always true.}
+%       \draw[->] (a) -- (b) node[midway, below, visible on=<3->,yshift=-2mm] (cc) {char count};
+%       \node[below of=cc,yshift=1em,visible on=<4->] (wc) {word count};
+%       \node[below of=wc,yshift=1em,visible on=<5->] (ae) {ascii encode};
+%       \node[below of=ae,yshift=1em,visible on=<8->] (double) {\textcolor{morphism}{copy}};
+%       \node[below of=ae,yshift=1em,visible on=<6-7>,scale=2] (dots) {\vdots};
+%       \node[above of=b,yshift=-.5em,visible on=<9->] {\textcolor{morphism}{text}};
+%     \end{tikzpicture}
+%   \end{figure}
+%   \pause\pause\pause\pause\pause
+%   In a category, we \emph{have} to get a number at the end.\newline\pause\pause\pause
+%   \textbf{In cryptography, this isn't always true.}
 
-  \pause
-  B\&K propose a workaround, but it's somewhat artificial.
-\end{frame}
+%   \pause
+%   B\&K propose a workaround, but it's somewhat artificial.
+% \end{frame}
 
 \begin{frame}{Outlook}
   \pause
@@ -396,7 +394,7 @@
   We've made meaningful progress towards this goal.
 
   \pause
-  There are major outstanding issues, potentially unresolvable.
+  There are major outstanding issues.
 
   \pause
   \vspace{2em}
@@ -406,9 +404,9 @@
   \vspace{-3em}
 \end{frame}
 
-\begin{frame}[shrink=10,fragile]{References}
-	\nocite{*}
-	\printbibliography[heading=none,omitnumbers=true]
+\begin{frame}[fragile]{References}
+  \AtNextBibliography{\small}
+  \printbibliography[heading=none, env=midbib]
 \end{frame}
 
 \end{document}
