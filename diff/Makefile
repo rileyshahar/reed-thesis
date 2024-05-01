@@ -1,6 +1,6 @@
 all: diff.pdf
 
-diff.pdf: diff-prelude.tex diff-cryptography.tex diff-category-theory.tex diff-theory.tex *.tex diff-reedthesis.cls diagrams.tex references.bib
+diff.pdf: prelude.tex diff-cryptography.tex diff-category-theory.tex diff-theory.tex diff-introduction.tex diff-categorical-cryptography.tex *.tex diff-reedthesis.cls diagrams.tex references.bib
 	latexmk -pdf -halt-on-error diff.tex
 
 diff-%: ../old/writeup/% ../writeup/%
