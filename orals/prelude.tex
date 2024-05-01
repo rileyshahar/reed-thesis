@@ -1,0 +1,289 @@
+
+% vim:ft=tex
+
+% fonts
+\usepackage{bbm}
+
+% formatting
+\usepackage{multicol}
+
+\definecolor{cyan}{RGB}{102,204,238}
+\definecolor{red}{RGB}{238,102,119}
+\definecolor{green}{RGB}{34,136,51}
+
+% refs
+\usepackage[
+	backend=biber,
+]{biblatex}
+\addbibresource{references.bib}
+\usepackage[capitalise]{cleveref}
+
+\DeclareFieldFormat{labelnumberwidth}{}
+\setlength{\biblabelsep}{0pt}
+
+% figs
+\usepackage{float}
+\usepackage{tikz-cd}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{mathpartir}
+\usepackage{adjustbox}
+\usepackage{booktabs}
+\usetikzlibrary{matrix, arrows, cd, patterns}
+
+% diagrams
+\input{diagrams.tex}
+
+% formatting
+
+% crypto
+\usepackage[
+	n,
+	advantage,
+	operators,
+	sets,
+	adversary,
+	landau,
+	probability,
+	notions,
+	logic,
+	ff,
+	mm,
+	primitives,
+	events,
+	complexity,
+	oracles,
+	asymptotics,
+	keys
+]{cryptocode}
+
+% cross-reference format
+\creflabelformat{equation}{#2#1#3}
+% \newlist{questions}{enumerate}{1}
+% \setlist[questions]{label = \arabic*., ref=\arabic*}
+%
+% \crefname{questionsi}{question}{questions}
+% \Crefname{questionsi}{Question}{Questions}
+
+% quality of life
+\renewcommand{\emptyset}{\varnothing}
+\newcommand{\denote}[1]{\llbracket #1 \rrbracket}
+
+% diagrams
+\newcommand{\punctuation}[1]{\makebox[0pt][l]{#1}}
+
+% font conventions
+\newcommand{\cat}[1]{{\mathcal{#1}}}
+\newcommand{\scat}[1]{{\textsc{\text{#1}}}}
+\newcommand{\alg}[1]{{\texttt{#1}}}
+
+\DeclareMathOperator{\cod}{cod}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\ca}{ca}
+\DeclareMathOperator{\view}{view}
+\DeclareMathOperator{\exec}{exec}
+\DeclareMathOperator{\ideal}{ideal}
+\let\state\relax
+\newcommand{\state}[1]{\operatorname*{st}(#1)}
+\newcommand{\onecomb}[1]{\operatorname*{1-comb}(#1)}
+\newcommand{\ncomb}[1]{\operatorname*{n-comb}(#1)}
+\newcommand{\ncombb}[1]{\operatorname*{n-comb!}(#1)}
+\newcommand{\ncomba}[1]{\operatorname*{n-comb}^*(#1)}
+\let\prot\relax
+\newcommand{\prot}[2]{\operatorname{prot}_{#1}(#2)}
+\newcommand{\prota}[2]{\operatorname{prot}^*_{#1}(#2)}
+\newcommand{\protb}[2]{\operatorname{prot}!_{#1}(#2)}
+\newcommand{\pred}[1]{\operatorname{pred}(#1)}
+\newcommand{\oprot}[2]{\overline{\operatorname{prot}}_{#1}(#2)}
+\newcommand{\oprota}[2]{\overline{\operatorname{prot}}^*_{#1}(#2)}
+\newcommand{\oprotb}[2]{\overline{\operatorname{prot}}!_{#1}(#2)}
+
+% operators
+\def\<{\langle}
+\def\>{\rangle}
+\newcommand{\xcong}[1]{\overset{#1}{\cong}}
+\newcommand{\xequiv}[1]{\overset{#1}{\equiv}}
+\newcommand{\xequals}[1]{\overset{#1}{=}}
+\def\cind{\xequiv{\text{c}}}
+
+\def\into{\hookrightarrow}
+\def\onto{\twoheadrightarrow}
+\def\from{\leftarrow}
+\def\To{\Rightarrow}
+\def\From{\Leftarrow}
+\newcommand{\xto}[1]{\xrightarrow{#1}}
+\newcommand{\xinto}[1]{\xhookrightarrow{#1}}
+
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\pr}{pr}
+
+% crypto stuff
+\usepackage{mdframed}
+\newenvironment{game}
+{\begin{mdframed}\begin{_game}\mbox{}\begin{enumerate}[itemsep=-0.2em]}
+				{\end{enumerate}\end{_game}\end{mdframed}}
+\newenvironment{algo}
+{\begin{mdframed}\begin{_algo}\mbox{}\begin{enumerate}[itemsep=-0.2em]}
+				{\end{enumerate}\end{_algo}\end{mdframed}}
+
+% alphabets
+\def\cA{\mathcal{A}}
+\def\cB{\mathcal{B}}
+\def\cC{\mathcal{C}}
+\def\cD{\mathcal{D}}
+\def\cE{\mathcal{E}}
+\def\cF{\mathcal{F}}
+\def\cG{\mathcal{G}}
+\def\cH{\mathcal{H}}
+\def\cI{\mathcal{I}}
+\def\cJ{\mathcal{J}}
+\def\cK{\mathcal{K}}
+\def\cL{\mathcal{L}}
+\def\cM{\mathcal{M}}
+\def\cN{\mathcal{N}}
+\def\cO{\mathcal{O}}
+\def\cP{\mathcal{P}}
+\def\cQ{\mathcal{Q}}
+\def\cR{\mathcal{R}}
+\def\cS{\mathcal{S}}
+\def\cT{\mathcal{T}}
+\def\cU{\mathcal{U}}
+\def\cV{\mathcal{V}}
+\def\cW{\mathcal{W}}
+\def\cX{\mathcal{X}}
+\def\cY{\mathcal{Y}}
+\def\cZ{\mathcal{Z}}
+
+\def\AA{\mathbb{A}}
+\def\BB{\mathbb{B}}
+\def\CC{\mathbb{C}}
+\def\DD{\mathbb{D}}
+\def\EE{\mathbb{E}}
+\def\FF{\mathbb{F}}
+\def\GG{\mathbb{G}}
+\def\HH{\mathbb{H}}
+\def\II{\mathbb{I}}
+\def\JJ{\mathbb{J}}
+\def\KK{\mathbb{K}}
+\def\LL{\mathbb{L}}
+\def\MM{\mathbb{M}}
+\def\NN{\mathbb{N}}
+\def\OO{\mathbb{O}}
+\def\PP{\mathbb{P}}
+\def\QQ{\mathbb{Q}}
+\def\RR{\mathbb{R}}
+\def\SS{\mathbb{S}}
+\def\TT{\mathbb{T}}
+\def\UU{\mathbb{U}}
+\def\VV{\mathbb{V}}
+\def\WW{\mathbb{W}}
+\def\XX{\mathbb{X}}
+\def\YY{\mathbb{Y}}
+\def\ZZ{\mathbb{Z}}
+
+\def\kk{\Bbbk}
+\def\ind{\mathbbm{1}}
+
+% itemize spacing
+% https://tex.stackexchange.com/a/650378
+\let\tempone\itemize
+\let\temptwo\enditemize
+\renewenvironment{itemize}{
+\tempone\setlength{\itemsep}{-1ex}}
+{\temptwo}{% endraw %}
+
+%% PROTOCOLS %%
+% \createprocedurebox{pro}{center, boxed}{}{}{}
+% \newsavebox{\mybox}
+% \newenvironment{protocol}[1]
+% {\begin{lrbox}{\mybox}\procedure{#1}\begin{minipage}{0.9\textwidth}}
+% {\end{minipage}\end{lrbox}\fbox{\usebox{\mybox}}}
+
+\tikzset{
+    triple/.style args={[#1] in [#2] in [#3]}{
+        draw,#1,preaction={draw,#2,preaction={draw,#3}}
+    }
+}   
+\tikzset{
+  doublebraid/.style={
+    triple={[line width=\thickness,white] in [line width=3*\thickness,black] in
+    [line width=7*\thickness,white,text=black]}
+  }
+}
+
+\tikzset{
+  functor/.style args={#1}{
+    rounded corners,fill=#1,fill opacity=.5,draw opacity=.5
+  }
+}
+\tikzset{
+  multimorphism/.style = {regular polygon, regular polygon sides=3,draw,shape border rotate=-90}
+}
+
+\tikzset{
+  triangle/.style = {draw, regular polygon, regular polygon sides=3, yscale=0.7},
+  rotated/.style = {shape border rotate=180},
+  dashedstate/.style = {triangle, rotated, dashed},
+}
+% \def\multimorphism[#1,#2][#3,#4]#5#6#7
+%   \path (#1,#2)
+%     node [triangle,draw,shape border rotate=-90,inner sep=0pt,label=178:$\vdots$] (a) {#5} (#1,#4)
+%     node [triangle,draw,shape border rotate=-90,inner sep=0pt,label=178:$\vdots$] (b) {#6} (#3,($1/2*(#4 + #5)$))
+%     node [triangle,draw,shape border rotate=-90,label=135:$a_1$,label=230:$a_n$,label=178:$\vdots$] (#7) {$\theta$} (9,2)
+%     node [triangle,draw,shape border rotate=-90,inner sep=-25pt,label=178:$\vdots$] (d) {$\qquad\theta\circ(\theta_1,\ldots,\theta_n)$};
+% }
+
+\def\multimorphism[#1,#2][#3][#4][#5][#6] {
+    \node[multimorphism] (#3) at (#1,#2) {$#3$};
+    \draw (#3.north west) to ++(-.3,0) node[left] (#3x1) {#4};
+    \draw (#3.south west) to ++(-.3,0) node[left] (#3xn) {#5};
+    \draw (#3.east) to ++(.3,0) node[right] (#3y) {#6};
+    \node[anchor=center,left of=#3,yshift=1mm,xshift=2mm] {$\vdots$};
+  }
+
+\def\twomultimorphism[#1,#2][#3][#4][#5][#6] {
+    \node[multimorphism] (#3) at (#1,#2) {$#3$};
+    \draw (#3.north west) to ++(-.3,0) node[left] (#3x1) {#4};
+    \draw (#3.south west) to ++(-.3,0) node[left] (#3xn) {#5};
+    \draw (#3.east) to ++(.3,0) node[right] (#3y) {#6};
+  }
+
+\def\narrowtwomultimorphism[#1,#2][#3][#4][#5][#6] {
+    \node[multimorphism] (#3) at (#1,#2) {$#3$};
+    \draw ([yshift=-2mm]#3.north west) to ++(-.3,0) node[left] (#3x1) {#4};
+    \draw ([yshift=2mm]#3.south west) to ++(-.3,0) node[left] (#3xn) {#5};
+    \draw (#3.east) to ++(.3,0) node[right] (#3y) {#6};
+  }
+\def\wire[#1][#2][#3] {
+  \draw ($(#1.east)+(.3,0)$) to[out=0,in=180] ($(#2.#3 west)+(-.3,0)$);
+}
+
+\def\comb[#1,#2][#3,#4][#5][#6] {
+  \setlength\minimummorphismwidth{6mm}
+  \node[morphism] (xi1) at (#1,#2) {#5};
+  \node[morphism] (xi2) at (#3,#4) {#6};
+  \setlength\minimummorphismwidth{0mm}
+  \draw ([xshift=2.5pt]xi1.north east) to ([xshift=2.5pt]xi2.south east);
+  \node[dashedmorphism] (f) at ($(xi1.north west)!.5!(xi2.south west)$)
+  {\phantom{$f$}};
+  \draw (xi1.north west) -- (f.south);
+  \draw (xi2.south west) -- (f.north);
+  \draw (xi1.south) to ++(0,-.5);
+  \draw (xi2.north) to ++(0,.5);
+}
+
+% https://tex.stackexchange.com/a/362746
+\tikzset{shorten <>/.style={shorten >=#1,shorten <=#1}}
+
+\newenvironment{dedication}
+  {%\clearpage           % we want a new page          %% I commented this
+   \thispagestyle{empty}% no header and footer
+   \vspace*{\stretch{1}}% some space at the top
+   \itshape             % the text is in italics
+   \raggedleft          % flush to the right margin
+  }
+  {\par % end the paragraph
+   \vspace{\stretch{3}} % space at bottom is three times that at the top
+   \clearpage           % finish off the page
+  }

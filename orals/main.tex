@@ -1,0 +1,608 @@
+% vim:ft=tex
+\documentclass{beamer}
+\usetheme{metropolis}
+% macros
+\input{prelude.tex}
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+  },
+}
+
+\newlength{\wideitemsep}
+\setlength{\wideitemsep}{\itemsep}
+\addtolength{\wideitemsep}{1pt}
+\let\olditem\item
+\renewcommand{\item}{\setlength{\itemsep}{\wideitemsep}\olditem}
+
+% \usepackage{xpatch}
+%
+% \xpatchcmd{\itemize}
+%   {\def\makelabel}
+%   {\setlength{\itemsep}{2ex}\def\makelabel}
+%   {}
+%   {}
+
+% metadata
+\title{Categories for Cryptographic Composability}
+\author{\textbf{Riley Shahar} \\ Advised by Angélica and Adam}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Cryptography}
+
+\begin{frame}{The Simulation Paradigm}
+  \pause
+
+  In the \emph{simulation paradigm}, the idea is to ask whether adversaries
+  against an ideal functionality can ``simulate'' adversaries against a real
+  protocol.\pause
+
+  We need roughly four things:\pause
+  \begin{enumerate}
+    \item An ideal functionality we want to implement\pause
+    \item A real protocol to analyze\pause
+    \item A bound on adversarial strength\pause
+    \item A tool for comparing outcomes\pause
+  \end{enumerate}
+
+  We will treat the more limited setting of $N$-party computation.
+\end{frame}
+
+\begin{frame}{Ideal Functionalities}
+  An \emph{ideal functionality} is a function \[
+    f: \cX_1,\dots,\cX_N\to \cY_1,\dots,\cY_N.
+  \]\pause
+
+  This is a ``trusted third party.''\pause{} We can draw it as a gate: \[
+    \begin{pic}
+      \setlength\minimummorphismwidth{6mm};
+      \node[morphism] (f) at (0,0) {$f$};
+      \draw ([xshift=-1mm]f.south west) to ++(0, -.5) node[left] {$\cX_1$};
+      \draw ([xshift=1mm]f.south east) to ++(0, -.5) node[right] {$\cX_N$};
+      \draw ([xshift=-1mm]f.north west) to ++(0, .5) node[left] {$\cY_1$};
+      \draw ([xshift=1mm]f.north east) to ++(0, .5) node[right] {$\cY_N$};
+      \node at (0, -.8) {$\dots$};
+      \node at (0, .8) {$\dots$};
+    \end{pic}.
+  \]\pause
+
+  Running example: $f(x, y) = (*, xy)$.
+\end{frame}
+
+\begin{frame}{Real Protocols}
+  A \emph{real protocol} is a list of $N$ (interactive) algorithms.\pause
+
+  \begin{multicols}{2}
+  \pseudocodeblock[width=.2\textwidth]{
+    \cA \<\< \cB
+    \\[0.1\baselineskip][\hline] \\[-0.5\baselineskip]
+    \text{Gets }x \<\< \text{Gets }y \\
+    \< \sendmessageright*[1cm]{x} \< \\
+    \text{Output }*\<\< \text{Output } xy \\
+  }\pause
+
+  \columnbreak
+  \noindent
+  \[
+    \begin{pic}
+      \node[morphism] (mult) at (0,0) {mult};
+      \draw ([xshift=-1mm]mult.south west) to[out=-90, in=90] ++(-.5, -.8) to ++(0, -.3);
+      \draw ([xshift=1mm]mult.south east) to[out=-90, in=90] ++(0, -1.1);
+      \draw (mult.north) to ++(0, .8);
+      \draw[functor=cyan] ($(mult.south west)+(-.5,-.5)$) -- ($(mult.north
+      west)+(-.5,1)$) -- ($(mult.north east)+(.5,1)$) node[right,opacity=1] {$\cB$} -- ($(mult.south
+      east)+(.5,-1.6)$) to[out=180,in=0] cycle;
+      \draw[functor=green] ($(mult.south west)+(-.4, -.8)$) -- ++(0, -.5) --
+      ++(-.4, 0) node[left,opacity=1] {$\cA$} -- ++(0, .5) -- cycle;
+    \end{pic}
+  \]
+  \end{multicols}
+  % \pause
+  %
+  % Write $\<\cA_1,\dots,\cA_N\>(x_1,\dots,x_N)$ for the joint output of the protocol.
+\end{frame}
+
+\begin{frame}{Adversarial Behavior}
+  We will treat \emph{honest} adversaries. Usually you want to quantify over
+  adversarial machines $\cA'$.
+\end{frame}
+
+\begin{frame}{Computational Indistinguishability}
+  \pause
+  \begin{definition}
+    Two probability ensembles $\{X_n\}$ and $\{Y_n\}$ (over the set $A$) are
+    \emph{computationally indistinguishable} if for any distinguisher $\cD$, \[
+      \big| \Pr[\cD(X_n) = 1] - \Pr[\cD(Y_n) = 1] \big| = \negl.
+    \]
+  \end{definition}
+
+  We write $\{X_n\}\cind\{Y_n\}$.
+\end{frame}
+
+\begin{frame}{Simulation Security}
+  \pause
+  \begin{definition}
+    A protocol $\<\cA_1,\dots,\cA_N\>$ is \emph{secure} if for each choice of
+    inputs $x_1,\dots,x_N$ and each party $i$, there exists a simulator $\cS$
+    such that \[
+      \cS(x_i, f_i(x_1,\dots,x_N)) \cind \view^{\<\cA_1,\dots,\cA_N\>}_i(x_1,\dots,x_N).
+    \]
+  \end{definition}\pause
+
+  We need a grading on inputs: this is the \emph{security parameter}.\pause
+
+  Our running example is secure: the simulator can compute $xy/y$.
+\end{frame}
+
+\begin{frame}{Composition}
+  \pause
+  At least two ways to compose ideal functionalities: \[
+    \begin{pic}
+      \setlength\minimummorphismwidth{6mm};
+      \node[morphism] (f) at (0,0) {$f$};
+      \node[morphism] (g) at (0,1.5) {$g$};
+      \draw ([xshift=-1mm]f.south west) to ++(0, -.5);
+      \draw ([xshift=1mm]f.south east) to ++(0, -.5);
+      \draw ([xshift=-1mm]f.north west) to ([xshift=-1mm]g.south west);
+      \draw ([xshift=1mm]f.north east) to ([xshift=1mm]g.south east);
+      \draw ([xshift=-1mm]g.north west) to ++(0, .5);
+      \draw ([xshift=1mm]g.north east) to ++(0, .5);
+      \node at (0, -.8) {$\dots$};
+      \node at (0, .75) {$\dots$};
+      \node at (0, 2.3) {$\dots$};
+
+      \node at (0, -2) {\normalsize\text{sequential composition}};
+    \end{pic}\pause
+    \quad\text{and}\quad\quad
+    \begin{pic}
+      \setlength\minimummorphismwidth{6mm};
+      \node[morphism] (f) at (0,0) {$f$};
+      \node[morphism] (g) at (2,0) {$g$};
+      \draw ([xshift=-1mm]f.south west) to[out=-90, in=90] ++(1, -1) node (a) {} to ++(0, -.5);
+      \draw ([xshift=-1mm]g.south west) to[out=-90, in=90] ($(a)+(.05, 0)$) to ++(0, -.5);
+      \draw ([xshift=1mm]f.south east) to[out=-90, in=90] ++(1, -1) node (b) {} to ++(0, -.5);
+      \draw ([xshift=1mm]g.south east) to[out=-90, in=90] ($(b)+(.05, 0)$) to ++(0, -.5);
+
+      \draw ([xshift=-1mm]f.north west) to[out=90, in=-90] ++(1, 1) node (c) {} to ++(0, .5);
+      \draw ([xshift=-1mm]g.north west) to[out=90, in=-90] ($(c)+(.05, 0)$) to ++(0, .5);
+      \draw ([xshift=1mm]f.north east) to[out=90, in=-90] ++(1, 1) node (d) {} to ++(0, .5);
+      \draw ([xshift=1mm]g.north east) to[out=90, in=-90] ($(d)+(.05, 0)$) to ++(0, .5);
+      % \draw ([xshift=1mm]f.south east) to ++(0, -.5);
+      % \draw ([xshift=-1mm]f.north west) to ([xshift=-1mm]g.south west);
+      % \draw ([xshift=1mm]f.north east) to ([xshift=1mm]g.south east);
+      % \draw ([xshift=-1mm]g.north west) to ++(0, .5);
+      % \draw ([xshift=1mm]g.north east) to ++(0, .5);
+      % \node at (0, -.8) {$\dots$};
+      % \node at (0, .75) {$\dots$};
+      % \node at (0, 2.3) {$\dots$};
+      \node at (1, -2.6) {\normalsize\text{parallel composition}};
+    \end{pic}.
+  \]\pause
+  Many more things to consider.
+\end{frame}
+
+% \begin{frame}{Composition of Simulation-Secure Protocols}
+%   \pause
+%   You can pick definitions so that simulation-secure protocols compose in sequence.
+%
+%   \pause
+%   There is a counterexample demonstrating that simulation-secure protocols do
+%   not compose in parallel.
+% \end{frame}
+
+\begin{frame}{Universal Composability}
+  \pause
+  The protocol is talking to an \emph{environment}.
+  
+  \pause
+  Complexity costs:
+  \begin{itemize}
+    \item Low-level machine details\pause
+    \item Many technical conditions on the composition theorem\pause
+    \item High proof burdens
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Why is this Hard?}
+  \pause
+  \begin{itemize}
+    \item Arbitrary adversarial behavior\pause
+    \item Asymptotic and polynomial bounds\pause
+    \item Very general composition operations
+  \end{itemize}
+\end{frame}
+
+\section{Category Theory}
+
+\begin{frame}[fragile]{Categories}
+  \pause
+  \begin{minipage}{.45\textwidth}
+    A category has:
+    \begin{itemize}
+      \setlength\itemsep{.8em}
+      \item objects $x,y,z,\dots$;
+      \item morphisms $x\xto{f} y,\dots$;
+      \item identities $x\xto{1_x} x$;
+      \item composition $x\xto{f} y\xto{g} z$.
+    \end{itemize}\pause
+  \end{minipage}
+  \hfill
+    \begin{minipage}{.5\textwidth}
+      \[
+        \begin{tikzcd}
+          \only<3-4>{x\ar[r, "f"]\ar[rr, "gf", bend left=60] &
+          y\ar[r, "g"]\ar[rr, "hg"', bend right=60] &
+          z\ar[r, "h"] & w}
+        \end{tikzcd}
+      \]
+      \pause
+      \[
+        \begin{tikzcd}
+          \only<3-4>{x\ar[r, "1_x"]\ar[rd, "f"'] & x\ar[d, "f"] \\
+                                                 & y}
+        \end{tikzcd}
+        \begin{tikzcd}
+          \only<3-4>{x\ar[r, "f"]\ar[rd, "f"'] & y\ar[d, "1_y"] \\
+                                               & y\punctuation{.}}
+        \end{tikzcd}
+      \]
+      \only<5->{
+        \vspace{-7em}
+
+        Examples:\pause\pause
+        \begin{itemize}
+          \item \scat{Set}: sets and functions;\pause
+          \item \scat{Grp}, \scat{Top}, \scat{Vect}$_\kk$, \dots;\pause
+          \item every poset;\pause
+          \item \scat{Chem}: multisets of chemicals and reactions (Baez-Pollard
+            2017);\pause
+          \item functional programming languages \& logics.
+        \end{itemize}
+      }
+    \end{minipage}
+\end{frame}
+
+% \begin{frame}{Categories and Programming Languages}
+%   The category associated to a (pure) functional programming language has:\pause
+%   \begin{itemize}
+%     \item types for objects;\pause
+%     \item judgements $x:A\vdash y(x):B$ for morphisms $A\to B$;\pause
+%     \item the axiomatic judgement $x:A\vdash x:A$ for identities;\pause
+%     \item cut/computation for composition.
+%   \end{itemize}
+% \end{frame}
+
+
+\begin{frame}{Functors}
+  \begin{minipage}{.45\textwidth}
+  A \emph{functor} $F:\cat{C}\to\cat{D}$ assigns:
+  \begin{itemize}
+    \item to each $x\in\cat{C}$, an\\$Fx\in\cat{D}$;
+    \item to each $x\xto{f} y\in\cat{C}$, an $Fx\xto{Ff} Fy\in\cat{D}$;
+    \item preserving identities and composition.
+  \end{itemize}
+  \end{minipage}
+  \hfill\pause
+  \begin{minipage}{.5\textwidth}
+    Examples:\pause
+    \begin{itemize}
+      \item the identity functor $1_\cat{C}$;\pause
+      \item the power set (twice!);\pause
+      \item forgetful functors;\pause
+      \item $\texttt{List}$, $\texttt{Maybe}$, etc.;\pause
+      \item the free group, vector space, etc.
+    \end{itemize}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}{Symmetric Monoidal Categories}
+  \pause
+  \begin{minipage}{.45\textwidth}
+  A \emph{symmetric monoidal category} has:
+  \begin{itemize}
+    \item a product functor $\otimes$;
+    \item a unit object $I$;
+    \item ``weak'' associativity, unitality, and commutativity.
+  \end{itemize}
+  \end{minipage}
+  \hfill\pause
+  \begin{minipage}{.5\textwidth}
+    Examples:\pause
+    \begin{itemize}
+      \item \scat{Set} with $\times$ and $\{*\}$;\pause
+      \item \scat{Vect}$_\kk$ with $\otimes$ and $\kk$;\pause
+      \item \scat{Chem} with the union of multisets of molecules;\pause
+      \item Concurrent languages with concurrent joining and the
+        do-nothing program.
+    \end{itemize}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}{String Diagrams}
+  Given $f: x\to y$, $g: w\to z$, and $h: y\otimes z\to u$, interpret \[
+  \begin{pic}
+    \node[morphism] (f) at (0,0) {$f$};
+    \draw (f.south) to ++(0,-.5) node[left] {$x$};
+    \node[morphism] (g) at (.8,0) {$g$};
+    \draw (g.south) to ++(0,-.5) node[right] {$w$};;
+    \setlength\minimummorphismwidth{10mm}
+    \node[morphism] (h) at (.4, 1.2) {$h$};
+    \draw (f.north) -- (h.south west) node[midway, left] {$y$};
+    \draw (g.north) -- (h.south east) node[midway, right] {$z$};
+    \draw (h.north) to ++(0, .5) node[left] {$u$};
+    % \draw (f.north) to ++(0,1.05) node[left] {$x'$};
+		% \draw ([xshift=2.5pt]A.south east) to ++(0,-.5) node[state,scale=0.75] {\normalsize$\$$};
+  %   \draw ([xshift=2.5pt]A.north east) to ++(0,.5) node[right] {};
+  %   \draw[dotted] (-.8, -1.5) rectangle (.9, 1);
+  %   \node at (1.2, -1.3) {$\cA'$\punctuation{.}};
+  \end{pic}
+  \] as $h(f\otimes g)$.
+\end{frame}
+
+\section{Categorical Cryptography}
+
+\begin{frame}{Three Layers of Abstraction}
+  \pause
+  \begin{itemize}
+    \item An underlying symmetric monoidal category of computations;\pause
+    \item A functorial construction of a SMC of protocols;\pause
+    \item A security definition which works over any SMC.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Deterministic Computation}
+  \pause
+  First try: \scat{FinSet} (finite sets and functions).
+
+  \pause
+  Second try: sets and computable functions.
+
+  \pause
+  Third try: \scat{BinComp} (sets of finite binary strings and computable
+  functions).
+
+  \pause
+  Final try (Pavlovic 2014): \scat{Comp} (binary-encoded sets and lifts of
+  computable functions).
+\end{frame}
+
+\begin{frame}{Efficient and Effectful Computation}
+  New to us is a framework for categorically combining computational bounds and
+  (monadic) effects.\pause
+  \begin{table}[]
+    \begin{tabular}{@{}lll@{}}
+    \toprule
+    Name      & Computational Bound     & Effect      \\ \midrule
+    \scat{Enc}       & none        & none        \\
+    \scat{Comp}      & computability & none        \\
+    \scat{CompStoch} & computability & probability \\
+    \scat{Poly}      & poly-time computability & none        \\
+    \scat{PPT}       & poly-time computability  & probability
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+% \begin{frame}{Protocols}
+%   We now fix forever a symmetric monoidal category $\cat{C}$ of computations.
+%   How can we represent protocols whose computations are drawn from $\cat{C}$?
+% \end{frame}
+
+\begin{frame}{Non-interactive ``Protocols''}
+  The category $\cat{C}\times\cat{D}$ has:
+  \begin{itemize}
+    \item for objects, pairs $(c, d)$ from $\cat{C}$ and $\cat{D}$;
+    \item for morphisms, pairs $(f, g)$ from $\cat{C}$ and $\cat{D}$;
+    \item composition and identities componentwise.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{States}
+  \pause
+
+  The category $\state{\cat{C}\xto{F}\cat{D}}$ has:
+  \begin{itemize}
+    \item for objects, maps $I\to Fx$ in $\cat{D}$;
+    \item for morphisms $(I\xto{s} Fx) \to (I\xto{t} Fy)$, maps $x\xto{f} y$ in
+      $\cat{C}$ such that $(Ff) s = t$;
+    \item composition and identities as in $\cat{C}$.
+  \end{itemize}\pause
+
+  We think of $\cat{C}$ as ``free'' processes in $\cat{D}$.
+\end{frame}
+
+\begin{frame}{Combs}
+  \begin{minipage}{.65\textwidth}
+    Objects: finite multisets of pairs of objects in $\cat{C}$.\pause
+
+    Goal: states are multisets of morphisms.\pause
+  \end{minipage}
+  \begin{minipage}{.3\textwidth}
+  \[
+  \begin{pic}
+    \setlength\minimummorphismwidth{6mm}
+    \node[morphism] (xi1) at (0,0) {$\xi_1$};
+    \node[morphism] (xi2) at (0,2) {$\xi_2$};
+    \node[morphism] (xin) at (0,3.5) {$\xi_n$};
+    \node[morphism] (xin1) at (0,5.5) {$\xi_{n+1}$};
+
+    \node at (0,5.5) {\normalsize$\vdots$};
+    \draw ([xshift=2.5pt]xi2.north east) to ++(0,.2);
+    \draw ([xshift=-2.5pt]xi2.north west) to ++(0,.2);
+    \draw ([xshift=2.5pt]xin.south east) to ++(0,-.2);
+    \draw ([xshift=-2.5pt]xin.south west) to ++(0,-.2);
+
+    \setlength\minimummorphismwidth{0mm}
+    \draw ([xshift=2.5pt]xi1.north east) to ([xshift=2.5pt]xi2.south east)
+    node[right, yshift=-2em] {$Z_1$};
+    \node[dashedmorphism] (f) at ($(xi1.north west)!.5!(xi2.south west)$)
+    {\phantom{$f$}};
+    \draw (xi1.north west) -- (f.south) node[left, midway] {$X_{\sigma(1)}$};
+    \draw (xi2.south west) -- (f.north) node[left, midway] {$Y_{\sigma(1)}$};
+
+    \draw ([xshift=2.5pt]xin.north east) to ([xshift=2.5pt]xin1.south east)
+    node[right, yshift=-2em] {$Z_n$};
+    \node[dashedmorphism] (h) at ($(xin.north west)!.5!(xin1.south west)$)
+    {\phantom{$f$}};
+    \draw (xin.north west) -- (h.south) node[left, midway] {$X_{\sigma(n)}$};
+    \draw (xin1.south west) -- (h.north) node[left, midway] {$Y_{\sigma(n)}$};
+
+    \draw (xi1.south) to ++(0,-.5) node[left] {$X'$};
+    \draw (xin1.north) to ++(0,.5) node[left] {$Y'$};
+    \node at (0, 2.85) {\vdots};
+  \end{pic}
+  \]
+  \end{minipage}
+\end{frame}
+
+\begin{frame}{Assigning Resources}
+  In $\ncomb{\cat{C}}$, there are two ways we control the assignment of
+  resources:
+  \begin{itemize}
+    \item a function $\alpha$ assigns each pair in the codomain some resources
+      from the domain;
+    \item a permutation $\sigma$ orders the resources assigned to each comb.
+  \end{itemize}
+
+  Let's play with this!
+\end{frame}
+
+\begin{frame}{The category of protocols}
+  The category \[
+    \prot{N}{\cat{C}} := \state{\ncomb{\cat{C}^N}\xto{\ncomb{\otimes^{N-1}}}\ncomb{\cat{C}}}
+  \]has:
+  \begin{itemize}
+    \item for objects, objects maps $(X_1\otimes \dots\otimes X_N)\to (Y_1\otimes \dots\otimes Y_N)$ in $\cat{C}$;
+    \item for morphisms, combs drawn from $\cat{C}^N$ which preserve the chosen maps.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The One-Time Pad}
+  Take an object with maps $\begin{pic}
+    \node[dot, fill=black] (a) at (0,0) {};
+    \draw (a) to[out=190, in=80] ++(-.2, -.2);
+    \draw (a) to[out=-10, in=100] ++(.2, -.2);
+    \draw (a) to  ++(0, .3);
+    \end{pic}$, $\begin{pic}
+    \node[dot, fill=black] (a) at (0,0) {};
+    \draw (a) to ++(0, .2);
+    \draw (a) to ++(0, -.2);
+    \end{pic}$, $\begin{pic}
+    \node[dot, fill=black] (a) at (0,0) {};
+    \draw (a) to ++(0, .3);
+    \end{pic}$, $\begin{pic}
+    \node[dot, fill=white] (a) at (0,0) {};
+    \draw (a) to[out=170, in=-80] ++(-.2, .2);
+    \draw (a) to[out=10, in=-100] ++(.2, .2);
+    \draw (a) to  ++(0, -.3);
+    \end{pic}$, and $\begin{pic}
+    \node[dot, fill=white] (a) at (0,0) {};
+    \draw (a) to  ++(0, -.3);
+    \end{pic}$ forming a \emph{Hopf object}, and a map $\begin{pic}
+    \node[state, scale=.75] (r) at (0, 0) {\normalsize\$};
+    \draw (r) to ++(0, .3);
+    \end{pic}$ forming an \emph{integral}.\pause
+
+  \[
+  \begin{pic}
+    \node[dot, fill=black] (am) at (0,0) {};
+    \node[dot, fill=white] (copy) at (0, .6) {};
+    \node[dot, fill=white] (keydist) at (.8, -.5) {};
+    \node[dot, fill=black] (bm) at (.8, 1.1) {};
+    \draw (am) to[out=180, in=90] ++(-.5, -.5) to ++(0, -1);
+    \draw (am) to (copy);
+    \draw (am) to[out=0, in=180] (keydist);
+    \draw (keydist) to ++(0, -.5) node[state, scale=.75] {\normalsize\$};
+    \draw (keydist) node[right, xshift=8mm,
+    yshift=-2mm] {\normalsize.} to[out=0, in=-90] ++(.5, .5)
+    to ++(0, .3) node[dot, fill=black] {} to++(0, .3) to[out=90, in=0] (bm);
+    \draw (copy) to[out=0, in=180] (bm);
+    \draw (copy) to[out=180, in=-90] ++(-.5, .5) to ++(0, .2) node[dot, fill=white] {};
+    \draw (bm) to ++(0, .6);
+    \draw[functor=cyan] (-.7, .2) -- (.5, .2) -- (.5, -.6) to[out=180, in=90]
+    (-.3, -1.8) -- (-.7, -1.8) node[left, opacity=1] {$A$} -- cycle;
+    \draw[functor=green] (1.1,-.6) to[out=0, in=-90] (1.5, 0) node[right, opacity=1] {$B$} to[out=90, in=0]
+    (.8, 2) to [out=180, in=90] (.2, .9) -- cycle;
+    \draw[functor=red] (-.3, .9) -- (-.7, .9) -- (-.7, 1.6) node[left, opacity=1] {$E$} -- (-.3, 1.6) --
+    cycle;
+  \end{pic}
+  \]
+\end{frame}
+
+\begin{frame}{Adversarial Behavior}
+  \pause
+  \begin{definition}
+    An \emph{attack model} $\AA$ consists of, for each morphism $f$ in
+    $\cat{C}$, a collection of morphisms $\AA f$ such that:\pause
+    \begin{enumerate}
+      \item[1-4)] $\cdots$
+      \item[5)] If $h\in\AA (f\otimes g)$ such that
+        $\dom h = x\otimes y$ for some objects $x$ and $y$, then there is some $h'\in\AA 1_{\cod
+        f\otimes\cod g}$, $f'\in\AA f$, and $g'\in\AA g$ such that $\dom f' = x$,
+        $\dom g' = y$, and $h = h'\circ (f'\otimes g')$.
+    \end{enumerate}
+  \end{definition}
+\end{frame}
+
+\begin{frame}[fragile]{The Security Definition}
+  \begin{definition}
+    Let $\cat{C}\xto{F}\cat{D}\xto{G}\cat{E}$ be a string of
+    symmetric monoidal functors so that $F$ is strong monoidal. Let $\AA$ be an
+    attack model on $\cat{D}$. Let $f: (x,
+    s)\to (y, t)$ be a map in $\state{GF}$ and let $a$ be a map in $\cat{D}$ with
+    $\dom a = Fx$.\pause{} Then $f$ is \emph{secure against the attack $a$} if
+    there is an attack $a'\in\AA (1_{Fy})$ such that $\dom a' = Fy$, $\cod a =
+    \cod a'$, and the following diagram commutes in $\cat{E}$:\[
+      \begin{tikzcd}
+        I\ar[r, "s"]\ar[d, "t"'] & GFx\ar[d, "Ga"]\\
+        GFy\ar[r, "Ga'"'] & G\cod a\punctuation{.}
+      \end{tikzcd}
+    \]\pause
+    Further, $f$ is $\AA$-\emph{secure} if it is secure against all attacks in
+    $\AA Ff$ with domain $Fx$.
+  \end{definition}
+\end{frame}
+
+\begin{frame}{The Composition Theorem}
+  Let $\cat{C}\xto{F}\cat{D}\xto{G}\cat{E}$ be a string of symmetric monoidal
+  functors so that $F$ is strong monoidal. Let $\AA$ be an attack model on
+  $\cat{D}$. Then the class of $\AA$-secure maps is closed under monoidal
+  product and sequential composition.
+\end{frame}
+
+\begin{frame}[fragile]{A 2-Categorical Generalization}
+  We usually want security up to some reduction relation, e.g. computational
+  indistinguishability.\pause{} \[
+    \begin{tikzcd}
+      I\ar[r, "s"]\ar[d, "t"'] & GFx\ar[d, "Ga"]\\
+      GFy\ar[r, "Ga'"']\ar[ur, shorten <>=10pt, Rightarrow] & G\cod a\punctuation{.}
+    \end{tikzcd}
+  \]\pause
+
+  What about \emph{bi}categories?
+\end{frame}
+
+\begin{frame}{Evaluation}
+  \pause
+  Some concerns:
+  \begin{itemize}
+    \item Limitations of attack models and the security definition\pause
+    \item Limited forms of composition\pause
+    \item Many-round composition, dynamic linking, etc\pause
+  \end{itemize}
+
+  \begin{center}
+    Thanks for your time!
+  \end{center}
+\end{frame}
+
+% \begin{frame}[shrink=10,fragile]{References}
+% 	\nocite{*}
+% 	\printbibliography[heading=none,omitnumbers=true]
+% \end{frame}
+
+\end{document}
